@@ -63,11 +63,13 @@ public class LoginActivity extends AppCompatActivity {
 //        });
     }
     public void login(){
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername(username.getText().toString());
-        loginRequest.setUserPassword(userPassword.getText().toString());
+//        LoginRequest loginRequest = new LoginRequest();
+//        loginRequest.setUsername(username.getText().toString());
+//        loginRequest.setUserPassword(userPassword.getText().toString());
+        String userid = username.getText().toString();
+        String password = userPassword.getText().toString();
 
-        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().userLogin(loginRequest);
+        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().userLogin(userid,password);
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -75,12 +77,12 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this,"Login Successful", Toast.LENGTH_LONG).show();
                     LoginResponse loginResponse = response.body();
-
+                    Toast.makeText(LoginActivity.this,"Login Successful"+loginResponse, Toast.LENGTH_LONG).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
 
-                            startActivity(new Intent(LoginActivity.this,HomeFragment.class).putExtra("data",loginResponse.getUsername()));
+                           startActivity(new Intent(LoginActivity.this,HomeFragment.class).putExtra("data",loginResponse.getEmployeeId()));
                         }
                     },700);
 
