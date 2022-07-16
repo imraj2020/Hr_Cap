@@ -82,7 +82,13 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                           startActivity(new Intent(LoginActivity.this,HomeFragment.class).putExtra("data",loginResponse.getEmployeeId()));
+
+                            Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                            i.putExtra("EmployeeId", loginResponse.getEmployeeId());
+                            i.putExtra("DesignationId", loginResponse.getDesignationId());
+                            startActivity(i);
+//                           startActivity(new Intent(LoginActivity.this,MainActivity.class).
+//                                   putExtra("data",loginResponse.getEmployeeId()));
                         }
                     },700);
 

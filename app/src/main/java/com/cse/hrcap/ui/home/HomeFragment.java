@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     TextView receiver_msg;
-    TextView username;
+    TextView employeeid,DesignationId;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,14 +39,22 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        username = binding.username;
+        employeeid = binding.employeeid;
+        DesignationId =binding.DesignationId;
 
         Intent intent = getActivity().getIntent();
 
         if (intent.getExtras() != null) {
-            String passedUsername = intent.getStringExtra("data");
-            username.setText("Welcome " + passedUsername);
+            int passedUsername = intent.getIntExtra("EmployeeId",1);
+            int passedUsernam = intent.getIntExtra("DesignationId",1);
+            employeeid.setText("Welcome " + passedUsername);
+            DesignationId.setText("Welcome " + passedUsernam);
         }
+
+//        if (intent.getExtras() != null) {
+//            String passedUsername = intent.getStringExtra("data");
+//            username.setText("Welcome " + passedUsername);
+//        }
 //        //receive message binding
 //        receiver_msg = binding.receivedMessage;
 //
