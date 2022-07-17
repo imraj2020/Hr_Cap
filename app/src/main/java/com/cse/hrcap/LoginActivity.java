@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this,"Login Successful", Toast.LENGTH_LONG).show();
                     LoginResponse loginResponse = response.body();
-                    Toast.makeText(LoginActivity.this,"Login Successful"+loginResponse, Toast.LENGTH_LONG).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -86,6 +85,32 @@ public class LoginActivity extends AppCompatActivity {
                             Intent i = new Intent(LoginActivity.this,MainActivity.class);
                             i.putExtra("EmployeeId", loginResponse.getEmployeeId());
                             i.putExtra("DesignationId", loginResponse.getDesignationId());
+                            i.putExtra("Designation", loginResponse.getDesignation());
+                            i.putExtra("FullName", loginResponse.getFullName());
+                            i.putExtra("Grade", loginResponse.getGrade());
+                            i.putExtra("GradeId", loginResponse.getGradeId());
+                            i.putExtra("EmpId", loginResponse.getEmpId());
+                            i.putExtra("Department", loginResponse.getDepartment());
+                            i.putExtra("DepartmentId", loginResponse.getDepartmentId());
+                            i.putExtra("Position", loginResponse.getPosition());
+                            i.putExtra("PositionId", loginResponse.getPositionId());
+                            i.putExtra("Category", loginResponse.getCategory());
+                            i.putExtra("CategoryId", loginResponse.getCategoryId());
+                            i.putExtra("FirstName", loginResponse.getFirstName());
+                            i.putExtra("MiddleName", loginResponse.getMiddleName());
+                            i.putExtra("LastName", loginResponse.getLastName());
+                            i.putExtra("Prefix", loginResponse.getPrefix());
+                            i.putExtra("Suffix", loginResponse.getSuffix());
+                            i.putExtra("PersonalEmail", loginResponse.getPersonalEmail());
+                            i.putExtra("MobilenNo", loginResponse.getMobilenNo());
+                            i.putExtra("ImageTitle", loginResponse.getImageTitle());
+                            i.putExtra("ImagePath", loginResponse.getImagePath());
+                            i.putExtra("JoiningDate", loginResponse.getJoiningDate());
+                            i.putExtra("CostCenterId", loginResponse.getCostCenterId());
+                            i.putExtra("PayCycleId", loginResponse.getPayCycleId());
+                            i.putExtra("LocationId", loginResponse.getLocationId());
+                            i.putExtra("SupervisorId", loginResponse.getSupervisorId());
+                            i.putExtra("SupervisorName", loginResponse.getSupervisorName());
                             startActivity(i);
 //                           startActivity(new Intent(LoginActivity.this,MainActivity.class).
 //                                   putExtra("data",loginResponse.getEmployeeId()));
