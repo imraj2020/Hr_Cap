@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_leave"
-        android:name="com.cse.hrcap.ui.leave.LeaveRequest"
+        android:name="com.cse.hrcap.ui.leave.LeaveRequestFragment"
         android:label="@string/menu_leave"
         tools:layout="@layout/leave_request_fragment" />
 
@@ -35,6 +35,10 @@
         android:label="@string/menu_loan"
         tools:layout="@layout/loan_adv_salary_fragment" />
 
-
+    <fragment
+        android:id="@+id/nav_chengepassword"
+        android:name="com.cse.hrcap.ui.chengepassword.ChengePasswordFragment"
+        android:label="@string/menu_chengepassword"
+        tools:layout="@layout/chenge_password_fragment" />
 
 </navigation>

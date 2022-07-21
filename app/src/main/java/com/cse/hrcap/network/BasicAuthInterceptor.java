@@ -1,4 +1,4 @@
-package com.cse.hrcap;
+package com.cse.hrcap.network;
 
 import java.io.IOException;
 import okhttp3.Credentials;

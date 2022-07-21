@@ -1,33 +1,12 @@
-package com.cse.hrcap;
+package com.cse.hrcap.network;
 
 
-import android.util.Log;
-import android.widget.Toast;
-
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpResponse;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.entity.UrlEncodedFormEntity;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.DefaultHttpClient;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.FormBody;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiClient {
+public class LoginApiClient {
 
     private static Retrofit getRetrofit(){
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();

@@ -10,20 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
 
-import com.cse.hrcap.ui.home.HomeFragment;
+import com.cse.hrcap.network.LoginApiClient;
+import com.cse.hrcap.network.LoginResponse;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpResponse;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.entity.UrlEncodedFormEntity;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.DefaultHttpClient;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         String userid = username.getText().toString();
         String password = userPassword.getText().toString();
 
-        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().userLogin(userid,password);
+        Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -84,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             Intent i = new Intent(LoginActivity.this,MainActivity.class);
                             i.putExtra("EmployeeId", loginResponse.getEmployeeId());
+                            i.putExtra("CompanyId", loginResponse.getCompanyId());
                             i.putExtra("DesignationId", loginResponse.getDesignationId());
                             i.putExtra("Designation", loginResponse.getDesignation());
                             i.putExtra("FullName", loginResponse.getFullName());

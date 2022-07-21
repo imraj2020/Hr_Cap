@@ -1,12 +1,10 @@
-package com.cse.hrcap;
-import com.google.gson.JsonObject;
+package com.cse.hrcap.network;
+
+import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserService {
@@ -26,6 +24,21 @@ public interface UserService {
          @Query("username")  String username ,
          @Query("userPassword") String userPassword
     );
+
+    @POST("Api/ChangePasswordApi")
+    Call<ChengePasswordResponse> chengePassword(
+            @Query("UserName")  String username ,
+            @Query("OldPassword") String oldpassword,
+            @Query("NewPassword") String newpassword,
+            @Query("ConfirmPassword") String confirmpassword,
+            @Query("CompanyId") String companyid
+    );
+
+    @GET("Api/LeaveTypeApi")
+    Call<List<LeaveTypeResponse>> leavetype(
+            @Query("CompanyId") String companyid
+    );
+
 
 //    @POST("Api/LoginApi")
 //    Call<LoginResponse> userLogin(@Body LoginRequest loginRequest);

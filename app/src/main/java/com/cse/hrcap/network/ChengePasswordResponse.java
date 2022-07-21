@@ -1,8 +1,8 @@
-package com.cse.hrcap;
+package com.cse.hrcap.network;
 
-public class LoginResponse {
+import com.google.gson.annotations.SerializedName;
 
-
+public class ChengePasswordResponse {
     private int EmployeeId;
     private int DesignationId;
     private  String Designation;
@@ -31,6 +31,41 @@ public class LoginResponse {
     private int LocationId;
     private int SupervisorId;
     private String SupervisorName;
+    private int Status;
+    @SerializedName("success")
+    private boolean success;
+    @SerializedName("Status_Message")
+    private String Status_Message;
+
+    public ChengePasswordResponse(int status, boolean success, String status_Message) {
+        Status = status;
+        this.success = success;
+        Status_Message = status_Message;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int status) {
+        Status = status;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public String getStatus_Message() {
+        return Status_Message;
+    }
+
+    public void setStatus_Message(String status_Message) {
+        Status_Message = status_Message;
+    }
 
     public int getEmployeeId() {
         return EmployeeId;

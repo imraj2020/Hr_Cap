@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     TextView receiver_msg;
-    TextView employeeid,DesignationId,Designation,FullName,Grade,GradeId,EmpId,Department,DepartmentId,Position;
+    TextView employeeid,CompanyId,DesignationId,Designation,FullName,Grade,GradeId,EmpId,Department,DepartmentId,Position;
     TextView PositionId,Category,CategoryId,FirstName,MiddleName,LastName,Prefix,Suffix,PersonalEmail,MobilenNo;
     TextView ImageTitle,ImagePath,JoiningDate,CostCenterId,PayCycleId,LocationId,SupervisorId,SupervisorName,welcome;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         employeeid = binding.employeeid;
+        CompanyId = binding.companyid;
         DesignationId =binding.DesignationId;
         Designation =binding.Designation;
         FullName = binding.FullName;
@@ -74,6 +75,7 @@ public class HomeFragment extends Fragment {
 
         if (intent.getExtras() != null) {
             int EmployeeId = intent.getIntExtra("EmployeeId",1);
+            String companyid = intent.getStringExtra("CompanyId");
             int DesignationIds = intent.getIntExtra("DesignationId",1);
             String Designations = intent.getStringExtra("Designation");
             String fullname = intent.getStringExtra("FullName");
@@ -105,6 +107,7 @@ public class HomeFragment extends Fragment {
 
 
             employeeid.setText("EmployeeId :" + EmployeeId);
+            CompanyId.setText("Company Id :" + companyid);
             DesignationId.setText("DesignationId :" + DesignationIds);
             Designation.setText("Designation :" +Designations);
             FullName.setText("Full Name:"+fullname );
