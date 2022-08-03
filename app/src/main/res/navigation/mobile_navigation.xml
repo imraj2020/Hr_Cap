@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.cse.hrcap.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_selfattandance"
+        android:name="com.cse.hrcap.ui.selfattandance.SelfAttandanceFragment"
+        android:label="@string/menu_selfattandance"
+        tools:layout="@layout/self_attandance_fragment" />
+
+    <fragment
+        android:id="@+id/nav_attadancereg"
+        android:name="com.cse.hrcap.ui.attandancereg.AttandanceReglarizationFragment"
+        android:label="@string/menu_attdancereg"
+        tools:layout="@layout/attandance_reglarization_fragment" />
+
+    <fragment
+        android:id="@+id/nav_leave"
+        android:name="com.cse.hrcap.ui.leave.LeaveRequestFragment"
+        android:label="@string/menu_leave"
+        tools:layout="@layout/leave_request_fragment" />
+
+    <fragment
+        android:id="@+id/nav_loan"
+        android:name="com.cse.hrcap.ui.loan.LoanAdvSalaryFragment"
+        android:label="@string/menu_loan"
+        tools:layout="@layout/loan_adv_salary_fragment" />
+
+    <fragment
+        android:id="@+id/nav_chengepassword"
+        android:name="com.cse.hrcap.ui.chengepassword.ChengePasswordFragment"
+        android:label="@string/menu_chengepassword"
+        tools:layout="@layout/chenge_password_fragment" />
+
+</navigation>

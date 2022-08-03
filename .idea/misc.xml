@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/activity_login.xml" value="0.13405797101449277" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/activity_self_attendance_entry.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/activity_splash.xml" value="0.13405797101449277" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/attandance_reglarization_fragment.xml" value="0.14673913043478262" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/chenge_password_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/content_main.xml" value="0.14673913043478262" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/leave_request_fragment.xml" value="0.264" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/loan_adv_salary_fragment.xml" value="0.14673913043478262" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/nav_header_main.xml" value="0.23278985507246377" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/layout/self_attandance_fragment.xml" value="0.14673913043478262" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/menu/activity_main_drawer.xml" value="0.536" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/menu/main.xml" value="0.25" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/HrCap/app/src/main/res/xml/network_security_config.xml" value="0.18432971014492755" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap-master/app/src/main/res/layout/attandance_reglarization_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap-master/app/src/main/res/layout/loan_adv_salary_fragment.xml" value="0.264" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+<item android:title="Self Attandance">
+<menu>
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_selfattandance"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_selfattandance" />
+        <item
+            android:id="@+id/nav_attadancereg"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_attdancereg" />
+
+        <item
+            android:id="@+id/nav_leave"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_leave" />
+
+        <item
+            android:id="@+id/nav_loan"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_loan" />
+</menu>
+</item>
+
+
+    <item android:title="Others">
+<menu>
+    <item
+        android:id="@+id/nav_chengepassword"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/menu_chengepassword" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_logout" />
+</menu>
+    </item>
+
+</menu>
