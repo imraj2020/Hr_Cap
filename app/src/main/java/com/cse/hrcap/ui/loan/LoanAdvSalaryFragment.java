@@ -54,6 +54,8 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
         
 
 
+
+        
         loantype = binding.loantype;
         loansubtype = binding.loansubtype;
         Loantyperesponse = binding.tvloantype;
