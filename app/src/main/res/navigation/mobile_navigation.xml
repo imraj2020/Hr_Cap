@@ -6,6 +6,16 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
+        android:id="@+id/nav_leavebalance"
+        android:name="com.cse.hrcap.ui.leavebalance.LeaveBalanceFragment"
+        android:label="@string/menu_leavebalance"
+        tools:layout="@layout/leave_balance_fragment" />
+    <fragment
+        android:id="@+id/nav_holiday"
+        android:name="com.cse.hrcap.ui.holiday.HolidayFragment"
+        android:label="@string/menu_holiday"
+        tools:layout="@layout/holiday_fragment" />
+    <fragment
         android:id="@+id/nav_home"
         android:name="com.cse.hrcap.ui.home.HomeFragment"
         android:label="@string/menu_home"

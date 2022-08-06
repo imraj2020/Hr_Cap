@@ -16,6 +16,8 @@
     <string name="menu_attdancereg">Attdance Regularization Entry</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_chengepassword">Chenge Password</string>
+    <string name="menu_holiday">Holiday</string>
+    <string name="menu_leavebalance">Leave Balance</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>

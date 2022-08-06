@@ -3,6 +3,7 @@ package com.cse.hrcap.network;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -49,6 +50,19 @@ public interface UserService {
    Call<List<LoansubTypeResponse>> loansubtype(
            @Query("CompanyId") String CompanyId
    );
-//    @POST("Api/LoginApi")
-//    Call<LoginResponse> userLogin(@Body LoginRequest loginRequest);
+
+
+    @GET("Api/HolidayApi")
+    Call<List<HolidayResponse>> holiday(
+            @Query("CompanyId") String CompanyId
+    );
+
+
+    @GET("Api/LeaveBalanceApi")
+    Call<List<LeaveBalanceResponse>> leavebalance(
+            @Query("CompanyId") String CompanyId,
+            @Query("Employee") String Employee
+    );
+    @POST("Api/LeaveApi")
+    Call<LeaveRequest> PostData(@Body LeaveRequest leaveRequest);
 }

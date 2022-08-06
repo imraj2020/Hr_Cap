@@ -26,6 +26,15 @@
             android:id="@+id/nav_loan"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_loan" />
+
+    <item
+        android:id="@+id/nav_holiday"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="@string/menu_holiday" />
+    <item
+        android:id="@+id/nav_leavebalance"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="@string/menu_leavebalance" />
 </menu>
 </item>
 

@@ -13,6 +13,7 @@ import android.os.Handler;
 
 import com.cse.hrcap.network.LoginApiClient;
 import com.cse.hrcap.network.LoginResponse;
+import com.cse.hrcap.ui.holiday.HolidayFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 import retrofit2.Call;
@@ -57,8 +58,10 @@ public class LoginActivity extends AppCompatActivity {
 //        LoginRequest loginRequest = new LoginRequest();
 //        loginRequest.setUsername(username.getText().toString());
 //        loginRequest.setUserPassword(userPassword.getText().toString());
-        String userid = username.getText().toString();
+       String userid = username.getText().toString();
         String password = userPassword.getText().toString();
+
+
 
         Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
@@ -75,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                            i.putExtra("Employee", userid);
                             i.putExtra("EmployeeId", loginResponse.getEmployeeId());
                             i.putExtra("CompanyId", loginResponse.getCompanyId());
                             i.putExtra("DesignationId", loginResponse.getDesignationId());
