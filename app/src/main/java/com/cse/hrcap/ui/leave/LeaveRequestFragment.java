@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cse.hrcap.LoginActivity;
+import com.cse.hrcap.LoginDbHelper;
 import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
 import com.cse.hrcap.network.BasicAuthInterceptor;
 import com.cse.hrcap.network.LeaveApiClient;
@@ -56,6 +58,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     EditText EtDay,EtStartDate,EtEndDate,EtStartTime,EtEndTime,EtReason;
     Button BtnSubmit;
     DatePickerDialog datePickerDialog;
+    LeaveTypeDbHelper dbs;
 
     public static LeaveRequestFragment newInstance() {
         return new LeaveRequestFragment();
@@ -162,7 +165,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
                     List<LeaveTypeResponse> nlist = response.body();
 
-                  //  Toast.makeText(getContext(), "List is"+nlist, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "List is"+nlist, Toast.LENGTH_SHORT).show();
 
                     final String  leavetype1, leavetype2, leavetype3, leavetype4,
                             leavetype5, leavetype6, leavetype7, leavetype8, leavetype9, leavetype10;
@@ -193,19 +196,29 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     list.add(leavetype9);
                     list.add(leavetype10);
 
-               //     Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
+
+
+                    dbs = new LeaveTypeDbHelper(requireContext());
+                    Cursor cursor = dbs.alldata();
+                    if (cursor.getCount() == 0) {
                         LeaveTypeDbHelper LeaveTypeDbHelper = new LeaveTypeDbHelper(requireContext());
                         LeaveTypeDbHelper.insertRecord(leavetype1, leavetype2, leavetype3, leavetype4,
                                 leavetype5, leavetype6, leavetype7, leavetype8, leavetype9, leavetype10);
+                    }
+                    else {
+                        Toast.makeText(requireContext(), "Data Already Exist", Toast.LENGTH_SHORT).show();
+                    }
+               //     Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
 
 
 
 
 
-                    // nlist.get(0);
 
-//                    Log.d("myTag", "This is my message"+nlist);
-//                    Toast.makeText(requireContext(), "this is list:"+nlist.get(9).getLeaveTypeName(), Toast.LENGTH_LONG).show();
+                     nlist.get(0);
+
+                    Log.d("myTag", "This is my message"+nlist);
+                    Toast.makeText(requireContext(), "this is list:"+nlist.get(9).getLeaveTypeName(), Toast.LENGTH_LONG).show();
 
                     for (LeaveTypeResponse post : nlist) {
                         String content = "";

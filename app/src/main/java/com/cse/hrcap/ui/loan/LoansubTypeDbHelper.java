@@ -107,4 +107,10 @@ public class LoansubTypeDbHelper extends SQLiteOpenHelper {
         // returning lables
         return list;
     }
+
+    public Cursor alldata(){
+        SQLiteDatabase dbs = this.getWritableDatabase();
+        Cursor cursor = dbs.rawQuery("select * from loan_sub_type" ,null);
+        return cursor;
+    }
 }

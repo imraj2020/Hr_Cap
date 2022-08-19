@@ -69,6 +69,12 @@ public class LoanTypeDbHelper extends SQLiteOpenHelper {
         dbs.close();
     }
 
+    public Cursor alldata(){
+        SQLiteDatabase dbc = this.getWritableDatabase();
+        Cursor cursor = dbc.rawQuery("select * from loan_type" ,null);
+        return cursor;
+    }
+
     /**
      * Getting all labels
      * returns list of labels

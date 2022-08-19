@@ -3,6 +3,7 @@ package com.cse.hrcap.ui.loan;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.LoginDbHelper;
 import com.cse.hrcap.R;
 import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
 import com.cse.hrcap.databinding.LoanAdvSalaryFragmentBinding;
@@ -41,6 +43,8 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
     private LoanAdvSalaryFragmentBinding binding;
     Spinner loantype,loansubtype;
     TextView Loantyperesponse,Loansubtyperesponse;
+    LoansubTypeDbHelper dbs;
+    LoanTypeDbHelper dbc;
 
     public static LoanAdvSalaryFragment newInstance() {
         return new LoanAdvSalaryFragment();
@@ -104,9 +108,19 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
                     list.add(loantype3);
 
 
-                    //Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
-                    LoanTypeDbHelper LoanTypeDbHelper = new LoanTypeDbHelper(requireContext());
-                    LoanTypeDbHelper.insertRecord(loantype1, loantype2, loantype3);
+
+
+                    dbc = new LoanTypeDbHelper(requireContext());
+                    Cursor cursor = dbc.alldata();
+                    if (cursor.getCount() == 0) {
+                        //Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
+                        LoanTypeDbHelper LoanTypeDbHelper = new LoanTypeDbHelper(requireContext());
+                        LoanTypeDbHelper.insertRecord(loantype1, loantype2, loantype3);
+                    }
+                    else {
+                       // Toast.makeText(requireContext(), "Data Already Exist", Toast.LENGTH_SHORT).show();
+                    }
+
 
 
 
@@ -182,9 +196,19 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
                     list.add(loantype7);
 
 
-                  //  Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
-                    LoansubTypeDbHelper LoansubTypeDbHelper = new LoansubTypeDbHelper(requireContext());
-                    LoansubTypeDbHelper.insertRecord(loantype1, loantype2, loantype3,loantype4,loantype5,loantype6,loantype7);
+
+                    dbs = new LoansubTypeDbHelper(requireContext());
+                    Cursor cursor = dbs.alldata();
+                    if (cursor.getCount() == 0) {
+                        //  Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
+                        LoansubTypeDbHelper LoansubTypeDbHelper = new LoansubTypeDbHelper(requireContext());
+                        LoansubTypeDbHelper.insertRecord(loantype1, loantype2, loantype3,loantype4,loantype5,loantype6,loantype7);
+                    }
+                    else {
+                      //  Toast.makeText(requireContext(), "Data Already Exist", Toast.LENGTH_SHORT).show();
+                    }
+
+
 
 
 
