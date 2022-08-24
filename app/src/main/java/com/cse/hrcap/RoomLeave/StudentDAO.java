@@ -2,6 +2,7 @@ package com.cse.hrcap.RoomLeave;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Dao
 public interface StudentDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertStudent(StudentInfo studentInfo);
 
     @Query("SELECT * FROM StudentInfo")
