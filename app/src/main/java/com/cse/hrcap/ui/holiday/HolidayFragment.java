@@ -15,14 +15,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.R;
 import com.cse.hrcap.databinding.HolidayFragmentBinding;
 import com.cse.hrcap.network.HolidayResponse;
 import com.cse.hrcap.network.LeaveApiClient;
-import com.cse.hrcap.network.LeaveTypeResponse;
-import com.cse.hrcap.ui.leave.LeaveTypeDbHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;

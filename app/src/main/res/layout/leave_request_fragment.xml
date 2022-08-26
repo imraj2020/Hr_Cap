@@ -66,15 +66,15 @@
             android:layout_gravity="center"
             ></Spinner>
 
-        <Button
-            android:id="@+id/btncheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_margin="10dp"
-            android:backgroundTint="#33D339"
-            android:layout_weight="1"
-            android:text="check Data" />
+<!--        <Button-->
+<!--            android:id="@+id/btncheck"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="5dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:backgroundTint="#33D339"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="check Data" />-->
 
         <ScrollView
             android:layout_width="0dp"

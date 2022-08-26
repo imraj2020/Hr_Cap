@@ -1,19 +1,20 @@
 package com.cse.hrcap.RoomLeave;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class StudentInfo {
+public class LeaveInfo {
 
-    @PrimaryKey (autoGenerate = true)
+    //@PrimaryKey (autoGenerate = true)
     int id;
+    @PrimaryKey @NonNull
     String name;
 
+    public LeaveInfo(String name) {
 
-    public StudentInfo(String name) {
         this.name = name;
-
     }
 
     public int getId() {

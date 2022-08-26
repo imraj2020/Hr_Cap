@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,32 +24,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.LoginActivity;
-import com.cse.hrcap.LoginDbHelper;
+import com.cse.hrcap.RoomLeave.LeaveInfo;
 import com.cse.hrcap.RoomLeave.MyRoomDB;
-import com.cse.hrcap.RoomLeave.StudentInfo;
 import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
-import com.cse.hrcap.network.BasicAuthInterceptor;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveRequest;
 import com.cse.hrcap.network.LeaveTypeResponse;
-import com.cse.hrcap.network.LoginResponse;
 import com.cse.hrcap.network.UserService;
-import com.cse.hrcap.ui.home.MyDbHelper;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LeaveRequestFragment extends Fragment {
+public class LeaveRequestFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private LeaveRequestViewModel mViewModel;
     private LeaveRequestFragmentBinding binding;
     private UserService userService;
@@ -61,7 +50,7 @@ public class LeaveRequestFragment extends Fragment {
     EditText EtDay,EtStartDate,EtEndDate,EtStartTime,EtEndTime,EtReason;
     Button BtnSubmit,Btncheck;
     DatePickerDialog datePickerDialog;
-    LeaveTypeDbHelper dbs;
+  //  LeaveTypeDbHelper dbs;
     public MyRoomDB roomDB;
 
     public static LeaveRequestFragment newInstance() {
@@ -84,7 +73,8 @@ public class LeaveRequestFragment extends Fragment {
         EtReason = binding.etreason;
         BtnSubmit = binding.btnsubmit;
         spinner = binding.spinner;
-        Btncheck = binding.btncheck;
+        spinner.setOnItemSelectedListener(this);
+        // Btncheck = binding.btncheck;
 
 
         EtStartDate.setOnClickListener(new View.OnClickListener() {
@@ -135,12 +125,6 @@ public class LeaveRequestFragment extends Fragment {
             }
         });
 
-        Btncheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDataFromDb();
-            }
-        });
 
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
@@ -151,6 +135,7 @@ public class LeaveRequestFragment extends Fragment {
 
         leaveTypes();
         setDatabase();
+        loadSpinnerData();
         //loadSpinnerData();
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,8 +178,8 @@ public class LeaveRequestFragment extends Fragment {
 //                        content += "Short Name: " + post.getShortName() + "\n";
 //                        content += "Description: " + post.getDescription() + "\n\n";
 
-                        StudentInfo studentInfo = new StudentInfo(post.getLeaveTypeName());
-                        roomDB.studentDAO().insertStudent(studentInfo);
+                        LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
+                        roomDB.leaveDAO().insertStudent(leaveInfo);
 
 
 
@@ -223,37 +208,37 @@ public class LeaveRequestFragment extends Fragment {
     /**
      * Function to load the spinner data from SQLite database
      * */
-//    private void loadSpinnerData() {
+    private void loadSpinnerData() {
 //        LeaveTypeDbHelper db = new LeaveTypeDbHelper(requireContext());
 //        List<String> labels = db.getAllLabels();
-//
-//        // Creating adapter for spinner
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(),android.R.layout.simple_spinner_item, labels);
-//
-//        // Drop down layout style - list view with radio button
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        // attaching data adapter to spinner
-//        spinner.setAdapter(dataAdapter);
-//    }
+        List<String> labels = roomDB.leaveDAO().getAllName();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(),android.R.layout.simple_spinner_item, labels);
 
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int position,
-//                               long id) {
-//        // On selecting a spinner item
-//       label = parent.getItemAtPosition(position).toString();
-//
-//        // Showing selected spinner item
-//        Toast.makeText(parent.getContext(), "You selected: " + label,
-//                Toast.LENGTH_LONG).show();
-//
-//    }
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-//    @Override
-//    public void onNothingSelected(AdapterView<?> arg0) {
-//        // TODO Auto-generated method stub
-//
-//    }
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long id) {
+        // On selecting a spinner item
+       label = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "You selected: " + label,
+                Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+    }
 
     private void leaveRequest() {
 //        UserService userService = getRetrofit().create(UserService.class);
@@ -288,21 +273,21 @@ public class LeaveRequestFragment extends Fragment {
     }
 
     private void setDatabase(){
-        roomDB = Room.databaseBuilder(requireContext(), MyRoomDB.class,"RoomStudentDB.db")
+        roomDB = Room.databaseBuilder(requireContext(), MyRoomDB.class,"Leavetype.db")
                 .allowMainThreadQueries().build();
     }
 
     private void showDataFromDb() {
 
-        List<StudentInfo> studentInfoList = roomDB.studentDAO().getAllStudent();
-        for (int i = 0; i<studentInfoList.size(); i++){
+        List<LeaveInfo> leaveInfoList = roomDB.leaveDAO().getAllLeave();
+        for (int i = 0; i< leaveInfoList.size(); i++){
 //            Log.d("StuentInfo", studentInfoList.get(i).getId()+"\t"
 //                    +studentInfoList.get(i).getLeavename()+"\t"
 //                    +studentInfoList.get(i).getSubject()+"\t"
 //                    +studentInfoList.get(i).getDepartment());
 
-            Toast.makeText(requireContext(), "Data is:"+studentInfoList.get(i).getId()+"\t"
-                    +studentInfoList.get(i).getName()+"\t" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Data is:"+ leaveInfoList.get(i).getId()+"\t"
+                    + leaveInfoList.get(i).getName()+"\t" , Toast.LENGTH_SHORT).show();
         }
     }
 

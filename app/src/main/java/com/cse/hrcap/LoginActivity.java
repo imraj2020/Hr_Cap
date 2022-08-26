@@ -13,12 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
 
-import com.cse.hrcap.network.LeaveRequest;
 import com.cse.hrcap.network.LoginApiClient;
 import com.cse.hrcap.network.LoginResponse;
-import com.cse.hrcap.ui.holiday.HolidayFragment;
-import com.cse.hrcap.ui.home.MyDbHelper;
-import com.cse.hrcap.ui.leave.LeaveTypeDbHelper;
 import com.google.android.material.textfield.TextInputEditText;
 
 import retrofit2.Call;

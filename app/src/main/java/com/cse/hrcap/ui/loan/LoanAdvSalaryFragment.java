@@ -19,16 +19,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.LoginDbHelper;
-import com.cse.hrcap.R;
-import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
 import com.cse.hrcap.databinding.LoanAdvSalaryFragmentBinding;
-import com.cse.hrcap.network.LeaveApiClient;
-import com.cse.hrcap.network.LeaveTypeResponse;
 import com.cse.hrcap.network.LoanApiClient;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
-import com.cse.hrcap.ui.leave.LeaveTypeDbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
