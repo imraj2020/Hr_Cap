@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.RoomLeave.LeaveInfo;
+import com.cse.hrcap.RoomLeave.MyRoomDB;
+import com.cse.hrcap.RoomLoanSubType.LoanSubTypeInfo;
+import com.cse.hrcap.RoomLoanSubType.LoanSubTypeRoomDB;
+import com.cse.hrcap.RoomLoanType.LoanTypeInfo;
+import com.cse.hrcap.RoomLoanType.LoanTypeRoomDB;
 import com.cse.hrcap.databinding.LoanAdvSalaryFragmentBinding;
 import com.cse.hrcap.network.LoanApiClient;
 import com.cse.hrcap.network.LoanTypeResponse;
@@ -37,8 +44,8 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
     private LoanAdvSalaryFragmentBinding binding;
     Spinner loantype,loansubtype;
     TextView Loantyperesponse,Loansubtyperesponse;
-    LoansubTypeDbHelper dbs;
-    LoanTypeDbHelper dbc;
+    public LoanTypeRoomDB roomDB;
+    public LoanSubTypeRoomDB roomDBs;
 
     public static LoanAdvSalaryFragment newInstance() {
         return new LoanAdvSalaryFragment();
@@ -62,6 +69,8 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
         loansubtype.setOnItemSelectedListener(this);
         loanTypes();
         loansubTypes();
+        setDatabaseone();
+        setDatabasetwo();
         loadSpinnerDataone();
         loadSpinnerDatatwo();
         return binding.getRoot();
@@ -84,46 +93,6 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
 
                     List<LoanTypeResponse> nlist = response.body();
 
-                   // Toast.makeText(getContext(), "List is"+nlist, Toast.LENGTH_SHORT).show();
-
-                    final String  loantype1, loantype2, loantype3;
-
-
-
-                    loantype1 = nlist.get(0).getLoanTypeName();
-                    loantype2 = nlist.get(1).getLoanTypeName();
-                    loantype3 = nlist.get(2).getLoanTypeName();
-
-
-
-                    final List<String> list = new ArrayList<String>();
-                    list.add(loantype1);
-                    list.add(loantype2);
-                    list.add(loantype3);
-
-
-
-
-                    dbc = new LoanTypeDbHelper(requireContext());
-                    Cursor cursor = dbc.alldata();
-                    if (cursor.getCount() == 0) {
-                        //Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
-                        LoanTypeDbHelper LoanTypeDbHelper = new LoanTypeDbHelper(requireContext());
-                        LoanTypeDbHelper.insertRecord(loantype1, loantype2, loantype3);
-                    }
-                    else {
-                       // Toast.makeText(requireContext(), "Data Already Exist", Toast.LENGTH_SHORT).show();
-                    }
-
-
-
-
-
-
-                    // nlist.get(0);
-
-//                    Log.d("myTag", "This is my message"+nlist);
-//                    Toast.makeText(requireContext(), "this is list:"+nlist.get(9).getLeaveTypeName(), Toast.LENGTH_LONG).show();
 
                     for (LoanTypeResponse post : nlist) {
                         String content = "";
@@ -132,7 +101,8 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
 //                        content += "Company ID: " + post.getCompanyId() + "\n";
 //                        content += "Short Name: " + post.getShortName() + "\n";
 //                        content += "Description: " + post.getDescription() + "\n\n";
-
+                        LoanTypeInfo loanTypeInfo = new LoanTypeInfo(post.getLoanTypeName());
+                        roomDB.loanTypeDAO().insertLoan(loanTypeInfo);
                         Loantyperesponse.append(content);
                     }
                 } else {
@@ -164,54 +134,6 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
 
                     List<LoansubTypeResponse> nlist = response.body();
 
-                   // Toast.makeText(getContext(), "List is"+nlist, Toast.LENGTH_SHORT).show();
-
-                    final String  loantype1, loantype2, loantype3,loantype4,loantype5,loantype6,loantype7;
-
-
-
-                    loantype1 = nlist.get(0).getLoanSubTypeName();
-                    loantype2 = nlist.get(1).getLoanSubTypeName();
-                    loantype3 = nlist.get(2).getLoanSubTypeName();
-                    loantype4 = nlist.get(3).getLoanSubTypeName();
-                    loantype5 = nlist.get(4).getLoanSubTypeName();
-                    loantype6 = nlist.get(5).getLoanSubTypeName();
-                    loantype7 = nlist.get(6).getLoanSubTypeName();
-
-
-
-                    final List<String> list = new ArrayList<String>();
-                    list.add(loantype1);
-                    list.add(loantype2);
-                    list.add(loantype3);
-                    list.add(loantype4);
-                    list.add(loantype5);
-                    list.add(loantype6);
-                    list.add(loantype7);
-
-
-
-                    dbs = new LoansubTypeDbHelper(requireContext());
-                    Cursor cursor = dbs.alldata();
-                    if (cursor.getCount() == 0) {
-                        //  Toast.makeText(getContext(), "Showing array list"+list, Toast.LENGTH_SHORT).show();
-                        LoansubTypeDbHelper LoansubTypeDbHelper = new LoansubTypeDbHelper(requireContext());
-                        LoansubTypeDbHelper.insertRecord(loantype1, loantype2, loantype3,loantype4,loantype5,loantype6,loantype7);
-                    }
-                    else {
-                      //  Toast.makeText(requireContext(), "Data Already Exist", Toast.LENGTH_SHORT).show();
-                    }
-
-
-
-
-
-
-
-                    // nlist.get(0);
-
-//                    Log.d("myTag", "This is my message"+nlist);
-//                    Toast.makeText(requireContext(), "this is list:"+nlist.get(9).getLeaveTypeName(), Toast.LENGTH_LONG).show();
 
                     for (LoansubTypeResponse post : nlist) {
                         String content = "";
@@ -220,6 +142,8 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
 //                        content += "Company ID: " + post.getCompanyId() + "\n";
 //                        content += "Short Name: " + post.getShortName() + "\n";
 //                        content += "Description: " + post.getDescription() + "\n\n";
+                        LoanSubTypeInfo loanSubTypeInfo = new LoanSubTypeInfo(post.getLoanSubTypeName());
+                        roomDBs.loanSubTypeDAO().insertLoanSub(loanSubTypeInfo);
 
                         Loansubtyperesponse.append(content);
                     }
@@ -238,9 +162,7 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
 
 
     private void loadSpinnerDataone() {
-        LoanTypeDbHelper db = new LoanTypeDbHelper(requireContext());
-        List<String> labels = db.getAllLabels();
-
+        List<String> labels = roomDB.loanTypeDAO().getAllName();
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(),android.R.layout.simple_spinner_item, labels);
 
@@ -252,8 +174,7 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
     }
 
     private void loadSpinnerDatatwo() {
-        LoansubTypeDbHelper db = new LoansubTypeDbHelper(requireContext());
-        List<String> labels = db.getAllLabels();
+        List<String> labels = roomDBs.loanSubTypeDAO().getAllName();
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(),android.R.layout.simple_spinner_item, labels);
@@ -281,6 +202,16 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
 
+    }
+
+    private void setDatabaseone(){
+        roomDB = Room.databaseBuilder(requireContext(), LoanTypeRoomDB.class,"Loantype.db")
+                .allowMainThreadQueries().build();
+    }
+
+    private void setDatabasetwo(){
+        roomDBs = Room.databaseBuilder(requireContext(), LoanSubTypeRoomDB.class,"Loansubtype.db")
+                .allowMainThreadQueries().build();
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

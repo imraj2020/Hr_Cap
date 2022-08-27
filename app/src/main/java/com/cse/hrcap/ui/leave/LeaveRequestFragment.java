@@ -179,7 +179,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 //                        content += "Description: " + post.getDescription() + "\n\n";
 
                         LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
-                        roomDB.leaveDAO().insertStudent(leaveInfo);
+                        roomDB.leaveDAO().insertLeave(leaveInfo);
 
 
 

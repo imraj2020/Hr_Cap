@@ -1,4 +1,4 @@
-package com.cse.hrcap.RoomLeave;
+package com.cse.hrcap.RoomLoanSubType;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -8,16 +8,16 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface LeaveDAO {
+public interface LoanSubTypeDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertLeave(LeaveInfo leaveInfo);
+    public void insertLoanSub(LoanSubTypeInfo loanSubTypeInfo);
 
-    @Query("SELECT name FROM LeaveInfo")
+    @Query("SELECT name FROM LoanSubTypeInfo")
     public List<String> getAllName();
 
-    @Query("SELECT * FROM LeaveInfo")
-    public List<LeaveInfo> getAllLeave();
+    @Query("SELECT * FROM LoanSubTypeInfo")
+    public List<LoanSubTypeInfo> getAllLoan();
 
 
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
