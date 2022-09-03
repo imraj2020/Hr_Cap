@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hr Cap</string>
+    <string name="app_name">HR Cap</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -12,10 +12,10 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_leave">Leave Request</string>
     <string name="menu_loan">Loan/Advance Salary</string>
-    <string name="menu_selfattandance">Self Attandance</string>
-    <string name="menu_attdancereg">Attdance Regularization Entry</string>
+    <string name="menu_selfattandance">Self Attendance</string>
+    <string name="menu_attdancereg">Attendance Regularization Entry</string>
     <string name="menu_logout">Logout</string>
-    <string name="menu_chengepassword">Chenge Password</string>
+    <string name="menu_chengepassword">Change Password</string>
     <string name="menu_holiday">Holiday</string>
     <string name="menu_leavebalance">Leave Balance</string>
     <string-array name="Reason">
