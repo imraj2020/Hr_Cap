@@ -44,7 +44,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     private LeaveRequestFragmentBinding binding;
     private UserService userService;
     TextView Leavetyperesponse;
-    Spinner spinner;
+    Spinner spinner,spinnertwo;
     public static  String label;
     TextView EmpName, CompanyId;
     EditText EtDay,EtStartDate,EtEndDate,EtStartTime,EtEndTime,EtReason;
@@ -62,10 +62,10 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                              @Nullable Bundle savedInstanceState) {
         binding = LeaveRequestFragmentBinding.inflate(inflater);
 
-        Leavetyperesponse = binding.textViewResults;
+        //Leavetyperesponse = binding.textViewResults;
+        EtDay = binding.etday;
         EmpName = binding.tvempname;
         CompanyId = binding.tvcompanyid;
-        EtDay = binding.etday;
         EtStartDate = binding.etstartdate;
         EtEndDate = binding.etenddate;
         EtStartTime = binding.etstarttime;
@@ -73,8 +73,17 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         EtReason = binding.etreason;
         BtnSubmit = binding.btnsubmit;
         spinner = binding.spinner;
+        //spinnertwo = binding.spinnerday;
         spinner.setOnItemSelectedListener(this);
-        // Btncheck = binding.btncheck;
+       // spinnertwo.setOnItemSelectedListener(this);
+
+
+//        String[] daytype = { "Full Day", "Time"};
+//        //Creating the ArrayAdapter instance having the country list
+//        ArrayAdapter aa = new ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,daytype);
+//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        //Setting the ArrayAdapter data on the Spinner
+//        spinnertwo.setAdapter(aa);
 
 
         EtStartDate.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +192,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
 
 
-                        Leavetyperesponse.append(content);
+                       // Leavetyperesponse.append(content);
                     }
                 } else {
                     Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
@@ -192,7 +201,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
             @Override
             public void onFailure(Call<List<LeaveTypeResponse>> call, Throwable t) {
-                Leavetyperesponse.setText(t.getMessage());
+               // Leavetyperesponse.setText(t.getMessage());
                 Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
             }
         });
@@ -227,6 +236,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                                long id) {
         // On selecting a spinner item
        label = parent.getItemAtPosition(position).toString();
+
+      //  Toast.makeText(requireContext(),country[position] , Toast.LENGTH_LONG).show();
 
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "You selected: " + label,
@@ -290,6 +301,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     + leaveInfoList.get(i).getName()+"\t" , Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
 
 }

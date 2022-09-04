@@ -7,11 +7,10 @@
     android:orientation="vertical"
     tools:context=".ui.leave.LeaveRequestFragment">
 
-
     <LinearLayout
+        android:id="@+id/linear_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linear_info"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
@@ -19,15 +18,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,20 +36,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView25g"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Employee:"
-            android:textColor="@color/black"/>
-        <TextView
-            android:id="@+id/tvempname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:hint="employee name"
-            android:textColor="@color/black"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView25g"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Employee:"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvempname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="employee name"
+                android:padding="5dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView25"
@@ -56,39 +64,30 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Leave Type:"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000"
             android:layout_gravity="center"
-            ></Spinner>
+            android:textColor="#000"></Spinner>
 
-<!--        <Button-->
-<!--            android:id="@+id/btncheck"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:padding="5dp"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:backgroundTint="#33D339"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="check Data" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/btncheck"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:padding="5dp"-->
+        <!--            android:layout_margin="10dp"-->
+        <!--            android:backgroundTint="#33D339"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="check Data" />-->
 
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp">
 
-            <TextView
-                android:id="@+id/text_view_results"
-                android:padding="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="result is"
-                android:textColor="#000" />
 
-        </ScrollView>
+
+
+
 
         <TextView
             android:id="@+id/textView26"
@@ -96,15 +95,26 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Day Type:"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etday"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Full Day"
-            android:textColor="@color/black"/>
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:text="Full Day"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView28"
@@ -112,15 +122,27 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Start Date:"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etstartdate"
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:hint="Please Select Start Date"
-            android:text="10/05/2022" />
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etstartdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please Select Start Date"
+                android:padding="5dp"
+                android:text="10/05/2022" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView30"
@@ -128,15 +150,26 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="End Date:"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etenddate"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Please Select End Date"
-            android:padding="5dp"
-            android:text="11/05/2022" />
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etenddate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Please Select End Date"
+                android:padding="5dp"
+                android:text="11/05/2022" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView32"
@@ -144,14 +177,25 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Start Time:"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etstarttime"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="09:24" />
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etstarttime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="09:24" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView32g"
@@ -159,51 +203,78 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="End Time:"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etendtime"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="13:24" />
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etendtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="13:24" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
         <TextView
             android:id="@+id/textView36"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="Reason:"
-            android:padding="5dp"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etreason"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Reason" />
 
-        <TextView
-            android:id="@+id/textView36cb"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Company ID:"
-            android:padding="5dp"
-            android:textColor="@color/black" />
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
 
-        <TextView
-            android:id="@+id/tvcompanyid"
-            android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etreason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Reason" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:inputType="textPersonName"
-            android:hint="company id"
-            android:textColor="@color/black" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView36cb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Company ID:"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvcompanyid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="company id"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -216,31 +287,33 @@
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_margin="10dp"
-            android:backgroundTint="#505950"
             android:layout_weight="1"
+            android:backgroundTint="#505950"
+            android:padding="5dp"
             android:text="Save As Draft" />
 
         <Button
             android:id="@+id/btnsubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_margin="10dp"
-            android:backgroundTint="#33D339"
             android:layout_weight="1"
+            android:backgroundTint="#33D339"
+            android:padding="5dp"
             android:text="Submit" />
 
         <Button
             android:id="@+id/button11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_margin="10dp"
-            android:backgroundTint="#CC1B0E"
             android:layout_weight="1"
+            android:backgroundTint="#CC1B0E"
+            android:padding="5dp"
             android:text="Cancel" />
     </LinearLayout>
+
+
 
 </LinearLayout>

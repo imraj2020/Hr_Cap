@@ -36,6 +36,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.ui.home.HomeFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
@@ -106,7 +107,7 @@ public class SelfAttandanceFragment extends Fragment {
     TextView text_location, text_location_latitude, text_location_longitude, today_date, today_time;
     LocationManager locationManager;
     FusedLocationProviderClient client;
-    Button BtnLocation;
+    Button BtnLocation,CancelBtn ;
     boolean gps_enabled = false;
     boolean network_enabled = false;
     ProgressDialog progressDialog;
@@ -129,6 +130,7 @@ public class SelfAttandanceFragment extends Fragment {
         today_time = binding.todayTime;
         BtnLocation = binding.getlocation;
         mySwitch = binding.checking;
+        CancelBtn = binding.btncancel;
 
         //Shared Preference for switch
 
@@ -137,12 +139,12 @@ public class SelfAttandanceFragment extends Fragment {
         if (tgpref = true) //if (tgpref) may be enough, not sure
         {
             mySwitch.setChecked(true);
-            Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
+           // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
         }
         if (tgpref = false)
         {
             mySwitch.setChecked(false);
-            Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
+           // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
         }
 
 
@@ -205,6 +207,15 @@ public class SelfAttandanceFragment extends Fragment {
                     Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
                 }
 
+            }
+        });
+
+        CancelBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                // Launching new Activity on selecting single List Item
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
             }
         });
 
