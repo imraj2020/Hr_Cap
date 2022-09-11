@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.RoomHoliday.HolidayInfo;
+import com.cse.hrcap.RoomHoliday.HolidayRoomDB;
+import com.cse.hrcap.RoomLeave.LeaveInfo;
+import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.databinding.HolidayFragmentBinding;
 import com.cse.hrcap.network.HolidayResponse;
 import com.cse.hrcap.network.LeaveApiClient;
@@ -30,6 +35,8 @@ public class HolidayFragment extends Fragment {
     private HolidayViewModel mViewModel;
     private HolidayFragmentBinding binding;
     TextView Holidayres;
+    HolidayRoomDB roomDB;
+
 
 
     public static HolidayFragment newInstance() {
@@ -44,10 +51,11 @@ public class HolidayFragment extends Fragment {
 
 
         holidayTypes();
+        setDatabase();
         return binding.getRoot();
     }
 
-    private void holidayTypes() {
+    public void holidayTypes() {
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         Call<List<HolidayResponse>> call = LeaveApiClient.getUserService().holiday(companyid);
@@ -78,7 +86,12 @@ public class HolidayFragment extends Fragment {
                         content += "Active: " + post.getActive()+ "\n";
                         content += "EveryYearSameMonthDay : " + post.getEveryYearSameMonthDay()+ "\n\n";
 
-                        Holidayres.append(content);
+                        HolidayInfo holidayInfo = new HolidayInfo(post.getHolidayId(),post.getCompanyId(),post.getHolidayName(),
+                                post.getShortName(),post.getReligionSpecific(),post.getReligionId(),post.getReligionName(),
+                                post.getTypeId(),post.getTypeName(),post.getDescription(),post.getActive(),post.getEveryYearSameMonthDay());
+                        roomDB.holidayDAO().insertHoliday(holidayInfo);
+
+                       // Holidayres.append(content);
                     }
                 } else {
                     Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
@@ -99,6 +112,11 @@ public class HolidayFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(HolidayViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    public void setDatabase(){
+        roomDB = Room.databaseBuilder(requireContext(), HolidayRoomDB.class,"Holidayinfo.db")
+                .allowMainThreadQueries().build();
     }
 
 }

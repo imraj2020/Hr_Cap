@@ -18,6 +18,7 @@
     <string name="menu_chengepassword">Change Password</string>
     <string name="menu_holiday">Holiday</string>
     <string name="menu_leavebalance">Leave Balance</string>
+    <string name="menu_syncdata">Sync Data</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>

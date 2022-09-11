@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.cse.hrcap.ui.holiday.HolidayFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     LocationManager locationManager;
+    HolidayFragment holidayFragment ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //
+        // checking fragment for data sync
+        // holidayFragment=getFragmentManager().findFragmentByTag("holidayFragment");
+//          holidayFragment.holidayTypes();
+//          holidayFragment.setDatabase();
 
 
         //
@@ -62,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg,R.id.nav_loan,R.id.nav_selfattandance,
-                R.id.nav_logout,R.id.nav_chengepassword,R.id.nav_holiday,R.id.nav_leavebalance)
+                R.id.nav_logout,R.id.nav_chengepassword,R.id.nav_holiday,R.id.nav_leavebalance,R.id.nav_syncdata)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

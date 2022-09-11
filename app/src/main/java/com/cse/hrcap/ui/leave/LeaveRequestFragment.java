@@ -1,9 +1,17 @@
 package com.cse.hrcap.ui.leave;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,12 +26,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.RoomLeave.LeaveInfo;
 import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
@@ -32,7 +44,10 @@ import com.cse.hrcap.network.LeaveRequest;
 import com.cse.hrcap.network.LeaveTypeResponse;
 import com.cse.hrcap.network.UserService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,15 +58,19 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     private LeaveRequestViewModel mViewModel;
     private LeaveRequestFragmentBinding binding;
     private UserService userService;
-    TextView Leavetyperesponse;
+    TextView Leavetyperesponse,CheckDraft;
     Spinner spinner,spinnertwo;
     public static  String label;
-    TextView EmpName, CompanyId;
+    TextView EmpName, CompanyId,TvStartTime,TvEndTime, TvDayType,TvLeaveType;
     EditText EtDay,EtStartDate,EtEndDate,EtStartTime,EtEndTime,EtReason;
-    Button BtnSubmit,Btncheck;
+    Button BtnSubmit,Btncheck,BtnCancel,BtnDraft;
     DatePickerDialog datePickerDialog;
+    LinearLayout Lenearinfo;
   //  LeaveTypeDbHelper dbs;
     public MyRoomDB roomDB;
+    int starthour, startminute, endhour, endminute;
+    SwitchCompat mySwitch;
+    public  static String Status;
 
     public static LeaveRequestFragment newInstance() {
         return new LeaveRequestFragment();
@@ -63,7 +82,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         binding = LeaveRequestFragmentBinding.inflate(inflater);
 
         //Leavetyperesponse = binding.textViewResults;
-        EtDay = binding.etday;
+       // EtDay = binding.etday;
         EmpName = binding.tvempname;
         CompanyId = binding.tvcompanyid;
         EtStartDate = binding.etstartdate;
@@ -72,18 +91,236 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         EtEndTime = binding.etendtime;
         EtReason = binding.etreason;
         BtnSubmit = binding.btnsubmit;
+        BtnCancel = binding.btncancel;
         spinner = binding.spinner;
+        mySwitch = binding.tgdaytype;
+        TvStartTime = binding.tvstarttime;
+        TvEndTime = binding.tvendtime;
+        BtnDraft = binding.btndraft;
+        CheckDraft = binding.tvCheckdraft;
+        TvLeaveType = binding.tvleavetype;
+        TvDayType = binding.tvDayType;
+
+
         //spinnertwo = binding.spinnerday;
         spinner.setOnItemSelectedListener(this);
        // spinnertwo.setOnItemSelectedListener(this);
+        EtStartTime.setVisibility(View.GONE);
+        EtEndTime.setVisibility(View.GONE);
+        TvStartTime.setVisibility(View.GONE);
+        TvEndTime.setVisibility(View.GONE);
+        TvLeaveType.setVisibility(View.GONE);
+        TvDayType.setVisibility(View.GONE);
 
 
-//        String[] daytype = { "Full Day", "Time"};
-//        //Creating the ArrayAdapter instance having the country list
-//        ArrayAdapter aa = new ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,daytype);
-//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        //Setting the ArrayAdapter data on the Spinner
-//        spinnertwo.setAdapter(aa);
+        //Checking Save As Draft
+
+        BtnDraft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Shared Preference for switch
+                // Creating a shared pref object
+                // with a file name "MySharedPref"
+                // in private mode
+
+                SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                // write all the data entered by the user in SharedPreference and apply
+                myEdit.putString("levels", label);
+                myEdit.putString("Day Type", Status);
+                myEdit.putString("Start Date", EtStartDate.getText().toString());
+                myEdit.putString("End Date", EtEndDate.getText().toString());
+                myEdit.putString("Start Time", EtStartTime.getText().toString());
+                myEdit.putString("End Time", EtEndTime.getText().toString());
+                myEdit.putString("Reason", EtReason.getText().toString());
+
+
+
+               // myEdit.putInt("Day Type", Integer.parseInt(age.getText().toString()));
+                myEdit.apply();
+
+                Toast.makeText(requireContext(), "Data Saved As Draft", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        // Checking draft
+
+        CheckDraft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Fetching the stored data
+                // from the SharedPreference
+                SharedPreferences sh = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+                String mylavel = sh.getString("lavels", label);
+                String DayType = sh.getString("Day Type", "");
+                String StartDate = sh.getString("Start Date", "");
+                String EndDate = sh.getString("End Date", "");
+                String StartTime = sh.getString("Start Time", "");
+                String EndTime = sh.getString("End Time", "");
+                String Reasons = sh.getString("Reason", "");
+
+
+                // Setting the fetched data
+                // in the EditTexts
+                TvLeaveType.setText(mylavel);
+                TvDayType.setText(DayType);
+                EtStartDate.setText(StartDate);
+                EtEndDate.setText(EndDate);
+                EtStartTime.setText(StartTime);
+                EtEndTime.setText(EndTime);
+                EtReason.setText(Reasons);
+
+                spinner.setVisibility(View.GONE);
+                mySwitch.setVisibility(View.GONE);
+                CheckDraft.setVisibility(View.GONE);
+                EtStartTime.setVisibility(View.VISIBLE);
+                EtEndTime.setVisibility(View.VISIBLE);
+                TvStartTime.setVisibility(View.VISIBLE);
+                TvEndTime.setVisibility(View.VISIBLE);
+                TvLeaveType.setVisibility(View.VISIBLE);
+                TvDayType.setVisibility(View.VISIBLE);
+
+               // Toast.makeText(requireContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+
+        SharedPreferences preferences = this.getActivity().getPreferences(MODE_PRIVATE);
+        boolean tgpref = preferences.getBoolean("tgpref", true);  //default is true
+        if (tgpref = true) //if (tgpref) may be enough, not sure
+        {
+            mySwitch.setChecked(true);
+            Status = "Full Day";
+            // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
+        }
+        if (tgpref = false)
+        {
+            mySwitch.setChecked(false);
+            Status = "Time";
+            // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
+        }
+
+        //Toggle Button
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("tgpref", true); // value to store
+                    editor.commit();
+                    Status = "Full Day";
+                    EtStartTime.setVisibility(View.GONE);
+                    EtEndTime.setVisibility(View.GONE);
+                    TvStartTime.setVisibility(View.GONE);
+                    TvEndTime.setVisibility(View.GONE);
+                    Toast.makeText(requireContext(),"You Select:"+Status,Toast.LENGTH_LONG).show();
+                }
+                else {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("tgpref", false); // value to store
+                    editor.commit();
+                    Status = "Time";
+                    EtStartTime.setVisibility(View.VISIBLE);
+                    EtEndTime.setVisibility(View.VISIBLE);
+                    TvStartTime.setVisibility(View.VISIBLE);
+                    TvEndTime.setVisibility(View.VISIBLE);
+                    Toast.makeText(requireContext(),"You Select:"+Status,Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+
+
+        // Cancel Button Click Event
+        BtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launching new Activity on selecting single List Item
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Start time
+
+        EtStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        requireContext(),
+                        android.R.style.Theme_Holo_Dialog_MinWidth,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                starthour = i;
+                                startminute = i1;
+                                String time = starthour +":" + startminute;
+                                SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
+                                try {
+                                    Date date = f24Hours.parse(time);
+
+                                    //12 hours time formet
+                                    SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
+                                    EtStartTime.setText(f12Hours.format(date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },12,0,false
+                );
+                //Set transparent Background
+                timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                //Display previous selected time
+                timePickerDialog.updateTime(starthour,startminute);
+                timePickerDialog.show();
+
+            }
+        });
+
+        //End time
+
+        EtEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        requireContext(),
+                        android.R.style.Theme_Holo_Dialog_MinWidth,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                endhour = i;
+                                endminute = i1;
+                                String time = endhour +":" + endminute;
+                                SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
+                                try {
+                                    Date date = f24Hours.parse(time);
+
+                                    //12 hours time formet
+                                    SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
+                                    EtEndTime.setText(f12Hours.format(date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },12,0,false
+                );
+                //Set transparent Background
+                timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                //Display previous selected time
+                timePickerDialog.updateTime(endhour,endminute);
+                timePickerDialog.show();
+
+            }
+        });
+
+
 
 
         EtStartDate.setOnClickListener(new View.OnClickListener() {
@@ -172,8 +409,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
                     List<LeaveTypeResponse> nlist = response.body();
 
-                    Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
-                    Log.d("LeaveResponse",nlist.get(0).getLeaveTypeName().toString() );
+                  //  Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
+                    Log.d("LeaveResponse",nlist.get(0).getLeaveTypeName().toString());
 //                    StudentInfo studentInfo = new StudentInfo();
 //                    studentInfo.setLeavetypename("Test");
 //                    Log.d("LeaveResponse",studentInfo.getLeavetypename() );
@@ -254,7 +491,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     private void leaveRequest() {
 //        UserService userService = getRetrofit().create(UserService.class);
         final LeaveRequest leaveRequest = new LeaveRequest(EmpName.getText().toString(),label,
-                EtDay.getText().toString(),EtStartDate.getText().toString(),EtEndDate.getText().toString(),
+                Status,EtStartDate.getText().toString(),EtEndDate.getText().toString(),
                 EtReason.getText().toString(),EtStartTime.getText().toString(),EtEndTime.getText().toString(),
                 CompanyId.getText().toString());
         Call<LeaveRequest> call = LeaveApiClient.getUserService().PostData(leaveRequest);

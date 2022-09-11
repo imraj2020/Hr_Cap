@@ -41,6 +41,11 @@
 
     <item android:title="Others">
 <menu>
+
+    <item
+        android:id="@+id/nav_syncdata"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/menu_syncdata" />
     <item
         android:id="@+id/nav_chengepassword"
         android:icon="@drawable/ic_menu_camera"
