@@ -19,11 +19,16 @@ public interface LeaveDAO {
     @Query("SELECT * FROM LeaveInfo")
     public List<LeaveInfo> getAllLeave();
 
+    @Query("SELECT EXISTS(SELECT * FROM LeaveInfo)")
+    public Boolean isExists();
+
 
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
 //    public void updateStudentInfo(String name, String subject, int id);
 //
-//    @Query("DELETE FROM StudentInfo WHERE id = :id")
+//    @Query("DELETE FROM LeaveInfo WHERE id = :id")
 //    public void deleteStudentInfo(int id);
+   @Query("DELETE FROM LeaveInfo")
+   void deleteAll();
 
 }

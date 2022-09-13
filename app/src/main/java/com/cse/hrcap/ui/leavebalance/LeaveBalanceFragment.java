@@ -53,68 +53,68 @@ public class LeaveBalanceFragment extends Fragment {
 
 
 
-        leaveBalance();
-        setDatabase();
+//        leaveBalance();
+//        setLeaveBalanceDatabase();
         return binding.getRoot();
     }
 
-    private void leaveBalance() {
-        Intent intent = getActivity().getIntent();
-        String companyid = intent.getStringExtra("CompanyId");
-        String userid = intent.getStringExtra("Employee");
-        Call<List<LeaveBalanceResponse>> call = LeaveApiClient.getUserService().leavebalance(companyid,userid);
-        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
-
-
-        call.enqueue(new Callback<List<LeaveBalanceResponse>>() {
-            @Override
-            public void onResponse(Call<List<LeaveBalanceResponse>> call, Response<List<LeaveBalanceResponse>> response) {
-
-                if (response.isSuccessful()) {
-
-                    List<LeaveBalanceResponse> nlist = response.body();
-
-
-                    for (LeaveBalanceResponse post : nlist) {
-                        String content = "";
-                        content += "Company ID: " + post.getCompanyId()+ "\n";
-                        content += "Employee ID: " + post.getEmployeeId()+ "\n";
-                        content += "Leave Type Id :" + post.getLeaveTypeId()+ "\n";
-                        content += "Leave Type Name:" + post.getLeaveTypeName()+ "\n";
-                        content += "Taken Leave: " + post.getTakenLeave() + "\n";
-                        content += "Total Leave :" + post.getTotalLeave()+ "\n";
-                        content += "Available Leave: " + post.getAvailableLeave()+ "\n\n";
-
-                        LeaveBalanceInfo leaveBalanceInfo = new LeaveBalanceInfo(post.getCompanyId(),post.getEmployeeId(),
-                                post.getLeaveTypeId(),post.getLeaveTypeName(),post.getTakenLeave(),post.getTotalLeave(),
-                                post.getAvailableLeave());
-                        roomDB.leaveBalanceDAO().insertLeaveBalance(leaveBalanceInfo);
-
-
-
-                      //  LeaveBalance.append(content);
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<LeaveBalanceResponse>> call, Throwable t) {
-                LeaveBalance.setText(t.getMessage());
-                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void leaveBalance() {
+//        Intent intent = getActivity().getIntent();
+//        String companyid = intent.getStringExtra("CompanyId");
+//        String userid = intent.getStringExtra("Employee");
+//        Call<List<LeaveBalanceResponse>> call = LeaveApiClient.getUserService().leavebalance(companyid,userid);
+//        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
+//
+//
+//        call.enqueue(new Callback<List<LeaveBalanceResponse>>() {
+//            @Override
+//            public void onResponse(Call<List<LeaveBalanceResponse>> call, Response<List<LeaveBalanceResponse>> response) {
+//
+//                if (response.isSuccessful()) {
+//
+//                    List<LeaveBalanceResponse> nlist = response.body();
+//
+//
+//                    for (LeaveBalanceResponse post : nlist) {
+//                        String content = "";
+//                        content += "Company ID: " + post.getCompanyId()+ "\n";
+//                        content += "Employee ID: " + post.getEmployeeId()+ "\n";
+//                        content += "Leave Type Id :" + post.getLeaveTypeId()+ "\n";
+//                        content += "Leave Type Name:" + post.getLeaveTypeName()+ "\n";
+//                        content += "Taken Leave: " + post.getTakenLeave() + "\n";
+//                        content += "Total Leave :" + post.getTotalLeave()+ "\n";
+//                        content += "Available Leave: " + post.getAvailableLeave()+ "\n\n";
+//
+//                        LeaveBalanceInfo leaveBalanceInfo = new LeaveBalanceInfo(post.getCompanyId(),post.getEmployeeId(),
+//                                post.getLeaveTypeId(),post.getLeaveTypeName(),post.getTakenLeave(),post.getTotalLeave(),
+//                                post.getAvailableLeave());
+//                        roomDB.leaveBalanceDAO().insertLeaveBalance(leaveBalanceInfo);
+//
+//
+//
+//                      //  LeaveBalance.append(content);
+//                    }
+//                } else {
+//                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<LeaveBalanceResponse>> call, Throwable t) {
+//                LeaveBalance.setText(t.getMessage());
+//                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(LeaveBalanceViewModel.class);
         // TODO: Use the ViewModel
     }
-    private void setDatabase(){
-        roomDB = Room.databaseBuilder(requireContext(), LeaveBalanceRoomDB.class,"Leavebalance.db")
-                .allowMainThreadQueries().build();
-    }
+//    private void setLeaveBalanceDatabase(){
+//        roomDB = Room.databaseBuilder(requireContext(), LeaveBalanceRoomDB.class,"Leavebalance.db")
+//                .allowMainThreadQueries().build();
+//    }
 
 }

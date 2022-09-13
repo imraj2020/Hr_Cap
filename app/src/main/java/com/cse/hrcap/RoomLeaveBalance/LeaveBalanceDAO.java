@@ -13,6 +13,13 @@ public interface LeaveBalanceDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertLeaveBalance(LeaveBalanceInfo leaveBalanceInfo);
 
+
+    @Query("SELECT EXISTS(SELECT * FROM LeaveBalanceInfo)")
+    public Boolean isExists();
+
+    @Query("DELETE FROM LeaveBalanceInfo")
+    void deleteAll();
+
 //    @Query("SELECT name FROM LeaveBalanceInfo")
 //    public List<String> getAllName();
 //

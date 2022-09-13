@@ -13,6 +13,13 @@ public interface HolidayDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertHoliday(HolidayInfo holidayInfo);
 
+
+    @Query("SELECT EXISTS(SELECT * FROM HolidayInfo)")
+    public Boolean isExists();
+
+    @Query("DELETE FROM HolidayInfo")
+    void deleteAll();
+
 //    @Query("SELECT name FROM HolidayInfo")
 //    public List<String> getAllName();
 //

@@ -1,5 +1,8 @@
 package com.cse.hrcap.ui.loan;
 
+import static com.cse.hrcap.MainActivity.loanSubTypeRoomDB;
+import static com.cse.hrcap.MainActivity.loanTypeRoomDB;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -67,10 +70,9 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
         Loansubtyperesponse = binding.tvloansubtype;
         loantype.setOnItemSelectedListener(this);
         loansubtype.setOnItemSelectedListener(this);
-        loanTypes();
-        loansubTypes();
-        setDatabaseone();
-        setDatabasetwo();
+
+//        loansubTypes();
+//        setDatabasetwo();
         loadSpinnerDataone();
         loadSpinnerDatatwo();
         return binding.getRoot();
@@ -78,91 +80,53 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
 
 
 
-    private void loanTypes() {
-        Intent intent = getActivity().getIntent();
-        String companyid = intent.getStringExtra("CompanyId");
-        Call<List<LoanTypeResponse>> call = LoanApiClient.getUserService().loantype(companyid);
-        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
-
-
-        call.enqueue(new Callback<List<LoanTypeResponse>>() {
-            @Override
-            public void onResponse(Call<List<LoanTypeResponse>> call, Response<List<LoanTypeResponse>> response) {
-
-                if (response.isSuccessful()) {
-
-                    List<LoanTypeResponse> nlist = response.body();
-
-
-                    for (LoanTypeResponse post : nlist) {
-                        String content = "";
-//                        content += "Leave Type ID: " + post.getLeaveTypeId() + "\n";
-                        content += "Leave Type Name: " + post.getLoanTypeName() + "\n";
-//                        content += "Company ID: " + post.getCompanyId() + "\n";
-//                        content += "Short Name: " + post.getShortName() + "\n";
-//                        content += "Description: " + post.getDescription() + "\n\n";
-                        LoanTypeInfo loanTypeInfo = new LoanTypeInfo(post.getLoanTypeName());
-                        roomDB.loanTypeDAO().insertLoan(loanTypeInfo);
-                        Loantyperesponse.append(content);
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<LoanTypeResponse>> call, Throwable t) {
-                Loantyperesponse.setText(t.getMessage());
-                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-    private void loansubTypes() {
-        Intent intent = getActivity().getIntent();
-        String companyid = intent.getStringExtra("CompanyId");
-        Call<List<LoansubTypeResponse>> call = LoanApiClient.getUserService().loansubtype(companyid);
 
 
 
-        call.enqueue(new Callback<List<LoansubTypeResponse>>() {
-            @Override
-            public void onResponse(Call<List<LoansubTypeResponse>> call, Response<List<LoansubTypeResponse>> response) {
-
-                if (response.isSuccessful()) {
-
-                    List<LoansubTypeResponse> nlist = response.body();
-
-
-                    for (LoansubTypeResponse post : nlist) {
-                        String content = "";
-//                        content += "Leave Type ID: " + post.getLeaveTypeId() + "\n";
-                        content += "Loan sub Type Name: " + post.getLoanSubTypeName() + "\n";
-//                        content += "Company ID: " + post.getCompanyId() + "\n";
-//                        content += "Short Name: " + post.getShortName() + "\n";
-//                        content += "Description: " + post.getDescription() + "\n\n";
-                        LoanSubTypeInfo loanSubTypeInfo = new LoanSubTypeInfo(post.getLoanSubTypeName());
-                        roomDBs.loanSubTypeDAO().insertLoanSub(loanSubTypeInfo);
-
-                        Loansubtyperesponse.append(content);
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<LoansubTypeResponse>> call, Throwable t) {
-                Loantyperesponse.setText(t.getMessage());
-                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void loansubTypes() {
+//        Intent intent = getActivity().getIntent();
+//        String companyid = intent.getStringExtra("CompanyId");
+//        Call<List<LoansubTypeResponse>> call = LoanApiClient.getUserService().loansubtype(companyid);
+//
+//
+//
+//        call.enqueue(new Callback<List<LoansubTypeResponse>>() {
+//            @Override
+//            public void onResponse(Call<List<LoansubTypeResponse>> call, Response<List<LoansubTypeResponse>> response) {
+//
+//                if (response.isSuccessful()) {
+//
+//                    List<LoansubTypeResponse> nlist = response.body();
+//
+//
+//                    for (LoansubTypeResponse post : nlist) {
+//                        String content = "";
+////                        content += "Leave Type ID: " + post.getLeaveTypeId() + "\n";
+//                        content += "Loan sub Type Name: " + post.getLoanSubTypeName() + "\n";
+////                        content += "Company ID: " + post.getCompanyId() + "\n";
+////                        content += "Short Name: " + post.getShortName() + "\n";
+////                        content += "Description: " + post.getDescription() + "\n\n";
+//                        LoanSubTypeInfo loanSubTypeInfo = new LoanSubTypeInfo(post.getLoanSubTypeName());
+//                        roomDBs.loanSubTypeDAO().insertLoanSub(loanSubTypeInfo);
+//
+//                        Loansubtyperesponse.append(content);
+//                    }
+//                } else {
+//                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<LoansubTypeResponse>> call, Throwable t) {
+//                Loantyperesponse.setText(t.getMessage());
+//                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
 
     private void loadSpinnerDataone() {
-        List<String> labels = roomDB.loanTypeDAO().getAllName();
+        List<String> labels = loanTypeRoomDB.loanTypeDAO().getAllName();
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(),android.R.layout.simple_spinner_item, labels);
 
@@ -174,7 +138,7 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
     }
 
     private void loadSpinnerDatatwo() {
-        List<String> labels = roomDBs.loanSubTypeDAO().getAllName();
+        List<String> labels = loanSubTypeRoomDB.loanSubTypeDAO().getAllName();
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(),android.R.layout.simple_spinner_item, labels);
@@ -204,15 +168,10 @@ public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnIte
 
     }
 
-    private void setDatabaseone(){
-        roomDB = Room.databaseBuilder(requireContext(), LoanTypeRoomDB.class,"Loantype.db")
-                .allowMainThreadQueries().build();
-    }
-
-    private void setDatabasetwo(){
-        roomDBs = Room.databaseBuilder(requireContext(), LoanSubTypeRoomDB.class,"Loansubtype.db")
-                .allowMainThreadQueries().build();
-    }
+//    private void setDatabasetwo(){
+//        roomDBs = Room.databaseBuilder(requireContext(), LoanSubTypeRoomDB.class,"Loansubtype.db")
+//                .allowMainThreadQueries().build();
+//    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

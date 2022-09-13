@@ -115,19 +115,23 @@ public class HomeFragment extends Fragment {
              //sending data
             MyDbHelper MydbHelper = new MyDbHelper(requireContext());
             int EmployeeIds = EmployeeId;
-            MydbHelper.insertRecord(EmployeeIds, companyid, DesignationIds, Designations,
-                    fullname, grade, gradeid, empid, department, departmentid,
-                    position, positionid,category, categoryid, firstname, middlename,
-                    lastname, prefix, suffix, personalemail, mobileno, imagetitle,
-                    imagepath, joinningdate, costcenterid, paycycleid, locationid,supervisorid,supervisorname);
+
+
+                MydbHelper.insertRecord(EmployeeIds, companyid, DesignationIds, Designations,
+                        fullname, grade, gradeid, empid, department, departmentid,
+                        position, positionid, category, categoryid, firstname, middlename,
+                        lastname, prefix, suffix, personalemail, mobileno, imagetitle,
+                        imagepath, joinningdate, costcenterid, paycycleid, locationid, supervisorid, supervisorname);
+
 
 
             //database cursor
             dbs = new MyDbHelper(requireContext());
             Cursor cursor = dbs.alldata();
             if (cursor.getCount() == 0) {
+
                 Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_SHORT).show();
-            } else {
+            } else{
                 while (cursor.moveToNext()) {
                     welcome.setText("Welcome " + cursor.getString(4));
                     employeeid.setText("EmployeeId :" + cursor.getString(0));

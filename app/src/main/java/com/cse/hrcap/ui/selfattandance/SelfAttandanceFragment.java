@@ -1,9 +1,5 @@
 package com.cse.hrcap.ui.selfattandance;
 
-import static android.content.Context.LOCATION_SERVICE;
-
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,95 +8,52 @@ import static android.location.LocationManager.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationRequest;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.ui.home.HomeFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.security.Permission;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
-import android.app.ProgressDialog;
-import android.location.LocationManager;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
-import com.cse.hrcap.DbHelper;
 import com.cse.hrcap.MainActivity;
-import com.cse.hrcap.R;
 import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
-import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class SelfAttandanceFragment extends Fragment {
     private SelfAttandanceViewModel mViewModel;

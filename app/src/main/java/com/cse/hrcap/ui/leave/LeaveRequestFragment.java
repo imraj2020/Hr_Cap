@@ -2,6 +2,8 @@ package com.cse.hrcap.ui.leave;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static com.cse.hrcap.MainActivity.leaveroomDB;
+
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -379,8 +381,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         CompanyId.setText(companyid);
        // spinner.setOnItemSelectedListener(this);
 
-        leaveTypes();
-        setDatabase();
+//        leaveTypes();
+//        setDatabase();
         loadSpinnerData();
         //loadSpinnerData();
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -394,55 +396,55 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     }
 
 
-    private void leaveTypes() {
-        Intent intent = getActivity().getIntent();
-        String companyid = intent.getStringExtra("CompanyId");
-        Call<List<LeaveTypeResponse>> call = LeaveApiClient.getUserService().leavetype(companyid);
-        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
-
-
-        call.enqueue(new Callback<List<LeaveTypeResponse>>() {
-            @Override
-            public void onResponse(Call<List<LeaveTypeResponse>> call, Response<List<LeaveTypeResponse>> response) {
-
-                if (response.isSuccessful()) {
-
-                    List<LeaveTypeResponse> nlist = response.body();
-
-                  //  Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
-                    Log.d("LeaveResponse",nlist.get(0).getLeaveTypeName().toString());
-//                    StudentInfo studentInfo = new StudentInfo();
-//                    studentInfo.setLeavetypename("Test");
-//                    Log.d("LeaveResponse",studentInfo.getLeavetypename() );
-//                     roomDB.studentDAO().insertStudent(studentInfo);
-
-                    for (LeaveTypeResponse post : nlist) {
-                        String content = "";
-//                        content += "Leave Type ID: " + post.getLeaveTypeId() + "\n";
-                        content += "Leave Type Name: " + post.getLeaveTypeName() + "\n";
-//                        content += "Company ID: " + post.getCompanyId() + "\n";
-//                        content += "Short Name: " + post.getShortName() + "\n";
-//                        content += "Description: " + post.getDescription() + "\n\n";
-
-                        LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
-                        roomDB.leaveDAO().insertLeave(leaveInfo);
-
-
-
-                       // Leavetyperesponse.append(content);
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<LeaveTypeResponse>> call, Throwable t) {
-               // Leavetyperesponse.setText(t.getMessage());
-                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void leaveTypes() {
+//        Intent intent = getActivity().getIntent();
+//        String companyid = intent.getStringExtra("CompanyId");
+//        Call<List<LeaveTypeResponse>> call = LeaveApiClient.getUserService().leavetype(companyid);
+//        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
+//
+//
+//        call.enqueue(new Callback<List<LeaveTypeResponse>>() {
+//            @Override
+//            public void onResponse(Call<List<LeaveTypeResponse>> call, Response<List<LeaveTypeResponse>> response) {
+//
+//                if (response.isSuccessful()) {
+//
+//                    List<LeaveTypeResponse> nlist = response.body();
+//
+//                  //  Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
+//                    Log.d("LeaveResponse",nlist.get(0).getLeaveTypeName().toString());
+////                    StudentInfo studentInfo = new StudentInfo();
+////                    studentInfo.setLeavetypename("Test");
+////                    Log.d("LeaveResponse",studentInfo.getLeavetypename() );
+////                     roomDB.studentDAO().insertStudent(studentInfo);
+//
+//                    for (LeaveTypeResponse post : nlist) {
+//                        String content = "";
+////                        content += "Leave Type ID: " + post.getLeaveTypeId() + "\n";
+//                        content += "Leave Type Name: " + post.getLeaveTypeName() + "\n";
+////                        content += "Company ID: " + post.getCompanyId() + "\n";
+////                        content += "Short Name: " + post.getShortName() + "\n";
+////                        content += "Description: " + post.getDescription() + "\n\n";
+//
+//                        LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
+//                        roomDB.leaveDAO().insertLeave(leaveInfo);
+//
+//
+//
+//                       // Leavetyperesponse.append(content);
+//                    }
+//                } else {
+//                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<LeaveTypeResponse>> call, Throwable t) {
+//               // Leavetyperesponse.setText(t.getMessage());
+//                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -457,7 +459,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     private void loadSpinnerData() {
 //        LeaveTypeDbHelper db = new LeaveTypeDbHelper(requireContext());
 //        List<String> labels = db.getAllLabels();
-        List<String> labels = roomDB.leaveDAO().getAllName();
+        List<String> labels = leaveroomDB.leaveDAO().getAllName();
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(),android.R.layout.simple_spinner_item, labels);
 
@@ -520,10 +522,10 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-    private void setDatabase(){
-        roomDB = Room.databaseBuilder(requireContext(), MyRoomDB.class,"Leavetype.db")
-                .allowMainThreadQueries().build();
-    }
+//    private void setDatabase(){
+//        roomDB = Room.databaseBuilder(requireContext(), MyRoomDB.class,"Leavetype.db")
+//                .allowMainThreadQueries().build();
+//    }
 
     private void showDataFromDb() {
 

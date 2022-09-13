@@ -50,61 +50,61 @@ public class HolidayFragment extends Fragment {
         Holidayres = binding.tvholiday;
 
 
-        holidayTypes();
-        setDatabase();
+//        holidayTypes();
+//        setDatabase();
         return binding.getRoot();
     }
 
-    public void holidayTypes() {
-        Intent intent = getActivity().getIntent();
-        String companyid = intent.getStringExtra("CompanyId");
-        Call<List<HolidayResponse>> call = LeaveApiClient.getUserService().holiday(companyid);
-        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
-
-
-        call.enqueue(new Callback<List<HolidayResponse>>() {
-            @Override
-            public void onResponse(Call<List<HolidayResponse>> call, Response<List<HolidayResponse>> response) {
-
-                if (response.isSuccessful()) {
-
-                    List<HolidayResponse> nlist = response.body();
-
-
-                    for (HolidayResponse post : nlist) {
-                        String content = "";
-                        content += "Holiday ID: " + post.getHolidayId() + "\n";
-                        content += "Company ID: " + post.getCompanyId()+ "\n";
-                        content += "Holiday name: " + post.getHolidayName()+ "\n";
-                        content += "Short Name: " + post.getShortName()+ "\n";
-                        content += "ReligionSpecific : " + post.getReligionSpecific() + "\n";
-                        content += "Religion ID: " + post.getReligionId()+ "\n";
-                        content += "Religion Name: " + post.getReligionName()+ "\n";
-                        content += "Type ID: " + post.getTypeId()+ "\n";
-                        content += "Type Name: " + post.getTypeName()+ "\n";
-                        content += "Description: " + post.getDescription() + "\n";
-                        content += "Active: " + post.getActive()+ "\n";
-                        content += "EveryYearSameMonthDay : " + post.getEveryYearSameMonthDay()+ "\n\n";
-
-                        HolidayInfo holidayInfo = new HolidayInfo(post.getHolidayId(),post.getCompanyId(),post.getHolidayName(),
-                                post.getShortName(),post.getReligionSpecific(),post.getReligionId(),post.getReligionName(),
-                                post.getTypeId(),post.getTypeName(),post.getDescription(),post.getActive(),post.getEveryYearSameMonthDay());
-                        roomDB.holidayDAO().insertHoliday(holidayInfo);
-
-                       // Holidayres.append(content);
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<HolidayResponse>> call, Throwable t) {
-                Holidayres.setText(t.getMessage());
-                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    public void holidayTypes() {
+//        Intent intent = getActivity().getIntent();
+//        String companyid = intent.getStringExtra("CompanyId");
+//        Call<List<HolidayResponse>> call = LeaveApiClient.getUserService().holiday(companyid);
+//        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
+//
+//
+//        call.enqueue(new Callback<List<HolidayResponse>>() {
+//            @Override
+//            public void onResponse(Call<List<HolidayResponse>> call, Response<List<HolidayResponse>> response) {
+//
+//                if (response.isSuccessful()) {
+//
+//                    List<HolidayResponse> nlist = response.body();
+//
+//
+//                    for (HolidayResponse post : nlist) {
+//                        String content = "";
+//                        content += "Holiday ID: " + post.getHolidayId() + "\n";
+//                        content += "Company ID: " + post.getCompanyId()+ "\n";
+//                        content += "Holiday name: " + post.getHolidayName()+ "\n";
+//                        content += "Short Name: " + post.getShortName()+ "\n";
+//                        content += "ReligionSpecific : " + post.getReligionSpecific() + "\n";
+//                        content += "Religion ID: " + post.getReligionId()+ "\n";
+//                        content += "Religion Name: " + post.getReligionName()+ "\n";
+//                        content += "Type ID: " + post.getTypeId()+ "\n";
+//                        content += "Type Name: " + post.getTypeName()+ "\n";
+//                        content += "Description: " + post.getDescription() + "\n";
+//                        content += "Active: " + post.getActive()+ "\n";
+//                        content += "EveryYearSameMonthDay : " + post.getEveryYearSameMonthDay()+ "\n\n";
+//
+//                        HolidayInfo holidayInfo = new HolidayInfo(post.getHolidayId(),post.getCompanyId(),post.getHolidayName(),
+//                                post.getShortName(),post.getReligionSpecific(),post.getReligionId(),post.getReligionName(),
+//                                post.getTypeId(),post.getTypeName(),post.getDescription(),post.getActive(),post.getEveryYearSameMonthDay());
+//                        roomDB.holidayDAO().insertHoliday(holidayInfo);
+//
+//                       // Holidayres.append(content);
+//                    }
+//                } else {
+//                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<HolidayResponse>> call, Throwable t) {
+//                Holidayres.setText(t.getMessage());
+//                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
 
     @Override
@@ -114,9 +114,9 @@ public class HolidayFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    public void setDatabase(){
-        roomDB = Room.databaseBuilder(requireContext(), HolidayRoomDB.class,"Holidayinfo.db")
-                .allowMainThreadQueries().build();
-    }
+//    public void setDatabase(){
+//        roomDB = Room.databaseBuilder(requireContext(), HolidayRoomDB.class,"Holidayinfo.db")
+//                .allowMainThreadQueries().build();
+//    }
 
 }

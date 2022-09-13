@@ -19,6 +19,12 @@ public interface LoanSubTypeDAO {
     @Query("SELECT * FROM LoanSubTypeInfo")
     public List<LoanSubTypeInfo> getAllLoan();
 
+    @Query("SELECT EXISTS(SELECT * FROM LoanSubTypeInfo)")
+    public Boolean isExists();
+
+    @Query("DELETE FROM LoanSubTypeInfo")
+    void deleteAll();
+
 
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
 //    public void updateStudentInfo(String name, String subject, int id);
