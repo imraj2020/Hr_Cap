@@ -27,6 +27,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.network.AttandanceRequest;
+import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.LeaveRequest;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,18 +58,25 @@ import android.view.ViewGroup;
 import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SelfAttandanceFragment extends Fragment {
     private SelfAttandanceViewModel mViewModel;
-    TextView text_location, text_location_latitude, text_location_longitude, today_date, today_time;
+    TextView text_location, text_location_latitude, text_location_longitude, today_date, today_time,tv_Companyid,tv_employee;
     LocationManager locationManager;
     FusedLocationProviderClient client;
-    Button BtnLocation,CancelBtn ;
+    Button BtnLocation,CancelBtn,BtnSave ;
     boolean gps_enabled = false;
     boolean network_enabled = false;
     ProgressDialog progressDialog;
     SelfAttandanceFragmentBinding binding;
     SwitchCompat mySwitch;
-    String Status;
+    public  static String Status;
+    public  static String companyid;
+    public  static String employeename;
+
 
     public static SelfAttandanceFragment newInstance() {
         return new SelfAttandanceFragment();
@@ -84,6 +94,16 @@ public class SelfAttandanceFragment extends Fragment {
         BtnLocation = binding.getlocation;
         mySwitch = binding.checking;
         CancelBtn = binding.btncancel;
+        BtnSave = binding.btnsave;
+//        tv_employee = binding.tvempname;
+//        tv_Companyid = binding.tvcompid;
+
+        Intent intent = getActivity().getIntent();
+       companyid = intent.getStringExtra("CompanyId");
+        employeename = intent.getStringExtra("Employee");
+
+//        tv_Companyid.setText(companyid);
+//        tv_employee.setText(employeename);
 
         //Shared Preference for switch
 
@@ -92,12 +112,14 @@ public class SelfAttandanceFragment extends Fragment {
         if (tgpref = true) //if (tgpref) may be enough, not sure
         {
             mySwitch.setChecked(true);
-           // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
+            Status = "IN";
+           // Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
         }
         if (tgpref = false)
         {
             mySwitch.setChecked(false);
-           // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
+            Status = "OUT";
+          //  Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
         }
 
 
@@ -149,15 +171,15 @@ public class SelfAttandanceFragment extends Fragment {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("tgpref", true); // value to store
                     editor.commit();
-                   Status = "Checked In";
-                   Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
+                   Status = "IN";
+                  // Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
                 }
                 else {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("tgpref", false); // value to store
                     editor.commit();
-                    Status = "Checked Out";
-                    Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
+                    Status = "OUT";
+                    //Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -169,6 +191,14 @@ public class SelfAttandanceFragment extends Fragment {
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getActivity(), MainActivity.class);
                 startActivity(i);
+            }
+        });
+
+        //Save button
+        BtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AttandanceRequest();
             }
         });
 
@@ -298,4 +328,40 @@ public class SelfAttandanceFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(SelfAttandanceViewModel.class);
         // TODO: Use the ViewModel
     }
+
+    private void AttandanceRequest() {
+
+
+
+        final AttandanceRequest attandanceRequest = new AttandanceRequest(employeename,
+                today_date.getText().toString(),today_time.getText().toString(),Status,companyid,
+                text_location_latitude.getText().toString(),text_location_longitude.getText().toString(),
+                text_location.getText().toString());
+        Call<AttandanceRequest> call = LeaveApiClient.getUserService().PostDatas(attandanceRequest);
+
+
+        call.enqueue(new Callback<AttandanceRequest>() {
+            @Override
+            public void onResponse(Call<AttandanceRequest> call, Response<AttandanceRequest> response) {
+                if (response.isSuccessful()){
+                    AttandanceRequest attdanceresponse = response.body();
+                    Toast.makeText(requireContext(), "Status is :"+attdanceresponse.getStatus(), Toast.LENGTH_LONG).show();
+
+
+                }
+                else {
+                    Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AttandanceRequest> call, Throwable t) {
+                Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+
 }

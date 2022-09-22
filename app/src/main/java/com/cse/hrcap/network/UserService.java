@@ -65,4 +65,17 @@ public interface UserService {
     );
     @POST("Api/LeaveApi")
     Call<LeaveRequest> PostData(@Body LeaveRequest leaveRequest);
+
+    @POST("Api/AttendanceApi")
+    Call<AttandanceRequest> PostDatas(@Body AttandanceRequest attandanceRequest);
+
+    @GET("Api/LeaveApi")
+    Call<List<LeaveSummary>> leavesummary(
+            @Query("CompanyId") String CompanyId,
+            @Query("Employee") String Employee
+    );
+
+
+    @POST("Api/AttendanceRegularizationApiMultiple")
+    Call<AttandanceRegularizationRequest> PostData(@Body AttandanceRegularizationRequest attandanceRegularizationRequest);
 }

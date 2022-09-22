@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
 
         username = findViewById(R.id.etLoginEmail);
         userPassword = findViewById(R.id.etLoginPass);
-        tvRegisterHere = findViewById(R.id.tvRegisterHere);
         btnLogin = findViewById(R.id.btnLogin);
         dbs = new LoginDbHelper(this);
 
@@ -138,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                 //
                 String userid = username.getText().toString();
@@ -153,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Invalid Username Or Password", Toast.LENGTH_SHORT).show();
                     }
                 }
 

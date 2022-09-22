@@ -4,12 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
@@ -30,6 +32,7 @@ import com.cse.hrcap.network.LoanApiClient;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
 import com.cse.hrcap.ui.holiday.HolidayFragment;
+import com.cse.hrcap.ui.home.MyDbHelper;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public  static  HolidayRoomDB holidayRoomDB;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -73,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
 
         //testing
 
@@ -129,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
-                R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_syncdata)
+                R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance,R.id.nav_leavesummary, R.id.nav_syncdata)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

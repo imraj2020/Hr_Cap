@@ -20,6 +20,7 @@
     <string name="menu_leavebalance">Leave Balance</string>
     <string name="menu_syncdata">Sync Data</string>
     <string name="sync_data">Sync Data</string>
+    <string name="menu_leavesummary">Leave Summary</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>

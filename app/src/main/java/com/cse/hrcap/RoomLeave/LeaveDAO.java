@@ -23,6 +23,11 @@ public interface LeaveDAO {
     public Boolean isExists();
 
 
+
+
+    // so far everthing okay
+
+
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
 //    public void updateStudentInfo(String name, String subject, int id);
 //

@@ -62,7 +62,7 @@ public class LoginDbHelper extends SQLiteOpenHelper {
         //  Log.e("Values are ", String.valueOf(values));
         //dbc.insert(TABLE_NAME, null, values);
         dbc.insert(TABLE_NAME, null, values);
-        Toast.makeText(context, "database " + values, Toast.LENGTH_LONG).show();
+       // Toast.makeText(context, "database " + values, Toast.LENGTH_LONG).show();
         dbc.close();
     }
 

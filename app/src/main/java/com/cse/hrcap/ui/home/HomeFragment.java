@@ -170,7 +170,7 @@ public class HomeFragment extends Fragment {
 
         }
         if (intent.getExtras() == null) {
-            
+
             //database cursor
             dbs = new MyDbHelper(requireContext());
             Cursor cursor = dbs.alldata();

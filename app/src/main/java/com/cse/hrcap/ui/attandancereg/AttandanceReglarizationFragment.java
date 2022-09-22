@@ -34,11 +34,18 @@ import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.R;
 import com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding;
 import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
+import com.cse.hrcap.network.AttandanceRegularizationRequest;
+import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.LeaveRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AttandanceReglarizationFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -47,7 +54,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     String[] Reason;
     public static String spinneritem;
     TextView TxtName,CheckDraft,TvReasons;
-    EditText FromTime, ToTime, Note,Date;
+    EditText FromTime, ToTime, Note,StartDate,EndDate;
     DatePickerDialog  datePickerDialog;
     Button BtnCancel, BtnSubmit, BtnDraft;
     int  starthour, startminute,endhour,endminute;
@@ -63,7 +70,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         binding =AttandanceReglarizationFragmentBinding.inflate(inflater);
         spinner_reason = binding.spinnerReason;
         TxtName = binding.txtname;
-        Date = binding.etDate;
+        StartDate = binding.etStartdate;
+        EndDate = binding.etEnddate;
         FromTime = binding.etfromtime;
         ToTime = binding.ettotime;
         Note = binding.etnote;
@@ -71,6 +79,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         CheckDraft = binding.checkdraft;
         BtnDraft = binding.btndraft;
         TvReasons = binding.tvreasons;
+        BtnSubmit = binding.btnSubmit;
 
         TvReasons.setVisibility(View.GONE);
 
@@ -78,6 +87,14 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         Intent intent = getActivity().getIntent();
         String fullname = intent.getStringExtra("FullName");
         TxtName.setText(fullname);
+
+        //Submit Button
+        BtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AttandanceRegularization();
+            }
+        });
 
 
         //Saving Draft
@@ -95,7 +112,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
                 // write all the data entered by the user in SharedPreference and apply
-                myEdit.putString("Date", Date.getText().toString());
+                myEdit.putString("Start Date", StartDate.getText().toString());
+                myEdit.putString("End Date", EndDate.getText().toString());
                 myEdit.putString("From Time", FromTime.getText().toString());
                 myEdit.putString("To Time", ToTime.getText().toString());
                 myEdit.putString("Reason", spinneritem);
@@ -124,7 +142,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                 // from the SharedPreference
                 SharedPreferences sh = getActivity().getPreferences(Context.MODE_PRIVATE);
 
-                String date = sh.getString("Date", "");
+                String start_date = sh.getString("Start Date", "");
+                String end_date = sh.getString("End Date", "");
                 String Fromtime = sh.getString("From Time", "");
                 String Totime = sh.getString("To Time", "");
                 String Reasons = sh.getString("Reason", spinneritem);
@@ -134,7 +153,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
                 // Setting the fetched data
                 // in the EditTexts
-                Date.setText(date);
+                StartDate.setText(start_date);
+                EndDate.setText(end_date);
                 FromTime.setText(Fromtime);
                 ToTime.setText(Totime);
                 TvReasons.setText(spinneritem);
@@ -153,9 +173,9 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
 
 
-        //Select Date
+        //Select Start Date
 
-        Date.setOnClickListener(new View.OnClickListener() {
+        StartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // calender class's instance and get current date , month and year from calender
@@ -171,13 +191,40 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                                Date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }
         });
+
+        //Select End Date
+        EndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(requireContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
+
 
 
         // Select From Time
@@ -298,4 +345,39 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+    private void AttandanceRegularization() {
+        //getting full name
+        Intent intent = getActivity().getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+        String employee = intent.getStringExtra("Employee");
+        final AttandanceRegularizationRequest attandanceRegularizationRequest = new AttandanceRegularizationRequest
+                (companyid,employee,StartDate.getText().toString(),EndDate.getText().toString()
+                ,FromTime.getText().toString(),ToTime.getText().toString(),spinneritem,Note.getText().toString());
+        Call<AttandanceRegularizationRequest> call = LeaveApiClient.getUserService().PostData(attandanceRegularizationRequest);
+
+
+        call.enqueue(new Callback<AttandanceRegularizationRequest>() {
+            @Override
+            public void onResponse(Call<AttandanceRegularizationRequest> call, Response<AttandanceRegularizationRequest> response) {
+                if (response.isSuccessful()){
+                    AttandanceRegularizationRequest attandanceRegularizationRequest1 = response.body();
+                    Toast.makeText(requireContext(), "Status is :"+attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
+
+
+                }
+                else {
+                    Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AttandanceRegularizationRequest> call, Throwable t) {
+                Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+
 }

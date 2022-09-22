@@ -10,6 +10,13 @@
         android:name="com.cse.hrcap.ui.leavebalance.LeaveBalanceFragment"
         android:label="@string/menu_leavebalance"
         tools:layout="@layout/leave_balance_fragment" />
+
+    <fragment
+        android:id="@+id/nav_leavesummary"
+        android:name="com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment"
+        android:label="@string/menu_leavesummary"
+        tools:layout="@layout/leave_summary_fragment" />
+
     <fragment
         android:id="@+id/nav_holiday"
         android:name="com.cse.hrcap.ui.holiday.HolidayFragment"

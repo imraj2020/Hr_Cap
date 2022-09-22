@@ -14,6 +14,21 @@
             android:gravity="center"
             android:orientation="vertical">
 
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Employee name"-->
+<!--                android:id="@+id/tvempname">-->
+<!--            </TextView>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Company id"-->
+<!--                android:id="@+id/tvcompid">-->
+<!--            </TextView>-->
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
