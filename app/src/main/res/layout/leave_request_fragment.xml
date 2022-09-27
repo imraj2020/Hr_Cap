@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".ui.leave.LeaveRequestFragment">
-
     <LinearLayout
         android:id="@+id/linear_info"
         android:layout_width="match_parent"
@@ -21,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Check Draft !"
+            android:textSize="20sp"
             android:textColor="#F10808"/>
 
         <LinearLayout
@@ -51,11 +51,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView25g"
+                android:id="@+id/tvemp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Employee:"
+                android:textSize="15sp"
                 android:textColor="@color/black" />
 
             <TextView
@@ -64,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:hint="employee name"
                 android:padding="5dp"
+                android:textSize="15sp"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -79,19 +81,16 @@
             android:padding="5dp"
             android:text="Select leave Type:"
             android:textColor="@color/black" />
-        <TextView
-            android:id="@+id/tvleavetype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="leave Type here"
-            android:textColor="@color/black" />
         </LinearLayout>
 
         <Spinner
             android:id="@+id/spinner"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:dropDownVerticalOffset="40dp"
+            android:background="@drawable/spinner_border_top"
+            android:popupBackground="@drawable/spinner_border_bottom"
             android:layout_gravity="center"
             android:textColor="#000"></Spinner>
 
@@ -141,14 +140,6 @@
 
             </androidx.appcompat.widget.SwitchCompat>
 
-
-            <TextView
-                android:id="@+id/tvDayType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Day Type here"
-                android:textColor="@color/black" />
         </LinearLayout>
         <!--            <com.google.android.material.textfield.TextInputEditText-->
         <!--                android:id="@+id/etday"-->
@@ -297,8 +288,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Write Reason here"
-                android:padding="5dp"
-                android:text="Reason" />
+                android:padding="5dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -313,6 +303,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Company ID:"
+                android:textSize="15sp"
                 android:textColor="@color/black" />
 
             <TextView
@@ -321,6 +312,7 @@
                 android:layout_height="wrap_content"
                 android:hint="company id"
                 android:inputType="textPersonName"
+                android:textSize="15sp"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </LinearLayout>
@@ -340,7 +332,8 @@
             android:layout_weight="1"
             android:backgroundTint="#CC1B0E"
             android:padding="5dp"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btndraft"
@@ -350,7 +343,8 @@
             android:layout_weight="1"
             android:backgroundTint="#505950"
             android:padding="5dp"
-            android:text="Save As Draft" />
+            android:text="@string/draft"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btnsubmit"
@@ -360,8 +354,8 @@
             android:layout_weight="1"
             android:backgroundTint="#33D339"
             android:padding="5dp"
-            android:text="Submit" />
+            android:text="Submit"
+            android:textAllCaps="false"/>
     </LinearLayout>
-
 
 </LinearLayout>

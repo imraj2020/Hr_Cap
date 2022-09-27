@@ -100,8 +100,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         TvEndTime = binding.tvendtime;
         BtnDraft = binding.btndraft;
         CheckDraft = binding.tvCheckdraft;
-        TvLeaveType = binding.tvleavetype;
-        TvDayType = binding.tvDayType;
+
 
 
         //spinnertwo = binding.spinnerday;
@@ -111,8 +110,6 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         EtEndTime.setVisibility(View.GONE);
         TvStartTime.setVisibility(View.GONE);
         TvEndTime.setVisibility(View.GONE);
-        TvLeaveType.setVisibility(View.GONE);
-        TvDayType.setVisibility(View.GONE);
 
 
         //Checking Save As Draft
@@ -156,8 +153,13 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                 // from the SharedPreference
                 SharedPreferences sh = getActivity().getPreferences(Context.MODE_PRIVATE);
 
-                String mylavel = sh.getString("lavels", label);
-                String DayType = sh.getString("Day Type", "");
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",MODE_PRIVATE);
+                int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
+                if(spinnerValue != -1) {
+                    // set the selected value of the spinner
+                    spinner.setSelection(spinnerValue);
+                }
+
                 String StartDate = sh.getString("Start Date", "");
                 String EndDate = sh.getString("End Date", "");
                 String StartTime = sh.getString("Start Time", "");
@@ -167,23 +169,18 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
                 // Setting the fetched data
                 // in the EditTexts
-                TvLeaveType.setText(mylavel);
-                TvDayType.setText(DayType);
                 EtStartDate.setText(StartDate);
                 EtEndDate.setText(EndDate);
                 EtStartTime.setText(StartTime);
                 EtEndTime.setText(EndTime);
                 EtReason.setText(Reasons);
 
-                spinner.setVisibility(View.GONE);
-                mySwitch.setVisibility(View.GONE);
+
                 CheckDraft.setVisibility(View.GONE);
                 EtStartTime.setVisibility(View.VISIBLE);
                 EtEndTime.setVisibility(View.VISIBLE);
                 TvStartTime.setVisibility(View.VISIBLE);
                 TvEndTime.setVisibility(View.VISIBLE);
-                TvLeaveType.setVisibility(View.VISIBLE);
-                TvDayType.setVisibility(View.VISIBLE);
 
                // Toast.makeText(requireContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
 
@@ -475,6 +472,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                                long id) {
         // On selecting a spinner item
        label = parent.getItemAtPosition(position).toString();
+        int userChoice = spinner.getSelectedItemPosition();
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",0);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putInt("userChoiceSpinner",userChoice);
+        prefEditor.commit();
 
       //  Toast.makeText(requireContext(),country[position] , Toast.LENGTH_LONG).show();
 

@@ -20,6 +20,8 @@ import com.cse.hrcap.RoomLeave.LeaveInfo;
 import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceInfo;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceRoomDB;
+import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
+import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryRoomDB;
 import com.cse.hrcap.RoomLoanSubType.LoanSubTypeInfo;
 import com.cse.hrcap.RoomLoanSubType.LoanSubTypeRoomDB;
 import com.cse.hrcap.RoomLoanType.LoanTypeInfo;
@@ -27,10 +29,12 @@ import com.cse.hrcap.RoomLoanType.LoanTypeRoomDB;
 import com.cse.hrcap.network.HolidayResponse;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveBalanceResponse;
+import com.cse.hrcap.network.LeaveSummary;
 import com.cse.hrcap.network.LeaveTypeResponse;
 import com.cse.hrcap.network.LoanApiClient;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
+import com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment;
 import com.cse.hrcap.ui.holiday.HolidayFragment;
 import com.cse.hrcap.ui.home.MyDbHelper;
 import com.google.android.material.snackbar.Snackbar;
@@ -65,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
     public static LeaveBalanceRoomDB leaveBalanceroomDB;
     public static LoanTypeRoomDB loanTypeRoomDB;
     public static LoanSubTypeRoomDB loanSubTypeRoomDB;
-    public  static  HolidayRoomDB holidayRoomDB;
-
+    public static HolidayRoomDB holidayRoomDB;
+    public static LeaveSummaryRoomDB leaveSummaryRoomDB;
 
 
     @Override
@@ -85,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
         setLoanTypeDatabase();
         setLoanSubTypeDatabase();
         setHolidayDatabase();
+        setLeaveSummaryDatabase();
+
         boolean labels = leaveroomDB.leaveDAO().isExists();
         if (labels == false) {
             leaveTypes();
@@ -101,9 +107,13 @@ public class MainActivity extends AppCompatActivity {
         if (loansubtype == false) {
             loansubTypes();
         }
-        boolean holiday = loanSubTypeRoomDB.loanSubTypeDAO().isExists();
+        boolean holiday = holidayRoomDB.holidayDAO().isExists();
         if (holiday == false) {
             holidayTypes();
+        }
+        boolean leavesummary = leaveSummaryRoomDB.leaveSummaryDAO().isExists();
+        if (leavesummary == false) {
+            leavesummary();
         }
 
 
@@ -132,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
-                R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance,R.id.nav_leavesummary, R.id.nav_syncdata)
+                R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_leavesummary, R.id.nav_syncdata)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -357,8 +367,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-        private void setLoanSubTypeDatabase(){
-        loanSubTypeRoomDB = Room.databaseBuilder(getApplicationContext(), LoanSubTypeRoomDB.class,"Loansubtype.db")
+    private void setLoanSubTypeDatabase() {
+        loanSubTypeRoomDB = Room.databaseBuilder(getApplicationContext(), LoanSubTypeRoomDB.class, "Loansubtype.db")
                 .allowMainThreadQueries().build();
     }
 
@@ -382,21 +392,21 @@ public class MainActivity extends AppCompatActivity {
                     for (HolidayResponse post : nlist) {
                         String content = "";
                         content += "Holiday ID: " + post.getHolidayId() + "\n";
-                        content += "Company ID: " + post.getCompanyId()+ "\n";
-                        content += "Holiday name: " + post.getHolidayName()+ "\n";
-                        content += "Short Name: " + post.getShortName()+ "\n";
+                        content += "Company ID: " + post.getCompanyId() + "\n";
+                        content += "Holiday name: " + post.getHolidayName() + "\n";
+                        content += "Short Name: " + post.getShortName() + "\n";
                         content += "ReligionSpecific : " + post.getReligionSpecific() + "\n";
-                        content += "Religion ID: " + post.getReligionId()+ "\n";
-                        content += "Religion Name: " + post.getReligionName()+ "\n";
-                        content += "Type ID: " + post.getTypeId()+ "\n";
-                        content += "Type Name: " + post.getTypeName()+ "\n";
+                        content += "Religion ID: " + post.getReligionId() + "\n";
+                        content += "Religion Name: " + post.getReligionName() + "\n";
+                        content += "Type ID: " + post.getTypeId() + "\n";
+                        content += "Type Name: " + post.getTypeName() + "\n";
                         content += "Description: " + post.getDescription() + "\n";
-                        content += "Active: " + post.getActive()+ "\n";
-                        content += "EveryYearSameMonthDay : " + post.getEveryYearSameMonthDay()+ "\n\n";
+                        content += "Active: " + post.getActive() + "\n";
+                        content += "EveryYearSameMonthDay : " + post.getEveryYearSameMonthDay() + "\n\n";
 
-                        HolidayInfo holidayInfo = new HolidayInfo(post.getHolidayId(),post.getCompanyId(),post.getHolidayName(),
-                                post.getShortName(),post.getReligionSpecific(),post.getReligionId(),post.getReligionName(),
-                                post.getTypeId(),post.getTypeName(),post.getDescription(),post.getActive(),post.getEveryYearSameMonthDay());
+                        HolidayInfo holidayInfo = new HolidayInfo(post.getHolidayId(), post.getCompanyId(), post.getHolidayName(),
+                                post.getShortName(), post.getReligionSpecific(), post.getReligionId(), post.getReligionName(),
+                                post.getTypeId(), post.getTypeName(), post.getDescription(), post.getActive(), post.getEveryYearSameMonthDay());
                         holidayRoomDB.holidayDAO().insertHoliday(holidayInfo);
 
                         // Holidayres.append(content);
@@ -414,8 +424,71 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void setHolidayDatabase(){
-        holidayRoomDB = Room.databaseBuilder(getApplicationContext(), HolidayRoomDB.class,"Holidayinfo.db")
+    public void setHolidayDatabase() {
+        holidayRoomDB = Room.databaseBuilder(getApplicationContext(), HolidayRoomDB.class, "Holidayinfo.db")
+                .allowMainThreadQueries().build();
+    }
+
+
+    //leave summary
+    public void leavesummary() {
+        Intent intent = getIntent();
+        String CompanyId = intent.getStringExtra("CompanyId");
+        String Employee = intent.getStringExtra("Employee");
+        Call<List<LeaveSummary>> call = LeaveApiClient.getUserService().leavesummary(CompanyId, Employee);
+
+        call.enqueue(new Callback<List<LeaveSummary>>() {
+            @Override
+            public void onResponse(Call<List<LeaveSummary>> call, Response<List<LeaveSummary>> response) {
+                if (response.isSuccessful()) {
+
+                    List<LeaveSummary> nlist = response.body();
+
+                    //  Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
+                    Log.d("LeaveResponse", nlist.get(0).getLeaveTypeName().toString());
+//                    StudentInfo studentInfo = new StudentInfo();
+//                    studentInfo.setLeavetypename("Test");
+//                    Log.d("LeaveResponse",studentInfo.getLeavetypename() );
+//                     roomDB.studentDAO().insertStudent(studentInfo);
+
+                    for (LeaveSummary post : nlist) {
+                        String content = "";
+                        content += "LeaveId: " + post.getLeaveId() + "\n";
+                        content += "Leave Type Name: " + post.getLeaveTypeName() + "\n";
+                        content += "FromDate: " + post.getFromDate() + "\n";
+                        content += "ToDate: " + post.getToDate() + "\n";
+                        content += "TotalDay: " + post.getTotalDay() + "\n";
+                        content += "TotalHours: " + post.getTotalHours() + "\n";
+                        content += "EntryBy: " + post.getEntryBy() + "\n";
+                        content += "EntryDateTime: " + post.getEntryDateTime() + "\n";
+                        content += "LeaveStatusId: " + post.getLeaveStatusId() + "\n";
+                        content += "LeaveStatusName: " + post.getLeaveStatusName() + "\n\n";
+//                        LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
+//                        leaveroomDB.leaveDAO().insertLeave(leaveInfo);
+                        LeaveSummaryInfo leaveSummaryInfo = new LeaveSummaryInfo(post.getLeaveId(), post.getLeaveTypeName(), post.getFromDate()
+                                , post.getToDate(), post.getTotalDay(), post.getTotalHours(), post.getEntryBy(), post.getEntryDateTime(),
+                                post.getLeaveStatusId(), post.getLeaveStatusName());
+                        leaveSummaryRoomDB.leaveSummaryDAO().insertLeaveSummary(leaveSummaryInfo);
+                        //  LeaveSummary.append(content);
+                    }
+                    // Toast.makeText(getApplicationContext(), "Data insert successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<LeaveSummary>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "" + t, Toast.LENGTH_SHORT).show();
+                // Log.d("response",t);
+            }
+        });
+
+
+    }
+
+    public void setLeaveSummaryDatabase() {
+        leaveSummaryRoomDB = Room.databaseBuilder(getApplicationContext(), LeaveSummaryRoomDB.class, "LeaveSummary.db")
                 .allowMainThreadQueries().build();
     }
 
@@ -476,6 +549,7 @@ public class MainActivity extends AppCompatActivity {
             loanTypeRoomDB.loanTypeDAO().deleteAll();
             loanSubTypeRoomDB.loanSubTypeDAO().deleteAll();
             holidayRoomDB.holidayDAO().deleteAll();
+            leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
 
 
             // inserting data
@@ -500,6 +574,10 @@ public class MainActivity extends AppCompatActivity {
             //Holiday types
             setHolidayDatabase();
             holidayTypes();
+
+            //Leave Summary
+            leavesummary();
+            setLeaveSummaryDatabase();
 
 
             Toast.makeText(getApplicationContext(), "Sync Success", Toast.LENGTH_SHORT).show();

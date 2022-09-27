@@ -1,41 +1,34 @@
 package com.cse.hrcap.ui.holiday;
 
+import static com.cse.hrcap.MainActivity.holidayRoomDB;
+
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.cse.hrcap.MyAdapters.HolidayAdapter;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
-import com.cse.hrcap.RoomHoliday.HolidayRoomDB;
-import com.cse.hrcap.RoomLeave.LeaveInfo;
-import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.databinding.HolidayFragmentBinding;
-import com.cse.hrcap.network.HolidayResponse;
-import com.cse.hrcap.network.LeaveApiClient;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HolidayFragment extends Fragment {
 
     private HolidayViewModel mViewModel;
     private HolidayFragmentBinding binding;
-    TextView Holidayres;
-    HolidayRoomDB roomDB;
+    RecyclerView Holidayrec;
+    List<HolidayInfo> arrayList;
 
 
 
@@ -47,12 +40,30 @@ public class HolidayFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = HolidayFragmentBinding.inflate(inflater);
-        Holidayres = binding.tvholiday;
+        Holidayrec = binding.mylistview;
+        arrayList = new ArrayList<>();
+
+
 
 
 //        holidayTypes();
 //        setDatabase();
+        loaddatainlistview();
         return binding.getRoot();
+    }
+
+    private void loaddatainlistview() {
+
+
+        arrayList = holidayRoomDB.holidayDAO().getAllHoliday();
+        HolidayAdapter adapter = new HolidayAdapter(arrayList, requireContext());
+        Holidayrec.setLayoutManager(new LinearLayoutManager(requireContext()));
+        Holidayrec.setAdapter(adapter);
+//        Toast.makeText(this, arrayList.size() + "", Toast.LENGTH_SHORT).show();
+//        myAdapter = new MyAdapter(this, (ArrayList<StudentInfo>) arrayList);
+//        MyListView.setAdapter(myAdapter);
+//        myAdapter.notifyDataSetChanged();
+
     }
 
 //    public void holidayTypes() {

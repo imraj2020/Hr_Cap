@@ -1,5 +1,6 @@
 package com.cse.hrcap.ui.attandancereg;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding.*;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -53,7 +54,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     private Spinner spinner_reason;
     String[] Reason;
     public static String spinneritem;
-    TextView TxtName,CheckDraft,TvReasons;
+    TextView TxtName,CheckDraft;
     EditText FromTime, ToTime, Note,StartDate,EndDate;
     DatePickerDialog  datePickerDialog;
     Button BtnCancel, BtnSubmit, BtnDraft;
@@ -78,10 +79,10 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         BtnCancel = binding.btncancel;
         CheckDraft = binding.checkdraft;
         BtnDraft = binding.btndraft;
-        TvReasons = binding.tvreasons;
+
         BtnSubmit = binding.btnSubmit;
 
-        TvReasons.setVisibility(View.GONE);
+
 
         //getting full name
         Intent intent = getActivity().getIntent();
@@ -142,6 +143,13 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                 // from the SharedPreference
                 SharedPreferences sh = getActivity().getPreferences(Context.MODE_PRIVATE);
 
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",MODE_PRIVATE);
+                int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
+                if(spinnerValue != -1) {
+                    // set the selected value of the spinner
+                    spinner_reason.setSelection(spinnerValue);
+                }
+
                 String start_date = sh.getString("Start Date", "");
                 String end_date = sh.getString("End Date", "");
                 String Fromtime = sh.getString("From Time", "");
@@ -157,12 +165,10 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                 EndDate.setText(end_date);
                 FromTime.setText(Fromtime);
                 ToTime.setText(Totime);
-                TvReasons.setText(spinneritem);
+
                 Note.setText(Notes);
 
-                TvReasons.setVisibility(View.VISIBLE);
                 CheckDraft.setVisibility(View.GONE);
-                spinner_reason.setVisibility(View.GONE);
 
 
                 // Toast.makeText(requireContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
@@ -338,6 +344,12 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
        spinneritem = parent.getItemAtPosition(position).toString();
+
+        int userChoice = spinner_reason.getSelectedItemPosition();
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",0);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putInt("userChoiceSpinner",userChoice);
+        prefEditor.commit();
         Toast.makeText(parent.getContext(), spinneritem, Toast.LENGTH_SHORT).show();
     }
 

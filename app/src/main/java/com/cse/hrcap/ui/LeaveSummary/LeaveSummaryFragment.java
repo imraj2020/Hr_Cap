@@ -1,5 +1,8 @@
 package com.cse.hrcap.ui.LeaveSummary;
 
+import static com.cse.hrcap.MainActivity.holidayRoomDB;
+import static com.cse.hrcap.MainActivity.leaveSummaryRoomDB;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -8,6 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,14 +22,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.MyAdapters.HolidayAdapter;
+import com.cse.hrcap.MyAdapters.LeaveSummaryAdapter;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeave.LeaveInfo;
+import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
+import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryRoomDB;
 import com.cse.hrcap.databinding.LeaveSummaryFragmentBinding;
 import com.cse.hrcap.databinding.LoanAdvSalaryFragmentBinding;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveSummary;
 import com.cse.hrcap.network.LeaveTypeResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,6 +47,9 @@ public class LeaveSummaryFragment extends Fragment {
     private LeaveSummaryViewModel mViewModel;
     LeaveSummaryFragmentBinding binding;
     TextView LeaveSummary;
+    RecyclerView LeaveSummaryLv;
+    List<LeaveSummaryInfo> arrayList;
+
 
     public static LeaveSummaryFragment newInstance() {
         return new LeaveSummaryFragment();
@@ -44,14 +59,28 @@ public class LeaveSummaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = LeaveSummaryFragmentBinding.inflate(inflater);
-
-        LeaveSummary = binding.leavesummary;
-
-        leavesummary();
+        LeaveSummaryLv = binding.leavesummarylv;
+        arrayList = new ArrayList<>();
 
 
 
+        loaddatainlistview();
         return binding.getRoot();
+    }
+
+
+    private void loaddatainlistview() {
+
+
+        arrayList = leaveSummaryRoomDB.leaveSummaryDAO().getAllSummary();
+        LeaveSummaryAdapter adapter = new LeaveSummaryAdapter(arrayList, requireContext());
+        LeaveSummaryLv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        LeaveSummaryLv.setAdapter(adapter);
+//        Toast.makeText(this, arrayList.size() + "", Toast.LENGTH_SHORT).show();
+//        myAdapter = new MyAdapter(this, (ArrayList<StudentInfo>) arrayList);
+//        MyListView.setAdapter(myAdapter);
+//        myAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -61,58 +90,7 @@ public class LeaveSummaryFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    public void leavesummary(){
-        Intent intent = getActivity().getIntent();
-        String CompanyId = intent.getStringExtra("CompanyId");
-        String Employee = intent.getStringExtra("Employee");
-        Call<List<LeaveSummary>> call = LeaveApiClient.getUserService().leavesummary(CompanyId,Employee);
-
-        call.enqueue(new Callback<List<LeaveSummary>>() {
-            @Override
-            public void onResponse(Call<List<LeaveSummary>> call, Response<List<LeaveSummary>> response) {
-                if (response.isSuccessful()) {
-
-                    List<LeaveSummary> nlist = response.body();
-
-                    //  Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
-                    Log.d("LeaveResponse", nlist.get(0).getLeaveTypeName().toString());
-//                    StudentInfo studentInfo = new StudentInfo();
-//                    studentInfo.setLeavetypename("Test");
-//                    Log.d("LeaveResponse",studentInfo.getLeavetypename() );
-//                     roomDB.studentDAO().insertStudent(studentInfo);
-
-                    for (LeaveSummary post : nlist) {
-                        String content = "";
-                        content += "LeaveId: " + post.getLeaveId() + "\n";
-                        content += "Leave Type Name: " + post.getLeaveTypeName() + "\n";
-                        content += "FromDate: " + post.getFromDate() + "\n";
-                        content += "ToDate: " + post.getToDate() + "\n";
-                        content += "TotalDay: " + post.getTotalDay() + "\n";
-                        content += "TotalHours: " + post.getTotalHours() + "\n";
-                        content += "EntryBy: " + post.getEntryBy() + "\n";
-                        content += "EntryDateTime: " + post.getEntryDateTime() + "\n";
-                        content += "LeaveStatusId: " + post.getLeaveStatusId() + "\n";
-                        content += "LeaveStatusName: " + post.getLeaveStatusName() + "\n\n";
-//                        LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
-//                        leaveroomDB.leaveDAO().insertLeave(leaveInfo);
-
-                         LeaveSummary.append(content);
-                    }
-                    // Toast.makeText(getApplicationContext(), "Data insert successful", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(requireContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<LeaveSummary>> call, Throwable t) {
-                Toast.makeText(requireContext(), ""+t, Toast.LENGTH_SHORT).show();
-               // Log.d("response",t);
-            }
-        });
 
 
-
-    }
 
 }

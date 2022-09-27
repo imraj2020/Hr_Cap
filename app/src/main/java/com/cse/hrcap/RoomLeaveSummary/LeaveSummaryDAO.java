@@ -1,4 +1,4 @@
-package com.cse.hrcap.RoomHoliday;
+package com.cse.hrcap.RoomLeaveSummary;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -8,25 +8,26 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface HolidayDAO {
+public interface LeaveSummaryDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertHoliday(HolidayInfo holidayInfo);
+    public void insertLeaveSummary(LeaveSummaryInfo leaveSummaryInfo);
+
+    @Query("SELECT * FROM LeaveSummaryInfo")
+    public List<LeaveSummaryInfo> getAllSummary();
 
 
-    @Query("SELECT EXISTS(SELECT * FROM HolidayInfo)")
+    @Query("SELECT EXISTS(SELECT * FROM LeaveSummaryInfo)")
     public Boolean isExists();
 
-    @Query("DELETE FROM HolidayInfo")
+    @Query("DELETE FROM LeaveSummaryInfo")
     void deleteAll();
 
-
-    @Query("SELECT * FROM HolidayInfo")
-    public List<HolidayInfo> getAllHoliday();
-
-//    @Query("SELECT name FROM HolidayInfo")
+//    @Query("SELECT name FROM LeaveBalanceInfo")
 //    public List<String> getAllName();
 //
+//    @Query("SELECT * FROM LeaveBalanceInfo")
+//    public List<LeaveBalanceInfo> getAllLeave();
 
 
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
