@@ -37,11 +37,13 @@
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/leave_balance_fragment.xml" value="0.264" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/leave_request_fragment.xml" value="0.264" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/leave_summary_fragment.xml" value="0.15307971014492755" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/leavebalancecustomlv.xml" value="0.213768115942029" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/leavesummarycustomlv.xml" value="0.2151268115942029" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/loan_adv_salary_fragment.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/nav_header_main.xml" value="0.4" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/self_attandance_fragment.xml" value="0.264" />
-        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/sync_fragment.xml" value="0.152" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/self_attandance_summary_fragment.xml" value="0.213768115942029" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/sync_fragment.xml" value="0.176" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/menu/activity_main_drawer.xml" value="0.536" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/menu/main.xml" value="0.25" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.26614583333333336" />

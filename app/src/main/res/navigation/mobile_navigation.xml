@@ -59,9 +59,16 @@
         tools:layout="@layout/chenge_password_fragment" />
 
     <fragment
-        android:id="@+id/nav_syncdata"
-        android:name="com.cse.hrcap.SyncData.SyncFragment"
-        android:label="@string/menu_syncdata"
-        tools:layout="@layout/sync_fragment" />
+        android:id="@+id/nav_selfattandancesummary"
+        android:name="com.cse.hrcap.ui.SelfAttandanceSummary.SelfAttandanceSummaryFragment"
+        android:label="@string/menu_selfattandance_summary"
+        tools:layout="@layout/self_attandance_summary_fragment" />
+
+    <fragment
+        android:id="@+id/nav_attadanceregsummary"
+        android:name="com.cse.hrcap.ui.AttandanceRegularizationSummary.AttandanceRegularizationSummaryFragment"
+        android:label="@string/menu_attdanceregsummary"
+        tools:layout="@layout/attandance_regularization_summary_fragment" />
+
 
 </navigation>

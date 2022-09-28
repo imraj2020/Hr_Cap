@@ -10,9 +10,19 @@
         <item
             android:id="@+id/nav_selfattandance"
             android:title="@string/menu_selfattandance" />
+
+    <item
+        android:id="@+id/nav_selfattandancesummary"
+        android:title="@string/menu_selfattandance_summary" />
+
+
         <item
             android:id="@+id/nav_attadancereg"
             android:title="@string/menu_attdancereg" />
+
+    <item
+        android:id="@+id/nav_attadanceregsummary"
+        android:title="@string/menu_attdanceregsummary" />
 
         <item
             android:id="@+id/nav_leave"
@@ -40,9 +50,6 @@
     <item android:title="Others">
 <menu>
 
-    <item
-        android:id="@+id/nav_syncdata"
-        android:title="@string/menu_syncdata" />
     <item
         android:id="@+id/nav_chengepassword"
         android:title="@string/menu_chengepassword" />

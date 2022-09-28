@@ -10,14 +10,14 @@ public class LeaveBalanceInfo {
     //@PrimaryKey (autoGenerate = true)
     String companyid;
     int employeeid;
-    int leavetypeid;
     @PrimaryKey @NonNull
+    int leavetypeid;
     String leavetypename;
     float takenleave;
     float totalleave;
     float availableleave;
 
-    public LeaveBalanceInfo(String companyid, int employeeid, int leavetypeid, @NonNull String leavetypename, float takenleave, float totalleave, float availableleave) {
+    public LeaveBalanceInfo(String companyid, int employeeid, int leavetypeid, String leavetypename, float takenleave, float totalleave, float availableleave) {
         this.companyid = companyid;
         this.employeeid = employeeid;
         this.leavetypeid = leavetypeid;
@@ -51,12 +51,11 @@ public class LeaveBalanceInfo {
         this.leavetypeid = leavetypeid;
     }
 
-    @NonNull
     public String getLeavetypename() {
         return leavetypename;
     }
 
-    public void setLeavetypename(@NonNull String leavetypename) {
+    public void setLeavetypename(String leavetypename) {
         this.leavetypename = leavetypename;
     }
 

@@ -22,6 +22,8 @@
     <string name="sync_data">Sync Data</string>
     <string name="menu_leavesummary">Leave Summary</string>
     <string name="draft">Save As Draft</string>
+    <string name="menu_selfattandance_summary">Self Attandance Summary</string>
+    <string name="menu_attdanceregsummary">Attandance Regularization Summary</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>

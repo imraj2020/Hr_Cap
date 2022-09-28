@@ -1,5 +1,8 @@
 package com.cse.hrcap.ui.leavebalance;
 
+import static com.cse.hrcap.MainActivity.leaveBalanceroomDB;
+import static com.cse.hrcap.MainActivity.leaveSummaryRoomDB;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -8,6 +11,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.view.LayoutInflater;
@@ -16,17 +21,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.MyAdapters.LeaveBalanceAdapter;
+import com.cse.hrcap.MyAdapters.LeaveSummaryAdapter;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomHoliday.HolidayRoomDB;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceInfo;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceRoomDB;
+import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.databinding.LeaveBalanceFragmentBinding;
+import com.cse.hrcap.databinding.LeaveSummaryFragmentBinding;
 import com.cse.hrcap.network.HolidayResponse;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveBalanceResponse;
 import com.cse.hrcap.ui.holiday.HolidayFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,8 +47,8 @@ public class LeaveBalanceFragment extends Fragment {
 
     private LeaveBalanceViewModel mViewModel;
     private LeaveBalanceFragmentBinding binding;
-    TextView LeaveBalance;
-    LeaveBalanceRoomDB roomDB;
+    RecyclerView LeaveBalanceLv;
+    List<LeaveBalanceInfo> arrayList;
 
 
     public static LeaveBalanceFragment newInstance() {
@@ -49,13 +59,28 @@ public class LeaveBalanceFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding =LeaveBalanceFragmentBinding.inflate(inflater);
-        LeaveBalance = binding.leavebalance;
+        LeaveBalanceLv = binding.leavebalancelv;
+        arrayList = new ArrayList<>();
 
-
+        loaddatainlistview();
 
 //        leaveBalance();
 //        setLeaveBalanceDatabase();
         return binding.getRoot();
+    }
+
+    private void loaddatainlistview() {
+
+
+        arrayList = leaveBalanceroomDB.leaveBalanceDAO().getAllLeave();
+        LeaveBalanceAdapter adapter = new LeaveBalanceAdapter(arrayList, requireContext());
+        LeaveBalanceLv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        LeaveBalanceLv.setAdapter(adapter);
+//        Toast.makeText(this, arrayList.size() + "", Toast.LENGTH_SHORT).show();
+//        myAdapter = new MyAdapter(this, (ArrayList<StudentInfo>) arrayList);
+//        MyListView.setAdapter(myAdapter);
+//        myAdapter.notifyDataSetChanged();
+
     }
 
 //    private void leaveBalance() {

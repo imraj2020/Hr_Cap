@@ -14,6 +14,10 @@ public interface LeaveBalanceDAO {
     public void insertLeaveBalance(LeaveBalanceInfo leaveBalanceInfo);
 
 
+    @Query("SELECT * FROM LeaveBalanceInfo")
+    public List<LeaveBalanceInfo> getAllLeave();
+
+
     @Query("SELECT EXISTS(SELECT * FROM LeaveBalanceInfo)")
     public Boolean isExists();
 
