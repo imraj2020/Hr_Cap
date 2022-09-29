@@ -26,6 +26,9 @@ import com.cse.hrcap.RoomLoanSubType.LoanSubTypeInfo;
 import com.cse.hrcap.RoomLoanSubType.LoanSubTypeRoomDB;
 import com.cse.hrcap.RoomLoanType.LoanTypeInfo;
 import com.cse.hrcap.RoomLoanType.LoanTypeRoomDB;
+import com.cse.hrcap.RoomSelfSummary.SelfInfo;
+import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
+import com.cse.hrcap.network.AttdanceSummary;
 import com.cse.hrcap.network.HolidayResponse;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveBalanceResponse;
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     public static LoanSubTypeRoomDB loanSubTypeRoomDB;
     public static HolidayRoomDB holidayRoomDB;
     public static LeaveSummaryRoomDB leaveSummaryRoomDB;
+    public static SelfRoomDB selfRoomDB;
 
 
     @Override
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         setLoanSubTypeDatabase();
         setHolidayDatabase();
         setLeaveSummaryDatabase();
+        setAttandanceSummaryDatabase();
 
         boolean labels = leaveroomDB.leaveDAO().isExists();
         if (labels == false) {
@@ -115,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
         if (leavesummary == false) {
             leavesummary();
         }
+        boolean Attandancesummary = selfRoomDB.selfDAO().isExists();
+        if (Attandancesummary == false) {
+            Attdancesummary();
+        }
 
 
         // checking fragment for data sync
@@ -123,16 +132,16 @@ public class MainActivity extends AppCompatActivity {
 //          holidayFragment.setDatabase();
 
 
-        //
+        //App Toolbar
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
@@ -432,44 +441,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     //leave summary
-    public void leavesummary() {
+    public void Attdancesummary() {
         Intent intent = getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        Call<List<LeaveSummary>> call = LeaveApiClient.getUserService().leavesummary(CompanyId, Employee);
+        Call<List<AttdanceSummary>> call = LeaveApiClient.getUserService().attdancesummary(CompanyId, Employee);
 
-        call.enqueue(new Callback<List<LeaveSummary>>() {
+        call.enqueue(new Callback<List<AttdanceSummary>>() {
             @Override
-            public void onResponse(Call<List<LeaveSummary>> call, Response<List<LeaveSummary>> response) {
+            public void onResponse(Call<List<AttdanceSummary>> call, Response<List<AttdanceSummary>> response) {
                 if (response.isSuccessful()) {
 
-                    List<LeaveSummary> nlist = response.body();
+                    List<AttdanceSummary> nlist = response.body();
 
-                    //  Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
-                    Log.d("LeaveResponse", nlist.get(0).getLeaveTypeName().toString());
-//                    StudentInfo studentInfo = new StudentInfo();
-//                    studentInfo.setLeavetypename("Test");
-//                    Log.d("LeaveResponse",studentInfo.getLeavetypename() );
-//                     roomDB.studentDAO().insertStudent(studentInfo);
 
-                    for (LeaveSummary post : nlist) {
-                        String content = "";
-                        content += "LeaveId: " + post.getLeaveId() + "\n";
-                        content += "Leave Type Name: " + post.getLeaveTypeName() + "\n";
-                        content += "FromDate: " + post.getFromDate() + "\n";
-                        content += "ToDate: " + post.getToDate() + "\n";
-                        content += "TotalDay: " + post.getTotalDay() + "\n";
-                        content += "TotalHours: " + post.getTotalHours() + "\n";
-                        content += "EntryBy: " + post.getEntryBy() + "\n";
-                        content += "EntryDateTime: " + post.getEntryDateTime() + "\n";
-                        content += "LeaveStatusId: " + post.getLeaveStatusId() + "\n";
-                        content += "LeaveStatusName: " + post.getLeaveStatusName() + "\n\n";
-//                        LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
-//                        leaveroomDB.leaveDAO().insertLeave(leaveInfo);
-                        LeaveSummaryInfo leaveSummaryInfo = new LeaveSummaryInfo(post.getLeaveId(), post.getLeaveTypeName(), post.getFromDate()
-                                , post.getToDate(), post.getTotalDay(), post.getTotalHours(), post.getEntryBy(), post.getEntryDateTime(),
-                                post.getLeaveStatusId(), post.getLeaveStatusName());
-                        leaveSummaryRoomDB.leaveSummaryDAO().insertLeaveSummary(leaveSummaryInfo);
+                    for (AttdanceSummary post : nlist) {
+
+                        SelfInfo selfInfo = new SelfInfo(post.getCheckInDate(), post.getPunchTime(), post.getInOut()
+                                , post.getEntryBy(), post.getEntryDate());
+                        selfRoomDB.selfDAO().insertSelf(selfInfo);
                         //  LeaveSummary.append(content);
                     }
                     // Toast.makeText(getApplicationContext(), "Data insert successful", Toast.LENGTH_SHORT).show();
@@ -479,7 +469,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<LeaveSummary>> call, Throwable t) {
+            public void onFailure(Call<List<AttdanceSummary>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "" + t, Toast.LENGTH_SHORT).show();
                 // Log.d("response",t);
             }
@@ -488,10 +478,63 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setAttandanceSummaryDatabase() {
+        selfRoomDB = Room.databaseBuilder(getApplicationContext(), SelfRoomDB.class, "AttandanceSummary.db")
+                .allowMainThreadQueries().build();
+    }
+
+    private void leavesummary(){
+        Intent intent = getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+        String userid = intent.getStringExtra("Employee");
+        Call<List<LeaveBalanceResponse>> call = LeaveApiClient.getUserService().leavebalance(companyid, userid);
+        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
+
+
+        call.enqueue(new Callback<List<LeaveBalanceResponse>>() {
+            @Override
+            public void onResponse(Call<List<LeaveBalanceResponse>> call, Response<List<LeaveBalanceResponse>> response) {
+
+                if (response.isSuccessful()) {
+
+                    List<LeaveBalanceResponse> nlist = response.body();
+
+
+                    for (LeaveBalanceResponse post : nlist) {
+                        String content = "";
+                        content += "Company ID: " + post.getCompanyId() + "\n";
+                        content += "Employee ID: " + post.getEmployeeId() + "\n";
+                        content += "Leave Type Id :" + post.getLeaveTypeId() + "\n";
+                        content += "Leave Type Name:" + post.getLeaveTypeName() + "\n";
+                        content += "Taken Leave: " + post.getTakenLeave() + "\n";
+                        content += "Total Leave :" + post.getTotalLeave() + "\n";
+                        content += "Available Leave: " + post.getAvailableLeave() + "\n\n";
+
+                        LeaveBalanceInfo leaveBalanceInfo = new LeaveBalanceInfo(post.getCompanyId(), post.getEmployeeId(),
+                                post.getLeaveTypeId(), post.getLeaveTypeName(), post.getTakenLeave(), post.getTotalLeave(),
+                                post.getAvailableLeave());
+                        leaveBalanceroomDB.leaveBalanceDAO().insertLeaveBalance(leaveBalanceInfo);
+
+
+                        //  LeaveBalance.append(content);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<LeaveBalanceResponse>> call, Throwable t) {
+//                LeaveBalance.setText(t.getMessage());
+                Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     public void setLeaveSummaryDatabase() {
         leaveSummaryRoomDB = Room.databaseBuilder(getApplicationContext(), LeaveSummaryRoomDB.class, "LeaveSummary.db")
                 .allowMainThreadQueries().build();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

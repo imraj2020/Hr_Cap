@@ -75,6 +75,12 @@ public interface UserService {
             @Query("Employee") String Employee
     );
 
+    @GET("Api/AttendanceApi")
+    Call<List<AttdanceSummary>> attdancesummary(
+            @Query("CompanyId") String CompanyId,
+            @Query("Employee") String Employee
+    );
+
 
     @POST("Api/AttendanceRegularizationApiMultiple")
     Call<AttandanceRegularizationRequest> PostData(@Body AttandanceRegularizationRequest attandanceRegularizationRequest);
