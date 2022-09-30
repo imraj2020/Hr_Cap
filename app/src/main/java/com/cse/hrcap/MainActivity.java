@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         setHolidayDatabase();
         holidayTypes();
         setLeaveSummaryDatabase();
+        setLeaveSummaryDatabase();
         leavesummary();
         setAttandanceSummaryDatabase();
         Attdancesummary();
@@ -537,33 +538,33 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
-        Call<List<LeaveBalanceResponse>> call = LeaveApiClient.getUserService().leavebalance(companyid, userid);
+        Call<List<LeaveSummary>> call = LeaveApiClient.getUserService().leavesummary(companyid, userid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 
-        call.enqueue(new Callback<List<LeaveBalanceResponse>>() {
+        call.enqueue(new Callback<List<LeaveSummary>>() {
             @Override
-            public void onResponse(Call<List<LeaveBalanceResponse>> call, Response<List<LeaveBalanceResponse>> response) {
+            public void onResponse(Call<List<LeaveSummary>> call, Response<List<LeaveSummary>> response) {
 
                 if (response.isSuccessful()) {
 
-                    List<LeaveBalanceResponse> nlist = response.body();
+                    List<LeaveSummary> nlist = response.body();
 
 
-                    for (LeaveBalanceResponse post : nlist) {
-                        String content = "";
-                        content += "Company ID: " + post.getCompanyId() + "\n";
-                        content += "Employee ID: " + post.getEmployeeId() + "\n";
-                        content += "Leave Type Id :" + post.getLeaveTypeId() + "\n";
-                        content += "Leave Type Name:" + post.getLeaveTypeName() + "\n";
-                        content += "Taken Leave: " + post.getTakenLeave() + "\n";
-                        content += "Total Leave :" + post.getTotalLeave() + "\n";
-                        content += "Available Leave: " + post.getAvailableLeave() + "\n\n";
+                    for (LeaveSummary post : nlist) {
+//                        String content = "";
+//                        content += "Company ID: " + post.getCompanyId() + "\n";
+//                        content += "Employee ID: " + post.getEmployeeId() + "\n";
+//                        content += "Leave Type Id :" + post.getLeaveTypeId() + "\n";
+//                        content += "Leave Type Name:" + post.getLeaveTypeName() + "\n";
+//                        content += "Taken Leave: " + post.getTakenLeave() + "\n";
+//                        content += "Total Leave :" + post.getTotalLeave() + "\n";
+//                        content += "Available Leave: " + post.getAvailableLeave() + "\n\n";
 
-                        LeaveBalanceInfo leaveBalanceInfo = new LeaveBalanceInfo(post.getCompanyId(), post.getEmployeeId(),
-                                post.getLeaveTypeId(), post.getLeaveTypeName(), post.getTakenLeave(), post.getTotalLeave(),
-                                post.getAvailableLeave());
-                        leaveBalanceroomDB.leaveBalanceDAO().insertLeaveBalance(leaveBalanceInfo);
+                        LeaveSummaryInfo leaveSummaryInfo = new LeaveSummaryInfo(post.getLeaveId(), post.getLeaveTypeName(),
+                                post.getFromDate(), post.getToDate(), post.getTotalDay(), post.getTotalHours(),
+                                post.getEntryBy(),post.getEntryDateTime(),post.getLeaveStatusId(),post.getLeaveStatusName());
+                        leaveSummaryRoomDB.leaveSummaryDAO().insertLeaveSummary(leaveSummaryInfo);
 
 
                         //  LeaveBalance.append(content);
@@ -574,7 +575,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<LeaveBalanceResponse>> call, Throwable t) {
+            public void onFailure(Call<List<LeaveSummary>> call, Throwable t) {
 //                LeaveBalance.setText(t.getMessage());
                 Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
             }
