@@ -16,50 +16,71 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="holidayid"
-            android:id="@+id/tvCompanyId"/>
+            android:id="@+id/t_RequestId"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="companyid"
-            android:id="@+id/tvEmployeeId"/>
+            android:id="@+id/t_StartDate"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="holidayname"
-            android:id="@+id/tvLeaveTypeId"/>
+            android:id="@+id/t_EndDate"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="shortname"
-            android:id="@+id/tvLeaveTypeName"/>
+            android:id="@+id/t_Reason"/>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="religionspecific"
-            android:id="@+id/tvTakenLeave"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="religionid"
-            android:id="@+id/tvTotalLeave"/>
+            android:id="@+id/t_Note"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="religionname"
-            android:id="@+id/tvAvailableLeave"/>
+            android:id="@+id/t_FromTime"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="typeid"
+            android:id="@+id/t_ToTime"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="typename"
+            android:id="@+id/t_Status"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="description"
+            android:id="@+id/t_EntryBy"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="religionspecific"
+            android:id="@+id/t_EntryDate"/>
 
 
     </LinearLayout>

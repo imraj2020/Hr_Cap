@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.RoomAtdRegSummary.AtdRegInfo;
+import com.cse.hrcap.RoomAtdRegSummary.AtdRegRoomDB;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomHoliday.HolidayRoomDB;
 import com.cse.hrcap.RoomLeave.LeaveInfo;
@@ -28,6 +30,7 @@ import com.cse.hrcap.RoomLoanType.LoanTypeInfo;
 import com.cse.hrcap.RoomLoanType.LoanTypeRoomDB;
 import com.cse.hrcap.RoomSelfSummary.SelfInfo;
 import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
+import com.cse.hrcap.network.AttdanceRegularizationSummary;
 import com.cse.hrcap.network.AttdanceSummary;
 import com.cse.hrcap.network.HolidayResponse;
 import com.cse.hrcap.network.LeaveApiClient;
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public static HolidayRoomDB holidayRoomDB;
     public static LeaveSummaryRoomDB leaveSummaryRoomDB;
     public static SelfRoomDB selfRoomDB;
+    public static AtdRegRoomDB atdRegRoomDB;
 
 
     @Override
@@ -93,8 +97,14 @@ public class MainActivity extends AppCompatActivity {
         setLoanTypeDatabase();
         setLoanSubTypeDatabase();
         setHolidayDatabase();
+        holidayTypes();
         setLeaveSummaryDatabase();
+        leavesummary();
         setAttandanceSummaryDatabase();
+        Attdancesummary();
+        setAttandanceregSummaryDatabase();
+        Attdanceregsummary();
+
 
         boolean labels = leaveroomDB.leaveDAO().isExists();
         if (labels == false) {
@@ -112,18 +122,11 @@ public class MainActivity extends AppCompatActivity {
         if (loansubtype == false) {
             loansubTypes();
         }
-        boolean holiday = holidayRoomDB.holidayDAO().isExists();
-        if (holiday == false) {
-            holidayTypes();
-        }
-        boolean leavesummary = leaveSummaryRoomDB.leaveSummaryDAO().isExists();
-        if (leavesummary == false) {
-            leavesummary();
-        }
-        boolean Attandancesummary = selfRoomDB.selfDAO().isExists();
-        if (Attandancesummary == false) {
-            Attdancesummary();
-        }
+
+
+
+
+
 
 
         // checking fragment for data sync
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
                 R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_leavesummary,
-                R.id.nav_selfattandancesummary,R.id.nav_attadanceregsummary)
+                R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -440,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //leave summary
+    //Self Attandance summary
     public void Attdancesummary() {
         Intent intent = getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
@@ -483,7 +486,54 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries().build();
     }
 
-    private void leavesummary(){
+
+    //Attandance Regularization Summary
+
+    public void Attdanceregsummary() {
+        Intent intent = getIntent();
+        String CompanyId = intent.getStringExtra("CompanyId");
+        String Employee = intent.getStringExtra("Employee");
+        Call<List<AttdanceRegularizationSummary>> call = LeaveApiClient.getUserService().attdanceregsummary(CompanyId, Employee);
+
+        call.enqueue(new Callback<List<AttdanceRegularizationSummary>>() {
+            @Override
+            public void onResponse(Call<List<AttdanceRegularizationSummary>> call, Response<List<AttdanceRegularizationSummary>> response) {
+                if (response.isSuccessful()) {
+
+                    List<AttdanceRegularizationSummary> nlist = response.body();
+
+
+                    for (AttdanceRegularizationSummary post : nlist) {
+
+                        AtdRegInfo atdRegInfo = new AtdRegInfo(post.getRequestId(), post.getStartDate(), post.getEndDate()
+                                , post.getReason(), post.getNote(),post.getFromTime(),post.getToTime(),post.getStatus(),
+                                post.getEntryBy(),post.getEntryDate());
+                        atdRegRoomDB.atdRegDAO().insertAtdRegSummary(atdRegInfo);
+                        //  LeaveSummary.append(content);
+                    }
+                    // Toast.makeText(getApplicationContext(), "Data insert successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AttdanceRegularizationSummary>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "" + t, Toast.LENGTH_SHORT).show();
+                // Log.d("response",t);
+            }
+        });
+
+
+    }
+
+    public void setAttandanceregSummaryDatabase() {
+        atdRegRoomDB = Room.databaseBuilder(getApplicationContext(), AtdRegRoomDB.class, "AtdregSummary.db")
+                .allowMainThreadQueries().build();
+    }
+
+    //leave summary
+    private void leavesummary() {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
@@ -530,6 +580,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     public void setLeaveSummaryDatabase() {
         leaveSummaryRoomDB = Room.databaseBuilder(getApplicationContext(), LeaveSummaryRoomDB.class, "LeaveSummary.db")
                 .allowMainThreadQueries().build();
@@ -594,6 +645,7 @@ public class MainActivity extends AppCompatActivity {
             loanSubTypeRoomDB.loanSubTypeDAO().deleteAll();
             holidayRoomDB.holidayDAO().deleteAll();
             leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
+            selfRoomDB.selfDAO().deleteAll();
 
 
             // inserting data
@@ -622,6 +674,10 @@ public class MainActivity extends AppCompatActivity {
             //Leave Summary
             leavesummary();
             setLeaveSummaryDatabase();
+
+            //Self Attandance Summary
+            Attdancesummary();
+            setAttandanceSummaryDatabase();
 
 
             Toast.makeText(getApplicationContext(), "Sync Success", Toast.LENGTH_SHORT).show();

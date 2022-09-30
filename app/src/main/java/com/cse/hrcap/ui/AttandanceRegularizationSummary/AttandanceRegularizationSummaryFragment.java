@@ -1,5 +1,8 @@
 package com.cse.hrcap.ui.AttandanceRegularizationSummary;
 
+import static com.cse.hrcap.MainActivity.atdRegRoomDB;
+import static com.cse.hrcap.MainActivity.selfRoomDB;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -7,16 +10,29 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cse.hrcap.MyAdapters.AtdRegSummaryAdapter;
+import com.cse.hrcap.MyAdapters.SelfSummaryAdapter;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RoomAtdRegSummary.AtdRegInfo;
+import com.cse.hrcap.databinding.AttandanceRegularizationSummaryFragmentBinding;
+import com.cse.hrcap.databinding.LeaveSummaryFragmentBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AttandanceRegularizationSummaryFragment extends Fragment {
 
     private AttandanceRegularizationSummaryViewModel mViewModel;
+    AttandanceRegularizationSummaryFragmentBinding binding;
+    List<AtdRegInfo> arrayList;
+    RecyclerView recyclerView;
 
     public static AttandanceRegularizationSummaryFragment newInstance() {
         return new AttandanceRegularizationSummaryFragment();
@@ -25,7 +41,30 @@ public class AttandanceRegularizationSummaryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.attandance_regularization_summary_fragment, container, false);
+        binding = AttandanceRegularizationSummaryFragmentBinding.inflate(inflater);
+
+        recyclerView = binding.atdregsummary;
+
+        arrayList = new ArrayList<>();
+
+
+
+        loaddatainlistview();
+        return binding.getRoot();
+    }
+
+    private void loaddatainlistview() {
+
+
+        arrayList = atdRegRoomDB.atdRegDAO().getAllRegSummary();
+        AtdRegSummaryAdapter adapter = new AtdRegSummaryAdapter(arrayList, requireContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(adapter);
+//        Toast.makeText(this, arrayList.size() + "", Toast.LENGTH_SHORT).show();
+//        myAdapter = new MyAdapter(this, (ArrayList<StudentInfo>) arrayList);
+//        MyListView.setAdapter(myAdapter);
+//        myAdapter.notifyDataSetChanged();
+
     }
 
     @Override

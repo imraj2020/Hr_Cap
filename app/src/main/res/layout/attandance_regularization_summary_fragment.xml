@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AttandanceRegularizationSummary.AttandanceRegularizationSummaryFragment">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="215dp">
 
-</FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/atdregsummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="TouchTargetSizeCheck" />
+    </ScrollView>
+
+
+</LinearLayout>

@@ -8,7 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
@@ -30,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvRegisterHere;
     Button btnLogin;
     LoginDbHelper dbs;
+    ProgressBar progressBar;
+
 
 
     @Override
@@ -41,9 +45,15 @@ public class LoginActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.etLoginPass);
         btnLogin = findViewById(R.id.btnLogin);
         dbs = new LoginDbHelper(this);
+        progressBar= (ProgressBar) findViewById(R.id.simpleProgressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
+
 
 
         btnLogin.setOnClickListener(view -> {
+
+
             if (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(userPassword.getText().toString())) {
                 Toast.makeText(LoginActivity.this, "Username / Password Required", Toast.LENGTH_LONG).show();
             } else {
@@ -58,11 +68,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
 
+
 //        LoginRequest loginRequest = new LoginRequest();
 //        loginRequest.setUsername(username.getText().toString());
 //        loginRequest.setUserPassword(userPassword.getText().toString());
         String userid = username.getText().toString();
         String password = userPassword.getText().toString();
+        progressBar.setVisibility(View.VISIBLE);
+
 
 
 
@@ -122,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                             i.putExtra("LocationId", loginResponse.getLocationId());
                             i.putExtra("SupervisorId", loginResponse.getSupervisorId());
                             i.putExtra("SupervisorName", loginResponse.getSupervisorName());
+                            progressBar.setVisibility(View.INVISIBLE);
                             startActivity(i);
 //                           startActivity(new Intent(LoginActivity.this,MainActivity.class).
 //                                   putExtra("data",loginResponse.getEmployeeId()));
@@ -129,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                     }, 700);
 
                 } else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
 
                 }
@@ -142,16 +157,21 @@ public class LoginActivity extends AppCompatActivity {
                 //
                 String userid = username.getText().toString();
                 String password = userPassword.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
 
-                if(userid.equals("")||password.equals(""))
+                if(userid.equals("")||password.equals("")){
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(LoginActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+                }
                 else {
                     Boolean checkuserpass = dbs.checkusernamepassword(userid, password);
                     if (checkuserpass == true) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(LoginActivity.this, "Sign in successfull", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     } else {
+                        progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(LoginActivity.this, "Invalid Username Or Password", Toast.LENGTH_SHORT).show();
                     }
                 }
