@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,6 +106,21 @@ public class MainActivity extends AppCompatActivity {
         Attdancesummary();
         setAttandanceregSummaryDatabase();
         Attdanceregsummary();
+
+
+        //Testing handeler
+
+        Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                //Initiate your API here
+                leavesummary();
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        handler.postDelayed(r, 5000);
 
 
         boolean labels = leaveroomDB.leaveDAO().isExists();
@@ -494,7 +510,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        Call<List<AttdanceRegularizationSummary>> call = LeaveApiClient.getUserService().attdanceregsummary(CompanyId, Employee);
+        Call<List<AttdanceRegularizationSummary>> call = LeaveApiClient.getUserService().attdanceregsummary("BAN31016", "laila");
 
         call.enqueue(new Callback<List<AttdanceRegularizationSummary>>() {
             @Override
@@ -510,6 +526,7 @@ public class MainActivity extends AppCompatActivity {
                                 , post.getReason(), post.getNote(),post.getFromTime(),post.getToTime(),post.getStatus(),
                                 post.getEntryBy(),post.getEntryDate());
                         atdRegRoomDB.atdRegDAO().insertAtdRegSummary(atdRegInfo);
+
                         //  LeaveSummary.append(content);
                     }
                     // Toast.makeText(getApplicationContext(), "Data insert successful", Toast.LENGTH_SHORT).show();

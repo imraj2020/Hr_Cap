@@ -12,15 +12,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.MyAdapters.AtdRegSummaryAdapter;
 import com.cse.hrcap.MyAdapters.SelfSummaryAdapter;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomAtdRegSummary.AtdRegInfo;
+import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
 import com.cse.hrcap.databinding.AttandanceRegularizationSummaryFragmentBinding;
 import com.cse.hrcap.databinding.LeaveSummaryFragmentBinding;
 
@@ -46,6 +49,12 @@ public class AttandanceRegularizationSummaryFragment extends Fragment {
         recyclerView = binding.atdregsummary;
 
         arrayList = new ArrayList<>();
+
+        
+// Call An Api From Outside
+//        MainActivity main = new MainActivity();
+//
+//        main.Attdanceregsummary();
 
 
 
