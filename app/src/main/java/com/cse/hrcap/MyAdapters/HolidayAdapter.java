@@ -23,6 +23,7 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.ViewHold
     public HolidayAdapter(List<HolidayInfo> list, Context context) {
         this.list = list;
         this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull

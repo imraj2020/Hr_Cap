@@ -73,6 +73,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     int starthour, startminute, endhour, endminute;
     SwitchCompat mySwitch;
     public  static String Status;
+    TextView DateTime;
 
     public static LeaveRequestFragment newInstance() {
         return new LeaveRequestFragment();
@@ -103,6 +104,10 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
 
 
+
+
+
+
         //spinnertwo = binding.spinnerday;
         spinner.setOnItemSelectedListener(this);
        // spinnertwo.setOnItemSelectedListener(this);
@@ -117,29 +122,22 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         BtnDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Shared Preference for switch
-                // Creating a shared pref object
-                // with a file name "MySharedPref"
-                // in private mode
 
-                SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                //Spinner Position
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",MODE_PRIVATE);
+                int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
 
-                // write all the data entered by the user in SharedPreference and apply
-                myEdit.putString("levels", label);
-                myEdit.putString("Day Type", Status);
-                myEdit.putString("Start Date", EtStartDate.getText().toString());
-                myEdit.putString("End Date", EtEndDate.getText().toString());
-                myEdit.putString("Start Time", EtStartTime.getText().toString());
-                myEdit.putString("End Time", EtEndTime.getText().toString());
-                myEdit.putString("Reason", EtReason.getText().toString());
+                // Time And Date
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
+                String currentDateandTime = sdf.format(new Date());
+
+                //Switch State
+                SharedPreferences preferences = getActivity().getPreferences(MODE_PRIVATE);
+                boolean switchstatus = preferences.getBoolean("switch", true);
 
 
 
-               // myEdit.putInt("Day Type", Integer.parseInt(age.getText().toString()));
-                myEdit.apply();
-
-                Toast.makeText(requireContext(), "Data Saved As Draft", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Data Saved As Draft"+switchstatus, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -149,40 +147,12 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         CheckDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Fetching the stored data
-                // from the SharedPreference
-                SharedPreferences sh = getActivity().getPreferences(Context.MODE_PRIVATE);
 
-                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",MODE_PRIVATE);
-                int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
-                if(spinnerValue != -1) {
-                    // set the selected value of the spinner
-                    spinner.setSelection(spinnerValue);
-                }
+//                if(spinnerValue != -1) {
+//                    // set the selected value of the spinner
+//                    spinner.setSelection(spinnerValue);
+//                }
 
-                String StartDate = sh.getString("Start Date", "");
-                String EndDate = sh.getString("End Date", "");
-                String StartTime = sh.getString("Start Time", "");
-                String EndTime = sh.getString("End Time", "");
-                String Reasons = sh.getString("Reason", "");
-
-
-                // Setting the fetched data
-                // in the EditTexts
-                EtStartDate.setText(StartDate);
-                EtEndDate.setText(EndDate);
-                EtStartTime.setText(StartTime);
-                EtEndTime.setText(EndTime);
-                EtReason.setText(Reasons);
-
-
-                CheckDraft.setVisibility(View.GONE);
-                EtStartTime.setVisibility(View.VISIBLE);
-                EtEndTime.setVisibility(View.VISIBLE);
-                TvStartTime.setVisibility(View.VISIBLE);
-                TvEndTime.setVisibility(View.VISIBLE);
-
-               // Toast.makeText(requireContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -191,14 +161,14 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
 
         SharedPreferences preferences = this.getActivity().getPreferences(MODE_PRIVATE);
-        boolean tgpref = preferences.getBoolean("tgpref", true);  //default is true
-        if (tgpref = true) //if (tgpref) may be enough, not sure
+        boolean switchstatus = preferences.getBoolean("switch", true);  //default is true
+        if (switchstatus = true) //if (tgpref) may be enough, not sure
         {
             mySwitch.setChecked(true);
             Status = "Full Day";
             // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
         }
-        if (tgpref = false)
+        if (switchstatus = false)
         {
             mySwitch.setChecked(false);
             Status = "Time";
@@ -211,7 +181,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                 if (isChecked){
 
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("tgpref", true); // value to store
+                    editor.putBoolean("switch", true); // value to store
                     editor.commit();
                     Status = "Full Day";
                     EtStartTime.setVisibility(View.GONE);
@@ -222,7 +192,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                 }
                 else {
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("tgpref", false); // value to store
+                    editor.putBoolean("switch", false); // value to store
                     editor.commit();
                     Status = "Time";
                     EtStartTime.setVisibility(View.VISIBLE);
@@ -390,6 +360,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         });
         // return inflater.inflate(R.layout.leave_request_fragment, container, false);
         return binding.getRoot();
+    }
+
+    private void saveDataOnDb() {
+//        StudentInfo studentInfo = new StudentInfo(name.getText().toString(), subject.getText().toString(), department.getText().toString());
+//        leavedrftroomDB.studentDAO().insertStudent(studentInfo);
     }
 
 

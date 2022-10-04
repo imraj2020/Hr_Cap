@@ -25,6 +25,7 @@ public class LeaveBalanceAdapter extends RecyclerView.Adapter<LeaveBalanceAdapte
     public LeaveBalanceAdapter(List<LeaveBalanceInfo> list, Context context) {
         this.list = list;
         this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull

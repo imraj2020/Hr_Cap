@@ -25,6 +25,7 @@ public class AtdRegSummaryAdapter extends RecyclerView.Adapter<AtdRegSummaryAdap
     public AtdRegSummaryAdapter(List<AtdRegInfo> list, Context context) {
         this.list = list;
         this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull

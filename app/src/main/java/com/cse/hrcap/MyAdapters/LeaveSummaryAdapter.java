@@ -24,6 +24,7 @@ public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapte
     public LeaveSummaryAdapter(List<LeaveSummaryInfo> list, Context context) {
         this.list = list;
         this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull

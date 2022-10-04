@@ -74,8 +74,8 @@ public class SelfAttandanceFragment extends Fragment {
     SelfAttandanceFragmentBinding binding;
     SwitchCompat mySwitch;
     public  static String Status;
-    public  static String companyid;
-    public  static String employeename;
+//    public  static String companyid;
+//    public  static String employee;
 
 
     public static SelfAttandanceFragment newInstance() {
@@ -98,9 +98,7 @@ public class SelfAttandanceFragment extends Fragment {
 //        tv_employee = binding.tvempname;
 //        tv_Companyid = binding.tvcompid;
 
-        Intent intent = getActivity().getIntent();
-       companyid = intent.getStringExtra("CompanyId");
-        employeename = intent.getStringExtra("Employee");
+
 
 //        tv_Companyid.setText(companyid);
 //        tv_employee.setText(employeename);
@@ -331,9 +329,11 @@ public class SelfAttandanceFragment extends Fragment {
 
     private void AttandanceRequest() {
 
+        Intent intent = getActivity().getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+        String employee = intent.getStringExtra("Employee");
 
-
-        final AttandanceRequest attandanceRequest = new AttandanceRequest(employeename,
+        final AttandanceRequest attandanceRequest = new AttandanceRequest(employee,
                 today_date.getText().toString(),today_time.getText().toString(),Status,companyid,
                 text_location_latitude.getText().toString(),text_location_longitude.getText().toString(),
                 text_location.getText().toString());

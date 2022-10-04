@@ -1,5 +1,10 @@
 package com.cse.hrcap;
 
+import static com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment.leaveSummaryRoomDB;
+import static com.cse.hrcap.ui.SelfAttandanceSummary.SelfAttandanceSummaryFragment.selfRoomDB;
+import static com.cse.hrcap.ui.holiday.HolidayFragment.holidayRoomDB;
+import static com.cse.hrcap.ui.leavebalance.LeaveBalanceFragment.leaveBalanceroomDB;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -73,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     HolidayFragment holidayFragment;
     public static MyRoomDB leaveroomDB;
-    public static LeaveBalanceRoomDB leaveBalanceroomDB;
+//    public static LeaveBalanceRoomDB leaveBalanceroomDB;
     public static LoanTypeRoomDB loanTypeRoomDB;
     public static LoanSubTypeRoomDB loanSubTypeRoomDB;
-    public static HolidayRoomDB holidayRoomDB;
-    public static LeaveSummaryRoomDB leaveSummaryRoomDB;
-    public static SelfRoomDB selfRoomDB;
+//    public static HolidayRoomDB holidayRoomDB;
+//    public static LeaveSummaryRoomDB leaveSummaryRoomDB;
+//    public static SelfRoomDB selfRoomDB;
     public static AtdRegRoomDB atdRegRoomDB;
 
 
@@ -91,46 +96,22 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
+
         //testing
 
-        setleaveDatabase();
-        setLeaveBalanceDatabase();
+        setleaveTypesDatabase();
         setLoanTypeDatabase();
         setLoanSubTypeDatabase();
-        setHolidayDatabase();
-        holidayTypes();
-        setLeaveSummaryDatabase();
-        setLeaveSummaryDatabase();
-        leavesummary();
-        setAttandanceSummaryDatabase();
-        Attdancesummary();
-        setAttandanceregSummaryDatabase();
-        Attdanceregsummary();
 
 
-        //Testing handeler
 
-        Handler handler = new Handler();
-
-        final Runnable r = new Runnable() {
-            public void run() {
-                //Initiate your API here
-                leavesummary();
-                handler.postDelayed(this, 5000);
-            }
-        };
-
-        handler.postDelayed(r, 5000);
-
-
-        boolean labels = leaveroomDB.leaveDAO().isExists();
-        if (labels == false) {
+        boolean leavetype = leaveroomDB.leaveDAO().isExists();
+        if (leavetype == false) {
             leaveTypes();
         }
-        boolean data = leaveBalanceroomDB.leaveBalanceDAO().isExists();
-        if (data == false) {
-            leaveBalance();
-        }
+
         boolean loantypedata = loanTypeRoomDB.loanTypeDAO().isExists();
         if (loantypedata == false) {
             loanTypes();
@@ -206,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
     private void leaveTypes() {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
+
+
         Call<List<LeaveTypeResponse>> call = LeaveApiClient.getUserService().leavetype(companyid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
@@ -240,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // Toast.makeText(getApplicationContext(), "Data insert successful", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Leave Type Retrive Failed", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -252,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setleaveDatabase() {
+    private void setleaveTypesDatabase() {
         leaveroomDB = Room.databaseBuilder(getApplicationContext(), MyRoomDB.class, "Leavetype.db")
                 .allowMainThreadQueries().build();
     }
@@ -442,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
                         // Holidayres.append(content);
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Holiday Retrive Failed", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -461,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Self Attandance summary
-    public void Attdancesummary() {
+    public void SelfAttdancesummary() {
         Intent intent = getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
@@ -498,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setAttandanceSummaryDatabase() {
+    public void setSelfAttandanceSummaryDatabase() {
         selfRoomDB = Room.databaseBuilder(getApplicationContext(), SelfRoomDB.class, "AttandanceSummary.db")
                 .allowMainThreadQueries().build();
     }
@@ -510,7 +493,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        Call<List<AttdanceRegularizationSummary>> call = LeaveApiClient.getUserService().attdanceregsummary("BAN31016", "laila");
+        Call<List<AttdanceRegularizationSummary>> call = LeaveApiClient.getUserService().attdanceregsummary(CompanyId, Employee);
 
         call.enqueue(new Callback<List<AttdanceRegularizationSummary>>() {
             @Override
@@ -658,24 +641,23 @@ public class MainActivity extends AppCompatActivity {
 
             //  Delete all data from table
             leaveroomDB.leaveDAO().deleteAll();
-            leaveBalanceroomDB.leaveBalanceDAO().deleteAll();
             loanTypeRoomDB.loanTypeDAO().deleteAll();
             loanSubTypeRoomDB.loanSubTypeDAO().deleteAll();
-            holidayRoomDB.holidayDAO().deleteAll();
-            leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
+
             selfRoomDB.selfDAO().deleteAll();
+            atdRegRoomDB.atdRegDAO().deleteAll();
+            holidayRoomDB.holidayDAO().deleteAll();
+            leaveBalanceroomDB.leaveBalanceDAO().deleteAll();
+            leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
+
+
 
 
             // inserting data
 
             // leave types
-            setleaveDatabase();
+            setleaveTypesDatabase();
             leaveTypes();
-
-            // leave balance
-
-            setLeaveBalanceDatabase();
-            leaveBalance();
 
             //  Loan type
             setLoanTypeDatabase();
@@ -685,17 +667,34 @@ public class MainActivity extends AppCompatActivity {
             setLoanSubTypeDatabase();
             loansubTypes();
 
+            //Self Attandance Summary
+            SelfAttdancesummary();
+            setSelfAttandanceSummaryDatabase();
+
+
+            //Attandance regularization summary
+            Attdanceregsummary();
+            setAttandanceregSummaryDatabase();
+
             //Holiday types
             setHolidayDatabase();
             holidayTypes();
+
+            // leave balance
+            setLeaveBalanceDatabase();
+            leaveBalance();
 
             //Leave Summary
             leavesummary();
             setLeaveSummaryDatabase();
 
-            //Self Attandance Summary
-            Attdancesummary();
-            setAttandanceSummaryDatabase();
+
+
+
+
+
+
+
 
 
             Toast.makeText(getApplicationContext(), "Sync Success", Toast.LENGTH_SHORT).show();

@@ -60,6 +60,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     Button BtnCancel, BtnSubmit, BtnDraft;
     int  starthour, startminute,endhour,endminute;
     AttandanceReglarizationFragmentBinding binding;
+    public  static int userChoice;
     public static AttandanceReglarizationFragment newInstance() {
         return new AttandanceReglarizationFragment();
     }
@@ -345,7 +346,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
        spinneritem = parent.getItemAtPosition(position).toString();
 
-        int userChoice = spinner_reason.getSelectedItemPosition();
+        userChoice = spinner_reason.getSelectedItemPosition();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",0);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putInt("userChoiceSpinner",userChoice);

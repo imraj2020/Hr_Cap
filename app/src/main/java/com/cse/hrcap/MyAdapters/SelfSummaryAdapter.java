@@ -25,6 +25,7 @@ public class SelfSummaryAdapter extends RecyclerView.Adapter<SelfSummaryAdapter.
     public SelfSummaryAdapter(List<SelfInfo> list, Context context) {
         this.list = list;
         this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull

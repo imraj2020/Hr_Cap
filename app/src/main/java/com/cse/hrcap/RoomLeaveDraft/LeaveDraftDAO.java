@@ -1,6 +1,5 @@
-package com.cse.hrcap.RoomAtdRegSummary;
+package com.cse.hrcap.RoomLeaveDraft;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -9,25 +8,26 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface AtdRegDAO {
+public interface LeaveDraftDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertAtdRegSummary(AtdRegInfo atdRegInfo);
+    public void insertLeaveSummary(LeaveDraftInfo leaveDraftInfo);
+
+    @Query("SELECT * FROM LeaveDraftInfo")
+    public List<LeaveDraftInfo> getAllLeaveDraft();
 
 
-    @Query("SELECT EXISTS(SELECT * FROM AtdRegInfo)")
+    @Query("SELECT EXISTS(SELECT * FROM LeaveDraftInfo)")
     public Boolean isExists();
 
-    @Query("DELETE FROM AtdRegInfo")
+    @Query("DELETE FROM LeaveDraftInfo")
     void deleteAll();
 
-
-    @Query("SELECT * FROM AtdRegInfo")
-    public List<AtdRegInfo> getAllRegSummary();
-
-//    @Query("SELECT name FROM HolidayInfo")
+//    @Query("SELECT name FROM LeaveBalanceInfo")
 //    public List<String> getAllName();
 //
+//    @Query("SELECT * FROM LeaveBalanceInfo")
+//    public List<LeaveBalanceInfo> getAllLeave();
 
 
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
