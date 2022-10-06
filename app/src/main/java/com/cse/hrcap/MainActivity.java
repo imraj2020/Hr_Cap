@@ -28,6 +28,7 @@ import com.cse.hrcap.RoomLeave.LeaveInfo;
 import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceInfo;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceRoomDB;
+import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryRoomDB;
 import com.cse.hrcap.RoomLoanSubType.LoanSubTypeInfo;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 //    public static LeaveBalanceRoomDB leaveBalanceroomDB;
     public static LoanTypeRoomDB loanTypeRoomDB;
     public static LoanSubTypeRoomDB loanSubTypeRoomDB;
+    public static LeaveDraftRoomDB leavedraftRoomDB;
 //    public static HolidayRoomDB holidayRoomDB;
 //    public static LeaveSummaryRoomDB leaveSummaryRoomDB;
 //    public static SelfRoomDB selfRoomDB;
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
                 R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_leavesummary,
-                R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary)
+                R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary,R.id.nav_leavedraft)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -598,46 +600,6 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-//
-//            ProgressDialog progressDialog = null;
-//            // ...
-//            progressDialog = ProgressDialog.show(this, "Please wait...", "ok");
-//            ProgressDialog finalProgressDialog = progressDialog;
-//            new Thread() {
-//                public void run() {
-//                    try {
-//                       //  Delete all data from table
-//                        leaveroomDB.leaveDAO().deleteAll();
-//                        leaveBalanceroomDB.leaveBalanceDAO().deleteAll();
-//                        loanTypeRoomDB.loanTypeDAO().deleteAll();
-//
-//                       // inserting data
-//
-//                       // leave types
-//                        setleaveDatabase();
-//                        leaveTypes();
-//
-//                       // leave balance
-//
-//                        setLeaveBalanceDatabase();
-//                        leaveBalance();
-//
-//                      //  Loan type
-//                        setLoanTypeDatabase();
-//                        loanTypes();
-//
-//                       // Loan Sub Type
-//
-//
-//                        Toast.makeText(getApplicationContext(), "Data Sync Complete", Toast.LENGTH_LONG).show();
-//                    } catch (Exception e) {
-//                        Toast.makeText(getApplicationContext(), "Sorry something wrong"+e, Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    // When grabbing data is finish: Dismiss your Dialog
-//                    finalProgressDialog.dismiss();
-//                }
-//            }.start();
 
             //  Delete all data from table
             leaveroomDB.leaveDAO().deleteAll();

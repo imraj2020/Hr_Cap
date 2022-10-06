@@ -71,4 +71,10 @@
         tools:layout="@layout/attandance_regularization_summary_fragment" />
 
 
+    <fragment
+        android:id="@+id/nav_leavedraft"
+        android:name="com.cse.hrcap.ui.LeaveRequestDraft.LeaveRequestDraftFragment"
+        android:label="@string/menu_leavedraft"
+        tools:layout="@layout/leave_request_draft_fragment" />
+
 </navigation>

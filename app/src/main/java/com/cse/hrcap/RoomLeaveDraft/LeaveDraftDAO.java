@@ -11,7 +11,7 @@ import java.util.List;
 public interface LeaveDraftDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertLeaveSummary(LeaveDraftInfo leaveDraftInfo);
+    public void insertLeaveDraft(LeaveDraftInfo leaveDraftInfo);
 
     @Query("SELECT * FROM LeaveDraftInfo")
     public List<LeaveDraftInfo> getAllLeaveDraft();

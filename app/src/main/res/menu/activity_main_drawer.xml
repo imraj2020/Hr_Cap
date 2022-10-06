@@ -28,6 +28,11 @@
             android:id="@+id/nav_leave"
             android:title="@string/menu_leave" />
 
+
+    <item
+        android:id="@+id/nav_leavedraft"
+        android:title="@string/menu_leavedraft" />
+
         <item
             android:id="@+id/nav_loan"
             android:title="@string/menu_loan" />

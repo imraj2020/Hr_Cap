@@ -24,6 +24,7 @@
     <string name="draft">Save As Draft</string>
     <string name="menu_selfattandance_summary">Self Attandance Summary</string>
     <string name="menu_attdanceregsummary">Attandance Regularization Summary</string>
+    <string name="menu_leavedraft">Leave Request Draft</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>
