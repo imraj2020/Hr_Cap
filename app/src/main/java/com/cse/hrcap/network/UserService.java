@@ -90,4 +90,15 @@ public interface UserService {
 
     @POST("Api/AttendanceRegularizationApiMultiple")
     Call<AttandanceRegularizationRequest> PostData(@Body AttandanceRegularizationRequest attandanceRegularizationRequest);
+
+
+    @GET("Api/MovementCaptureMultipleDaysApprovalApi")
+    Call<List<AtdRegAprSummary>> atdregaprsummary(
+            @Query("CompanyId") String CompanyId,
+            @Query("Employee") String Employee
+    );
+
+
+
+
 }

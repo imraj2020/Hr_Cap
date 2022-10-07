@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,9 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
         holder.CreateTime.setText("Create Time: "+data.getCreatedate());
         holder.LeaveType.setText("Leave Type: "+data.getLeavetype());
         holder.DayType.setText("Day Type: "+data.getDaytype()+"\n");
+        holder.getAdapterPosition();
+
+        //Toast.makeText(context, ""+holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
