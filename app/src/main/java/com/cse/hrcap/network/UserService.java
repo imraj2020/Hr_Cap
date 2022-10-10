@@ -99,6 +99,13 @@ public interface UserService {
     );
 
 
+    @GET("Api/LeaveApprovalApi")
+    Call<List<LeaveAprSummary>> leaveaprsummary(
+            @Query("CompanyId") String CompanyId,
+            @Query("Employee") String Employee
+    );
+
+
 
 
 }

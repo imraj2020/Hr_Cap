@@ -155,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
                 R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_leavesummary,
-                R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary,R.id.nav_leavedraft, R.id.nav_atdregaprsummary)
+                R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary,R.id.nav_leavedraft, R.id.nav_atdregaprsummary
+        ,R.id.nav_leaveaprsummary)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

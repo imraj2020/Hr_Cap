@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_weight="1"
-            android:text="holidayid"
+            android:text="Leave Id"
             android:id="@+id/leave_ids"/>
 
         <TextView
@@ -26,14 +26,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/black"
-            android:text="companyid"
+            android:text="Create Time"
             android:id="@+id/create_times"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/black"
-            android:text="holidayname"
+            android:text="Leave Types"
             android:id="@+id/leave_types"/>
 
         <TextView
@@ -41,8 +41,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/black"
-            android:text="shortname"
+            android:text="Day Types"
             android:id="@+id/day_types"/>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/delete"
+            android:layout_gravity="center"
+            android:background="@drawable/deletebutton">
+        </ImageButton>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/view"
+            android:layout_gravity="center"
+            android:background="@drawable/view">
+
+        </ImageButton>
+
 
 
 

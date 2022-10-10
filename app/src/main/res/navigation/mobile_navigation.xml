@@ -85,4 +85,12 @@
         android:label="@string/menu_atdregaprsummary"
         tools:layout="@layout/atd_reg_approval_summary_fragment" />
 
+
+
+    <fragment
+        android:id="@+id/nav_leaveaprsummary"
+        android:name="com.cse.hrcap.ui.LeaveApprovalSummary.LeaveApprovalSummaryFragment"
+        android:label="@string/menu_leaveaprsummary"
+        tools:layout="@layout/leave_approval_summary_fragment" />
+
 </navigation>

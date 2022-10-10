@@ -54,6 +54,13 @@
         android:id="@+id/nav_leavesummary"
         android:title="@string/menu_leavesummary" />
 
+
+
+    <item
+        android:id="@+id/nav_leaveaprsummary"
+        android:title="@string/menu_leaveaprsummary" />
+
+
 </menu>
 </item>
 

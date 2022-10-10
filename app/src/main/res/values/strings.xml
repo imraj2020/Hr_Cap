@@ -26,6 +26,7 @@
     <string name="menu_attdanceregsummary">Attandance Regularization Summary</string>
     <string name="menu_leavedraft">Leave Request Draft</string>
     <string name="menu_atdregaprsummary">Regularization Approval Summary</string>
+    <string name="menu_leaveaprsummary">Leave Approval Summary</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>

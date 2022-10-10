@@ -16,6 +16,14 @@ public interface LeaveDraftDAO {
     @Query("SELECT * FROM LeaveDraftInfo")
     public List<LeaveDraftInfo> getAllLeaveDraft();
 
+    @Query("SELECT * FROM LeaveDraftInfo WHERE leaveid = :myposition")
+   // public int ShowLeaveDraftData(int myposition);
+     public List<LeaveDraftInfo> getAllDatafromRow(int myposition);
+
+
+  //  public void ShowLeaveDraftData(int myposition);
+   // public List<LeaveDraftInfo> getAllDatafromRow();
+
 
     @Query("SELECT EXISTS(SELECT * FROM LeaveDraftInfo)")
     public Boolean isExists();
@@ -33,7 +41,7 @@ public interface LeaveDraftDAO {
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
 //    public void updateStudentInfo(String name, String subject, int id);
 //
-//    @Query("DELETE FROM StudentInfo WHERE id = :id")
-//    public void deleteStudentInfo(int id);
+    @Query("DELETE FROM LeaveDraftInfo WHERE leaveid = :nposition")
+    public void deleteLeavedraftinfo(int nposition);
 
 }
