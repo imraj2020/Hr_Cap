@@ -401,10 +401,6 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         return binding.getRoot();
     }
 
-    public void setLeaveDraftDatabase() {
-        leavedraftRoomDB = Room.databaseBuilder(requireContext(), LeaveDraftRoomDB.class, "LeaveDraft.db")
-                .allowMainThreadQueries().build();
-    }
 
 
 //    private void leaveTypes() {
