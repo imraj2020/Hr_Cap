@@ -105,7 +105,10 @@ public interface UserService {
             @Query("Employee") String Employee
     );
 
+    //Api/LeaveApprovalApi
 
+    @POST("Api/LeaveApprovalApi")
+    Call<LeaveApprovalRequest> PostDatas(@Body LeaveApprovalRequest leaveApprovalRequest);
 
 
 }

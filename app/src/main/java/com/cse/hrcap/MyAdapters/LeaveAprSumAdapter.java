@@ -2,17 +2,25 @@ package com.cse.hrcap.MyAdapters;
 
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.cse.hrcap.LeaveApproval;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
+import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
+import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 
 import java.util.List;
@@ -35,7 +43,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         LeaveAprSumInfo data = list.get(position);
 
         holder.LeaveId.setText("LeaveId: "+data.getLeaveid());
@@ -58,6 +66,37 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         holder.IndivRequestStatusName.setText("IndivRequestStatusName: "+data.getIndivrequeststatusname());
         holder.EntryBy.setText("EntryBy: "+data.getEntryby());
         holder.EntryDate.setText("EntryDate: "+data.getEntrydate()+"\n");
+
+        //Button Checking
+        holder.BtnApproval.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                LeaveAprSumInfo data = list.get(position);
+
+                String CompanyId = data.getCompanyid();
+                String Employee = data.getEntryby();
+                String LeaveId = data.getLeaveid();
+
+                Intent intent = new Intent(context, LeaveApproval.class);
+                intent.putExtra("MCompanyId",CompanyId);
+                intent.putExtra("MEmployee",Employee);
+                intent.putExtra("MLeaveId",LeaveId);
+                context.startActivity(intent);
+
+
+
+
+                // remove your item from data base
+                Toast.makeText(context, " "+CompanyId+" "+Employee+" "+LeaveId, Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
+
+
+
+
     }
 
     @Override
@@ -70,6 +109,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         TextView LeaveId,CompanyId,EmpId,EmpCode,LeaveTypeId,LeaveTypeName,FromDate,ToDate,TotalDay,FromTime,ToTime,
                 TotalHours,Leavestatusid,LeaveStatusName,FullName,IndivRequestStatus,IndivRequestStatusName,EntryBy,
                 EntryDate;
+        Button BtnApproval;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +133,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
             IndivRequestStatusName = (TextView)itemView.findViewById(R.id.tv_indivrequeststatusname);
             EntryBy = (TextView)itemView.findViewById(R.id.tv_entryby);
             EntryDate = (TextView)itemView.findViewById(R.id.tv_entrydate);
+            BtnApproval = (Button)itemView.findViewById(R.id.btnaproval);
 
         }
     }

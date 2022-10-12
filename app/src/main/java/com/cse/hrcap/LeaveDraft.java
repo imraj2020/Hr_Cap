@@ -46,39 +46,36 @@ public class LeaveDraft extends AppCompatActivity {
         int mypositions = intent.getIntExtra("Position",0);
         Toast.makeText(getApplicationContext(), "Data Position is "+mypositions, Toast.LENGTH_SHORT).show();
 
-
-
         LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(getApplicationContext());
 
-//        db.leaveDraftDAO().getAllDatafromRow(mypositions);
 
 
         List<LeaveDraftInfo> list = db.leaveDraftDAO().getAllDatafromRow(mypositions);
 
-        boolean s = list.get(0).isSwitchvalue();
+        boolean switchv = list.get(0).isSwitchvalue();
+        int spinnerval = list.get(0).getSpinnervalue();
 
-        if(s==true){
+        if(switchv==true){
             DayType.setChecked(true);
             DayTypes = "Full Day";
             Toast.makeText(getApplicationContext(), "Answer is: "+DayTypes, Toast.LENGTH_SHORT).show();
         }
-        else if(s==false){
+        else if(switchv==false){
             DayType.setChecked(false);
             DayTypes = "Time";
             Toast.makeText(getApplicationContext(), "Answer is: "+DayTypes, Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getApplicationContext(), "Not True or False"+s, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Not True or False"+switchv, Toast.LENGTH_SHORT).show();
         }
 
 
-        //Toast.makeText(getApplicationContext(), ""+s, Toast.LENGTH_SHORT).show();
 
 
 
 
 
-        showDataFromDb();
+
 
 
 
@@ -86,13 +83,5 @@ public class LeaveDraft extends AppCompatActivity {
     }
 
 
-    private void showDataFromDb() {
 
-//        List<StudentInfo> studentInfoList = roomDB.studentDAO().getAllStudent();
-//        for (int i = 0; i<studentInfoList.size(); i++){
-//            Log.d("StuentInfo", studentInfoList.get(i).getId()+"\t"
-//                    +studentInfoList.get(i).getName()+"\t"
-//                    +studentInfoList.get(i).getSubject()+"\t"
-//                    +studentInfoList.get(i).getDepartment());
-        }
 }

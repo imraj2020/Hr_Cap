@@ -114,7 +114,8 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
 
 
                         AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(requireContext());
-                        AtdRegAprSumInfo atdRegAprSumInfo = new AtdRegAprSumInfo(post.getRequestId(), post.getStartDate(),
+                        AtdRegAprSumInfo atdRegAprSumInfo = new AtdRegAprSumInfo(post.getMovementId(),post.getCompanyId(),
+                                post.getEmpId(),post.getEmpCode(),post.getFullName(), post.getStartDate(),
                                 post.getEndDate(), post.getReason(), post.getNote(), post.getFromTime(),post.getToTime(),
                                 post.getStatus(),post.getEntryBy(),post.getEntryDate());
                         db.atdRegAprSumDAO().insertAtdRegAprSummary(atdRegAprSumInfo);

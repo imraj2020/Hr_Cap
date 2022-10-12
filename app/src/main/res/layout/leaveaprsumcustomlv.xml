@@ -144,6 +144,15 @@
             android:text="description"
             android:id="@+id/tv_entrydate"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnaproval"
+            android:backgroundTint="#F4511E"
+            android:text="View For Approval">
+
+        </Button>
+
 
     </LinearLayout>
 
