@@ -4,11 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.LeaveApprovalRequest;
+import com.cse.hrcap.network.RegularizationApprovalResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegularizationApproval extends AppCompatActivity {
 
@@ -75,8 +84,53 @@ public class RegularizationApproval extends AppCompatActivity {
             }
         });
 
+        BtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegularizationApproval();
+            }
+        });
+
+        BtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
 
     }
+
+    private void RegularizationApproval() {
+//        UserService userService = getRetrofit().create(UserService.class);
+        final RegularizationApprovalResponse regularizationApprovalResponse = new RegularizationApprovalResponse(
+                CompanyId.getText().toString(),Employee.getText().toString(),MovementId.getText().toString(),
+              FromTime.getText().toString(),ToTime.getText().toString(),MyNotes.getText().toString(),MyStatus
+        );
+        Call<RegularizationApprovalResponse> call = LeaveApiClient.getUserService().MyPostData(regularizationApprovalResponse);
+
+
+        call.enqueue(new Callback<RegularizationApprovalResponse>() {
+            @Override
+            public void onResponse(Call<RegularizationApprovalResponse> call, Response<RegularizationApprovalResponse> response) {
+                if (response.isSuccessful()) {
+                    RegularizationApprovalResponse regularizationApprovalResponse1 = response.body();
+                    Toast.makeText(getApplicationContext(), "Status is :" + regularizationApprovalResponse1.getStatus(), Toast.LENGTH_LONG).show();
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RegularizationApprovalResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
 }

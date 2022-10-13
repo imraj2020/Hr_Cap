@@ -11,6 +11,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.LeaveApprovalRequest;
+import com.cse.hrcap.network.LeaveRequest;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LeaveApproval extends AppCompatActivity {
     RadioGroup radioGroup;
     TextView CompanyId, Employee, LeaveId;
@@ -67,6 +75,52 @@ public class LeaveApproval extends AppCompatActivity {
         });
 
 
+        BtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leaveApproval();
+            }
+        });
+        BtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
+    }
+
+
+
+
+    private void leaveApproval() {
+//        UserService userService = getRetrofit().create(UserService.class);
+        final LeaveApprovalRequest leaveApprovalRequest = new LeaveApprovalRequest(CompanyId.getText().toString(),
+                Employee.getText().toString(),LeaveId.getText().toString(),MStatus,MyNotes.getText().toString());
+        Call<LeaveApprovalRequest> call = LeaveApiClient.getUserService().PostDatas(leaveApprovalRequest);
+
+
+        call.enqueue(new Callback<LeaveApprovalRequest>() {
+            @Override
+            public void onResponse(Call<LeaveApprovalRequest> call, Response<LeaveApprovalRequest> response) {
+                if (response.isSuccessful()) {
+                    LeaveApprovalRequest leaveApprovalRequest1 = response.body();
+                    Toast.makeText(getApplicationContext(), "Status is :" + leaveApprovalRequest1.getStatus(), Toast.LENGTH_LONG).show();
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LeaveApprovalRequest> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 

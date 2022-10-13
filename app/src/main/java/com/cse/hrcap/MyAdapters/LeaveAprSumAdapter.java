@@ -86,7 +86,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
 
 
                 // remove your item from data base
-                Toast.makeText(context, " "+CompanyId+" "+Employee+" "+LeaveId, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, " "+CompanyId+" "+Employee+" "+LeaveId, Toast.LENGTH_SHORT).show();
 
 
             }

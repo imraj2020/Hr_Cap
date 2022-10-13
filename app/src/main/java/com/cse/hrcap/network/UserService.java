@@ -111,4 +111,7 @@ public interface UserService {
     Call<LeaveApprovalRequest> PostDatas(@Body LeaveApprovalRequest leaveApprovalRequest);
 
 
+    @POST("Api/MovementCaptureMultipleDaysApprovalApi")
+    Call<RegularizationApprovalResponse> MyPostData(@Body RegularizationApprovalResponse regularizationApproval);
+
 }
