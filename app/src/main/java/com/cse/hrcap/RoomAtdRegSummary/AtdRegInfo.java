@@ -8,7 +8,11 @@ import androidx.room.PrimaryKey;
 public class AtdRegInfo {
 
     @PrimaryKey @NonNull
-    String requestid;
+    String movementid;
+    String companyid;
+    String empid;
+    String empcode;
+    String fullname;
     String startdate;
     String enddate;
     String reason;
@@ -19,8 +23,12 @@ public class AtdRegInfo {
     String entryby;
     String entrydate;
 
-    public AtdRegInfo(@NonNull String requestid, String startdate, String enddate, String reason, String note, String fromtime, String totime, String status, String entryby, String entrydate) {
-        this.requestid = requestid;
+    public AtdRegInfo(@NonNull String movementid, String companyid, String empid, String empcode, String fullname, String startdate, String enddate, String reason, String note, String fromtime, String totime, String status, String entryby, String entrydate) {
+        this.movementid = movementid;
+        this.companyid = companyid;
+        this.empid = empid;
+        this.empcode = empcode;
+        this.fullname = fullname;
         this.startdate = startdate;
         this.enddate = enddate;
         this.reason = reason;
@@ -33,12 +41,44 @@ public class AtdRegInfo {
     }
 
     @NonNull
-    public String getRequestid() {
-        return requestid;
+    public String getMovementid() {
+        return movementid;
     }
 
-    public void setRequestid(@NonNull String requestid) {
-        this.requestid = requestid;
+    public void setMovementid(@NonNull String movementid) {
+        this.movementid = movementid;
+    }
+
+    public String getCompanyid() {
+        return companyid;
+    }
+
+    public void setCompanyid(String companyid) {
+        this.companyid = companyid;
+    }
+
+    public String getEmpid() {
+        return empid;
+    }
+
+    public void setEmpid(String empid) {
+        this.empid = empid;
+    }
+
+    public String getEmpcode() {
+        return empcode;
+    }
+
+    public void setEmpcode(String empcode) {
+        this.empcode = empcode;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getStartdate() {

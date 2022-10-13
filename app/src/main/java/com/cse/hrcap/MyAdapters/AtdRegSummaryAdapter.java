@@ -38,7 +38,11 @@ public class AtdRegSummaryAdapter extends RecyclerView.Adapter<AtdRegSummaryAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AtdRegInfo data = list.get(position);
 
-        holder.RequestId.setText("RequestId: "+data.getRequestid());
+        holder.MovementId.setText("MovementId: "+data.getMovementid());
+        holder.CompanyId.setText("CompanyId: "+data.getCompanyid());
+        holder.EmpId.setText("EmpId: "+data.getEmpid());
+        holder.EmpCode.setText("EmpCode: "+data.getEmpcode());
+        holder.FullName.setText("FullName: "+data.getFullname());
         holder.StartDate.setText("StartDate: "+data.getStartdate());
         holder.EndDate.setText("EndDate: "+data.getEnddate());
         holder.Reason.setText("Reason: "+data.getReason());
@@ -57,12 +61,17 @@ public class AtdRegSummaryAdapter extends RecyclerView.Adapter<AtdRegSummaryAdap
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView RequestId,StartDate,EndDate,Reason,Note,FromTime,ToTime,Status,EntryBy,EntryDate;
+        TextView MovementId,CompanyId,EmpId,EmpCode,FullName,StartDate,EndDate,Reason,
+                Note,FromTime,ToTime,Status,EntryBy,EntryDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            RequestId = (TextView)itemView.findViewById(R.id.t_RequestId);
+            MovementId = (TextView)itemView.findViewById(R.id.t_MovementId);
+            CompanyId = (TextView)itemView.findViewById(R.id.t_CompanyId);
+            EmpId = (TextView)itemView.findViewById(R.id.t_EmpId);
+            EmpCode = (TextView)itemView.findViewById(R.id.t_EmpCode);
+            FullName = (TextView)itemView.findViewById(R.id.t_FullName);
             StartDate = (TextView)itemView.findViewById(R.id.t_StartDate);
             EndDate = (TextView)itemView.findViewById(R.id.t_EndDate);
             Reason = (TextView)itemView.findViewById(R.id.t_Reason);

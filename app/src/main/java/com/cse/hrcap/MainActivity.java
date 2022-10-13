@@ -508,9 +508,10 @@ public class MainActivity extends AppCompatActivity {
 
                     for (AttdanceRegularizationSummary post : nlist) {
 
-                        AtdRegInfo atdRegInfo = new AtdRegInfo(post.getRequestId(), post.getStartDate(), post.getEndDate()
-                                , post.getReason(), post.getNote(),post.getFromTime(),post.getToTime(),post.getStatus(),
-                                post.getEntryBy(),post.getEntryDate());
+                        AtdRegInfo atdRegInfo = new AtdRegInfo(post.getMovementId(), post.getCompanyId(), post.getEmpId(),
+                                post.getEmpCode(), post.getFullName(),post.getStartDate(), post.getEndDate(),
+                                post.getReason(), post.getNote(), post.getFromTime(), post.getToTime(), post.getStatus(),
+                                post.getEntryBy(), post.getEntryDate());
                         atdRegRoomDB.atdRegDAO().insertAtdRegSummary(atdRegInfo);
 
                         //  LeaveSummary.append(content);

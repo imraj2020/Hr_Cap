@@ -16,7 +16,32 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="holidayid"
-            android:id="@+id/t_RequestId"/>
+            android:id="@+id/t_MovementId"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="holidayid"
+            android:id="@+id/t_CompanyId"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="holidayid"
+            android:id="@+id/t_EmpId"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="holidayid"
+            android:id="@+id/t_EmpCode"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="holidayid"
+            android:id="@+id/t_FullName"/>
+
 
         <TextView
             android:layout_width="match_parent"

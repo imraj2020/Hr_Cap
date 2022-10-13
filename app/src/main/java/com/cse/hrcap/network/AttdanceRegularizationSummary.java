@@ -2,7 +2,12 @@ package com.cse.hrcap.network;
 
 public class AttdanceRegularizationSummary {
 
-    String RequestId;
+    String MovementId;
+    String CompanyId;
+    //should be integer
+    String EmpId;
+    String EmpCode;
+    String FullName;
     String StartDate;
     String EndDate;
     String Reason;
@@ -13,8 +18,12 @@ public class AttdanceRegularizationSummary {
     String EntryBy;
     String EntryDate;
 
-    public AttdanceRegularizationSummary(String requestId, String startDate, String endDate, String reason, String note, String fromTime, String toTime, String status, String entryBy, String entryDate) {
-        RequestId = requestId;
+    public AttdanceRegularizationSummary(String movementId, String companyId, String empId, String empCode, String fullName, String startDate, String endDate, String reason, String note, String fromTime, String toTime, String status, String entryBy, String entryDate) {
+        MovementId = movementId;
+        CompanyId = companyId;
+        EmpId = empId;
+        EmpCode = empCode;
+        FullName = fullName;
         StartDate = startDate;
         EndDate = endDate;
         Reason = reason;
@@ -26,12 +35,44 @@ public class AttdanceRegularizationSummary {
         EntryDate = entryDate;
     }
 
-    public String getRequestId() {
-        return RequestId;
+    public String getMovementId() {
+        return MovementId;
     }
 
-    public void setRequestId(String requestId) {
-        RequestId = requestId;
+    public void setMovementId(String movementId) {
+        MovementId = movementId;
+    }
+
+    public String getCompanyId() {
+        return CompanyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        CompanyId = companyId;
+    }
+
+    public String getEmpId() {
+        return EmpId;
+    }
+
+    public void setEmpId(String empId) {
+        EmpId = empId;
+    }
+
+    public String getEmpCode() {
+        return EmpCode;
+    }
+
+    public void setEmpCode(String empCode) {
+        EmpCode = empCode;
+    }
+
+    public String getFullName() {
+        return FullName;
+    }
+
+    public void setFullName(String fullName) {
+        FullName = fullName;
     }
 
     public String getStartDate() {
