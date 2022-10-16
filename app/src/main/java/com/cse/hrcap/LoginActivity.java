@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -102,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+
+                            //Here define all your sharedpreferences code with key and value
+                            SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
+                            SharedPreferences.Editor edit = prefs.edit();
+                            edit.putString("Employee", userid );
+                            edit.commit();
 
 
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);

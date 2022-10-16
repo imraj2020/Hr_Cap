@@ -75,7 +75,6 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
 
                 Intent intent = new Intent(context, RegularizationApproval.class);
                 intent.putExtra("ICompanyId",CompanyId);
-                intent.putExtra("IEmployee",Employee);
                 intent.putExtra("IMovementId",MovementId);
                 intent.putExtra("IFromTime",FromTime);
                 intent.putExtra("IToTime",ToTime);

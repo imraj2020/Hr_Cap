@@ -3,6 +3,7 @@ package com.cse.hrcap;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,9 +39,13 @@ public class LeaveApproval extends AppCompatActivity {
         MyNotes = findViewById(R.id.Mnotes);
         BtnSubmit = findViewById(R.id.btnSubmits);
         BtnCancel = findViewById(R.id.btnCancels);
+
+        SharedPreferences bb = getSharedPreferences("my_prefs", 0);
+        String employee = bb.getString("Employee", "");
+
+
         Intent intent =getIntent();
         String companyId = intent.getStringExtra("MCompanyId");
-        String employee = intent.getStringExtra("MEmployee");
         String leaveId = intent.getStringExtra("MLeaveId");
 
         CompanyId.setText(companyId);

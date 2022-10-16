@@ -114,4 +114,13 @@ public interface UserService {
     @POST("Api/MovementCaptureMultipleDaysApprovalApi")
     Call<RegularizationApprovalResponse> MyPostData(@Body RegularizationApprovalResponse regularizationApproval);
 
+
+
+
+    @GET("Api/MovementReasonApi")
+    Call<List<RegReasonRequest>> myreason(
+            @Query("CompanyId") String CompanyId,
+            @Query("Employee") String Employee
+    );
+
 }

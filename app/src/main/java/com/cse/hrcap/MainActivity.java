@@ -35,6 +35,8 @@ import com.cse.hrcap.RoomLoanSubType.LoanSubTypeInfo;
 import com.cse.hrcap.RoomLoanSubType.LoanSubTypeRoomDB;
 import com.cse.hrcap.RoomLoanType.LoanTypeInfo;
 import com.cse.hrcap.RoomLoanType.LoanTypeRoomDB;
+import com.cse.hrcap.RoomRegReason.RegReasonInfo;
+import com.cse.hrcap.RoomRegReason.RegReasonRoomDB;
 import com.cse.hrcap.RoomSelfSummary.SelfInfo;
 import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
 import com.cse.hrcap.network.AttdanceRegularizationSummary;
@@ -47,6 +49,7 @@ import com.cse.hrcap.network.LeaveTypeResponse;
 import com.cse.hrcap.network.LoanApiClient;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
+import com.cse.hrcap.network.RegReasonRequest;
 import com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment;
 import com.cse.hrcap.ui.holiday.HolidayFragment;
 import com.cse.hrcap.ui.home.MyDbHelper;
@@ -79,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     HolidayFragment holidayFragment;
     public static MyRoomDB leaveroomDB;
-//    public static LeaveBalanceRoomDB leaveBalanceroomDB;
+    //    public static LeaveBalanceRoomDB leaveBalanceroomDB;
     public static LoanTypeRoomDB loanTypeRoomDB;
     public static LoanSubTypeRoomDB loanSubTypeRoomDB;
     public static LeaveDraftRoomDB leavedraftRoomDB;
-//    public static HolidayRoomDB holidayRoomDB;
+    //    public static HolidayRoomDB holidayRoomDB;
 //    public static LeaveSummaryRoomDB leaveSummaryRoomDB;
 //    public static SelfRoomDB selfRoomDB;
     public static AtdRegRoomDB atdRegRoomDB;
@@ -99,14 +102,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-
-
         //testing
 
         setleaveTypesDatabase();
         setLoanTypeDatabase();
         setLoanSubTypeDatabase();
-
 
 
         boolean leavetype = leaveroomDB.leaveDAO().isExists();
@@ -123,10 +123,9 @@ public class MainActivity extends AppCompatActivity {
             loansubTypes();
         }
 
+        //need to enter boolean for db check
 
-
-
-
+        AttdanceRegReason();
 
 
         // checking fragment for data sync
@@ -155,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
                 R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_leavesummary,
-                R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary,R.id.nav_leavedraft, R.id.nav_atdregaprsummary
-        ,R.id.nav_leaveaprsummary)
+                R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary, R.id.nav_leavedraft, R.id.nav_atdregaprsummary
+                , R.id.nav_leaveaprsummary)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -509,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
                     for (AttdanceRegularizationSummary post : nlist) {
 
                         AtdRegInfo atdRegInfo = new AtdRegInfo(post.getMovementId(), post.getCompanyId(), post.getEmpId(),
-                                post.getEmpCode(), post.getFullName(),post.getStartDate(), post.getEndDate(),
+                                post.getEmpCode(), post.getFullName(), post.getStartDate(), post.getEndDate(),
                                 post.getReason(), post.getNote(), post.getFromTime(), post.getToTime(), post.getStatus(),
                                 post.getEntryBy(), post.getEntryDate());
                         atdRegRoomDB.atdRegDAO().insertAtdRegSummary(atdRegInfo);
@@ -567,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
 
                         LeaveSummaryInfo leaveSummaryInfo = new LeaveSummaryInfo(post.getLeaveId(), post.getLeaveTypeName(),
                                 post.getFromDate(), post.getToDate(), post.getTotalDay(), post.getTotalHours(),
-                                post.getEntryBy(),post.getEntryDateTime(),post.getLeaveStatusId(),post.getLeaveStatusName());
+                                post.getEntryBy(), post.getEntryDateTime(), post.getLeaveStatusId(), post.getLeaveStatusName());
                         leaveSummaryRoomDB.leaveSummaryDAO().insertLeaveSummary(leaveSummaryInfo);
 
 
@@ -592,6 +591,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void AttdanceRegReason() {
+        Intent intent = getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+        String employee = intent.getStringExtra("Employee");
+
+        Call<List<RegReasonRequest>> call = LoanApiClient.getUserService().myreason(companyid,employee);
+
+
+        call.enqueue(new Callback<List<RegReasonRequest>>() {
+            @Override
+            public void onResponse(Call<List<RegReasonRequest>> call, Response<List<RegReasonRequest>> response) {
+
+                if (response.isSuccessful()) {
+
+                    List<RegReasonRequest> nlist = response.body();
+
+
+                    for (RegReasonRequest post : nlist) {
+
+                        RegReasonRoomDB db = RegReasonRoomDB.getDbInstances(getApplicationContext());
+                        RegReasonInfo regReasonInfo = new RegReasonInfo(post.getId(),post.getReason());
+                        db.regReasonDAO().insertReason(regReasonInfo);
+
+                    }
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Reg Reason Retrive Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RegReasonRequest>> call, Throwable t) {
+                // Leavetyperesponse.setText(t.getMessage());
+                Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -613,8 +651,6 @@ public class MainActivity extends AppCompatActivity {
             holidayRoomDB.holidayDAO().deleteAll();
             leaveBalanceroomDB.leaveBalanceDAO().deleteAll();
             leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
-
-
 
 
             // inserting data
@@ -651,14 +687,6 @@ public class MainActivity extends AppCompatActivity {
             //Leave Summary
             leavesummary();
             setLeaveSummaryDatabase();
-
-
-
-
-
-
-
-
 
 
             Toast.makeText(getApplicationContext(), "Sync Success", Toast.LENGTH_SHORT).show();

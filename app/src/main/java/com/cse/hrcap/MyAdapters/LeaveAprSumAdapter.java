@@ -73,12 +73,10 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
                 LeaveAprSumInfo data = list.get(position);
 
                 String CompanyId = data.getCompanyid();
-                String Employee = data.getEntryby();
                 String LeaveId = data.getLeaveid();
 
                 Intent intent = new Intent(context, LeaveApproval.class);
                 intent.putExtra("MCompanyId",CompanyId);
-                intent.putExtra("MEmployee",Employee);
                 intent.putExtra("MLeaveId",LeaveId);
                 context.startActivity(intent);
 
