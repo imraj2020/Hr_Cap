@@ -123,10 +123,13 @@ public class MainActivity extends AppCompatActivity {
             loansubTypes();
         }
 
-        //need to enter boolean for db check
+        //db is the roomdb
+        RegReasonRoomDB db = RegReasonRoomDB.getDbInstances(getApplicationContext());
 
-        AttdanceRegReason();
-
+        boolean regreason = db.regReasonDAO().isExists();
+       if(regreason==false) {
+            AttdanceRegReason();
+        }
 
         // checking fragment for data sync
         // holidayFragment=getFragmentManager().findFragmentByTag("holidayFragment");

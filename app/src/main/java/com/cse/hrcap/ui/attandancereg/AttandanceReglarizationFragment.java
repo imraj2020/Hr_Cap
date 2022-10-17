@@ -1,6 +1,7 @@
 package com.cse.hrcap.ui.attandancereg;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.cse.hrcap.MainActivity.leaveroomDB;
 import static com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding.*;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -33,6 +34,11 @@ import android.widget.Toast;
 
 import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
+import com.cse.hrcap.RoomRegEntryDraft.RegDraftInfo;
+import com.cse.hrcap.RoomRegEntryDraft.RegDraftRoomDB;
+import com.cse.hrcap.RoomRegReason.RegReasonInfo;
+import com.cse.hrcap.RoomRegReason.RegReasonRoomDB;
 import com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding;
 import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
 import com.cse.hrcap.network.AttandanceRegularizationRequest;
@@ -43,6 +49,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,29 +112,28 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         BtnDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Shared Preference for switch
-                // Creating a shared pref object
-                // with a file name "MySharedPref"
-                // in private mode
 
-                SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                Intent intent = getActivity().getIntent();
+                String companyid = intent.getStringExtra("CompanyId");
+                String employee = intent.getStringExtra("Employee");
 
-                // write all the data entered by the user in SharedPreference and apply
-                myEdit.putString("Start Date", StartDate.getText().toString());
-                myEdit.putString("End Date", EndDate.getText().toString());
-                myEdit.putString("From Time", FromTime.getText().toString());
-                myEdit.putString("To Time", ToTime.getText().toString());
-                myEdit.putString("Reason", spinneritem);
-                myEdit.putString("Note", Note.getText().toString());
+                //Spinner Position
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
+                int spinnerValue = sharedPref.getInt("userChoiceSpinners", -1);
+
+                // Time And Date
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
+                String currentDateandTime = sdf.format(new Date());
 
 
+                RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
 
+                RegDraftInfo drafts = new RegDraftInfo(employee,companyid,spinnerValue,StartDate.getText().toString(),
+                        EndDate.getText().toString(),FromTime.getText().toString(),ToTime.getText().toString(),
+                        spinneritem,currentDateandTime,Note.getText().toString(),TxtName.getText().toString());
+                db.regDraftDAO().insertRegDraft(drafts);
 
-                // myEdit.putInt("Day Type", Integer.parseInt(age.getText().toString()));
-                myEdit.apply();
-
-                Toast.makeText(requireContext(), "Data Saved As Draft", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Data Saved As Draft"+spinnerValue+" "+spinneritem, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -306,13 +312,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
 
 
-        Reason = getResources().getStringArray(R.array.Reason);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.Reason, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_reason.setAdapter(adapter);
-        spinner_reason.setOnItemSelectedListener(this);
+
 
 
         // Cancel Button Click Event
@@ -325,6 +326,9 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             }
         });
 
+
+        loadSpinnerData();
+        spinner_reason.setOnItemSelectedListener(this);
 
         return binding.getRoot();
     }
@@ -349,7 +353,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         userChoice = spinner_reason.getSelectedItemPosition();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",0);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
-        prefEditor.putInt("userChoiceSpinner",userChoice);
+        prefEditor.putInt("userChoiceSpinners",userChoice);
         prefEditor.commit();
         Toast.makeText(parent.getContext(), spinneritem, Toast.LENGTH_SHORT).show();
     }
@@ -390,6 +394,21 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             }
         });
 
+    }
+
+    private void loadSpinnerData() {
+//        LeaveTypeDbHelper db = new LeaveTypeDbHelper(requireContext());
+//        List<String> labels = db.getAllLabels();
+        RegReasonRoomDB db = RegReasonRoomDB.getDbInstances(requireContext());
+        List<String> labels = db.regReasonDAO().getAllName();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, labels);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner_reason.setAdapter(dataAdapter);
     }
 
 

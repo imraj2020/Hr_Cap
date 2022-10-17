@@ -31,6 +31,9 @@ public interface LeaveDraftDAO {
     @Query("DELETE FROM LeaveDraftInfo")
     void deleteAll();
 
+    @Query("DELETE FROM LeaveDraftInfo WHERE leaveid = :nposition")
+    public void deleteLeavedraftinfo(int nposition);
+
 //    @Query("SELECT name FROM LeaveBalanceInfo")
 //    public List<String> getAllName();
 //
@@ -41,7 +44,6 @@ public interface LeaveDraftDAO {
 //    @Query("UPDATE StudentInfo SET name = :name, subject = :subject WHERE id = :id")
 //    public void updateStudentInfo(String name, String subject, int id);
 //
-    @Query("DELETE FROM LeaveDraftInfo WHERE leaveid = :nposition")
-    public void deleteLeavedraftinfo(int nposition);
+
 
 }
