@@ -29,7 +29,7 @@ public interface RegDraftDAO {
 
 
 //
-//    @Query("DELETE FROM LeaveDraftInfo WHERE leaveid = :nposition")
-//    public void deleteREgdraftinfo(int nposition);
+    @Query("DELETE FROM RegDraftInfo WHERE id = :nposition")
+    public void deleteRegdraftinfo(int nposition);
 
 }
