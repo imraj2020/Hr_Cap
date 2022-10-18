@@ -112,7 +112,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         TvStartTime = binding.tvstarttime;
         TvEndTime = binding.tvendtime;
         BtnDraft = binding.btndraft;
-        CheckDraft = binding.tvCheckdraft;
+//        CheckDraft = binding.tvCheckdraft;
 
 
         //spinnertwo = binding.spinnerday;
@@ -225,18 +225,18 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
         // Checking draft
 
-        CheckDraft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                if(spinnerValue != -1) {
-//                    // set the selected value of the spinner
-//                    spinner.setSelection(spinnerValue);
-//                }
-
-
-            }
-        });
+//        CheckDraft.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                if(spinnerValue != -1) {
+////                    // set the selected value of the spinner
+////                    spinner.setSelection(spinnerValue);
+////                }
+//
+//
+//            }
+//        });
 
 
 

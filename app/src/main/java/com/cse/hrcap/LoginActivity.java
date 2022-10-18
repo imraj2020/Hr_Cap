@@ -105,9 +105,10 @@ public class LoginActivity extends AppCompatActivity {
                         public void run() {
 
                             //Here define all your sharedpreferences code with key and value
-                            SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
+                            SharedPreferences prefs = getSharedPreferences("my_prefes", MODE_PRIVATE);
                             SharedPreferences.Editor edit = prefs.edit();
                             edit.putString("Employee", userid );
+                            edit.putString("CompanyId", loginResponse.getCompanyId());
                             edit.commit();
 
 

@@ -8,15 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.attandancereg.AttandanceReglarizationFragment">
 
-<!--    <TextView-->
-<!--        android:id="@+id/checkdraft"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Check Draft !"-->
-<!--        android:textColor="#F60A0A" />-->
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -26,7 +17,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/txtname"
+        android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Md Imraj Hossain"
@@ -37,10 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
-        android:padding="5dp"
         android:text="Start Date"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:padding="5dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -50,12 +41,11 @@
         android:paddingTop="5dp"
         android:paddingRight="5dp"
         android:paddingBottom="5dp">
-
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_startdate"
+            android:id="@+id/ET_startdate"
+            android:hint="DD/MM/YYYY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="DD/MM/YYYY"
             android:padding="5dp"
             android:text="01/12/2022"
             android:textSize="15sp" />
@@ -66,10 +56,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
-        android:padding="5dp"
         android:text="End Date"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:padding="5dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,12 +69,11 @@
         android:paddingTop="5dp"
         android:paddingRight="5dp"
         android:paddingBottom="5dp">
-
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_enddate"
+            android:id="@+id/ET_enddate"
+            android:hint="DD/MM/YYYY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="DD/MM/YYYY"
             android:padding="5dp"
             android:text="02/12/2022"
             android:textSize="15sp" />
@@ -92,9 +81,9 @@
 
 
     <LinearLayout
-        android:id="@+id/linear_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/linear_one"
         android:layout_below="@+id/tv_date"
         android:orientation="horizontal">
 
@@ -103,8 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:gravity="center"
+            android:layout_weight="1"
             android:padding="5dp"
             android:text="From(time)"
             android:textColor="@color/black"
@@ -113,12 +102,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linear_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_one"
         android:layout_gravity="center"
         android:gravity="center"
+        android:id="@+id/linear_two"
+        android:layout_below="@+id/linear_one"
         android:orientation="horizontal">
 
 
@@ -132,14 +121,14 @@
             android:paddingBottom="5dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etfromtime"
+                android:id="@+id/ET_fromtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:hint="HH:MM"
+                android:layout_weight="1"
                 android:padding="5dp"
+                android:hint="HH:MM"
                 android:text="9:00 AM"
                 android:textColor="@color/purple_200"
                 android:textSize="15sp" />
@@ -149,15 +138,14 @@
 
 
     <TextView
-        android:id="@+id/texttotime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/texttotime"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="To(Time)"
         android:textColor="@color/black"
-        android:textSize="15sp" />
-
+        android:textSize="15sp"
+        android:text="To(Time)"/>
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
@@ -168,12 +156,12 @@
         android:paddingBottom="5dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ettotime"
+            android:id="@+id/ET_totime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:gravity="center"
+            android:layout_weight="1"
             android:hint="HH:MM"
             android:padding="5dp"
             android:text="6:00 PM"
@@ -190,13 +178,14 @@
         android:textColor="@color/black"
         android:textSize="15sp" />
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/spinner_border_top" >
 
         <Spinner
-            android:id="@+id/spinner_reason"
+            android:id="@+id/spinner_reasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -211,25 +200,26 @@
         android:padding="5dp"
         android:text="Note:"
         android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        />
 
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:paddingLeft="5dp"
-        android:paddingTop="5dp"
         android:paddingRight="5dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etnote"
+            android:id="@+id/ET_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:hint="Note Here..."
             android:inputType="textPersonName"
+            android:hint="Note Here..."
             android:padding="5dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -241,7 +231,7 @@
 
 
         <Button
-            android:id="@+id/btncancel"
+            android:id="@+id/ibtn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -250,18 +240,10 @@
             android:padding="5dp"
             android:text="Cancel" />
 
-        <Button
-            android:id="@+id/btndraft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#505950"
-            android:padding="5dp"
-            android:text="Save As Draft" />
+
 
         <Button
-            android:id="@+id/btn_submit"
+            android:id="@+id/ibtn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -271,6 +253,8 @@
             android:text="Submit" />
 
     </LinearLayout>
+
+
 
 
 </LinearLayout>

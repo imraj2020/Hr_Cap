@@ -29,12 +29,13 @@
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/activity_login.xml" value="0.1911231884057971" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/activity_main.xml" value="0.19429347826086957" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/activity_regularization_approval.xml" value="0.264" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/activity_regularization_draft.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/activity_splash.xml" value="0.1634963768115942" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/app_bar_main.xml" value="0.1911231884057971" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/atd_reg_approval_summary_fragment.xml" value="0.19655797101449277" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/atdregaprsummarycustomlv.xml" value="0.264" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/atdregsummarycustomlv.xml" value="0.19746376811594202" />
-        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/attandance_reglarization_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/attandance_reglarization_fragment.xml" value="0.4" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/attandance_regularization_summary_fragment.xml" value="0.19746376811594202" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/attdance_reg_approval_fragment.xml" value="0.2056159420289855" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/chenge_password_fragment.xml" value="0.2056159420289855" />
@@ -59,7 +60,7 @@
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/self_attandance_summary_fragment.xml" value="0.213768115942029" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/selfsummarycustomlv.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/layout/sync_fragment.xml" value="0.176" />
-        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/menu/activity_main_drawer.xml" value="0.536" />
+        <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/menu/activity_main_drawer.xml" value="0.4" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/menu/main.xml" value="0.25" />
         <entry key="..\:/Users/imraj/AndroidStudioProjects/Hr_Cap/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.26614583333333336" />
       </map>

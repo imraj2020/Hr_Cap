@@ -16,9 +16,8 @@ public interface RegDraftDAO {
     @Query("SELECT * FROM RegDraftInfo")
     public List<RegDraftInfo> getAllRegDraft();
 
-//    @Query("SELECT * FROM RegDraftInfo WHERE leaveid = :myposition")
-//
-//     public List<RegDraftInfo> getAllDatafromRow(int myposition);
+    @Query("SELECT * FROM RegDraftInfo WHERE id = :myposition")
+     public List<RegDraftInfo> getAllDatafromRow(int myposition);
 
 
     @Query("SELECT EXISTS(SELECT * FROM RegDraftInfo)")

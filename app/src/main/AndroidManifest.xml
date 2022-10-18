@@ -19,6 +19,9 @@
         android:theme="@style/Theme.HrCap"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".RegularizationDraft"
+            android:exported="true" />
+        <activity
             android:name=".RegularizationApproval"
             android:exported="true" />
         <activity

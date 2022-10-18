@@ -38,7 +38,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:layout_below="@+id/text_homes"
+        android:background="@drawable/spinner_border_top"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -77,40 +81,40 @@
             android:textColor="@color/black"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/Grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/Grade"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/GradeId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/GradeId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/EmpId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/EmpId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/Department"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/Department"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/DepartmentId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/DepartmentId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
         <TextView
             android:id="@+id/Position"
@@ -119,61 +123,61 @@
             android:textColor="@color/black"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/PositionId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/PositionId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/Category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/Category"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/CategoryId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/CategoryId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/FirstName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/FirstName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/MiddleName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/MiddleName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/LastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/LastName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/Prefix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/Prefix"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/Suffix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/Suffix"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
         <TextView
             android:id="@+id/PersonalEmail"
@@ -189,54 +193,54 @@
             android:textColor="@color/black"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/ImageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/ImageTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/ImagePath"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/ImagePath"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/JoiningDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/JoiningDate"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/CostCenterId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/CostCenterId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/PayCycleId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/PayCycleId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/LocationId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/LocationId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
-        <TextView
-            android:id="@+id/SupervisorId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+<!--        <TextView-->
+<!--            android:id="@+id/SupervisorId"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="TextView" />-->
 
         <TextView
             android:id="@+id/SupervisorName"

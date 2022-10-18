@@ -64,8 +64,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     TextView TxtName,CheckDraft;
     EditText FromTime, ToTime, Note,StartDate,EndDate;
     DatePickerDialog  datePickerDialog;
-    Button BtnCancel, BtnSubmit, BtnDraft;
     int  starthour, startminute,endhour,endminute;
+    Button BtnCancel, BtnSubmit, BtnDraft;
     AttandanceReglarizationFragmentBinding binding;
     public  static int userChoice;
     public static AttandanceReglarizationFragment newInstance() {
@@ -85,7 +85,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         ToTime = binding.ettotime;
         Note = binding.etnote;
         BtnCancel = binding.btncancel;
-        CheckDraft = binding.checkdraft;
+//        CheckDraft = binding.checkdraft;
         BtnDraft = binding.btndraft;
 
         BtnSubmit = binding.btnSubmit;
@@ -133,7 +133,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                         spinneritem,currentDateandTime,Note.getText().toString(),TxtName.getText().toString());
                 db.regDraftDAO().insertRegDraft(drafts);
 
-                Toast.makeText(requireContext(), "Data Saved As Draft"+spinnerValue+" "+spinneritem, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(requireContext(), "Data Saved As Draft"+spinnerValue+" "+spinneritem, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -143,45 +143,45 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
 
         //Checking Draft
-        CheckDraft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Fetching the stored data
-                // from the SharedPreference
-                SharedPreferences sh = getActivity().getPreferences(Context.MODE_PRIVATE);
-
-                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",MODE_PRIVATE);
-                int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
-                if(spinnerValue != -1) {
-                    // set the selected value of the spinner
-                    spinner_reason.setSelection(spinnerValue);
-                }
-
-                String start_date = sh.getString("Start Date", "");
-                String end_date = sh.getString("End Date", "");
-                String Fromtime = sh.getString("From Time", "");
-                String Totime = sh.getString("To Time", "");
-                String Reasons = sh.getString("Reason", spinneritem);
-                String Notes = sh.getString("Note", "");
-
-
-
-                // Setting the fetched data
-                // in the EditTexts
-                StartDate.setText(start_date);
-                EndDate.setText(end_date);
-                FromTime.setText(Fromtime);
-                ToTime.setText(Totime);
-
-                Note.setText(Notes);
-
-                CheckDraft.setVisibility(View.GONE);
-
-
-                // Toast.makeText(requireContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+//        CheckDraft.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Fetching the stored data
+//                // from the SharedPreference
+//                SharedPreferences sh = getActivity().getPreferences(Context.MODE_PRIVATE);
+//
+//                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",MODE_PRIVATE);
+//                int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
+//                if(spinnerValue != -1) {
+//                    // set the selected value of the spinner
+//                    spinner_reason.setSelection(spinnerValue);
+//                }
+//
+//                String start_date = sh.getString("Start Date", "");
+//                String end_date = sh.getString("End Date", "");
+//                String Fromtime = sh.getString("From Time", "");
+//                String Totime = sh.getString("To Time", "");
+//                String Reasons = sh.getString("Reason", spinneritem);
+//                String Notes = sh.getString("Note", "");
+//
+//
+//
+//                // Setting the fetched data
+//                // in the EditTexts
+//                StartDate.setText(start_date);
+//                EndDate.setText(end_date);
+//                FromTime.setText(Fromtime);
+//                ToTime.setText(Totime);
+//
+//                Note.setText(Notes);
+//
+//                CheckDraft.setVisibility(View.GONE);
+//
+//
+//                // Toast.makeText(requireContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
 
 

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cse.hrcap.LeaveDraft;
 import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RegularizationDraft;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
@@ -80,8 +81,8 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
                 RegDraftInfo data = list.get(position);
                 int nposition = data.getId();
 
-                Intent i = new Intent(context, LeaveDraft.class);
-                i.putExtra("Position", nposition);
+                Intent i = new Intent(context, RegularizationDraft.class);
+                i.putExtra("DataPosition", nposition);
                 context.startActivity(i);
 
             }
