@@ -20,7 +20,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cse.hrcap.LoginDbHelper;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceInfo;
+import com.cse.hrcap.RoomRegEntryDraft.RegDraftInfo;
+import com.cse.hrcap.RoomRegEntryDraft.RegDraftRoomDB;
+import com.cse.hrcap.RoomUserInfo.UserInfo;
+import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.databinding.FragmentHomeBinding;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -30,7 +37,6 @@ public class HomeFragment extends Fragment {
     TextView employeeid, CompanyId, DesignationId, Designation, FullName, Grade, GradeId, EmpId, Department, DepartmentId, Position;
     TextView PositionId, Category, CategoryId, FirstName, MiddleName, LastName, Prefix, Suffix, PersonalEmail, MobilenNo;
     TextView ImageTitle, ImagePath, JoiningDate, CostCenterId, PayCycleId, LocationId, SupervisorId, SupervisorName, welcome;
-    MyDbHelper dbs;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,49 +52,35 @@ public class HomeFragment extends Fragment {
        // binding = FragmentHomeBinding.inflate(inflater, container, false);
         //View root = binding.getRoot();
 
+
+
+
+
+
         final TextView textView = binding.textHome;
         employeeid = binding.employeeid;
         CompanyId = binding.companyid;
         DesignationId = binding.DesignationId;
         Designation = binding.Designation;
         FullName = binding.FullName;
-//        Grade = binding.Grade;
-//        GradeId = binding.GradeId;
-//        EmpId = binding.EmpId;
-//        Department = binding.Department;
-//        DepartmentId = binding.DepartmentId;
         Position = binding.Position;
-//        PositionId = binding.PositionId;
-//        Category = binding.Category;
-//        CategoryId = binding.CategoryId;
-//        FirstName = binding.FirstName;
-//        MiddleName = binding.MiddleName;
-//        LastName = binding.LastName;
-//        Prefix = binding.Prefix;
-//        Suffix = binding.Suffix;
         PersonalEmail = binding.PersonalEmail;
         MobilenNo = binding.MobilenNo;
-//        ImageTitle = binding.ImageTitle;
-//        ImagePath = binding.ImagePath;
-//        JoiningDate = binding.JoiningDate;
-//        CostCenterId = binding.CostCenterId;
-//        PayCycleId = binding.PayCycleId;
-//        LocationId = binding.LocationId;
-//        SupervisorId = binding.SupervisorId;
         SupervisorName = binding.SupervisorName;
         welcome = binding.textHomes;
-        dbs = new MyDbHelper(requireContext());
+
 
         Intent intent = getActivity().getIntent();
 
         if (intent.getExtras() != null) {
+            String employee = intent.getStringExtra("Employee");
             int EmployeeId = intent.getIntExtra("EmployeeId", 1);
             String companyid = intent.getStringExtra("CompanyId");
             int DesignationIds = intent.getIntExtra("DesignationId", 1);
             String Designations = intent.getStringExtra("Designation");
             String fullname = intent.getStringExtra("FullName");
             String grade = intent.getStringExtra("Grade");
-            //int gradeid = intent.getIntExtra("GradeId", 1);
+            int gradeids = intent.getIntExtra("GradeId", 1);
             String gradeid = intent.getStringExtra("GradeId");// gradeid should be integer
             String empid = intent.getStringExtra("EmpId");
             String department = intent.getStringExtra("Department");
@@ -103,7 +95,8 @@ public class HomeFragment extends Fragment {
             String prefix = intent.getStringExtra("Prefix");
             String suffix = intent.getStringExtra("Suffix");
             String personalemail = intent.getStringExtra("PersonalEmail");
-            int mobileno = intent.getIntExtra("MobilenNo", 1);
+            int mobileno = intent.getIntExtra("MobilenNo", 1);//should be integer
+            String mobilenos = intent.getStringExtra("MobilenNo");
             String imagetitle = intent.getStringExtra("ImageTitle");
             String imagepath = intent.getStringExtra("ImagePath"); // returning some image link
             String joinningdate = intent.getStringExtra("JoiningDate");
@@ -113,112 +106,62 @@ public class HomeFragment extends Fragment {
             int supervisorid = intent.getIntExtra("SupervisorId", 1);
             String supervisorname = intent.getStringExtra("SupervisorName");
 
+            //Saving data in room database
 
-             //sending data
-            MyDbHelper MydbHelper = new MyDbHelper(requireContext());
-            int EmployeeIds = EmployeeId;
-
-
-                MydbHelper.insertRecord(EmployeeIds, companyid, DesignationIds, Designations,
-                        fullname, grade, gradeid, empid, department, departmentid,
-                        position, positionid, category, categoryid, firstname, middlename,
-                        lastname, prefix, suffix, personalemail, mobileno, imagetitle,
-                        imagepath, joinningdate, costcenterid, paycycleid, locationid, supervisorid, supervisorname);
-
-
-
-            //database cursor
-            dbs = new MyDbHelper(requireContext());
-            Cursor cursor = dbs.alldata();
-            if (cursor.getCount() == 0) {
-
-                Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_SHORT).show();
-            } else{
-                while (cursor.moveToNext()) {
-                    welcome.setText("Welcome " + cursor.getString(4));
-                    employeeid.setText("EmployeeId :" + cursor.getString(0));
-                    CompanyId.setText("Company Id :" + cursor.getString(1));
-                    DesignationId.setText("DesignationId :" + cursor.getString(2));
-                    Designation.setText("Designation :" + cursor.getString(3));
-                    FullName.setText("Full Name:" + cursor.getString(4));
-//                    Grade.setText("Grade :"+cursor.getString(5));
-//                    GradeId.setText("Grade Id :"+cursor.getString(6));
-//                    EmpId.setText("EmpId :" +cursor.getString(7));
-//                    Department.setText("Department : "+cursor.getString(8));
-//                    DepartmentId.setText("Department Id : "+cursor.getString(9));
-                    Position.setText("Position : "+cursor.getString(10));
-//                    PositionId.setText("Position Id : "+cursor.getString(11));
-//                    Category.setText("Category : "+cursor.getString(12));
-//                    CategoryId.setText("Category Id : "+cursor.getString(13));
-//                    FirstName.setText("First Name : "+cursor.getString(14));
-//                    MiddleName.setText("Middle Name : "+cursor.getString(15));
-//                    LastName.setText("Last Name : "+cursor.getString(16));
-//                    Prefix.setText("Prefix : "+cursor.getString(17));
-//                    Suffix.setText("Suffix : "+cursor.getString(18));
-                    PersonalEmail.setText("Personal Email : "+cursor.getString(19));
-                    MobilenNo.setText("Mobile No : "+cursor.getString(20));
-//                    ImageTitle.setText("Image Title : "+cursor.getString(21));
-//                    ImagePath.setText("Image Path : "+cursor.getString(22));
-//                    JoiningDate.setText("Joining Date : "+cursor.getString(23));
-//                    CostCenterId.setText("Cost Center Id : "+cursor.getString(24));
-//                    PayCycleId.setText("Pay Cycle Id : "+cursor.getString(25));
-//                    LocationId.setText("Location Id : "+cursor.getString(26));
-//                    SupervisorId.setText("Supervisor Id : "+cursor.getString(27));
-                    SupervisorName.setText("Supervisor Name : "+cursor.getString(28));
-
-                }
+            if(companyid!=null){
+            UserRoomDB db = UserRoomDB.getDbInstance(requireContext());
+            UserInfo userInfo = new UserInfo(employee,EmployeeId,companyid,DesignationIds,Designations,fullname,
+                    grade,gradeids,empid,department,departmentid,position,positionid,category,
+                    categoryid,firstname,middlename,lastname,prefix,suffix,personalemail,mobilenos,
+                    imagetitle,imagepath,joinningdate,costcenterid,paycycleid,locationid,supervisorid,
+                    supervisorname);
+            db.userDAO().insertUser(userInfo);
             }
 
+            //test
+            Intent intents = getActivity().getIntent();
+            String mypositions = intents.getStringExtra("Employee");
+            // Toast.makeText(getApplicationContext(), "Data Position is "+mypositions, Toast.LENGTH_SHORT).show();
 
-        }
-        if (intent.getExtras() == null) {
+            UserRoomDB database = UserRoomDB.getDbInstance(requireContext());
 
-            //database cursor
-            dbs = new MyDbHelper(requireContext());
-            Cursor cursor = dbs.alldata();
-            if (cursor.getCount() == 0) {
-                Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_SHORT).show();
-            } else {
-                while (cursor.moveToNext()) {
-                    welcome.setText("Welcome " + cursor.getString(4));
-                    employeeid.setText("EmployeeId :" + cursor.getString(0));
-                    CompanyId.setText("Company Id :" + cursor.getString(1));
-                    DesignationId.setText("DesignationId :" + cursor.getString(2));
-                    Designation.setText("Designation :" + cursor.getString(3));
-                    FullName.setText("Full Name:" + cursor.getString(4));
-//                    Grade.setText("Grade :"+cursor.getString(5));
-//                    GradeId.setText("Grade Id :"+cursor.getString(6));
-//                    EmpId.setText("EmpId :" +cursor.getString(7));
-//                    Department.setText("Department : "+cursor.getString(8));
-//                    DepartmentId.setText("Department Id : "+cursor.getString(9));
-                    Position.setText("Position : "+cursor.getString(10));
-//                    PositionId.setText("Position Id : "+cursor.getString(11));
-//                    Category.setText("Category : "+cursor.getString(12));
-//                    CategoryId.setText("Category Id : "+cursor.getString(13));
-//                    FirstName.setText("First Name : "+cursor.getString(14));
-//                    MiddleName.setText("Middle Name : "+cursor.getString(15));
-//                    LastName.setText("Last Name : "+cursor.getString(16));
-//                    Prefix.setText("Prefix : "+cursor.getString(17));
-//                    Suffix.setText("Suffix : "+cursor.getString(18));
-                    PersonalEmail.setText("Personal Email : "+cursor.getString(19));
-                    MobilenNo.setText("Mobile No : "+cursor.getString(20));
-//                    ImageTitle.setText("Image Title : "+cursor.getString(21));
-//                    ImagePath.setText("Image Path : "+cursor.getString(22));
-//                    JoiningDate.setText("Joining Date : "+cursor.getString(23));
-//                    CostCenterId.setText("Cost Center Id : "+cursor.getString(24));
-//                    PayCycleId.setText("Pay Cycle Id : "+cursor.getString(25));
-//                    LocationId.setText("Location Id : "+cursor.getString(26));
-//                    SupervisorId.setText("Supervisor Id : "+cursor.getString(27));
-                    SupervisorName.setText("Supervisor Name : "+cursor.getString(28));
 
-                }
-            }
+            List<UserInfo> list = database.userDAO().getAllDatafromRow(mypositions);
+            String user = list.get(0).getEmployee();
+            int employeids = list.get(0).getEmployeeid();
+            String company_id = list.get(0).getCompanyid();
+            int designationid = list.get(0).getDesignationid();
+            String designation = list.get(0).getDesignation();
+            String fullnames = list.get(0).getFullname();
+            String positions = list.get(0).getPosition();
+            String email = list.get(0).getPersonalemail();
+            String mobilen = list.get(0).getMobilenno();
+            String supervisor = list.get(0).getSupervisorname();
+
+
+            welcome.setText("Welcome " + fullnames);
+            employeeid.setText("EmployeeId : " + employeids);
+            CompanyId.setText("Company Id : " + company_id);
+            DesignationId.setText("DesignationId : " + designationid);
+            Designation.setText("Designation : " + designation);
+            FullName.setText("Full Name: " + fullnames);
+            Position.setText("Position : "+positions);
+            PersonalEmail.setText("Personal Email : "+email);
+            MobilenNo.setText("Mobile No : "+mobilen);
+            SupervisorName.setText("Supervisor Name : "+supervisor);
+
+
 
 
         }
 
+//        if (intent.getExtras() == null){
+//            Toast.makeText(requireContext(), "intent is null", Toast.LENGTH_SHORT).show();
+//        }
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+
+            homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

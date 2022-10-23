@@ -5,19 +5,12 @@ import static com.cse.hrcap.ui.SelfAttandanceSummary.SelfAttandanceSummaryFragme
 import static com.cse.hrcap.ui.holiday.HolidayFragment.holidayRoomDB;
 import static com.cse.hrcap.ui.leavebalance.LeaveBalanceFragment.leaveBalanceroomDB;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cse.hrcap.RoomAtdRegSummary.AtdRegInfo;
@@ -50,14 +43,9 @@ import com.cse.hrcap.network.LoanApiClient;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
 import com.cse.hrcap.network.RegReasonRequest;
-import com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment;
 import com.cse.hrcap.ui.holiday.HolidayFragment;
-import com.cse.hrcap.ui.home.MyDbHelper;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -65,7 +53,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import com.cse.hrcap.databinding.ActivityMainBinding;
 

@@ -176,7 +176,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (checkuserpass == true) {
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(LoginActivity.this, "Sign in successfull", Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("Employee", userid);
                         startActivity(intent);
                     } else {
                         progressBar.setVisibility(View.INVISIBLE);
