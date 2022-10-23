@@ -13,7 +13,7 @@
     <string name="menu_leave">Leave Request</string>
     <string name="menu_loan">Loan/Advance Salary</string>
     <string name="menu_selfattandance">Self Attendance</string>
-    <string name="menu_attdancereg">Attandance Regularization Entry</string>
+    <string name="menu_attdancereg">Attendance Regularization Entry</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_chengepassword">Change Password</string>
     <string name="menu_holiday">Holiday</string>
@@ -22,12 +22,12 @@
     <string name="sync_data">Sync Data</string>
     <string name="menu_leavesummary">Leave Summary</string>
     <string name="draft">Save As Draft</string>
-    <string name="menu_selfattandance_summary">Self Attandance Summary</string>
-    <string name="menu_attdanceregsummary">Attandance Regularization Summary</string>
+    <string name="menu_selfattandance_summary">Self Attendance Summary</string>
+    <string name="menu_attdanceregsummary">Attendance Regularization Summary</string>
     <string name="menu_leavedraft">Leave Request Draft</string>
     <string name="menu_atdregaprsummary">Regularization Approval Summary</string>
     <string name="menu_leaveaprsummary">Leave Approval Summary</string>
-    <string name="menu_regentrydraft">Regulazition Entry Draft</string>
+    <string name="menu_regentrydraft">Regularization Entry Draft</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>
