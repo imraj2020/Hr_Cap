@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".ui.home.HomeFragment"
-    android:orientation="vertical">
+    android:background="#B61915"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo">
+
+        </ImageView>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text_home"
@@ -23,7 +37,7 @@
 
     <TextView
         android:id="@+id/text_homes"
-        android:textColor="#36AA3B"
+        android:textStyle="italic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_home"
@@ -33,223 +47,238 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textAlignment="center"
+        android:textColor="#ffff"
         android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/text_homes"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:padding="10dp"
-        android:layout_below="@+id/text_homes"
         android:background="@drawable/spinner_border_top"
+        android:backgroundTint="#1E88E5"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/employeeid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/companyid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/DesignationId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/Designation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/FullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/Grade"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/Grade"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/GradeId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/GradeId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/EmpId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/EmpId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/Department"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/Department"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/DepartmentId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/DepartmentId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
         <TextView
             android:id="@+id/Position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/PositionId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/PositionId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/Category"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/Category"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/CategoryId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/CategoryId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/FirstName"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/FirstName"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/MiddleName"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/MiddleName"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/LastName"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/LastName"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/Prefix"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/Prefix"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/Suffix"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/Suffix"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
         <TextView
             android:id="@+id/PersonalEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/MobilenNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/ImageTitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/ImageTitle"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/ImagePath"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/ImagePath"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/JoiningDate"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/JoiningDate"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/CostCenterId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/CostCenterId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/PayCycleId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/PayCycleId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/LocationId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/LocationId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/SupervisorId"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="TextView" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/SupervisorId"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="TextView" />-->
 
         <TextView
             android:id="@+id/SupervisorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 
 
-</RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="100dp"
+        android:textColor="#ffff"
+        android:textStyle="bold"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:text="Warning: Please do not sign in with multiple account."></TextView>
+
+
+</LinearLayout>
