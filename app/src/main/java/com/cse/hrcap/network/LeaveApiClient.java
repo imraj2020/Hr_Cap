@@ -24,7 +24,7 @@ public class LeaveApiClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://184.168.127.174:1394/")
+                .baseUrl("http://184.168.127.174:1313/")
                 .client(okHttpClient)
                 .build();
 
