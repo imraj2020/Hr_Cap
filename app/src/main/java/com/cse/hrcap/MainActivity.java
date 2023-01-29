@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(menu -> {
             Intent newIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(newIntent);
+            MainActivity.this.finish();
             return true;
         });
     }

@@ -147,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                             i.putExtra("SupervisorName", loginResponse.getSupervisorName());
                             progressBar.setVisibility(View.INVISIBLE);
                             startActivity(i);
+                            LoginActivity.this.finish();
 //                           startActivity(new Intent(LoginActivity.this,MainActivity.class).
 //                                   putExtra("data",loginResponse.getEmployeeId()));
                         }
