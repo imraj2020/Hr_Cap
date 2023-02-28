@@ -246,15 +246,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         BtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Launching new Activity on selecting single List Item
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-
-                //Move one Fragment to another
-//                FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-//                ft.replace(R.id.nav_host_fragment_content_main, new AttandanceReglarizationFragment(), null);
-//                ft.addToBackStack(AttandanceReglarizationFragment.class.getName()); // you can use a string here, using the class name is just convenient
-//                ft.commit();
+                requireActivity().onBackPressed();
             }
         });
 
@@ -491,8 +483,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         //  Toast.makeText(requireContext(),country[position] , Toast.LENGTH_LONG).show();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "You selected: " + label,
-                Toast.LENGTH_LONG).show();
+//        Toast.makeText(parent.getContext(), "You selected: " + label,
+//                Toast.LENGTH_LONG).show();
 
     }
 

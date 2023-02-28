@@ -186,9 +186,7 @@ public class SelfAttandanceFragment extends Fragment {
         CancelBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                // Launching new Activity on selecting single List Item
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
+                requireActivity().onBackPressed();
             }
         });
 

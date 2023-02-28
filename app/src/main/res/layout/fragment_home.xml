@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#B61915"
-    android:gravity="center"
+
+
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
@@ -14,9 +14,13 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:layout_gravity="center">
 
         <ImageView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/logo">
@@ -49,7 +53,7 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textAlignment="center"
-        android:textColor="#ffff"
+        android:textColor="#00ACC1"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -268,19 +272,6 @@
             android:textColor="@color/black" />
 
     </LinearLayout>
-
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="100dp"
-        android:textColor="#ffff"
-        android:textStyle="bold"
-        android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:text="Warning: Please do not sign in with multiple account."></TextView>
 
 
 </LinearLayout>

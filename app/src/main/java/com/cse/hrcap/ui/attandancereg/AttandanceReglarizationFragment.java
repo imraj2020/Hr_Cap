@@ -4,6 +4,8 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.cse.hrcap.MainActivity.leaveroomDB;
 import static com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding.*;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
@@ -18,6 +20,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +47,7 @@ import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
 import com.cse.hrcap.network.AttandanceRegularizationRequest;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveRequest;
+import com.cse.hrcap.ui.home.HomeFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -133,7 +137,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                         spinneritem,currentDateandTime,Note.getText().toString(),TxtName.getText().toString());
                 db.regDraftDAO().insertRegDraft(drafts);
 
-               // Toast.makeText(requireContext(), "Data Saved As Draft"+spinnerValue+" "+spinneritem, Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Saved As Draft", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -320,9 +324,9 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         BtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Launching new Activity on selecting single List Item
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
+
+                requireActivity().onBackPressed();
+
             }
         });
 
@@ -337,6 +341,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -355,7 +361,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putInt("userChoiceSpinners",userChoice);
         prefEditor.commit();
-        Toast.makeText(parent.getContext(), spinneritem, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(parent.getContext(), spinneritem, Toast.LENGTH_SHORT).show();
     }
 
     @Override

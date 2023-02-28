@@ -250,6 +250,8 @@
             android:padding="5dp"
             android:text="Cancel" />
 
+
+
         <Button
             android:id="@+id/btndraft"
             android:layout_width="wrap_content"
@@ -258,7 +260,9 @@
             android:layout_weight="1"
             android:backgroundTint="#505950"
             android:padding="5dp"
-            android:text="Save As Draft" />
+            android:text="@string/draft"
+            android:textAllCaps="false" />
+
 
         <Button
             android:id="@+id/btn_submit"
