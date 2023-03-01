@@ -3,12 +3,14 @@ package com.cse.hrcap.MyAdapters;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
@@ -38,13 +40,21 @@ public class LeaveBalanceAdapter extends RecyclerView.Adapter<LeaveBalanceAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LeaveBalanceInfo data = list.get(position);
 
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
+
+
+
         holder.CompanyId.setText("CompanyId: "+data.getCompanyid());
         holder.EmployeeId.setText("EmployeeId: "+Integer.toString(data.getEmployeeid()));
         holder.LeaveTypeId.setText("LeaveTypeId: "+Integer.toString(data.getLeavetypeid()));
-        holder.LeaveTypeName.setText("LeaveTypeName: "+data.getLeavetypename());
-        holder.TakenLeave.setText("TakenLeave: "+Float.toString(data.getTakenleave()));
-        holder.TotalLeave.setText("TotalLeave: "+Float.toString(data.getTotalleave()));
-        holder.AvailableLeave.setText("AvailableLeave: "+Float.toString(data.getAvailableleave()));
+        holder.LeaveTypeName.setText(""+data.getLeavetypename());
+        holder.TakenLeave.setText(""+Float.toString(data.getTakenleave()));
+        holder.TotalLeave.setText(""+Float.toString(data.getTotalleave()));
+        holder.AvailableLeave.setText(""+Float.toString(data.getAvailableleave()));
 
     }
 
@@ -56,6 +66,9 @@ public class LeaveBalanceAdapter extends RecyclerView.Adapter<LeaveBalanceAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView CompanyId,EmployeeId,LeaveTypeId,LeaveTypeName,TakenLeave,TotalLeave,AvailableLeave;
+        CardView MyCardView;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,7 +79,8 @@ public class LeaveBalanceAdapter extends RecyclerView.Adapter<LeaveBalanceAdapte
             LeaveTypeName = (TextView)itemView.findViewById(R.id.tvLeaveTypeName);
             TakenLeave = (TextView)itemView.findViewById(R.id.tvTakenLeave);
             TotalLeave = (TextView)itemView.findViewById(R.id.tvTotalLeave);
-            AvailableLeave = (TextView)itemView.findViewById(R.id.tvAvailableLeave);;
+            AvailableLeave = (TextView)itemView.findViewById(R.id.tvAvailableLeave);
+            MyCardView = itemView.findViewById(R.id.leavebalancecard);
 
         }
     }

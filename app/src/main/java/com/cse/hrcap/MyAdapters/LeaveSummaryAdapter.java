@@ -3,12 +3,14 @@ package com.cse.hrcap.MyAdapters;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
@@ -37,18 +39,25 @@ public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LeaveSummaryInfo data = list.get(position);
 
-        holder.LeaveId.setText("LeaveId: "+data.getLeaveid());
-        holder.LeaveTypeName.setText("LeaveTypeName: "+data.getLeavetypename());
-        holder.FromDate.setText("FromDate: "+data.getFromdate());
-        holder.ToDate.setText("ToDate: "+data.getTodate());
-        holder.TotalDay.setText("TotalDay: "+data.getTotalday());
-        holder.TotalHours.setText("TotalHours: "+data.getTotalhours());
+
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
+
+        holder.LeaveId.setText(""+data.getLeaveid());
+        holder.LeaveTypeName.setText(""+data.getLeavetypename());
+        holder.FromDate.setText(""+data.getFromdate());
+        holder.ToDate.setText(""+data.getTodate());
+        holder.TotalDay.setText(""+data.getTotalday()+"Day");
+        holder.TotalHours.setText(""+data.getTotalhours());
         holder.EntryBy.setText("EntryBy: "+data.getEntryby());
 
         //every data is string here also the integer
         holder.EntryDateTime.setText("EntryDateTime: "+data.getEntrydatetime());
         holder.LeaveStatusId.setText("LeaveStatusId: "+data.getLeavestatusid());
-        holder.LeaveStatusName.setText("LeaveStatusName: "+data.getLeavetypename()+"\n");
+        holder.LeaveStatusName.setText(""+data.getLeavestatusname()+"\n");
     }
 
     @Override
@@ -59,6 +68,8 @@ public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView LeaveId,LeaveTypeName,FromDate,ToDate,TotalDay,TotalHours,EntryBy,EntryDateTime,LeaveStatusId,LeaveStatusName;
+        CardView MyCardView;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +84,7 @@ public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapte
             EntryDateTime = (TextView)itemView.findViewById(R.id.tv_EntryDateTime);
             LeaveStatusId = (TextView)itemView.findViewById(R.id.tv_LeaveStatusId);
             LeaveStatusName = (TextView)itemView.findViewById(R.id.tv_LeaveStatusName);
+            MyCardView = itemView.findViewById(R.id.leavesummarycard);
 
         }
     }

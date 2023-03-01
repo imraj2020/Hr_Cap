@@ -8,6 +8,7 @@ import static com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment.leaveSummaryRoo
 import static com.cse.hrcap.ui.attandancereg.AttandanceReglarizationFragment.userChoice;
 
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -193,6 +194,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         //Toggle Button
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if (isChecked){
 
                     switchst = true;
@@ -200,6 +202,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     editor.putBoolean("switch", true); // value to store
                     editor.commit();
                     Status = "Full Day";
+
+
                     EtStartTime.setVisibility(View.GONE);
                     EtEndTime.setVisibility(View.GONE);
                     TvStartTime.setVisibility(View.GONE);
@@ -212,13 +216,13 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     editor.putBoolean("switch", false); // value to store
                     editor.commit();
                     Status = "Time";
+
                     EtStartTime.setVisibility(View.VISIBLE);
                     EtEndTime.setVisibility(View.VISIBLE);
                     TvStartTime.setVisibility(View.VISIBLE);
                     TvEndTime.setVisibility(View.VISIBLE);
                     Toast.makeText(requireContext(),"You Select:"+Status,Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 
@@ -375,6 +379,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String employeename = intent.getStringExtra("Employee");
+        String fullname = intent.getStringExtra("FullName");
+        binding.tvempfullname.setText(fullname);
         EmpName.setText(employeename);
         CompanyId.setText(companyid);
         // spinner.setOnItemSelectedListener(this);

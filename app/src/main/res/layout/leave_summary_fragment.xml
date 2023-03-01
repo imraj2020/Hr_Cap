@@ -7,11 +7,96 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/button_background_blue"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="5dp"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="1dp"
+            android:text="Leave Id"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="5dp"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="1dp"
+            android:text="      Date"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="5dp"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="1dp"
+            android:text="      Day / Hour "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="1dp"
+            android:text="Leave Type"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textDirection="rtl"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="1dp"
+            android:text="Status"/>
+
+
+
+
+
+
+    </LinearLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/lvsummaryswipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
+
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,6 +108,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/leavesummarylv"
+            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="TouchTargetSizeCheck" />

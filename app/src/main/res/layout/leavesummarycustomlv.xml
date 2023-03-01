@@ -1,63 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/leavesummarycard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
     android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border_top"
         android:padding="5dp"
         android:id="@+id/linear"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="holidayid"
+            android:layout_weight="1"
+            android:text="LeaveId"
+            android:layout_gravity="center"
+            android:padding="1dp"
+            android:gravity="center"
             android:id="@+id/tv_LeaveId"/>
 
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="1dp"
+            android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="companyid"
-            android:id="@+id/tv_LeaveTypeName"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="holidayname"
+            android:text="FromDate"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:id="@+id/tv_FromDate"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="shortname"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="ToDate"
             android:id="@+id/tv_ToDate"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:padding="1dp"
+            >
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="religionspecific"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="TotalDay"
             android:id="@+id/tv_TotalDay"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="religionid"
+            android:text="TotalHours"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:id="@+id/tv_TotalHours"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="religionname"
+            android:visibility="gone"
             android:id="@+id/tv_EntryBy"/>
 
         <TextView
@@ -65,6 +96,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="typeid"
+            android:visibility="gone"
             android:id="@+id/tv_EntryDateTime"/>
 
         <TextView
@@ -72,13 +104,30 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="typename"
+            android:visibility="gone"
             android:id="@+id/tv_LeaveStatusId"/>
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="description"
+            android:layout_weight="1"
+            android:text="LeaveType"
+            android:padding="1dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/tv_LeaveTypeName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:text="Status"
+            android:padding="1dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:id="@+id/tv_LeaveStatusName"/>
 
 
@@ -86,4 +135,4 @@
 
 
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

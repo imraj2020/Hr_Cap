@@ -4,43 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center"
+
+
     android:orientation="vertical"
     tools:context=".ui.leave.LeaveRequestFragment">
-
-    <LinearLayout
-        android:id="@+id/linear_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvCheckdraft"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="Check Draft !"-->
-<!--            android:textColor="#F10808"-->
-<!--            android:textSize="20sp" />-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,6 +27,7 @@
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:text="Employee:"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -71,7 +39,21 @@
                 android:hint="employee name"
                 android:padding="5dp"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tvempfullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="employee name"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -85,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Select leave Type:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -129,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Day Type:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <!--        <com.google.android.material.textfield.TextInputLayout-->
@@ -170,6 +154,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Start Date:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
 
@@ -198,6 +183,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="End Date:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -219,12 +205,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+
         <TextView
             android:id="@+id/tvstarttime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Start Time:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -240,11 +229,12 @@
                 android:id="@+id/etstarttime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="HH:MM"
                 android:padding="5dp"
                 android:text="09:00 AM" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <TextView
             android:id="@+id/tvendtime"
@@ -252,6 +242,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="End Time:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -267,7 +258,6 @@
                 android:id="@+id/etendtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="HH:MM"
                 android:padding="5dp"
                 android:text="06:00 PM" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -283,6 +273,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Reason:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
 
@@ -298,9 +289,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etreason"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:hint="Write Reason here"
-                android:padding="5dp" />
+                android:padding="1dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -316,6 +307,7 @@
                 android:padding="5dp"
                 android:text="Company ID:"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 android:textSize="15sp" />
 
             <TextView
@@ -326,6 +318,7 @@
                 android:inputType="textPersonName"
                 android:padding="5dp"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 android:textSize="15sp" />
         </LinearLayout>
 
