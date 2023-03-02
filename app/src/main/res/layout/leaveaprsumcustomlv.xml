@@ -1,161 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/leaveapprovalcard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
     android:padding="5dp">
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border_top"
-        android:padding="5dp"
-        android:id="@+id/linear"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="holidayid"
-            android:id="@+id/tv_lvid"/>
+        android:orientation="vertical"
+        android:padding="5dp">
+
+
 
         <TextView
+            android:id="@+id/tv_companyid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="companyid"
-            android:id="@+id/tv_companyid"/>
+            android:textColor="@color/black"
+            android:visibility="gone" />
+
         <TextView
+            android:id="@+id/tv_empid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="holidayname"
-            android:id="@+id/tv_empid"/>
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_leavetypeid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="leavetypeid"
             android:textColor="@color/black"
-            android:text="shortname"
-            android:id="@+id/tv_empcode"/>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="religionspecific"
-            android:id="@+id/tv_leavetypeid"/>
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_totalday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="religionid"
-            android:id="@+id/tv_leavetypename"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="religionname"
-            android:id="@+id/tv_fromdate"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="typeid"
-            android:id="@+id/tv_todate"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="typename"
-            android:id="@+id/tv_totalday"/>
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_leavestatusid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="description"
-            android:id="@+id/tv_fromtime"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="companyid"
-            android:id="@+id/tv_totime"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="holidayname"
-            android:id="@+id/tv_totalhours"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="shortname"
-            android:id="@+id/tv_leavestatusid"/>
-
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_indivrequeststatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="religionspecific"
-            android:id="@+id/tv_leavestatusname"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="religionid"
-            android:id="@+id/tv_fullname"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="religionname"
-            android:id="@+id/tv_indivrequeststatus"/>
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_indivrequeststatusname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="typeid"
-            android:id="@+id/tv_indivrequeststatusname"/>
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_entryby"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:text="typename"
-            android:id="@+id/tv_entryby"/>
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
-        <TextView
+
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="description"
-            android:id="@+id/tv_entrydate"/>
+            android:orientation="horizontal">
+
+
+
+            <TextView
+                android:id="@+id/tv_fullname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fullname"
+                android:textColor="@color/black" />
+
+
+            <TextView
+                android:id="@+id/tv_empcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="empcode"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/tv_entrydate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="entrydate"
+                android:textColor="@color/black"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_leavetypename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="leavetypename"
+                android:textColor="@color/black" />
+
+
+            <TextView
+                android:id="@+id/tv_lvid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="leaveId"
+                android:textColor="@color/black"
+                />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_fromdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="fromdate"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_todate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="todate"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_fromtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="fromtime"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_totime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="totime"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+               <TextView
+                   android:id="@+id/tv_totalhours"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="totalhours"
+                   android:textColor="@color/black" />
+
+
+            <TextView
+                android:id="@+id/tv_leavestatusname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="leavestatusname"
+                android:textColor="@color/black" />
+
+
+
+
+
 
         <Button
+            android:id="@+id/btnaproval"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnaproval"
             android:backgroundTint="#F4511E"
-            android:text="View For Approval">
-
-        </Button>
+            android:text="View For Approval"></Button>
 
 
     </LinearLayout>
 
 
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

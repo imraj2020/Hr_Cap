@@ -16,6 +16,9 @@ import com.cse.hrcap.R;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapter.ViewHolder> {
@@ -46,10 +49,38 @@ public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapte
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
         }
 
+
+        // Input date string1
+        String inputDateString1 = data.getTodate();
+        SimpleDateFormat inputDateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
+        Date inputDate1 = null;
+        try {
+            inputDate1 = inputDateFormat1.parse(inputDateString1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat outputDateFormat1 = new SimpleDateFormat("dd/MM/yy");
+        String outputDateString1 = outputDateFormat1.format(inputDate1);
+
+
+        // Input date string2
+        String inputDateString2 = data.getTodate();
+        SimpleDateFormat inputDateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+        Date inputDate2 = null;
+        try {
+            inputDate2 = inputDateFormat2.parse(inputDateString2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat outputDateFormat2 = new SimpleDateFormat("dd/MM/yy");
+        String outputDateString2 = outputDateFormat1.format(inputDate2);
+
+
+
         holder.LeaveId.setText(""+data.getLeaveid());
         holder.LeaveTypeName.setText(""+data.getLeavetypename());
-        holder.FromDate.setText(""+data.getFromdate());
-        holder.ToDate.setText(""+data.getTodate());
+        holder.FromDate.setText(""+outputDateString2);
+        holder.ToDate.setText(""+outputDateString1);
         holder.TotalDay.setText(""+data.getTotalday()+"Day");
         holder.TotalHours.setText(""+data.getTotalhours());
         holder.EntryBy.setText("EntryBy: "+data.getEntryby());

@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="5dp"
-            android:layout_weight="1"
+            android:layout_weight="1.4"
             android:textSize="12sp"
             android:textColor="@color/black"
             android:layout_gravity="center"
@@ -42,7 +42,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="1dp"
-            android:text="      Date"/>
+            android:text="Date"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="1dp"
-            android:text="      Day / Hour "/>
+            android:text="Day/Hour"/>
 
         <TextView
             android:layout_width="wrap_content"

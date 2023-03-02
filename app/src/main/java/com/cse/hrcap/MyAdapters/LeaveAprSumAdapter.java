@@ -5,6 +5,7 @@ package com.cse.hrcap.MyAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveApproval;
@@ -23,6 +25,9 @@ import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.ViewHolder> {
@@ -46,26 +51,85 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         LeaveAprSumInfo data = list.get(position);
 
-        holder.LeaveId.setText("LeaveId: "+data.getLeaveid());
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
+
+        // Entry Date
+        String inputDateString1 = data.getEntrydate();
+        SimpleDateFormat inputDateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
+        Date inputDate1 = null;
+        try {
+            inputDate1 = inputDateFormat1.parse(inputDateString1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat outputDateFormat1 = new SimpleDateFormat("dd/MM/yy");
+        String EntryDate = outputDateFormat1.format(inputDate1);
+
+
+
+        // From Date
+        String inputDateString2 = data.getFromdate();
+        SimpleDateFormat inputDateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+        Date inputDate2 = null;
+        try {
+            inputDate1 = inputDateFormat1.parse(inputDateString1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat outputDateFormat2 = new SimpleDateFormat("dd/MM/yy");
+        String FromDate = outputDateFormat2.format(inputDate1);
+
+
+        // To Date
+        String inputDateString3 = data.getTodate();
+        SimpleDateFormat inputDateFormat3 = new SimpleDateFormat("dd/MM/yyyy");
+        Date inputDate3 = null;
+        try {
+            inputDate3 = inputDateFormat3.parse(inputDateString1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat outputDateFormat3 = new SimpleDateFormat("dd/MM/yy");
+        String ToDate = outputDateFormat3.format(inputDate1);
+
+
+
+
+        holder.FullName.setText("Name: "+data.getFullname());
+        holder.EmpCode.setText("("+data.getEmpcode()+")");
+        holder.EntryDate.setText("Entry Date: "+EntryDate);
+        holder.LeaveTypeName.setText("Leave Type: "+data.getLeavetypename());
+        holder.LeaveId.setText("Leave Id: "+data.getLeaveid());
+        holder.FromDate.setText("From Date: "+FromDate);
+        holder.ToDate.setText("To Date: "+ToDate);
+        holder.FromTime.setText("From Time: "+data.getFromtime());
+        holder.ToTime.setText("To Time: "+data.getTotime());
+        holder.TotalHours.setText("Total Hours: "+data.getTotalhours());
+        holder.LeaveStatusName.setText("Status: "+data.getLeavestatusname()+"\n");
+
+
+
+
         holder.CompanyId.setText("CompanyId: "+data.getCompanyid());
         holder.EmpId.setText("EmpId: "+Integer.toString(data.getEmpid()));
-        holder.EmpCode.setText("EmpCode: "+data.getEmpcode());
+
         holder.LeaveTypeId.setText("LeaveTypeId: "+Integer.toString(data.getLeavetypeid()));
-        holder.LeaveTypeName.setText("LeaveTypeName: "+data.getLeavetypename());
-        holder.FromDate.setText("FromDate: "+data.getFromdate());
-        //every data is string here also the integer
-        holder.ToDate.setText("ToDate: "+data.getTodate());
+
+
         holder.TotalDay.setText("TotalDay: "+data.getTotalday());
-        holder.FromTime.setText("FromTime: "+data.getFromtime());
-        holder.ToTime.setText("ToTime: "+data.getTotime());
-        holder.TotalHours.setText("TotalHours: "+data.getTotalhours());
+
+
         holder.Leavestatusid.setText("Leavestatusid: "+Integer.toString(data.getLeavestatusid()));
-        holder.LeaveStatusName.setText("LeaveStatusName: "+data.getLeavestatusname());
-        holder.FullName.setText("FullName: "+data.getFullname());
+
+
         holder.IndivRequestStatus.setText("IndivRequestStatus: "+Integer.toString(data.getIndivrequeststatus()));
         holder.IndivRequestStatusName.setText("IndivRequestStatusName: "+data.getIndivrequeststatusname());
         holder.EntryBy.setText("EntryBy: "+data.getEntryby());
-        holder.EntryDate.setText("EntryDate: "+data.getEntrydate()+"\n");
+
 
         //Button Checking
         holder.BtnApproval.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +171,9 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         TextView LeaveId,CompanyId,EmpId,EmpCode,LeaveTypeId,LeaveTypeName,FromDate,ToDate,TotalDay,FromTime,ToTime,
                 TotalHours,Leavestatusid,LeaveStatusName,FullName,IndivRequestStatus,IndivRequestStatusName,EntryBy,
                 EntryDate;
+        CardView MyCardView;
+
+
         Button BtnApproval;
 
         public ViewHolder(@NonNull View itemView) {
@@ -132,6 +199,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
             EntryBy = (TextView)itemView.findViewById(R.id.tv_entryby);
             EntryDate = (TextView)itemView.findViewById(R.id.tv_entrydate);
             BtnApproval = (Button)itemView.findViewById(R.id.btnaproval);
+            MyCardView = itemView.findViewById(R.id.leaveapprovalcard);
 
         }
     }
