@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class ChengePasswordFragment extends Fragment {
     ChengePasswordFragmentBinding binding;
-    EditText UserName, OldPassword,NewPassword,ConfirmPassword, CompanyId;
+    EditText UserName, OldPassword, NewPassword, ConfirmPassword, CompanyId;
     Button Savebutton;
     private ChengePasswordViewModel mViewModel;
 
@@ -42,7 +42,7 @@ public class ChengePasswordFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-       // return inflater.inflate(R.layout.chenge_password_fragment, container, false);
+        // return inflater.inflate(R.layout.chenge_password_fragment, container, false);
         binding = ChengePasswordFragmentBinding.inflate(inflater);
         UserName = binding.etusername;
         OldPassword = binding.etoldpassword;
@@ -51,17 +51,51 @@ public class ChengePasswordFragment extends Fragment {
         CompanyId = binding.etcompanyid;
         Savebutton = binding.savebtn;
 
+        Intent intent = getActivity().getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+        String username = intent.getStringExtra("Employee");
+
+
+        UserName.setText(username);
+        CompanyId.setText(companyid);
+
+
         Savebutton.setOnClickListener(view -> {
-            if(TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(OldPassword.getText().toString()) ||
+            if (TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(OldPassword.getText().toString()) ||
                     TextUtils.isEmpty(NewPassword.getText().toString()) || TextUtils.isEmpty(ConfirmPassword.getText().toString()) ||
-                    TextUtils.isEmpty(CompanyId.getText().toString())){
-                Toast.makeText(requireContext(),"All Field is Required", Toast.LENGTH_LONG).show();
-            }else{
-                //proceed to chenge password
-                chengepassword();
+                    TextUtils.isEmpty(CompanyId.getText().toString())) {
+
+
+                if (TextUtils.isEmpty(UserName.getText().toString().trim())) {
+                    UserName.setError("Username Can't be Empty");
+                }
+                if (TextUtils.isEmpty(OldPassword.getText().toString().trim())) {
+                    OldPassword.setError("Password Can't be Empty");
+                }
+                if (TextUtils.isEmpty(NewPassword.getText().toString().trim())) {
+                    NewPassword.setError("Password Can't be Empty");
+                }
+                if (TextUtils.isEmpty(ConfirmPassword.getText().toString().trim())) {
+                    ConfirmPassword.setError("Password Can't be Empty");
+                }
+                if (TextUtils.isEmpty(CompanyId.getText().toString().trim())) {
+                    CompanyId.setError("CompanyId Can't be Empty");
+                }
+
+
+                Toast.makeText(requireContext(), "All Field is Required", Toast.LENGTH_LONG).show();
+            } else {
+
+                if (NewPassword.getText().toString().equals(ConfirmPassword.getText().toString())){
+
+                    chengepassword();
+
+                }else{
+                    ConfirmPassword.setError("Password Did Not Matched");
+                }
+
             }
         });
-
 
 
         return binding.getRoot();
@@ -75,24 +109,24 @@ public class ChengePasswordFragment extends Fragment {
         String newpassword = NewPassword.getText().toString();
         String confirmpassword = ConfirmPassword.getText().toString();
         String companyid = CompanyId.getText().toString();
-        Call<ChengePasswordResponse> loginResponseCall = ChengePasswordApiClient.getUserService().chengePassword(username,oldpassword,newpassword,confirmpassword,companyid);
+        Call<ChengePasswordResponse> loginResponseCall = ChengePasswordApiClient.getUserService().chengePassword(username, oldpassword, newpassword, confirmpassword, companyid);
         loginResponseCall.enqueue(new Callback<ChengePasswordResponse>() {
             @Override
             public void onResponse(Call<ChengePasswordResponse> call, Response<ChengePasswordResponse> response) {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     //Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_LONG).show();
                     ChengePasswordResponse loginResponse = response.body();
-                    Toast.makeText(requireContext(), "Status is :"+loginResponse.getStatus(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Status is :" + loginResponse.getStatus(), Toast.LENGTH_LONG).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
 
                         }
-                    },700);
+                    }, 700);
 
-                }else{
-                    Toast.makeText(requireContext(),"Sorry something went wrong", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(requireContext(), "Sorry something went wrong", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -100,7 +134,7 @@ public class ChengePasswordFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ChengePasswordResponse> call, Throwable t) {
-                Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
             }
         });

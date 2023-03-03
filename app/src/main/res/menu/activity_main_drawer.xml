@@ -33,16 +33,6 @@
                 android:id="@+id/nav_leave"
                 android:title="@string/menu_leave" />
 
-
-            <!--        <item-->
-            <!--            android:id="@+id/nav_loan"-->
-            <!--            android:title="@string/menu_loan" />-->
-
-
-            <item
-                android:id="@+id/nav_leavebalance"
-                android:title="@string/menu_leavebalance" />
-
             <item
                 android:id="@+id/nav_leavesummary"
                 android:title="@string/menu_leavesummary" />
@@ -52,11 +42,15 @@
                 android:id="@+id/nav_leaveaprsummary"
                 android:title="@string/menu_leaveaprsummary" />
 
+
+            <item
+                android:id="@+id/nav_leavebalance"
+                android:title="@string/menu_leavebalance" />
+
+
             <item
                 android:id="@+id/nav_holiday"
                 android:title="@string/menu_holiday" />
-
-
 
 
         </menu>

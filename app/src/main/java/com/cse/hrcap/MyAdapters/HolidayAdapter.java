@@ -2,13 +2,17 @@ package com.cse.hrcap.MyAdapters;
 
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
@@ -19,6 +23,7 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.ViewHold
 
     private final List<HolidayInfo> list;
     private Context context;
+    int mSerialNumber = 1;
 
     public HolidayAdapter(List<HolidayInfo> list, Context context) {
         this.list = list;
@@ -36,20 +41,31 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HolidayInfo data = list.get(position);
 
-        holder.HolidayId.setText("HolidayId: "+Integer.toString(data.getHolidayid()));
-        holder.CompanyId.setText("CompanyId: "+data.getCompanyid());
-        holder.HolidayName.setText("HolidayName: "+data.getHolidayname());
-        holder.ShortName.setText("ShortName: "+data.getShortname());
-        holder.ReligionSpecific.setText("ReligionSpecific: "+data.getReligionspecific());
-        holder.ReligionId.setText("ReligionId: "+Integer.toString(data.getReligionid()));
-        holder.ReligionName.setText("ReligionName: "+data.getReligionname());
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
+
+        holder.Serial.setText(mSerialNumber + ". ");
+        mSerialNumber++;
+
+
+        holder.HolidayId.setText("HolidayId: " + Integer.toString(data.getHolidayid()));
+        holder.CompanyId.setText("CompanyId: " + data.getCompanyid());
+        holder.HolidayName.setText("" + data.getHolidayname());
+        holder.ShortName.setText("ShortName: " + data.getShortname());
+        holder.ReligionSpecific.setText("ReligionSpecific: " + data.getReligionspecific());
+        holder.ReligionId.setText("ReligionId: " + Integer.toString(data.getReligionid()));
+        holder.ReligionName.setText("ReligionName: " + data.getReligionname());
 
         //have some problem in data type of typeid ,sometime 1 ,sometime null
-        holder.TypeId.setText("TypeId: "+data.getTypeid());
-        holder.TypeName.setText("TypeName: "+data.getTypename());
-        holder.Description.setText("Description: "+data.getDescription());
-        holder.Active.setText("Active: "+data.getActive());
-        holder.EveryYearSameMonthDay.setText("EveryYearSameMonthDay: "+data.getEveryyearsamemonthday()+"\n");
+        holder.TypeId.setText("TypeId: " + data.getTypeid());
+        holder.TypeName.setText("TypeName: " + data.getTypename());
+        holder.Description.setText("Description: " + data.getDescription());
+        holder.Active.setText("Active: " + data.getActive());
+        holder.EveryYearSameMonthDay.setText("EveryYearSameMonthDay: " + data.getEveryyearsamemonthday() + "\n");
+
     }
 
     @Override
@@ -60,7 +76,12 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView HolidayId, CompanyId, HolidayName,ShortName,ReligionSpecific,ReligionId,ReligionName,
-                TypeId,TypeName,Description,Active,EveryYearSameMonthDay;
+                TypeId,TypeName,Description,Active,EveryYearSameMonthDay,Serial;
+
+        CardView MyCardView;
+
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +98,8 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.ViewHold
             Description = (TextView)itemView.findViewById(R.id.description);
             Active = (TextView)itemView.findViewById(R.id.active);
             EveryYearSameMonthDay =(TextView)itemView.findViewById(R.id.everyyearsamemonthday);
+            Serial = (TextView)itemView.findViewById(R.id.serial);
+            MyCardView = itemView.findViewById(R.id.holidaycard);
 
         }
     }

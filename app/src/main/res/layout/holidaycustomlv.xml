@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/holidaycard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
     android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border_top"
         android:padding="5dp"
         android:id="@+id/linear"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="holidayid"
+            android:visibility="gone"
             android:id="@+id/holidayid"/>
 
         <TextView
@@ -23,7 +27,16 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="companyid"
+            android:visibility="gone"
             android:id="@+id/companyid"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Serial:"
+            android:id="@+id/serial"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +49,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="shortname"
+            android:visibility="gone"
             android:id="@+id/shortname"/>
 
 
@@ -44,6 +58,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="religionspecific"
+            android:visibility="gone"
             android:id="@+id/religionspecific"/>
 
         <TextView
@@ -51,6 +66,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="religionid"
+            android:visibility="gone"
             android:id="@+id/religionid"/>
 
         <TextView
@@ -58,6 +74,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="religionname"
+            android:visibility="gone"
             android:id="@+id/religionname"/>
 
         <TextView
@@ -65,6 +82,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="typeid"
+            android:visibility="gone"
             android:id="@+id/typeid"/>
 
         <TextView
@@ -72,6 +90,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="typename"
+            android:visibility="gone"
             android:id="@+id/typename"/>
 
         <TextView
@@ -79,6 +98,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="description"
+            android:visibility="gone"
             android:id="@+id/description"/>
 
         <TextView
@@ -86,6 +106,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="active"
+            android:visibility="gone"
             android:id="@+id/active"/>
 
 
@@ -94,10 +115,11 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="everyyearsamemonthday"
+            android:visibility="gone"
             android:id="@+id/everyyearsamemonthday"/>
 
     </LinearLayout>
 
 
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

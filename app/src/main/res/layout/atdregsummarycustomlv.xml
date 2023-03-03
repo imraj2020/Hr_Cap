@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/atdregularizationcard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
     android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border_top"
         android:padding="5dp"
         android:id="@+id/linear"
         android:orientation="vertical">
@@ -15,101 +18,131 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="holidayid"
+            android:text="MovementId"
             android:id="@+id/t_MovementId"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="holidayid"
-            android:id="@+id/t_CompanyId"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="holidayid"
-            android:id="@+id/t_EmpId"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="holidayid"
-            android:id="@+id/t_EmpCode"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="holidayid"
-            android:id="@+id/t_FullName"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="companyid"
+            android:layout_weight="1"
+            android:text="StartDate"
             android:id="@+id/t_StartDate"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="holidayname"
+            android:layout_weight="1"
+            android:text="EndDate"
             android:id="@+id/t_EndDate"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="shortname"
+            android:layout_weight="1"
+            android:text="FromTime"
+            android:id="@+id/t_FromTime"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="ToTime"
+            android:id="@+id/t_ToTime"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:text="Reason"
             android:id="@+id/t_Reason"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="Status"
+            android:id="@+id/t_Status"/>
+
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="EntryDate"
+            android:id="@+id/t_EntryDate"/>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="religionid"
+            android:text="Note"
             android:id="@+id/t_Note"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="religionname"
-            android:id="@+id/t_FromTime"/>
-
+            android:text="holidayid"
+            android:visibility="gone"
+            android:id="@+id/t_CompanyId"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="typeid"
-            android:id="@+id/t_ToTime"/>
-
+            android:text="holidayid"
+            android:visibility="gone"
+            android:id="@+id/t_EmpId"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="typename"
-            android:id="@+id/t_Status"/>
-
+            android:text="holidayid"
+            android:visibility="gone"
+            android:id="@+id/t_EmpCode"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="holidayid"
+            android:visibility="gone"
+            android:id="@+id/t_FullName"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="description"
+            android:visibility="gone"
             android:id="@+id/t_EntryBy"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="religionspecific"
-            android:id="@+id/t_EntryDate"/>
+
 
 
     </LinearLayout>
 
 
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
