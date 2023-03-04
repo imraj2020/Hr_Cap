@@ -4,6 +4,7 @@ package com.cse.hrcap.MyAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveApproval;
@@ -45,10 +47,18 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         AtdRegAprSumInfo data = list.get(position);
 
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
+
+
+
         holder.MovementId.setText("MovementId: " + data.getMovementid());
         holder.CompanyId.setText("CompanyId: " + data.getCompanyid());
         holder.EmpId.setText("EmpId: " + Integer.toString(data.getEmpid()));
-        holder.EmpCode.setText("EmpCode: " + data.getEmpcode());
+        holder.EmpCode.setText("(" + data.getEmpcode()+")");
         holder.FullName.setText("FullName: " + data.getFullname());
 
         holder.StartDate.setText("StartDate: " + data.getStartdate());
@@ -102,6 +112,10 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
                 Reason, Note, FromTime, ToTime, Status, EntryBy, EntryDate;
         Button BtnApproval;
 
+        CardView MyCardView;
+
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -120,7 +134,7 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
             EntryBy = (TextView) itemView.findViewById(R.id.t_EntryBys);
             EntryDate = (TextView) itemView.findViewById(R.id.t_EntryDates);
             BtnApproval = (Button)itemView.findViewById(R.id.btnAprove);
-
+            MyCardView = itemView.findViewById(R.id.atdregapprovalcard);
         }
     }
 }

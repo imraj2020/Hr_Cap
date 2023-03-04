@@ -1,28 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/atdregapprovalcard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
     android:padding="5dp">
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/spinner_border_top"
         android:orientation="vertical"
         android:padding="5dp">
 
-        <TextView
-            android:id="@+id/t_MovementId"
+
+        <!--        test-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/t_FullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FullName"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/t_EmpCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="EmpCode"
+                android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/t_MovementId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MovementId"
+                android:textColor="@color/black" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/t_StartDates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="StartDate"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/t_EndDates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="EndDate"
+                android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="holidayid"
-            android:textColor="@color/black" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/t_FromTimes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="FromTime"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/t_ToTimes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ToTime"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/t_Reasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reasons"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/t_Statuss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Status"
+                android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/t_EntryBys"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="EntryBy"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/t_EntryDates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="EntryDate"
+                android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/t_Notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Note"
+                android:textColor="@color/black" />
+
+
+
+
+
+        <!--        end-->
+
+
+
 
         <TextView
             android:id="@+id/t_CompanyId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="holidayid"
             android:textColor="@color/black" />
 
@@ -30,96 +175,19 @@
             android:id="@+id/t_EmpId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="holidayid"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_EmpCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="holidayid"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_FullName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="holidayid"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_StartDates"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="companyid"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_EndDates"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="holidayname"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_Reasons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="shortname"
-            android:textColor="@color/black" />
-
-
-        <TextView
-            android:id="@+id/t_Notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="religionid"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_FromTimes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="religionname"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_ToTimes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="typeid"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_Statuss"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="typename"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_EntryBys"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="description"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/t_EntryDates"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="religionspecific"
             android:textColor="@color/black" />
 
         <Button
+            android:id="@+id/btnAprove"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnAprove"
-            android:text="View For Approval"
-            android:backgroundTint="#F4511E"/>
+            android:backgroundTint="#F4511E"
+            android:text="View For Approval" />
 
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
