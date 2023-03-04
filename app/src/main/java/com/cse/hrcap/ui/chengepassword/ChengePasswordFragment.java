@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cse.hrcap.LoginActivity;
+import com.cse.hrcap.LoginDbHelper;
 import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.network.ChengePasswordApiClient;
 import com.cse.hrcap.network.ChengePasswordResponse;
@@ -33,6 +34,7 @@ public class ChengePasswordFragment extends Fragment {
     EditText UserName, OldPassword, NewPassword, ConfirmPassword, CompanyId;
     Button Savebutton;
     private ChengePasswordViewModel mViewModel;
+    private boolean isPasswordUpdated = false;
 
     public static ChengePasswordFragment newInstance() {
         return new ChengePasswordFragment();
@@ -86,11 +88,11 @@ public class ChengePasswordFragment extends Fragment {
                 Toast.makeText(requireContext(), "All Field is Required", Toast.LENGTH_LONG).show();
             } else {
 
-                if (NewPassword.getText().toString().equals(ConfirmPassword.getText().toString())){
+                if (NewPassword.getText().toString().equals(ConfirmPassword.getText().toString())) {
 
                     chengepassword();
 
-                }else{
+                } else {
                     ConfirmPassword.setError("Password Did Not Matched");
                 }
 
@@ -117,13 +119,20 @@ public class ChengePasswordFragment extends Fragment {
                 if (response.isSuccessful()) {
                     //Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_LONG).show();
                     ChengePasswordResponse loginResponse = response.body();
-                    Toast.makeText(requireContext(), "Status is :" + loginResponse.getStatus(), Toast.LENGTH_LONG).show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                    Toast.makeText(requireContext(), "Status is :" + loginResponse.getStatus(), Toast.LENGTH_SHORT).show();
 
-                        }
-                    }, 700);
+                    if (loginResponse.getStatus().equals("Password Successfully Updated")) {
+
+                        Toast.makeText(requireContext(), "Please Login With New Password", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(requireContext(), LoginActivity.class);
+                        LoginDbHelper LoginDbHelper = new LoginDbHelper(requireContext());
+                        LoginDbHelper.deleteAllRecords();
+                        LoginDbHelper.insertRecord(username, confirmpassword);
+
+
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
 
                 } else {
                     Toast.makeText(requireContext(), "Sorry something went wrong", Toast.LENGTH_LONG).show();
@@ -140,6 +149,7 @@ public class ChengePasswordFragment extends Fragment {
         });
 
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

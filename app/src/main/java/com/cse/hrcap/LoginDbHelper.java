@@ -66,6 +66,11 @@ public class LoginDbHelper extends SQLiteOpenHelper {
         dbc.close();
     }
 
+    public void deleteAllRecords() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("login_details", null, null);
+    }
+
     // userLogin method ..
     public Boolean checkusernamepassword(String userid, String password){
         SQLiteDatabase MyDB = this.getWritableDatabase();
