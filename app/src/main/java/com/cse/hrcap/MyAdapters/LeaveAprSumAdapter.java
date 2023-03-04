@@ -6,6 +6,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,38 +102,43 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         String ToDate = outputDateFormat3.format(inputDate1);
 
 
-
-
-        holder.FullName.setText("Name: "+data.getFullname());
-        holder.EmpCode.setText("("+data.getEmpcode()+")");
-        holder.EntryDate.setText("Entry Date: "+EntryDate);
-        holder.LeaveTypeName.setText("Leave Type: "+data.getLeavetypename());
-        holder.LeaveId.setText("Leave Id: "+data.getLeaveid());
-        holder.FromDate.setText("From Date: "+FromDate);
-        holder.ToDate.setText("To Date: "+ToDate);
-        holder.FromTime.setText("From Time: "+data.getFromtime());
-        holder.ToTime.setText("To Time: "+data.getTotime());
-        holder.TotalHours.setText("Total Hours: "+data.getTotalhours());
-        holder.LeaveStatusName.setText("Status: "+data.getLeavestatusname()+"\n");
-
+        setBoldText(holder.FullName, "Full Name: ", data.getFullname());
+        setBoldText(holder.EmpCode, "(", data.getEmpcode()+")");
+        setBoldText(holder.EntryDate, "Entry Date: ", data.getEntrydate());
+        setBoldText(holder.LeaveTypeName, "Leave Type: ", data.getLeavetypename());
+        setBoldText(holder.LeaveId, "Leave Id: ", data.getLeaveid());
+        setBoldText(holder.FromDate, "From Date: ", data.getFromdate());
+        setBoldText(holder.ToDate, "To Date: ", data.getTodate());
+        setBoldText(holder.FromTime, "From Time: ", data.getFromtime()+"");
+        setBoldText(holder.ToTime, "To Time: ", data.getTotime()+"");
+        setBoldText(holder.TotalHours, "Total Hours: ", data.getTotalhours());
+        setBoldText(holder.LeaveStatusName, "Status: ", data.getLeavestatusname());
 
 
 
-        holder.CompanyId.setText("CompanyId: "+data.getCompanyid());
-        holder.EmpId.setText("EmpId: "+Integer.toString(data.getEmpid()));
-
-        holder.LeaveTypeId.setText("LeaveTypeId: "+Integer.toString(data.getLeavetypeid()));
 
 
-        holder.TotalDay.setText("TotalDay: "+data.getTotalday());
 
 
-        holder.Leavestatusid.setText("Leavestatusid: "+Integer.toString(data.getLeavestatusid()));
-
-
-        holder.IndivRequestStatus.setText("IndivRequestStatus: "+Integer.toString(data.getIndivrequeststatus()));
-        holder.IndivRequestStatusName.setText("IndivRequestStatusName: "+data.getIndivrequeststatusname());
-        holder.EntryBy.setText("EntryBy: "+data.getEntryby());
+//        holder.FullName.setText("Name: "+data.getFullname());
+//        holder.EmpCode.setText("("+data.getEmpcode()+")");
+//        holder.EntryDate.setText("Entry Date: "+EntryDate);
+//        holder.LeaveTypeName.setText("Leave Type: "+data.getLeavetypename());
+//        holder.LeaveId.setText("Leave Id: "+data.getLeaveid());
+//        holder.FromDate.setText("From Date: "+FromDate);
+//        holder.ToDate.setText("To Date: "+ToDate);
+//        holder.FromTime.setText("From Time: "+data.getFromtime());
+//        holder.ToTime.setText("To Time: "+data.getTotime());
+//        holder.TotalHours.setText("Total Hours: "+data.getTotalhours());
+//        holder.LeaveStatusName.setText("Status: "+data.getLeavestatusname()+"\n");
+//        holder.CompanyId.setText("CompanyId: "+data.getCompanyid());
+//        holder.EmpId.setText("EmpId: "+Integer.toString(data.getEmpid()));
+//        holder.LeaveTypeId.setText("LeaveTypeId: "+Integer.toString(data.getLeavetypeid()));
+//        holder.TotalDay.setText("TotalDay: "+data.getTotalday());
+//        holder.Leavestatusid.setText("Leavestatusid: "+Integer.toString(data.getLeavestatusid()));
+//        holder.IndivRequestStatus.setText("IndivRequestStatus: "+Integer.toString(data.getIndivrequeststatus()));
+//        holder.IndivRequestStatusName.setText("IndivRequestStatusName: "+data.getIndivrequeststatusname());
+//        holder.EntryBy.setText("EntryBy: "+data.getEntryby());
 
 
         //Button Checking
@@ -153,12 +163,15 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
 
             }
         });
+    }
 
-
-
-
-
-
+    private void setBoldText(TextView textView, String boldText, String regularText) {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        SpannableString boldString = new SpannableString(boldText);
+        boldString.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.append(boldString);
+        builder.append(regularText);
+        textView.setText(builder);
     }
 
     @Override
