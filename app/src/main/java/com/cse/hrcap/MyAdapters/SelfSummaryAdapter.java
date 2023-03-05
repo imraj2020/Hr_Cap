@@ -55,7 +55,7 @@ public class SelfSummaryAdapter extends RecyclerView.Adapter<SelfSummaryAdapter.
         if (inout.equalsIgnoreCase("In")) {
             cardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
         } else if (inout.equalsIgnoreCase("Out")) {
-            cardView.setCardBackgroundColor(Color.GREEN);
+            cardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
         }
 
 

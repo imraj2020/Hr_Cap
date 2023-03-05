@@ -60,7 +60,8 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
 
 
         setBoldText(holder.FullName, "Full Name: ", data.getFullname());
-        setBoldText(holder.EmpCode, "(", data.getEmpcode()+")");
+//        setBoldText(holder.EmpCode, "(", data.getEmpcode()+")");
+        holder.EmpCode.setText("(" + data.getEmpcode()+")");
         setBoldText(holder.MovementId, "Request Id: ", data.getMovementid());
         setBoldText(holder.StartDate, "Start Date: ", data.getStartdate());
         setBoldText(holder.EndDate, "End Date: ", data.getEnddate());
