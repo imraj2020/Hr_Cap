@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveApproval;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumInfo;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
@@ -183,7 +184,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         //Button Checking
         holder.BtnApproval.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                LeaveAprSumInfo data = list.get(position);
+                LeaveAprSumInfo data = list.get(list.size() - position - 1);
 
                 String CompanyId = data.getCompanyid();
                 String LeaveId = data.getLeaveid();

@@ -138,7 +138,7 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
         //Button Checking
         holder.BtnApproval.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                AtdRegAprSumInfo data = list.get(position);
+                AtdRegAprSumInfo data = list.get(list.size() - position - 1);
 
                 String CompanyId = data.getCompanyid();
                 String Employee = data.getEntryby();
