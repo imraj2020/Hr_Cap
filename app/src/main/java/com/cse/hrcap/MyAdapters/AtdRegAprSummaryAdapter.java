@@ -29,6 +29,7 @@ import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSummaryAdapter.ViewHolder> {
@@ -36,11 +37,27 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
     private final List<AtdRegAprSumInfo> list;
     private Context context;
 
+
+
     public AtdRegAprSummaryAdapter(List<AtdRegAprSumInfo> list, Context context) {
         this.list = list;
         this.context = context;
         notifyDataSetChanged();
     }
+
+
+//    public AtdRegAprSummaryAdapter(List<AtdRegAprSumInfo> arrayList ,Context context) {
+//        pendingList.clear();
+//        for (AtdRegAprSumInfo data : arrayList) {
+//            if (data.getStatus().equals("Pending")) {
+//                pendingList.add(data);
+//                this.context = context;
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
+
+
 
     @NonNull
     @Override
@@ -51,6 +68,23 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         AtdRegAprSumInfo data = list.get(position);
+
+        if (data.getStatus().equals("Pending")) {
+            holder.MyCardView.setVisibility(View.VISIBLE);
+
+            ViewGroup.LayoutParams params = holder.MyCardView.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            holder.MyCardView.setLayoutParams(params);
+        } else {
+            holder.MyCardView.setVisibility(View.GONE);
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) holder.MyCardView.getLayoutParams();
+            lp.height = 0;
+            lp.width = 0;
+            lp.setMargins(0, 0, 0, 0);
+            holder.MyCardView.setLayoutParams(lp);
+            holder.MyCardView.setPadding(0, 0, 0, 0);
+        }
+
 
         if (holder.getLayoutPosition() % 2 == 0) {
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
