@@ -32,19 +32,23 @@ import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.ViewHolder> {
 
-    private final List<LeaveAprSumInfo> list;
+    private List<LeaveAprSumInfo> list;
     private Context context;
+
 
     public LeaveAprSumAdapter(List<LeaveAprSumInfo> list, Context context) {
         this.list = list;
         this.context = context;
         notifyDataSetChanged();
+
     }
+
 
     @NonNull
     @Override
@@ -52,9 +56,44 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.leaveaprsumcustomlv, parent, false));
     }
 
+    public void setData(List<LeaveAprSumInfo> data) {
+        // sort the list in reverse order before setting it
+        Collections.reverse(data);
+        list = data;
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        LeaveAprSumInfo data = list.get(position);
+       // LeaveAprSumInfo data = list.get(position);
+        LeaveAprSumInfo data = list.get(list.size() - position - 1);
+
+        if (data.getLeavestatusname().equals("Pending")) {
+            holder.MyCardView.setVisibility(View.VISIBLE);
+
+            ViewGroup.LayoutParams params = holder.MyCardView.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            holder.MyCardView.setLayoutParams(params);
+
+        } else {
+            holder.MyCardView.setVisibility(View.GONE);
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) holder.MyCardView.getLayoutParams();
+            lp.height = 0;
+            lp.width = 0;
+            lp.setMargins(0, 0, 0, 0);
+            holder.MyCardView.setLayoutParams(lp);
+            holder.MyCardView.setPadding(0, 0, 0, 0);
+        }
+
+
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
+
+
 
         if (holder.getLayoutPosition() % 2 == 0) {
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
@@ -164,6 +203,8 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
             }
         });
     }
+
+
 
     private void setBoldText(TextView textView, String boldText, String regularText) {
         SpannableStringBuilder builder = new SpannableStringBuilder();

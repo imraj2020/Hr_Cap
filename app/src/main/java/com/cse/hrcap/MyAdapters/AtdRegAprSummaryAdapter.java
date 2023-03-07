@@ -30,11 +30,12 @@ import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSummaryAdapter.ViewHolder> {
 
-    private final List<AtdRegAprSumInfo> list;
+    private List<AtdRegAprSumInfo> list;
     private Context context;
 
 
@@ -65,10 +66,17 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.atdregaprsummarycustomlv, parent, false));
     }
 
+    public void setData(List<AtdRegAprSumInfo> data) {
+        // sort the list in reverse order before setting it
+        Collections.reverse(data);
+        list = data;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        AtdRegAprSumInfo data = list.get(position);
-
+       // AtdRegAprSumInfo data = list.get(position);
+        AtdRegAprSumInfo data = list.get(list.size() - position - 1);
         if (data.getStatus().equals("Pending")) {
             holder.MyCardView.setVisibility(View.VISIBLE);
 

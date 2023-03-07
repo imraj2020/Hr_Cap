@@ -43,7 +43,7 @@ public class LeaveApprovalSummaryFragment extends Fragment {
     List<LeaveAprSumInfo> arrayList;
     RecyclerView recyclerView;
     SwipeRefreshLayout lvaprSwipe;
-
+    private int visibleCardCount = 0;
 
     public static LeaveApprovalSummaryFragment newInstance() {
         return new LeaveApprovalSummaryFragment();
@@ -167,5 +167,4 @@ public class LeaveApprovalSummaryFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(LeaveApprovalSummaryViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }
