@@ -70,22 +70,22 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
        // LeaveAprSumInfo data = list.get(position);
         LeaveAprSumInfo data = list.get(list.size() - position - 1);
 
-        if (data.getLeavestatusname().equals("Pending")) {
-            holder.MyCardView.setVisibility(View.VISIBLE);
-
-            ViewGroup.LayoutParams params = holder.MyCardView.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            holder.MyCardView.setLayoutParams(params);
-
-        } else {
-            holder.MyCardView.setVisibility(View.GONE);
-            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) holder.MyCardView.getLayoutParams();
-            lp.height = 0;
-            lp.width = 0;
-            lp.setMargins(0, 0, 0, 0);
-            holder.MyCardView.setLayoutParams(lp);
-            holder.MyCardView.setPadding(0, 0, 0, 0);
-        }
+//        if (data.getLeavestatusname().equals("Pending")) {
+//            holder.MyCardView.setVisibility(View.VISIBLE);
+//
+//            ViewGroup.LayoutParams params = holder.MyCardView.getLayoutParams();
+//            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//            holder.MyCardView.setLayoutParams(params);
+//
+//        } else {
+//            holder.MyCardView.setVisibility(View.GONE);
+//            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) holder.MyCardView.getLayoutParams();
+//            lp.height = 0;
+//            lp.width = 0;
+//            lp.setMargins(0, 0, 0, 0);
+//            holder.MyCardView.setLayoutParams(lp);
+//            holder.MyCardView.setPadding(0, 0, 0, 0);
+//        }
 
 
         if (holder.getLayoutPosition() % 2 == 0) {

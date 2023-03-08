@@ -20,6 +20,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -51,6 +53,8 @@ import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryRoomDB;
+import com.cse.hrcap.RoomUserInfo.UserInfo;
+import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveRequest;
@@ -380,7 +384,18 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         String companyid = intent.getStringExtra("CompanyId");
         String employeename = intent.getStringExtra("Employee");
         String fullname = intent.getStringExtra("FullName");
-        binding.tvempfullname.setText(fullname);
+
+
+        Intent intents = getActivity().getIntent();
+        String mypositions = intents.getStringExtra("Employee");
+
+        UserRoomDB database = UserRoomDB.getDbInstance(requireContext());
+
+
+        List<UserInfo> list = database.userDAO().getAllDatafromRow(mypositions);
+        String fullnames = list.get(0).getFullname();
+
+        binding.tvempfullname.setText(fullnames);
         EmpName.setText(employeename);
         CompanyId.setText(companyid);
         // spinner.setOnItemSelectedListener(this);
@@ -525,10 +540,22 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
             @Override
             public void onFailure(Call<LeaveRequest> call, Throwable t) {
-                Toast.makeText(requireContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                if (isNetworkAvailable()) {
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 
 //    private void setDatabase(){

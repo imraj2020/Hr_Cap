@@ -77,23 +77,7 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
        // AtdRegAprSumInfo data = list.get(position);
         AtdRegAprSumInfo data = list.get(list.size() - position - 1);
-        if (data.getStatus().equals("Pending")) {
-            holder.MyCardView.setVisibility(View.VISIBLE);
-
-            ViewGroup.LayoutParams params = holder.MyCardView.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            holder.MyCardView.setLayoutParams(params);
-        } else {
-            holder.MyCardView.setVisibility(View.GONE);
-            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) holder.MyCardView.getLayoutParams();
-            lp.height = 0;
-            lp.width = 0;
-            lp.setMargins(0, 0, 0, 0);
-            holder.MyCardView.setLayoutParams(lp);
-            holder.MyCardView.setPadding(0, 0, 0, 0);
-        }
-
-
+        
         if (holder.getLayoutPosition() % 2 == 0) {
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
         } else {

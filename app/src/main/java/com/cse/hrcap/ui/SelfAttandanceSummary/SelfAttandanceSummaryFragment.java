@@ -1,7 +1,10 @@
 package com.cse.hrcap.ui.SelfAttandanceSummary;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -129,19 +132,31 @@ public class SelfAttandanceSummaryFragment extends Fragment {
                     loaddatainlistview();
                     // Toast.makeText(getApplicationContext(), "Data insert successful", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(requireContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<AttdanceSummary>> call, Throwable t) {
-                Toast.makeText(requireContext(), "" + t, Toast.LENGTH_SHORT).show();
-                // Log.d("response",t);
+                if (isNetworkAvailable()) {
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-
-
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
+    }
+
 
     public void setAttandanceSummaryDatabase() {
         selfRoomDB = Room.databaseBuilder(requireContext(), SelfRoomDB.class, "AttandanceSummary.db")

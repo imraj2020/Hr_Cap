@@ -27,9 +27,9 @@
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:text="Employee:"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvempname"
@@ -40,7 +40,7 @@
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvempfullname"
@@ -50,8 +50,7 @@
                 android:hint="employee name"
                 android:padding="5dp"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
 
 
         </LinearLayout>
@@ -65,15 +64,17 @@
                 android:id="@+id/textView25gg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:padding="5dp"
                 android:text="Select leave Type:"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@drawable/spinner_border_top"
             android:orientation="vertical">
 
@@ -110,10 +111,11 @@
                 android:id="@+id/textView26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:padding="5dp"
                 android:text="Day Type:"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <!--        <com.google.android.material.textfield.TextInputLayout-->
             <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
@@ -152,10 +154,11 @@
             android:id="@+id/textView28"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="Start Date:"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -181,10 +184,11 @@
             android:id="@+id/textView30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="End Date:"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -206,15 +210,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <TextView
             android:id="@+id/tvstarttime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="Start Time:"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -235,15 +239,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <TextView
             android:id="@+id/tvendtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="End Time:"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -271,10 +275,11 @@
             android:id="@+id/textView36"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="Reason:"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -307,8 +312,8 @@
                 android:padding="5dp"
                 android:text="Company ID:"
                 android:textColor="@color/black"
-                android:visibility="gone"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvcompanyid"
@@ -318,8 +323,8 @@
                 android:inputType="textPersonName"
                 android:padding="5dp"
                 android:textColor="@color/black"
-                android:visibility="gone"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

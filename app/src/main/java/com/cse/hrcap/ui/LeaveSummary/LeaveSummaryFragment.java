@@ -2,7 +2,10 @@ package com.cse.hrcap.ui.LeaveSummary;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -159,10 +162,21 @@ public class LeaveSummaryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<LeaveSummary>> call, Throwable t) {
-//                LeaveBalance.setText(t.getMessage());
-                Toast.makeText(requireContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                if (isNetworkAvailable()) {
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 
     public void setLeaveSummaryDatabase() {

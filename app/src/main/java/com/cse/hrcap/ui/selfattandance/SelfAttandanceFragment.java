@@ -19,6 +19,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -271,7 +273,7 @@ public class SelfAttandanceFragment extends Fragment {
 
                         } catch (IOException e) {
                             e.printStackTrace();
-                            Toast.makeText(requireContext(),"Getting Address Failed"+e,Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(),"Getting Address Failed",Toast.LENGTH_LONG).show();
                         }
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
@@ -355,10 +357,24 @@ public class SelfAttandanceFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AttandanceRequest> call, Throwable t) {
-                Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+           //     Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                if (isNetworkAvailable()) {
+                    Toast.makeText(requireContext(), "Sorry Something went wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 
 
