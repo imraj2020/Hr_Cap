@@ -127,7 +127,7 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
                     }
                     loaddatainlistview();
                 } else {
-                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -156,6 +156,8 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
 
         AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(requireContext());
         arrayList = db.atdRegAprSumDAO().getAllRegaprSummary();
+        int size = arrayList.size();
+        binding.totalresult5.setText(Integer.toString(size));
         AtdRegAprSummaryAdapter adapter = new AtdRegAprSummaryAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

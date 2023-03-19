@@ -40,7 +40,7 @@ public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        LeaveSummaryInfo data = list.get(position);
+        LeaveSummaryInfo data = list.get(list.size() - position - 1);
 
 
         if (holder.getLayoutPosition() % 2 == 0) {

@@ -9,10 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,7 +51,7 @@ import retrofit2.Response;
 public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText StartDate, EndDate, StartTime, EndTime, Reason;
     TextView EmployeeName, CompanyId;
-    TextView TvStartTime,TvEndTime;
+    TextView TvStartTime, TvEndTime;
     Spinner LvSpinner;
     SwitchCompat DayType;
     public static String DayTypes;
@@ -85,12 +88,6 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         String Co = list.get(0).getCompanyid();
 
 
-
-
-
-
-
-
         setContentView(R.layout.activity_leave_draft);
         StartDate = findViewById(R.id.eTstartdate);
         EndDate = findViewById(R.id.eTenddate);
@@ -112,7 +109,6 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         Reason.setText(Re);
         EmployeeName.setText(Em);
         CompanyId.setText(Co);
-
 
 
         //Switch value
@@ -257,38 +253,31 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         });
 
 
-
-
-
         //Toggle Button
         DayType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     DayTypes = "Full Day";
                     StartTime.setVisibility(View.GONE);
                     EndTime.setVisibility(View.GONE);
                     TvStartTime.setVisibility(View.GONE);
                     TvEndTime.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),"You Select:"+DayTypes,Toast.LENGTH_LONG).show();
-                }
-                else {
+                    Toast.makeText(getApplicationContext(), "You Select:" + DayTypes, Toast.LENGTH_LONG).show();
+                } else {
 
                     DayTypes = "Time";
                     StartTime.setVisibility(View.VISIBLE);
                     EndTime.setVisibility(View.VISIBLE);
                     TvStartTime.setVisibility(View.VISIBLE);
                     TvEndTime.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(),"You Select:"+DayTypes,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You Select:" + DayTypes, Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
 
-
-
         LvSpinner.setOnItemSelectedListener(this);
-
 
 
         //Testing spinner
@@ -317,11 +306,7 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         });
 
 
-
-
     }
-
-
 
 
     private void loadSpinnerData() {
@@ -342,7 +327,7 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            spinneritems = parent.getItemAtPosition(position).toString();
+        spinneritems = parent.getItemAtPosition(position).toString();
 
     }
 
@@ -376,13 +361,24 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
 
             @Override
             public void onFailure(Call<LeaveRequest> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                if (isNetworkAvailable()) {
+                    Toast.makeText(getApplicationContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
     }
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
+    }
 
 
 }

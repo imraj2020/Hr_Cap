@@ -6,6 +6,8 @@ package com.cse.hrcap.MyAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,16 +58,23 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                LeaveDraftInfo data = list.get(position);
-                int nposition = data.getLeaveid();
 
-                LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(context.getApplicationContext());
+                if (isNetworkAvailable()) {
 
-                db.leaveDraftDAO().deleteLeavedraftinfo(nposition);
-                // remove your item from data base
-                Toast.makeText(context, "removed"+nposition, Toast.LENGTH_SHORT).show();
-                list.remove(position);  // remove the item from list
-                notifyItemRemoved(position); // notify the adapter about the removed item
+                    LeaveDraftInfo data = list.get(position);
+                    int nposition = data.getLeaveid();
+
+                    LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(context.getApplicationContext());
+
+                    db.leaveDraftDAO().deleteLeavedraftinfo(nposition);
+                    // remove your item from data base
+                    Toast.makeText(context, "removed"+nposition, Toast.LENGTH_SHORT).show();
+                    list.remove(position);  // remove the item from list
+                    notifyItemRemoved(position); // notify the adapter about the removed item
+                } else {
+                    Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -90,6 +99,15 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
 
 
         //Toast.makeText(context, ""+holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 
     @Override

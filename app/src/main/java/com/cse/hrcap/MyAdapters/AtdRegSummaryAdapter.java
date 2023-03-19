@@ -52,7 +52,7 @@ public class AtdRegSummaryAdapter extends RecyclerView.Adapter<AtdRegSummaryAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        AtdRegInfo data = list.get(position);
+        AtdRegInfo data = list.get(list.size() - position - 1);
 
 
         if (holder.getLayoutPosition() % 2 == 0) {

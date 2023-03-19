@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cse.hrcap.RoomAtdRegSummary.AtdRegInfo;
@@ -37,6 +39,8 @@ import com.cse.hrcap.RoomRegReason.RegReasonInfo;
 import com.cse.hrcap.RoomRegReason.RegReasonRoomDB;
 import com.cse.hrcap.RoomSelfSummary.SelfInfo;
 import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
+import com.cse.hrcap.RoomUserInfo.UserInfo;
+import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.network.AttdanceRegularizationSummary;
 import com.cse.hrcap.network.AttdanceSummary;
 import com.cse.hrcap.network.HolidayResponse;
@@ -141,6 +145,19 @@ public class MainActivity extends AppCompatActivity {
 //        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+
+        UserRoomDB database = UserRoomDB.getDbInstance(getApplicationContext());
+        List<UserInfo> list = database.userDAO().getAllUser();
+        String fullname = list.get(0).getFullname();
+        View headerView = navigationView.getHeaderView(0);
+        TextView Name = (TextView) headerView.findViewById(R.id.headerId);
+        Name.setText("Hello , "+fullname);
+
+
+
 
         //
 

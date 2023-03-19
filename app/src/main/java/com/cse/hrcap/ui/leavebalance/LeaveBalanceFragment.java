@@ -103,6 +103,8 @@ public class LeaveBalanceFragment extends Fragment {
 
 
         arrayList = leaveBalanceroomDB.leaveBalanceDAO().getAllLeave();
+        int size = arrayList.size();
+        binding.totalresult2.setText(Integer.toString(size));
         LeaveBalanceAdapter adapter = new LeaveBalanceAdapter(arrayList, requireContext());
         LeaveBalanceLv.setLayoutManager(new LinearLayoutManager(requireContext()));
         LeaveBalanceLv.setAdapter(adapter);

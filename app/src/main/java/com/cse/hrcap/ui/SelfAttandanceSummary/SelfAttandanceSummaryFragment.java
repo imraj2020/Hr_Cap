@@ -96,6 +96,8 @@ public class SelfAttandanceSummaryFragment extends Fragment {
 
 
         arrayList = selfRoomDB.selfDAO().getAllSelfSummary();
+        int size = arrayList.size();
+        binding.totalresult.setText(Integer.toString(size));
         SelfSummaryAdapter adapter = new SelfSummaryAdapter(arrayList, requireContext());
         SelfLv.setLayoutManager(new LinearLayoutManager(requireContext()));
         SelfLv.setAdapter(adapter);
@@ -122,11 +124,17 @@ public class SelfAttandanceSummaryFragment extends Fragment {
                     List<AttdanceSummary> nlist = response.body();
 
 
+
+
+
                     for (AttdanceSummary post : nlist) {
 
                         SelfInfo selfInfo = new SelfInfo(post.getCheckInDate(), post.getPunchTime(), post.getInOut()
                                 , post.getEntryBy(), post.getEntryDate());
                         selfRoomDB.selfDAO().insertSelf(selfInfo);
+
+
+
                         //  LeaveSummary.append(content);
                     }
                     loaddatainlistview();

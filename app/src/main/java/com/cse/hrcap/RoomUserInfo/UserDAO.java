@@ -13,8 +13,8 @@ public interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertUser(UserInfo userInfo);
 
-//    @Query("SELECT * FROM UserInfo")
-//    public List<UserInfo> getAllUser();
+    @Query("SELECT * FROM UserInfo")
+    public List<UserInfo> getAllUser();
 //
     @Query("SELECT * FROM UserInfo WHERE employee = :myposition")
      public List<UserInfo> getAllDatafromRow(String myposition);

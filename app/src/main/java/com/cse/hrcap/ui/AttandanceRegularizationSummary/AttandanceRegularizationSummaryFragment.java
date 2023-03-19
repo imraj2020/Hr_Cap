@@ -100,6 +100,8 @@ public class AttandanceRegularizationSummaryFragment extends Fragment {
 
 
         arrayList = atdRegRoomDB.atdRegDAO().getAllRegSummary();
+        int size= arrayList.size();
+        binding.totalresult4.setText(Integer.toString(size));
         AtdRegSummaryAdapter adapter = new AtdRegSummaryAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

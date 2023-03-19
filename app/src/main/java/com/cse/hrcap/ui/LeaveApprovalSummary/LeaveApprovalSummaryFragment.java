@@ -135,7 +135,7 @@ public class LeaveApprovalSummaryFragment extends Fragment {
 
                    loaddatainlistview();
                 } else {
-                    Toast.makeText(requireContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -165,6 +165,8 @@ public class LeaveApprovalSummaryFragment extends Fragment {
 
         LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(requireContext());
         arrayList = db.leaveAprSumDAO().getAllleaveAprSummary();
+        int size = arrayList.size();
+        binding.totalresult2.setText(Integer.toString(size));
         LeaveAprSumAdapter adapter = new LeaveAprSumAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

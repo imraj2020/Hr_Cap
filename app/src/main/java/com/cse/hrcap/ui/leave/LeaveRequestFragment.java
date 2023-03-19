@@ -144,36 +144,40 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         BtnDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isNetworkAvailable()) {
+                    //Spinner Position
+                    SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
+                    int spinnerValue = sharedPref.getInt("userChoiceSpinner", -1);
 
-                //Spinner Position
-                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
-                int spinnerValue = sharedPref.getInt("userChoiceSpinner", -1);
+                    // Time And Date
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
+                    String currentDateandTime = sdf.format(new Date());
 
-                // Time And Date
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
-                String currentDateandTime = sdf.format(new Date());
-
-                //label and status ()
+                    //label and status ()
 //                label,Status
 
 
-                Intent intent = getActivity().getIntent();
-                String companyid = intent.getStringExtra("CompanyId");
-                String employee = intent.getStringExtra("Employee");
+                    Intent intent = getActivity().getIntent();
+                    String companyid = intent.getStringExtra("CompanyId");
+                    String employee = intent.getStringExtra("Employee");
 
-                //Testing new Roomdb
-                LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
-
-
+                    //Testing new Roomdb
+                    LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
 
 
-                LeaveDraftInfo mydraft = new LeaveDraftInfo(employee, spinnerValue, switchst, EtStartDate.getText().toString(),
-                        EtEndDate.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                        EtReason.getText().toString(), companyid, currentDateandTime,label,Status);
-                db.leaveDraftDAO().insertLeaveDraft(mydraft);
 
 
-                Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+                    LeaveDraftInfo mydraft = new LeaveDraftInfo(employee, spinnerValue, switchst, EtStartDate.getText().toString(),
+                            EtEndDate.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
+                            EtReason.getText().toString(), companyid, currentDateandTime,label,Status);
+                    db.leaveDraftDAO().insertLeaveDraft(mydraft);
+
+
+                    Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

@@ -107,7 +107,8 @@ public class LeaveSummaryFragment extends Fragment {
         LeaveSummaryAdapter adapter = new LeaveSummaryAdapter(arrayList, requireContext());
         LeaveSummaryLv.setLayoutManager(new LinearLayoutManager(requireContext()));
         LeaveSummaryLv.setAdapter(adapter);
-
+        int size= arrayList.size();
+        binding.totalresult1.setText(Integer.toString(size));
         //Don't know about notifidatasetchenge work or not
         adapter.notifyDataSetChanged();
 //        Toast.makeText(this, arrayList.size() + "", Toast.LENGTH_SHORT).show();

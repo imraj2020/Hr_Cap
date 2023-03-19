@@ -13,20 +13,29 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumInfo;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.RoomSelfSummary.SelfInfo;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SelfSummaryAdapter extends RecyclerView.Adapter<SelfSummaryAdapter.ViewHolder> {
 
-    private final List<SelfInfo> list;
+    private List<SelfInfo> list;
     private Context context;
 
     public SelfSummaryAdapter(List<SelfInfo> list, Context context) {
         this.list = list;
         this.context = context;
+        notifyDataSetChanged();
+    }
+
+    public void setData(List<SelfInfo> data) {
+        // sort the list in reverse order before setting it
+        Collections.reverse(data);
+        list = data;
         notifyDataSetChanged();
     }
 
@@ -38,7 +47,9 @@ public class SelfSummaryAdapter extends RecyclerView.Adapter<SelfSummaryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SelfInfo data = list.get(position);
+       // SelfInfo data = list.get(position);
+
+        SelfInfo data = list.get(list.size() - position - 1);
 
 //        if (holder.getLayoutPosition() % 2 == 0) {
 //            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));

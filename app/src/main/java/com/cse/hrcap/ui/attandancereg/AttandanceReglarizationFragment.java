@@ -44,6 +44,8 @@ import com.cse.hrcap.RoomRegEntryDraft.RegDraftInfo;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftRoomDB;
 import com.cse.hrcap.RoomRegReason.RegReasonInfo;
 import com.cse.hrcap.RoomRegReason.RegReasonRoomDB;
+import com.cse.hrcap.RoomUserInfo.UserInfo;
+import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding;
 import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
 import com.cse.hrcap.network.AttandanceRegularizationRequest;
@@ -84,7 +86,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
         binding =AttandanceReglarizationFragmentBinding.inflate(inflater);
         spinner_reason = binding.spinnerReason;
-        TxtName = binding.txtname;
+        TxtName = binding.txtnames;
         StartDate = binding.etStartdate;
         EndDate = binding.etEnddate;
         FromTime = binding.etfromtime;
@@ -99,9 +101,16 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
 
         //getting full name
-        Intent intent = getActivity().getIntent();
-        String fullname = intent.getStringExtra("FullName");
-        TxtName.setText(fullname);
+        //test
+        Intent intents = getActivity().getIntent();
+        String mypositions = intents.getStringExtra("Employee");
+        // Toast.makeText(getApplicationContext(), "Data Position is "+mypositions, Toast.LENGTH_SHORT).show();
+
+        UserRoomDB database = UserRoomDB.getDbInstance(requireContext());
+        List<UserInfo> list = database.userDAO().getAllDatafromRow(mypositions);
+        String fullnames = list.get(0).getFullname();
+        TxtName.setText(fullnames);
+        
 
         //Submit Button
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -119,27 +128,33 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             @Override
             public void onClick(View v) {
 
-                Intent intent = getActivity().getIntent();
-                String companyid = intent.getStringExtra("CompanyId");
-                String employee = intent.getStringExtra("Employee");
+                if (isNetworkAvailable()) {
 
-                //Spinner Position
-                SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
-                int spinnerValue = sharedPref.getInt("userChoiceSpinners", -1);
+                    Intent intent = getActivity().getIntent();
+                    String companyid = intent.getStringExtra("CompanyId");
+                    String employee = intent.getStringExtra("Employee");
 
-                // Time And Date
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
-                String currentDateandTime = sdf.format(new Date());
+                    //Spinner Position
+                    SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
+                    int spinnerValue = sharedPref.getInt("userChoiceSpinners", -1);
+
+                    // Time And Date
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
+                    String currentDateandTime = sdf.format(new Date());
 
 
-                RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
+                    RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
 
-                RegDraftInfo drafts = new RegDraftInfo(employee,companyid,spinnerValue,StartDate.getText().toString(),
-                        EndDate.getText().toString(),FromTime.getText().toString(),ToTime.getText().toString(),
-                        spinneritem,currentDateandTime,Note.getText().toString(),TxtName.getText().toString());
-                db.regDraftDAO().insertRegDraft(drafts);
+                    RegDraftInfo drafts = new RegDraftInfo(employee,companyid,spinnerValue,StartDate.getText().toString(),
+                            EndDate.getText().toString(),FromTime.getText().toString(),ToTime.getText().toString(),
+                            spinneritem,currentDateandTime,Note.getText().toString(),TxtName.getText().toString());
+                    db.regDraftDAO().insertRegDraft(drafts);
 
-                Toast.makeText(requireContext(), "Saved As Draft", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Saved As Draft", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

@@ -6,6 +6,8 @@ package com.cse.hrcap.MyAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,15 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.regdraftcustomlv, parent, false));
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         RegDraftInfo data = list.get(position);
@@ -58,17 +69,21 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                RegDraftInfo data = list.get(position);
-                int nposition = data.getId();
 
-                RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(context.getApplicationContext());
+                if (isNetworkAvailable()) {
+                    RegDraftInfo data = list.get(position);
+                    int nposition = data.getId();
 
-                db.regDraftDAO().deleteRegdraftinfo(nposition);
-                // remove your item from data base
-                Toast.makeText(context, "removed"+nposition, Toast.LENGTH_SHORT).show();
-                list.remove(position);  // remove the item from list
-                notifyItemRemoved(position); // notify the adapter about the removed item
+                    RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(context.getApplicationContext());
 
+                    db.regDraftDAO().deleteRegdraftinfo(nposition);
+                    // remove your item from data base
+                    Toast.makeText(context, "removed"+nposition, Toast.LENGTH_SHORT).show();
+                    list.remove(position);  // remove the item from list
+                    notifyItemRemoved(position); // notify the adapter about the removed item
+                } else {
+                    Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
