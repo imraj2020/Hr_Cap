@@ -157,7 +157,7 @@ public class LeaveSummaryFragment extends Fragment {
 
                     loaddatainlistview();
                 } else {
-                    Toast.makeText(requireContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(requireContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
                 }
             }
 

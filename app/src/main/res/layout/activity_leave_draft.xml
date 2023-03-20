@@ -27,12 +27,23 @@
                 android:padding="5dp"
                 android:text="Employee:"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tVempname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="employee name"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tvempfullnames"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="employee name"
                 android:padding="5dp"
                 android:textColor="@color/black"
@@ -48,6 +59,8 @@
                 android:id="@+id/textView25gg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
                 android:padding="5dp"
                 android:text="Select leave Type:"
                 android:textColor="@color/black" />
@@ -57,7 +70,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/spinner_border_top"
+            android:layout_margin="5dp"
             android:orientation="vertical">
+
 
             <Spinner
                 android:id="@+id/lvspinner"
@@ -83,8 +98,10 @@
                 android:id="@+id/textView26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:padding="5dp"
                 android:text="Day Type:"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -106,8 +123,10 @@
             android:id="@+id/textView28"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="Start Date:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
 
@@ -134,8 +153,10 @@
             android:id="@+id/textView30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="End Date:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -161,8 +182,10 @@
             android:id="@+id/tV_starttime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="Start Time:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -178,7 +201,6 @@
                 android:id="@+id/eTstarttime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="HH:MM"
                 android:padding="5dp"
                 android:text="09:00 AM" />
 
@@ -188,8 +210,10 @@
             android:id="@+id/tV_endtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="End Time:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -205,7 +229,6 @@
                 android:id="@+id/eTendtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="HH:MM"
                 android:padding="5dp"
                 android:text="06:00 PM" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -219,8 +242,10 @@
             android:id="@+id/textView36"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:text="Reason:"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
 
@@ -236,7 +261,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/eTreason"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:hint="Write Reason here"
                 android:padding="5dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -254,6 +279,7 @@
                 android:padding="5dp"
                 android:text="Company ID:"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 android:textSize="15sp" />
 
             <TextView
@@ -264,6 +290,7 @@
                 android:inputType="textPersonName"
                 android:padding="5dp"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 android:textSize="15sp" />
         </LinearLayout>
 

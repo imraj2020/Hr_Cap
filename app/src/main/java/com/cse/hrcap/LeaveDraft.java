@@ -31,8 +31,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cse.hrcap.MyAdapters.LeaveDraftAdapter;
+import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
+import com.cse.hrcap.RoomUserInfo.UserInfo;
+import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.network.LeaveApiClient;
 import com.cse.hrcap.network.LeaveRequest;
 import com.cse.hrcap.ui.LeaveRequestDraft.LeaveRequestDraftFragment;
@@ -50,7 +53,7 @@ import retrofit2.Response;
 
 public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText StartDate, EndDate, StartTime, EndTime, Reason;
-    TextView EmployeeName, CompanyId;
+    TextView EmployeeName, CompanyId,EmpFullName;
     TextView TvStartTime, TvEndTime;
     Spinner LvSpinner;
     SwitchCompat DayType;
@@ -60,7 +63,7 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
     Button BtnSubmits, BtnCancels;
     int starthour, startminute, endhour, endminute;
     DatePickerDialog datePickerDialog;
-
+    public MyRoomDB roomDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,16 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         Reason.setText(Re);
         EmployeeName.setText(Em);
         CompanyId.setText(Co);
+        EmpFullName = findViewById(R.id.tvempfullnames);
+
+
+
+        UserRoomDB database = UserRoomDB.getDbInstance(getApplicationContext());
+        List<UserInfo> lists = database.userDAO().getAllUser();
+        String fullname = lists.get(0).getFullname();
+        EmpFullName.setText(fullname);
+
+       // EmpFullName.setText("imraj");
 
 
         //Switch value

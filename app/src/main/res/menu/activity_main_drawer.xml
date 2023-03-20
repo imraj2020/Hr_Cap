@@ -18,6 +18,18 @@
 
 
 
+
+
+        </menu>
+
+        </item>
+
+
+
+
+    <item android:title="Leave">
+        <menu>
+
             <item
                 android:id="@+id/nav_leave"
                 android:title="@string/menu_leave" />
@@ -41,10 +53,10 @@
                 android:id="@+id/nav_holiday"
                 android:title="@string/menu_holiday" />
 
-
         </menu>
 
-        </item>
+
+    </item>
 
     <item android:title="Attendance Regularization">
         <menu>
