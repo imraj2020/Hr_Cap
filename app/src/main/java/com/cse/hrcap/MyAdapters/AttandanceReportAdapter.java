@@ -60,7 +60,7 @@ public class AttandanceReportAdapter extends RecyclerView.Adapter<AttandanceRepo
         String shortenedText = originalText.substring(0, 10);
 
 
-        String inputDate = "2023-03-01T00:00:00";
+        String inputDate = items.get(position).getDate();
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date date = null;
         try {
