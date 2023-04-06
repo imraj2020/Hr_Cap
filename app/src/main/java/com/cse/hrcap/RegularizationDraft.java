@@ -1,7 +1,5 @@
 package com.cse.hrcap;
 
-import static com.cse.hrcap.MainActivity.leaveroomDB;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -25,13 +23,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
-import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftInfo;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftRoomDB;
 import com.cse.hrcap.RoomRegReason.RegReasonRoomDB;
 import com.cse.hrcap.network.AttandanceRegularizationRequest;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -299,7 +295,7 @@ public class RegularizationDraft extends AppCompatActivity implements AdapterVie
         final AttandanceRegularizationRequest attandanceRegularizationRequest = new AttandanceRegularizationRequest
                 (companyid,employee,StartDate.getText().toString(),EndDate.getText().toString()
                         ,FromTime.getText().toString(),ToTime.getText().toString(),myspinneritems,Notes.getText().toString());
-        Call<AttandanceRegularizationRequest> call = LeaveApiClient.getUserService().PostData(attandanceRegularizationRequest);
+        Call<AttandanceRegularizationRequest> call = MyApiClient.getUserService().PostData(attandanceRegularizationRequest);
 
 
         call.enqueue(new Callback<AttandanceRegularizationRequest>() {

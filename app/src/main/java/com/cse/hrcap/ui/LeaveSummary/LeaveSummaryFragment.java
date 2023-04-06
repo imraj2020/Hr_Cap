@@ -16,25 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.MyAdapters.HolidayAdapter;
 import com.cse.hrcap.MyAdapters.LeaveSummaryAdapter;
 import com.cse.hrcap.R;
-import com.cse.hrcap.RoomHoliday.HolidayInfo;
-import com.cse.hrcap.RoomLeave.LeaveInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryRoomDB;
 import com.cse.hrcap.databinding.LeaveSummaryFragmentBinding;
-import com.cse.hrcap.databinding.LoanAdvSalaryFragmentBinding;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveSummary;
-import com.cse.hrcap.network.LeaveTypeResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +117,7 @@ public class LeaveSummaryFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
-        Call<List<LeaveSummary>> call = LeaveApiClient.getUserService().leavesummary(companyid, userid);
+        Call<List<LeaveSummary>> call = MyApiClient.getUserService().leavesummary(companyid, userid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 

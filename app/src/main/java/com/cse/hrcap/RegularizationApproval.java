@@ -15,8 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.network.LeaveApiClient;
-import com.cse.hrcap.network.LeaveApprovalRequest;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.RegularizationApprovalResponse;
 
 import retrofit2.Call;
@@ -115,7 +114,7 @@ public class RegularizationApproval extends AppCompatActivity {
                 CompanyId.getText().toString(),Employee.getText().toString(),MovementId.getText().toString(),
               FromTime.getText().toString(),ToTime.getText().toString(),MyNotes.getText().toString(),MyStatus
         );
-        Call<RegularizationApprovalResponse> call = LeaveApiClient.getUserService().MyPostData(regularizationApprovalResponse);
+        Call<RegularizationApprovalResponse> call = MyApiClient.getUserService().MyPostData(regularizationApprovalResponse);
 
 
         call.enqueue(new Callback<RegularizationApprovalResponse>() {

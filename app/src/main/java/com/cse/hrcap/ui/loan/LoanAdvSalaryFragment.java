@@ -5,14 +5,11 @@ import static com.cse.hrcap.MainActivity.loanTypeRoomDB;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,23 +20,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.RoomLeave.LeaveInfo;
-import com.cse.hrcap.RoomLeave.MyRoomDB;
-import com.cse.hrcap.RoomLoanSubType.LoanSubTypeInfo;
 import com.cse.hrcap.RoomLoanSubType.LoanSubTypeRoomDB;
-import com.cse.hrcap.RoomLoanType.LoanTypeInfo;
 import com.cse.hrcap.RoomLoanType.LoanTypeRoomDB;
 import com.cse.hrcap.databinding.LoanAdvSalaryFragmentBinding;
-import com.cse.hrcap.network.LoanApiClient;
-import com.cse.hrcap.network.LoanTypeResponse;
-import com.cse.hrcap.network.LoansubTypeResponse;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoanAdvSalaryFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 

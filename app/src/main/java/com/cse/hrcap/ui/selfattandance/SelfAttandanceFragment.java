@@ -30,8 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cse.hrcap.network.AttandanceRequest;
-import com.cse.hrcap.network.LeaveApiClient;
-import com.cse.hrcap.network.LeaveRequest;
+import com.cse.hrcap.network.MyApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,7 +56,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
 
 import retrofit2.Call;
@@ -337,7 +335,7 @@ public class SelfAttandanceFragment extends Fragment {
                 today_date.getText().toString(),today_time.getText().toString(),Status,companyid,
                 text_location_latitude.getText().toString(),text_location_longitude.getText().toString(),
                 text_location.getText().toString());
-        Call<AttandanceRequest> call = LeaveApiClient.getUserService().PostDatas(attandanceRequest);
+        Call<AttandanceRequest> call = MyApiClient.getUserService().PostDatas(attandanceRequest);
 
 
         call.enqueue(new Callback<AttandanceRequest>() {

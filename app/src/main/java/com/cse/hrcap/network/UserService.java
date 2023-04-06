@@ -123,4 +123,13 @@ public interface UserService {
             @Query("Employee") String Employee
     );
 
+
+
+    @GET("Api/AttendanceApi")
+    Call<CheckAttendanceResponse> GetAtdInfo(
+            @Query("CompanyId") String CompanyId,
+            @Query("Employee") String Employee,
+            @Query("ToDate") String ToDate
+    );
+
 }

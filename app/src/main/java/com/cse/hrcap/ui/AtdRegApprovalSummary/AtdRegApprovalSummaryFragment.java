@@ -21,17 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cse.hrcap.MyAdapters.AtdRegAprSummaryAdapter;
-import com.cse.hrcap.MyAdapters.LeaveDraftAdapter;
 import com.cse.hrcap.R;
-import com.cse.hrcap.RoomAtdRegSummary.AtdRegInfo;
 import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumInfo;
 import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumRoomDB;
-import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceInfo;
-import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.databinding.AtdRegApprovalSummaryFragmentBinding;
 import com.cse.hrcap.network.AtdRegAprSummary;
-import com.cse.hrcap.network.LeaveApiClient;
-import com.cse.hrcap.network.LeaveBalanceResponse;
+import com.cse.hrcap.network.MyApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +95,7 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
-        Call<List<AtdRegAprSummary>> call = LeaveApiClient.getUserService().atdregaprsummary(companyid, userid);
+        Call<List<AtdRegAprSummary>> call = MyApiClient.getUserService().atdregaprsummary(companyid, userid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 

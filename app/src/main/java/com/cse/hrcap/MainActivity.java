@@ -8,8 +8,7 @@ import static com.cse.hrcap.ui.leavebalance.LeaveBalanceFragment.leaveBalanceroo
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -44,11 +43,10 @@ import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.network.AttdanceRegularizationSummary;
 import com.cse.hrcap.network.AttdanceSummary;
 import com.cse.hrcap.network.HolidayResponse;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveBalanceResponse;
 import com.cse.hrcap.network.LeaveSummary;
 import com.cse.hrcap.network.LeaveTypeResponse;
-import com.cse.hrcap.network.LoanApiClient;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
 import com.cse.hrcap.network.RegReasonRequest;
@@ -60,7 +58,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.cse.hrcap.databinding.ActivityMainBinding;
@@ -167,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
                 R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_leavesummary,
                 R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary, R.id.nav_leavedraft, R.id.nav_atdregaprsummary
-                , R.id.nav_leaveaprsummary,R.id.nav_regentrydraft)
+                , R.id.nav_leaveaprsummary,R.id.nav_regentrydraft,R.id.nav_checkAttendance)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -204,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         String companyid = intent.getStringExtra("CompanyId");
 
 
-        Call<List<LeaveTypeResponse>> call = LeaveApiClient.getUserService().leavetype(companyid);
+        Call<List<LeaveTypeResponse>> call = MyApiClient.getUserService().leavetype(companyid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 
@@ -260,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
-        Call<List<LeaveBalanceResponse>> call = LeaveApiClient.getUserService().leavebalance(companyid, userid);
+        Call<List<LeaveBalanceResponse>> call = MyApiClient.getUserService().leavebalance(companyid, userid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 
@@ -313,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
     private void loanTypes() {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
-        Call<List<LoanTypeResponse>> call = LoanApiClient.getUserService().loantype(companyid);
+        Call<List<LoanTypeResponse>> call = MyApiClient.getUserService().loantype(companyid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 
@@ -359,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
     private void loansubTypes() {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
-        Call<List<LoansubTypeResponse>> call = LoanApiClient.getUserService().loansubtype(companyid);
+        Call<List<LoansubTypeResponse>> call = MyApiClient.getUserService().loansubtype(companyid);
 
 
         call.enqueue(new Callback<List<LoansubTypeResponse>>() {
@@ -404,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
     public void holidayTypes() {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
-        Call<List<HolidayResponse>> call = LeaveApiClient.getUserService().holiday(companyid);
+        Call<List<HolidayResponse>> call = MyApiClient.getUserService().holiday(companyid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 
@@ -463,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        Call<List<AttdanceSummary>> call = LeaveApiClient.getUserService().attdancesummary(CompanyId, Employee);
+        Call<List<AttdanceSummary>> call = MyApiClient.getUserService().attdancesummary(CompanyId, Employee);
 
         call.enqueue(new Callback<List<AttdanceSummary>>() {
             @Override
@@ -508,7 +505,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        Call<List<AttdanceRegularizationSummary>> call = LeaveApiClient.getUserService().attdanceregsummary(CompanyId, Employee);
+        Call<List<AttdanceRegularizationSummary>> call = MyApiClient.getUserService().attdanceregsummary(CompanyId, Employee);
 
         call.enqueue(new Callback<List<AttdanceRegularizationSummary>>() {
             @Override
@@ -554,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
-        Call<List<LeaveSummary>> call = LeaveApiClient.getUserService().leavesummary(companyid, userid);
+        Call<List<LeaveSummary>> call = MyApiClient.getUserService().leavesummary(companyid, userid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 
@@ -609,7 +606,7 @@ public class MainActivity extends AppCompatActivity {
         String companyid = intent.getStringExtra("CompanyId");
         String employee = intent.getStringExtra("Employee");
 
-        Call<List<RegReasonRequest>> call = LoanApiClient.getUserService().myreason(companyid,employee);
+        Call<List<RegReasonRequest>> call = MyApiClient.getUserService().myreason(companyid,employee);
 
 
         call.enqueue(new Callback<List<RegReasonRequest>>() {
@@ -637,7 +634,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<RegReasonRequest>> call, Throwable t) {
                 // Leavetyperesponse.setText(t.getMessage());
-                Toast.makeText(getApplicationContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Sorry Something wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }

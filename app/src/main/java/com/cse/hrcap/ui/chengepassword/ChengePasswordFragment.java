@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +22,9 @@ import android.widget.Toast;
 
 import com.cse.hrcap.LoginActivity;
 import com.cse.hrcap.LoginDbHelper;
-import com.cse.hrcap.MainActivity;
-import com.cse.hrcap.network.ChengePasswordApiClient;
 import com.cse.hrcap.network.ChengePasswordResponse;
 import com.cse.hrcap.databinding.ChengePasswordFragmentBinding;
+import com.cse.hrcap.network.MyApiClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -114,7 +112,7 @@ public class ChengePasswordFragment extends Fragment {
         String newpassword = NewPassword.getText().toString();
         String confirmpassword = ConfirmPassword.getText().toString();
         String companyid = CompanyId.getText().toString();
-        Call<ChengePasswordResponse> loginResponseCall = ChengePasswordApiClient.getUserService().chengePassword(username, oldpassword, newpassword, confirmpassword, companyid);
+        Call<ChengePasswordResponse> loginResponseCall = MyApiClient.getUserService().chengePassword(username, oldpassword, newpassword, confirmpassword, companyid);
         loginResponseCall.enqueue(new Callback<ChengePasswordResponse>() {
             @Override
             public void onResponse(Call<ChengePasswordResponse> call, Response<ChengePasswordResponse> response) {

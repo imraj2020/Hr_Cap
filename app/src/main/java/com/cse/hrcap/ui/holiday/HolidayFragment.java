@@ -28,7 +28,7 @@ import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomHoliday.HolidayRoomDB;
 import com.cse.hrcap.databinding.HolidayFragmentBinding;
 import com.cse.hrcap.network.HolidayResponse;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +113,7 @@ public class HolidayFragment extends Fragment {
     public void holidayTypes() {
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
-        Call<List<HolidayResponse>> call = LeaveApiClient.getUserService().holiday(companyid);
+        Call<List<HolidayResponse>> call = MyApiClient.getUserService().holiday(companyid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 

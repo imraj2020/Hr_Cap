@@ -1,11 +1,7 @@
 package com.cse.hrcap.ui.attandancereg;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.cse.hrcap.MainActivity.leaveroomDB;
-import static com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding.*;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
@@ -22,7 +18,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,21 +32,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cse.hrcap.MainActivity;
-import com.cse.hrcap.R;
-import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftInfo;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftRoomDB;
-import com.cse.hrcap.RoomRegReason.RegReasonInfo;
 import com.cse.hrcap.RoomRegReason.RegReasonRoomDB;
 import com.cse.hrcap.RoomUserInfo.UserInfo;
 import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.databinding.AttandanceReglarizationFragmentBinding;
-import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
 import com.cse.hrcap.network.AttandanceRegularizationRequest;
-import com.cse.hrcap.network.LeaveApiClient;
-import com.cse.hrcap.network.LeaveRequest;
-import com.cse.hrcap.ui.home.HomeFragment;
+import com.cse.hrcap.network.MyApiClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -393,7 +381,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         final AttandanceRegularizationRequest attandanceRegularizationRequest = new AttandanceRegularizationRequest
                 (companyid,employee,StartDate.getText().toString(),EndDate.getText().toString()
                 ,FromTime.getText().toString(),ToTime.getText().toString(),spinneritem,Note.getText().toString());
-        Call<AttandanceRegularizationRequest> call = LeaveApiClient.getUserService().PostData(attandanceRegularizationRequest);
+        Call<AttandanceRegularizationRequest> call = MyApiClient.getUserService().PostData(attandanceRegularizationRequest);
 
 
         call.enqueue(new Callback<AttandanceRegularizationRequest>() {

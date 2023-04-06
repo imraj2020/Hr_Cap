@@ -19,23 +19,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cse.hrcap.MyAdapters.LeaveBalanceAdapter;
-import com.cse.hrcap.MyAdapters.LeaveSummaryAdapter;
 import com.cse.hrcap.R;
-import com.cse.hrcap.RoomHoliday.HolidayInfo;
-import com.cse.hrcap.RoomHoliday.HolidayRoomDB;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceInfo;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceRoomDB;
-import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.databinding.LeaveBalanceFragmentBinding;
-import com.cse.hrcap.databinding.LeaveSummaryFragmentBinding;
-import com.cse.hrcap.network.HolidayResponse;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveBalanceResponse;
-import com.cse.hrcap.ui.holiday.HolidayFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +112,7 @@ public class LeaveBalanceFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
-        Call<List<LeaveBalanceResponse>> call = LeaveApiClient.getUserService().leavebalance(companyid, userid);
+        Call<List<LeaveBalanceResponse>> call = MyApiClient.getUserService().leavebalance(companyid, userid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 

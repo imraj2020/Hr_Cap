@@ -9,7 +9,7 @@ public class LoginResponse {
     private  String Designation;
     private String FullName;
     private String Grade;
-    private String GradeId;
+    private int GradeId;
     private String EmpId;
     private String Department;
     private int DepartmentId;
@@ -23,7 +23,7 @@ public class LoginResponse {
     private String Prefix;// null
     private String Suffix;//null
     private String PersonalEmail;
-    private int MobilenNo;
+    private String MobilenNo;
     private String ImageTitle; //null
     private String ImagePath; //null
     private String JoiningDate;
@@ -33,10 +33,12 @@ public class LoginResponse {
     private int SupervisorId;
     private String SupervisorName;
 
-
-
     public int getEmployeeId() {
         return EmployeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        EmployeeId = employeeId;
     }
 
     public String getCompanyId() {
@@ -45,10 +47,6 @@ public class LoginResponse {
 
     public void setCompanyId(String companyId) {
         CompanyId = companyId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        EmployeeId = employeeId;
     }
 
     public int getDesignationId() {
@@ -83,11 +81,11 @@ public class LoginResponse {
         Grade = grade;
     }
 
-    public String getGradeId() {
+    public int getGradeId() {
         return GradeId;
     }
 
-    public void setGradeId(String gradeId) {
+    public void setGradeId(int gradeId) {
         GradeId = gradeId;
     }
 
@@ -195,11 +193,11 @@ public class LoginResponse {
         PersonalEmail = personalEmail;
     }
 
-    public int getMobilenNo() {
+    public String getMobilenNo() {
         return MobilenNo;
     }
 
-    public void setMobilenNo(int mobilenNo) {
+    public void setMobilenNo(String mobilenNo) {
         MobilenNo = mobilenNo;
     }
 

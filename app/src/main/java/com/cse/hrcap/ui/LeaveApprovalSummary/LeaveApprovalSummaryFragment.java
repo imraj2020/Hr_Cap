@@ -20,17 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.cse.hrcap.MyAdapters.AtdRegAprSummaryAdapter;
 import com.cse.hrcap.MyAdapters.LeaveAprSumAdapter;
 import com.cse.hrcap.R;
-import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumRoomDB;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumRoomDB;
-import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.databinding.LeaveApprovalSummaryFragmentBinding;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveAprSummary;
-import com.cse.hrcap.network.LeaveSummary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +99,7 @@ public class LeaveApprovalSummaryFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
-        Call<List<LeaveAprSummary>> call = LeaveApiClient.getUserService().leaveaprsummary(companyid, userid);
+        Call<List<LeaveAprSummary>> call = MyApiClient.getUserService().leaveaprsummary(companyid, userid);
         // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
 
 

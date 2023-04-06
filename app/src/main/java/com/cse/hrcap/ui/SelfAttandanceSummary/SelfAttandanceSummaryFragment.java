@@ -20,16 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.cse.hrcap.MyAdapters.LeaveSummaryAdapter;
 import com.cse.hrcap.MyAdapters.SelfSummaryAdapter;
 import com.cse.hrcap.R;
-import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 import com.cse.hrcap.RoomSelfSummary.SelfInfo;
 import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
-import com.cse.hrcap.databinding.SelfAttandanceFragmentBinding;
 import com.cse.hrcap.databinding.SelfAttandanceSummaryFragmentBinding;
 import com.cse.hrcap.network.AttdanceSummary;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +111,7 @@ public class SelfAttandanceSummaryFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        Call<List<AttdanceSummary>> call = LeaveApiClient.getUserService().attdancesummary(CompanyId, Employee);
+        Call<List<AttdanceSummary>> call = MyApiClient.getUserService().attdancesummary(CompanyId, Employee);
 
         call.enqueue(new Callback<List<AttdanceSummary>>() {
             @Override

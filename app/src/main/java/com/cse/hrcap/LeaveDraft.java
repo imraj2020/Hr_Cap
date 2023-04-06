@@ -4,14 +4,11 @@ import static com.cse.hrcap.MainActivity.leaveroomDB;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -25,21 +22,17 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cse.hrcap.MyAdapters.LeaveDraftAdapter;
 import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomUserInfo.UserInfo;
 import com.cse.hrcap.RoomUserInfo.UserRoomDB;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveRequest;
-import com.cse.hrcap.ui.LeaveRequestDraft.LeaveRequestDraftFragment;
-import com.cse.hrcap.ui.attandancereg.AttandanceReglarizationFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -355,7 +348,7 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
                 DayTypes, StartDate.getText().toString(), EndDate.getText().toString(),
                 Reason.getText().toString(), StartTime.getText().toString(), EndTime.getText().toString(),
                 CompanyId.getText().toString());
-        Call<LeaveRequest> call = LeaveApiClient.getUserService().PostData(leaveRequest);
+        Call<LeaveRequest> call = MyApiClient.getUserService().PostData(leaveRequest);
 
 
         call.enqueue(new Callback<LeaveRequest>() {

@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
 
-import com.cse.hrcap.network.LoginApiClient;
 import com.cse.hrcap.network.LoginResponse;
+import com.cse.hrcap.network.MyApiClient;
 import com.google.android.material.textfield.TextInputEditText;
 
 import retrofit2.Call;
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid, password);
+        Call<LoginResponse> loginResponseCall = MyApiClient.getUserService().userLogin(userid, password);
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                //Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                 //
                 String userid = username.getText().toString();

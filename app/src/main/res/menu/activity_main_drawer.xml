@@ -16,7 +16,9 @@
                 android:title="@string/menu_selfattandance_summary" />
 
 
-
+            <item
+                android:id="@+id/nav_checkAttendance"
+                android:title="@string/menu_checkAttendance" />
 
 
 

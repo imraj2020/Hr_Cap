@@ -2,17 +2,11 @@ package com.cse.hrcap.ui.leave;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import static com.cse.hrcap.MainActivity.leavedraftRoomDB;
 import static com.cse.hrcap.MainActivity.leaveroomDB;
-import static com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment.leaveSummaryRoomDB;
-import static com.cse.hrcap.ui.attandancereg.AttandanceReglarizationFragment.userChoice;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -27,9 +21,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,22 +37,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cse.hrcap.MainActivity;
-import com.cse.hrcap.R;
 import com.cse.hrcap.RoomLeave.LeaveInfo;
 import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
-import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
-import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryRoomDB;
 import com.cse.hrcap.RoomUserInfo.UserInfo;
 import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveRequest;
-import com.cse.hrcap.network.LeaveTypeResponse;
 import com.cse.hrcap.network.UserService;
-import com.cse.hrcap.ui.attandancereg.AttandanceReglarizationFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -525,7 +511,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                 Status, EtStartDate.getText().toString(), EtEndDate.getText().toString(),
                 EtReason.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
                 CompanyId.getText().toString());
-        Call<LeaveRequest> call = LeaveApiClient.getUserService().PostData(leaveRequest);
+        Call<LeaveRequest> call = MyApiClient.getUserService().PostData(leaveRequest);
 
 
         call.enqueue(new Callback<LeaveRequest>() {

@@ -15,9 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveApprovalRequest;
-import com.cse.hrcap.network.LeaveRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,7 +106,7 @@ public class LeaveApproval extends AppCompatActivity {
 //        UserService userService = getRetrofit().create(UserService.class);
         final LeaveApprovalRequest leaveApprovalRequest = new LeaveApprovalRequest(CompanyId.getText().toString(),
                 Employee.getText().toString(),LeaveId.getText().toString(),MStatus,MyNotes.getText().toString());
-        Call<LeaveApprovalRequest> call = LeaveApiClient.getUserService().PostDatas(leaveApprovalRequest);
+        Call<LeaveApprovalRequest> call = MyApiClient.getUserService().PostDatas(leaveApprovalRequest);
 
 
         call.enqueue(new Callback<LeaveApprovalRequest>() {

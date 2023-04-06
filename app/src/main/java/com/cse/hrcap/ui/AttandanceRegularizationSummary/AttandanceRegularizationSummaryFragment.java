@@ -23,17 +23,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.MyAdapters.AtdRegSummaryAdapter;
-import com.cse.hrcap.MyAdapters.SelfSummaryAdapter;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomAtdRegSummary.AtdRegInfo;
 import com.cse.hrcap.RoomAtdRegSummary.AtdRegRoomDB;
-import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
 import com.cse.hrcap.databinding.AttandanceRegularizationSummaryFragmentBinding;
-import com.cse.hrcap.databinding.LeaveSummaryFragmentBinding;
 import com.cse.hrcap.network.AttdanceRegularizationSummary;
-import com.cse.hrcap.network.LeaveApiClient;
+import com.cse.hrcap.network.MyApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +113,7 @@ public class AttandanceRegularizationSummaryFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String CompanyId = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        Call<List<AttdanceRegularizationSummary>> call = LeaveApiClient.getUserService().attdanceregsummary(CompanyId, Employee);
+        Call<List<AttdanceRegularizationSummary>> call = MyApiClient.getUserService().attdanceregsummary(CompanyId, Employee);
 
         call.enqueue(new Callback<List<AttdanceRegularizationSummary>>() {
             @Override
