@@ -28,7 +28,7 @@
     <string name="menu_atdregaprsummary">Approval Summary</string>
     <string name="menu_leaveaprsummary">Leave Approval Summary</string>
     <string name="menu_regentrydraft">Regularization Entry Draft</string>
-    <string name="menu_checkAttendance">Check Attendance</string>
+    <string name="menu_checkAttendance">My Attendance</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>

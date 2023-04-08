@@ -42,8 +42,16 @@ public class CheckAttendanceFragment extends Fragment {
     FragmentCheckAttendanceBinding binding;
     ArrayList<AttendanceReportList> AttendanceReport = new ArrayList<>();
 
+    RecyclerView MyRecycleView;
+
     //Receipt Preview
     AttandanceReportAdapter attandanceReportAdapter;
+    String Todate;
+    //system date
+    Calendar calendar = Calendar.getInstance();
+    int year = calendar.get(Calendar.YEAR);
+    int currentMonth = calendar.get(Calendar.MONTH) + 1; // add 1 to get the correct month
+    int day = calendar.get(Calendar.DAY_OF_MONTH);
 
     public static CheckAttendanceFragment newInstance() {
         return new CheckAttendanceFragment();
@@ -54,6 +62,48 @@ public class CheckAttendanceFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentCheckAttendanceBinding.inflate(inflater);
+
+        MyRecycleView = binding.rvAtdReport;
+        // print the date in MM/DD/YYYY format
+        Todate = String.format("%02d/%02d/%04d", currentMonth, day, year);
+
+        binding.TvChengedDate.setText(Todate);
+
+        binding.BtnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentMonth--;
+                if (currentMonth < 1) {
+                    currentMonth = 12; // set to December
+                    calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1); // decrement year by 1
+
+                    year = calendar.get(Calendar.YEAR);
+                }
+                calendar.set(Calendar.MONTH, currentMonth);
+                Todate = String.format("%02d/%02d/%04d", currentMonth, day, year);
+                binding.TvChengedDate.setText(Todate);
+                RetriveData();
+            }
+        });
+
+
+        binding.BtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentMonth++;
+                if (currentMonth > 12) {
+                    currentMonth = 1; // set to December
+                   // calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1); // decrement year by 1
+
+                    year = calendar.get(Calendar.YEAR);
+                }
+                calendar.set(Calendar.MONTH, currentMonth);
+                Todate = String.format("%02d/%02d/%04d", currentMonth, day, year);
+                binding.TvChengedDate.setText(Todate);
+                RetriveData();
+            }
+        });
+
 
         RetriveData();
         AtdrReportRecyclerView();
@@ -67,14 +117,6 @@ public class CheckAttendanceFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String Companyid = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
-        //system date
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1; // add 1 to get the correct month
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        // print the date in MM/DD/YYYY format
-        String Todate = String.format("%02d/%02d/%04d", month, day, year);
 
 
         Call<CheckAttendanceResponse> call = NewApiClient.getUserService().GetAtdInfo(Companyid, Employee, Todate);
@@ -95,9 +137,9 @@ public class CheckAttendanceFragment extends Fragment {
 
 
                     setBoldText(binding.TvRunBy, "Name: ", response.body().getRunBy());
-                    setBoldText(binding.TvLeaveCount, "Leave Count: ", String.valueOf(response.body().getLeaveCount())+" ");
+                    setBoldText(binding.TvLeaveCount, "Leave Count: ", String.valueOf(response.body().getLeaveCount()) + " ");
                     setBoldText(binding.TvLateCount, "Late Count: ", String.valueOf(response.body().getLeaveCount()));
-                    setBoldText(binding.TvTotalOverTime, "Total OverTime: ", response.body().getTotalOverTime()+" ");
+                    setBoldText(binding.TvTotalOverTime, "Total OverTime: ", response.body().getTotalOverTime() + " ");
                     setBoldText(binding.TvTotalWorkedTime, "Total Worked Time: ", response.body().getTotalWorkedTime());
 
 

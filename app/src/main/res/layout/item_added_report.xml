@@ -11,124 +11,145 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:padding="2dp">
 
         <TextView
             android:id="@+id/tvAtdDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textDirection="ltr"
+            android:layoutDirection="ltr"
             android:layout_weight="1"
             android:textColor="@color/black"
+            android:padding="2dp"
             android:text="Date"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvInTime"
+            android:padding="2dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:gravity="center"
             android:text="In Time"/>
 
         <TextView
             android:id="@+id/tvOutTime"
+            android:padding="2dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="Out Time"
-            android:gravity="center" />
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+            />
 
         <TextView
-            android:id="@+id/tvLateHour"
+            android:id="@+id/tvTotalWorkedHour"
+            android:padding="2dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="Late Hour"
-            android:gravity="center" />
+            android:text="Worked Hour"/>
+
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:padding="2dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Status" />
+
+
+
 
 
         <TextView
             android:id="@+id/tvOverTime"
+            android:padding="2dp"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="Over Time"
+            android:layout_gravity="center"
             android:gravity="center" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tvTotalWorkedHour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Worked Hour"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/tvBreakDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Break Duration"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvHoliDayName"
+            android:padding="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:textDirection="rtl"
+            android:layoutDirection="rtl"
             android:text="HoliDay Name"
+            android:visibility="gone"
+            android:layout_gravity="center"
             android:gravity="center" />
 
 
         <TextView
             android:id="@+id/tvLeaveType"
+            android:padding="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="Leave type"
+            android:visibility="gone"
+            android:layout_gravity="center"
             android:gravity="center" />
 
-    </LinearLayout>
+
 
 
         <TextView
             android:id="@+id/tvLeaveReason"
+            android:padding="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Leave Reason"
             android:textColor="@color/black"
+            android:visibility="gone"
+            android:layout_gravity="center"
             android:gravity="center" />
 
 
+        <TextView
+            android:id="@+id/tvLateHour"
+            android:padding="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Late Hour"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tvBreakDuration"
+            android:padding="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Break Duration"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:gravity="center" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
