@@ -29,8 +29,12 @@ import com.cse.hrcap.network.AttendanceReportList;
 import com.cse.hrcap.network.CheckAttendanceResponse;
 import com.cse.hrcap.network.NewApiClient;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,12 +50,12 @@ public class CheckAttendanceFragment extends Fragment {
 
     //Receipt Preview
     AttandanceReportAdapter attandanceReportAdapter;
-    String Todate;
+
     //system date
     Calendar calendar = Calendar.getInstance();
-    int year = calendar.get(Calendar.YEAR);
-    int currentMonth = calendar.get(Calendar.MONTH) + 1; // add 1 to get the correct month
-    int day = calendar.get(Calendar.DAY_OF_MONTH);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault());
+    public static String currentDate;
+
 
     public static CheckAttendanceFragment newInstance() {
         return new CheckAttendanceFragment();
@@ -62,26 +66,19 @@ public class CheckAttendanceFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentCheckAttendanceBinding.inflate(inflater);
-
+        //test
+       currentDate = dateFormat.format(calendar.getTime());
+        binding.TvChengedDate.setText(currentDate);
         MyRecycleView = binding.rvAtdReport;
         // print the date in MM/DD/YYYY format
-        Todate = String.format("%02d/%02d/%04d", currentMonth, day, year);
 
-        binding.TvChengedDate.setText(Todate);
 
         binding.BtnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentMonth--;
-                if (currentMonth < 1) {
-                    currentMonth = 12; // set to December
-                    calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1); // decrement year by 1
-
-                    year = calendar.get(Calendar.YEAR);
-                }
-                calendar.set(Calendar.MONTH, currentMonth);
-                Todate = String.format("%02d/%02d/%04d", currentMonth, day, year);
-                binding.TvChengedDate.setText(Todate);
+                calendar.add(Calendar.MONTH, -1);
+                String currentDate = dateFormat.format(calendar.getTime());
+                binding.TvChengedDate.setText(currentDate);
                 RetriveData();
             }
         });
@@ -90,16 +87,9 @@ public class CheckAttendanceFragment extends Fragment {
         binding.BtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentMonth++;
-                if (currentMonth > 12) {
-                    currentMonth = 1; // set to December
-                   // calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1); // decrement year by 1
-
-                    year = calendar.get(Calendar.YEAR);
-                }
-                calendar.set(Calendar.MONTH, currentMonth);
-                Todate = String.format("%02d/%02d/%04d", currentMonth, day, year);
-                binding.TvChengedDate.setText(Todate);
+                calendar.add(Calendar.MONTH, 1);
+                String currentDate = dateFormat.format(calendar.getTime());
+                binding.TvChengedDate.setText(currentDate);
                 RetriveData();
             }
         });
@@ -112,14 +102,25 @@ public class CheckAttendanceFragment extends Fragment {
         return binding.getRoot();
     }
 
-
     public void RetriveData() {
         Intent intent = getActivity().getIntent();
         String Companyid = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
 
+        String inputDate = binding.TvChengedDate.getText().toString();
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
-        Call<CheckAttendanceResponse> call = NewApiClient.getUserService().GetAtdInfo(Companyid, Employee, Todate);
+        try {
+            Date date = inputFormat.parse(inputDate);
+            String outputDate = outputFormat.format(date);
+            // outputDate is now "05/03/2023"
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        Call<CheckAttendanceResponse> call = NewApiClient.getUserService().GetAtdInfo(Companyid, Employee, inputDate);
         call.enqueue(new Callback<CheckAttendanceResponse>() {
 
             @Override
