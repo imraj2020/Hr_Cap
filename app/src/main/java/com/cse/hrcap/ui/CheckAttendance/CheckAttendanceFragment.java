@@ -77,7 +77,7 @@ public class CheckAttendanceFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 calendar.add(Calendar.MONTH, -1);
-                String currentDate = dateFormat.format(calendar.getTime());
+               currentDate = dateFormat.format(calendar.getTime());
                 binding.TvChengedDate.setText(currentDate);
                 RetriveData();
             }
@@ -88,7 +88,7 @@ public class CheckAttendanceFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 calendar.add(Calendar.MONTH, 1);
-                String currentDate = dateFormat.format(calendar.getTime());
+                currentDate = dateFormat.format(calendar.getTime());
                 binding.TvChengedDate.setText(currentDate);
                 RetriveData();
             }
@@ -107,20 +107,22 @@ public class CheckAttendanceFragment extends Fragment {
         String Companyid = intent.getStringExtra("CompanyId");
         String Employee = intent.getStringExtra("Employee");
 
+        String outputDate = null;
+
         String inputDate = binding.TvChengedDate.getText().toString();
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
         SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
         try {
             Date date = inputFormat.parse(inputDate);
-            String outputDate = outputFormat.format(date);
+            outputDate = outputFormat.format(date);
             // outputDate is now "05/03/2023"
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
 
-        Call<CheckAttendanceResponse> call = NewApiClient.getUserService().GetAtdInfo(Companyid, Employee, inputDate);
+        Call<CheckAttendanceResponse> call = NewApiClient.getUserService().GetAtdInfo(Companyid, Employee, outputDate);
         call.enqueue(new Callback<CheckAttendanceResponse>() {
 
             @Override
