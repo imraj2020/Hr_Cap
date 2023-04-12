@@ -405,57 +405,6 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     }
 
 
-
-//    private void leaveTypes() {
-//        Intent intent = getActivity().getIntent();
-//        String companyid = intent.getStringExtra("CompanyId");
-//        Call<List<LeaveTypeResponse>> call = LeaveApiClient.getUserService().leavetype(companyid);
-//        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
-//
-//
-//        call.enqueue(new Callback<List<LeaveTypeResponse>>() {
-//            @Override
-//            public void onResponse(Call<List<LeaveTypeResponse>> call, Response<List<LeaveTypeResponse>> response) {
-//
-//                if (response.isSuccessful()) {
-//
-//                    List<LeaveTypeResponse> nlist = response.body();
-//
-//                  //  Toast.makeText(getContext(), "Retrive Successfull", Toast.LENGTH_SHORT).show();
-//                    Log.d("LeaveResponse",nlist.get(0).getLeaveTypeName().toString());
-////                    StudentInfo studentInfo = new StudentInfo();
-////                    studentInfo.setLeavetypename("Test");
-////                    Log.d("LeaveResponse",studentInfo.getLeavetypename() );
-////                     roomDB.studentDAO().insertStudent(studentInfo);
-//
-//                    for (LeaveTypeResponse post : nlist) {
-//                        String content = "";
-////                        content += "Leave Type ID: " + post.getLeaveTypeId() + "\n";
-//                        content += "Leave Type Name: " + post.getLeaveTypeName() + "\n";
-////                        content += "Company ID: " + post.getCompanyId() + "\n";
-////                        content += "Short Name: " + post.getShortName() + "\n";
-////                        content += "Description: " + post.getDescription() + "\n\n";
-//
-//                        LeaveInfo leaveInfo = new LeaveInfo(post.getLeaveTypeName());
-//                        roomDB.leaveDAO().insertLeave(leaveInfo);
-//
-//
-//
-//                       // Leavetyperesponse.append(content);
-//                    }
-//                } else {
-//                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<LeaveTypeResponse>> call, Throwable t) {
-//               // Leavetyperesponse.setText(t.getMessage());
-//                Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -532,6 +481,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
             public void onFailure(Call<LeaveRequest> call, Throwable t) {
                 if (isNetworkAvailable()) {
                     Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(requireContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
                 }
