@@ -459,7 +459,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         final LeaveRequest leaveRequest = new LeaveRequest(EmpName.getText().toString(), label,
                 Status, EtStartDate.getText().toString(), EtEndDate.getText().toString(),
                 EtReason.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                CompanyId.getText().toString());
+                CompanyId.getText().toString(),binding.etdelegateperson.getText().toString());
         Call<LeaveRequest> call = MyApiClient.getUserService().PostData(leaveRequest);
 
 

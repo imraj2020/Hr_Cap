@@ -12,6 +12,7 @@ public class LeaveRequest {
     String CompanyID;
     private String Status;
     private String LeaveId;
+    String delegateEmployee;
 
     public String getStatus() {
         return Status;
@@ -50,7 +51,7 @@ public class LeaveRequest {
         Status_Message = status_Message;
     }
 
-    public LeaveRequest(String employee, String leaveType, String dayType, String startDate, String endDate, String reason, String startTime, String endTime, String companyID) {
+    public LeaveRequest(String employee, String leaveType, String dayType, String startDate, String endDate, String reason, String startTime, String endTime, String companyID ,String delegateEmploye) {
         Employee = employee;
         LeaveType = leaveType;
         DayType = dayType;
@@ -60,6 +61,7 @@ public class LeaveRequest {
         StartTime = startTime;
         EndTime = endTime;
         CompanyID = companyID;
+        delegateEmployee = delegateEmploye;
     }
 
     public String getEmployee() {

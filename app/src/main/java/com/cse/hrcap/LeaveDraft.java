@@ -45,7 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    EditText StartDate, EndDate, StartTime, EndTime, Reason;
+    EditText StartDate, EndDate, StartTime, EndTime, Reason,DelegatePerson;
     TextView EmployeeName, CompanyId,EmpFullName;
     TextView TvStartTime, TvEndTime;
     Spinner LvSpinner;
@@ -85,6 +85,8 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
 
 
         setContentView(R.layout.activity_leave_draft);
+
+        DelegatePerson = findViewById(R.id.etdraftdelegateperson);
         StartDate = findViewById(R.id.eTstartdate);
         EndDate = findViewById(R.id.eTenddate);
         StartTime = findViewById(R.id.eTstarttime);
@@ -106,6 +108,7 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         EmployeeName.setText(Em);
         CompanyId.setText(Co);
         EmpFullName = findViewById(R.id.tvempfullnames);
+
 
 
 
@@ -347,7 +350,7 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         final LeaveRequest leaveRequest = new LeaveRequest(EmployeeName.getText().toString(), spinneritems,
                 DayTypes, StartDate.getText().toString(), EndDate.getText().toString(),
                 Reason.getText().toString(), StartTime.getText().toString(), EndTime.getText().toString(),
-                CompanyId.getText().toString());
+                CompanyId.getText().toString(),DelegatePerson.getText().toString());
         Call<LeaveRequest> call = MyApiClient.getUserService().PostData(leaveRequest);
 
 
