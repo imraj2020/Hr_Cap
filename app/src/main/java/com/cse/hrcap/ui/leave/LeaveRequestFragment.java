@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +35,13 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cse.hrcap.R;
 import com.cse.hrcap.RoomLeave.LeaveInfo;
 import com.cse.hrcap.RoomLeave.MyRoomDB;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
@@ -44,12 +49,15 @@ import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 import com.cse.hrcap.RoomUserInfo.UserInfo;
 import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.databinding.LeaveRequestFragmentBinding;
+import com.cse.hrcap.network.EmployeeResponse;
 import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveRequest;
 import com.cse.hrcap.network.UserService;
+import com.google.android.gms.common.internal.Constants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -77,6 +85,9 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     public static String Status;
     TextView DateTime;
     public static boolean switchst;
+    private final ArrayList<EmployeeResponse> empname = new ArrayList<>();
+    Dialog dialog;
+    String EmployeeID;
 
     public static LeaveRequestFragment newInstance() {
         return new LeaveRequestFragment();
@@ -393,7 +404,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 //        leaveTypes();
 //        setDatabase();
         loadSpinnerData();
-        //loadSpinnerData();
+        DelegatePerson();
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -459,7 +470,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         final LeaveRequest leaveRequest = new LeaveRequest(EmpName.getText().toString(), label,
                 Status, EtStartDate.getText().toString(), EtEndDate.getText().toString(),
                 EtReason.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                CompanyId.getText().toString(),binding.etdelegateperson.getText().toString());
+                CompanyId.getText().toString(),binding.Tvdelegateperson.getText().toString());
         Call<LeaveRequest> call = MyApiClient.getUserService().PostData(leaveRequest);
 
 
@@ -498,9 +509,126 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         return false;
     }
 
+
 //    private void setDatabase(){
 //        roomDB = Room.databaseBuilder(requireContext(), MyRoomDB.class,"Leavetype.db")
 //                .allowMainThreadQueries().build();
+//    }
+
+    private void DelegatePerson() {
+
+        Intent intent = getActivity().getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+
+        Call<List<EmployeeResponse>> call = MyApiClient.getUserService().GetAllEmployee(companyid);
+
+
+        call.enqueue(new Callback<List<EmployeeResponse>>() {
+            @Override
+            public void onResponse(Call<List<EmployeeResponse>> call, Response<List<EmployeeResponse>> response) {
+                if (response.isSuccessful()){
+
+                    List<EmployeeResponse> nlist = response.body();
+                    empname.addAll(response.body());
+                    addSpinnerData(nlist);
+                    //            Toast.makeText(requireContext(), "Status is :"+nlist.get(0).getFirstName(), Toast.LENGTH_LONG).show();
+
+
+                }
+                else {
+                    Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<EmployeeResponse>> call, Throwable t) {
+                //     Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                if (isNetworkAvailable()) {
+                    Toast.makeText(requireContext(), "Sorry Something went wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    public void addSpinnerData(final List<EmployeeResponse>  nlist) {
+        binding.Tvdelegateperson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Initialize dialog
+                dialog = new Dialog(getContext());
+
+                // set custom dialog
+                dialog.setContentView(R.layout.dialog_searchable_spinner);
+
+                // set transparent background
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                // show dialog
+                dialog.show();
+
+                // Initialize and assign variable
+                EditText editText = dialog.findViewById(R.id.edit_text);
+                ListView listView = dialog.findViewById(R.id.list_view);
+
+                // Initialize array adapter
+                List<String> CustomerResponseList = new ArrayList<>();
+                CustomerResponseList.add(0, "imraj hossain");
+                for (int i = 1; i < nlist.size(); i++) {
+                    CustomerResponseList.add(i, nlist.get(i).getEmpIdAutomatic() + "\n (" + nlist.get(i).getFirstName() + ")\n");
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, CustomerResponseList);
+                listView.setAdapter(adapter);
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+
+
+                });
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        binding.Tvdelegateperson.setText(adapter.getItem(position));
+
+//                        try {
+//                            // Toast.makeText(getContext(),binding.tvCustomerList.getText().toString(), Toast.LENGTH_SHORT).show();
+//                            EmployeeID = getEmployeeIdFromName(binding.Tvdelegateperson.getText().toString());
+//                            // Toast.makeText(getContext(),"CustomerID"+CustomerID, Toast.LENGTH_SHORT).show();
+//                        } catch (Exception e) {
+//                            // Utilities.showLogcatMessage("binding.tvCustomerList " + e);
+//
+//                        }
+                        // Dismiss dialog
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+    }
+//
+//    public String getEmployeeIdFromName(String name) {
+//        for (EmployeeResponse empModel : empname) {
+//            if ((empModel.getFirstName() + "\n (" + empModel.getEmpIdAutomatic() + ")\nAddress:" + empModel.getId() + "\n\n").equalsIgnoreCase(name))
+//                return empModel.getEmpIdAutomatic();
+//
+//        }
+//        return "0";
 //    }
 
     private void showDataFromDb() {

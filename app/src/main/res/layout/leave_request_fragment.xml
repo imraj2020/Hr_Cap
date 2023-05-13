@@ -168,12 +168,20 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etdelegateperson"
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/etdelegateperson"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="" />-->
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="" />
+                android:id="@+id/Tvdelegateperson"
+                android:drawableEnd="@drawable/ic_drop_down"
+                android:focusable="false"
+                android:hint="Select Employee Name"
+                android:padding="5dp"></com.google.android.material.textfield.MaterialAutoCompleteTextView>
 
         </com.google.android.material.textfield.TextInputLayout>
 

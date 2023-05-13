@@ -12,9 +12,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -23,13 +26,21 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.R;
 import com.cse.hrcap.network.AttandanceRequest;
+import com.cse.hrcap.network.EmployeeResponse;
 import com.cse.hrcap.network.MyApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -37,6 +48,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,6 +86,7 @@ public class SelfAttandanceFragment extends Fragment {
     SelfAttandanceFragmentBinding binding;
     SwitchCompat mySwitch;
     public  static String Status;
+
 //    public  static String companyid;
 //    public  static String employee;
 
@@ -335,7 +348,7 @@ public class SelfAttandanceFragment extends Fragment {
                 today_date.getText().toString(),today_time.getText().toString(),Status,companyid,
                 text_location_latitude.getText().toString(),text_location_longitude.getText().toString(),
                 text_location.getText().toString());
-        Call<AttandanceRequest> call = MyApiClient.getUserService().PostDatas(attandanceRequest);
+        Call<AttandanceRequest> call = MyApiClient.getUserService().PostDatass(attandanceRequest);
 
 
         call.enqueue(new Callback<AttandanceRequest>() {
@@ -355,7 +368,7 @@ public class SelfAttandanceFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AttandanceRequest> call, Throwable t) {
-           //     Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                //     Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 if (isNetworkAvailable()) {
                     Toast.makeText(requireContext(), "Sorry Something went wrong ", Toast.LENGTH_SHORT).show();
                 } else {
@@ -365,6 +378,9 @@ public class SelfAttandanceFragment extends Fragment {
         });
 
     }
+
+
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);

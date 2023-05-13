@@ -67,7 +67,7 @@ public interface UserService {
     Call<LeaveRequest> PostData(@Body LeaveRequest leaveRequest);
 
     @POST("Api/AttendanceApi")
-    Call<AttandanceRequest> PostDatas(@Body AttandanceRequest attandanceRequest);
+    Call<AttandanceRequest> PostDatass(@Body AttandanceRequest attandanceRequest);
 
     @GET("Api/LeaveApi")
     Call<List<LeaveSummary>> leavesummary(
@@ -130,6 +130,12 @@ public interface UserService {
             @Query("CompanyId") String CompanyId,
             @Query("Employee") String Employee,
             @Query("ToDate") String ToDate
+    );
+
+
+    @POST("Api/CompanyEmployeeApi/PostCompanyEmployeeApi")
+    Call<List<EmployeeResponse>> GetAllEmployee(
+            @Query("CompanyId") String CompanyId
     );
 
 }
