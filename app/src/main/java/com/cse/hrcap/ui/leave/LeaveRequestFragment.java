@@ -470,7 +470,10 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         final LeaveRequest leaveRequest = new LeaveRequest(EmpName.getText().toString(), label,
                 Status, EtStartDate.getText().toString(), EtEndDate.getText().toString(),
                 EtReason.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                CompanyId.getText().toString(),binding.Tvdelegateperson.getText().toString());
+                CompanyId.getText().toString(),EmployeeID);
+
+        Toast.makeText(requireContext(),""+EmployeeID,Toast.LENGTH_SHORT).show();
+
         Call<LeaveRequest> call = MyApiClient.getUserService().PostData(leaveRequest);
 
 
@@ -576,7 +579,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
                 // Initialize array adapter
                 List<String> CustomerResponseList = new ArrayList<>();
-                CustomerResponseList.add(0, "imraj hossain");
+                CustomerResponseList.add(0, "Please Select");
                 for (int i = 1; i < nlist.size(); i++) {
                     CustomerResponseList.add(i, nlist.get(i).getEmpIdAutomatic() + "\n (" + nlist.get(i).getFirstName() + ")\n");
                 }
@@ -595,7 +598,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                        adapter.getFilter().filter(s);
                     }
 
 
@@ -606,30 +609,26 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         binding.Tvdelegateperson.setText(adapter.getItem(position));
 
-//                        try {
-//                            // Toast.makeText(getContext(),binding.tvCustomerList.getText().toString(), Toast.LENGTH_SHORT).show();
-//                            EmployeeID = getEmployeeIdFromName(binding.Tvdelegateperson.getText().toString());
-//                            // Toast.makeText(getContext(),"CustomerID"+CustomerID, Toast.LENGTH_SHORT).show();
-//                        } catch (Exception e) {
-//                            // Utilities.showLogcatMessage("binding.tvCustomerList " + e);
-//
-//                        }
-                        // Dismiss dialog
+                        try {
+
+                            String textViewText = binding.Tvdelegateperson.getText().toString();
+                            int startIndex = textViewText.indexOf("BD");
+                            int endIndex = textViewText.indexOf("(");
+
+                            EmployeeID = textViewText.substring(startIndex, endIndex).trim();
+
+                        } catch (Exception e) {
+                            // Utilities.showLogcatMessage("binding.tvCustomerList " + e);
+
+                        }
                         dialog.dismiss();
                     }
                 });
             }
         });
     }
-//
-//    public String getEmployeeIdFromName(String name) {
-//        for (EmployeeResponse empModel : empname) {
-//            if ((empModel.getFirstName() + "\n (" + empModel.getEmpIdAutomatic() + ")\nAddress:" + empModel.getId() + "\n\n").equalsIgnoreCase(name))
-//                return empModel.getEmpIdAutomatic();
-//
-//        }
-//        return "0";
-//    }
+
+
 
     private void showDataFromDb() {
 
