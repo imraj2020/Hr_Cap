@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -87,7 +88,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     public static boolean switchst;
     private final ArrayList<EmployeeResponse> empname = new ArrayList<>();
     Dialog dialog;
-    String EmployeeID;
+    String EmployeeID = "";
 
     public static LeaveRequestFragment newInstance() {
         return new LeaveRequestFragment();
@@ -129,13 +130,6 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 //        setLeaveDraftDatabase();
 
 
-
-
-
-
-
-
-
         //Checking Save As Draft
 
         BtnDraft.setOnClickListener(new View.OnClickListener() {
@@ -162,11 +156,9 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
 
 
-
-
                     LeaveDraftInfo mydraft = new LeaveDraftInfo(employee, spinnerValue, switchst, EtStartDate.getText().toString(),
                             EtEndDate.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                            EtReason.getText().toString(), companyid, currentDateandTime,label,Status);
+                            EtReason.getText().toString(), companyid, currentDateandTime, label, Status);
                     db.leaveDraftDAO().insertLeaveDraft(mydraft);
 
 
@@ -188,8 +180,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
             Status = "Full Day";
             // Toast.makeText(requireContext(),"Status is:"+tgpref,Toast.LENGTH_LONG).show();
         }
-        if (switchstatus = false)
-        {
+        if (switchstatus = false) {
             switchst = false;
             mySwitch.setChecked(false);
             Status = "Time";
@@ -200,7 +191,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked){
+                if (isChecked) {
 
                     switchst = true;
                     SharedPreferences.Editor editor = preferences.edit();
@@ -213,9 +204,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     EtEndTime.setVisibility(View.GONE);
                     TvStartTime.setVisibility(View.GONE);
                     TvEndTime.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(),"You Select:"+Status,Toast.LENGTH_LONG).show();
-                }
-                else {
+                    Toast.makeText(requireContext(), "You Select:" + Status, Toast.LENGTH_LONG).show();
+                } else {
                     switchst = false;
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("switch", false); // value to store
@@ -226,7 +216,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     EtEndTime.setVisibility(View.VISIBLE);
                     TvStartTime.setVisibility(View.VISIBLE);
                     TvEndTime.setVisibility(View.VISIBLE);
-                    Toast.makeText(requireContext(),"You Select:"+Status,Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "You Select:" + Status, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -246,9 +236,6 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 //
 //            }
 //        });
-
-
-
 
 
         // Cancel Button Click Event
@@ -470,9 +457,9 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         final LeaveRequest leaveRequest = new LeaveRequest(EmpName.getText().toString(), label,
                 Status, EtStartDate.getText().toString(), EtEndDate.getText().toString(),
                 EtReason.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                CompanyId.getText().toString(),EmployeeID);
+                CompanyId.getText().toString(), EmployeeID);
 
-        Toast.makeText(requireContext(),""+EmployeeID,Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(requireContext(), "" + EmployeeID, Toast.LENGTH_SHORT).show();
 
         Call<LeaveRequest> call = MyApiClient.getUserService().PostData(leaveRequest);
 
@@ -495,7 +482,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
             public void onFailure(Call<LeaveRequest> call, Throwable t) {
                 if (isNetworkAvailable()) {
                     Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
-                  //  Toast.makeText(requireContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(requireContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
                 }
@@ -503,6 +490,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         });
 
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -522,6 +510,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
+//
+//        ProgressDialog progressDialog = new ProgressDialog(requireContext());
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
 
         Call<List<EmployeeResponse>> call = MyApiClient.getUserService().GetAllEmployee(companyid);
 
@@ -529,17 +522,20 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         call.enqueue(new Callback<List<EmployeeResponse>>() {
             @Override
             public void onResponse(Call<List<EmployeeResponse>> call, Response<List<EmployeeResponse>> response) {
-                if (response.isSuccessful()){
+
+                if (response.isSuccessful()) {
 
                     List<EmployeeResponse> nlist = response.body();
                     empname.addAll(response.body());
                     addSpinnerData(nlist);
+                    binding.simpleProgressBar.setVisibility(View.GONE);
+                    binding.delegateperson.setVisibility(View.VISIBLE);
+//                    progressDialog.dismiss();
                     //            Toast.makeText(requireContext(), "Status is :"+nlist.get(0).getFirstName(), Toast.LENGTH_LONG).show();
 
 
-                }
-                else {
-                    Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(requireContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -557,7 +553,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-    public void addSpinnerData(final List<EmployeeResponse>  nlist) {
+    public void addSpinnerData(final List<EmployeeResponse> nlist) {
         binding.Tvdelegateperson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -627,7 +623,6 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
             }
         });
     }
-
 
 
     private void showDataFromDb() {

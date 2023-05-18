@@ -145,7 +145,7 @@ public class LeaveBalanceFragment extends Fragment {
                     }
                     loaddatainlistview();
                 } else {
-                    Toast.makeText(getContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Sorry something went wrong", Toast.LENGTH_LONG).show();
                 }
             }
 

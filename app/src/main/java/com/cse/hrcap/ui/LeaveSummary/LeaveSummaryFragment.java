@@ -151,14 +151,14 @@ public class LeaveSummaryFragment extends Fragment {
 
                     loaddatainlistview();
                 } else {
-                   // Toast.makeText(requireContext(), "Retrive Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<LeaveSummary>> call, Throwable t) {
                 if (isNetworkAvailable()) {
-                    Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
                 }
