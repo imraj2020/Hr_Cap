@@ -39,7 +39,6 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
     private Context context;
 
 
-
     public AtdRegAprSummaryAdapter(List<AtdRegAprSumInfo> list, Context context) {
         this.list = list;
         this.context = context;
@@ -59,7 +58,6 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
 //    }
 
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -75,9 +73,9 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-       // AtdRegAprSumInfo data = list.get(position);
+        // AtdRegAprSumInfo data = list.get(position);
         AtdRegAprSumInfo data = list.get(list.size() - position - 1);
-        
+
         if (holder.getLayoutPosition() % 2 == 0) {
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
         } else {
@@ -87,7 +85,7 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
 
         setBoldText(holder.FullName, "Full Name: ", data.getFullname());
 //        setBoldText(holder.EmpCode, "(", data.getEmpcode()+")");
-        holder.EmpCode.setText("(" + data.getEmpcode()+")");
+        holder.EmpCode.setText("(" + data.getEmpcode() + ")");
         setBoldText(holder.MovementId, "Request Id: ", data.getMovementid());
         setBoldText(holder.StartDate, "Start Date: ", data.getStartdate());
         setBoldText(holder.EndDate, "End Date: ", data.getEnddate());
@@ -98,51 +96,51 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
         setBoldText(holder.EntryBy, "Entry By: ", data.getEntryby());
         setBoldText(holder.EntryDate, "Entry Date: ", data.getEntrydate());
         setBoldText(holder.Status, "Status: ", data.getStatus());
-        setBoldText(holder.Note, "Note: ", data.getNote()+"");
+        setBoldText(holder.Note, "Note: ", data.getNote() + "");
 
-
-
-
-//        holder.MovementId.setText("MovementId: " + data.getMovementid());
-//        holder.CompanyId.setText("CompanyId: " + data.getCompanyid());
-//        holder.EmpId.setText("EmpId: " + Integer.toString(data.getEmpid()));
-//        holder.EmpCode.setText("(" + data.getEmpcode()+")");
-//        holder.FullName.setText("FullName: " + data.getFullname());
-//
-//        holder.StartDate.setText("StartDate: " + data.getStartdate());
-//        holder.EndDate.setText("EndDate: " + data.getEnddate());
-//        holder.Reason.setText("Reason: " + data.getReason());
-//        holder.Note.setText("Note: " + data.getNote());
-//        holder.FromTime.setText("FromTime: " + data.getFromtime());
-//        holder.ToTime.setText("ToTime: " + data.getTotime());
-//        holder.Status.setText("Status: " + data.getStatus());
-//        holder.EntryBy.setText("EntryBy: " + data.getEntryby());
-//        holder.EntryDate.setText("EntryDate: " + data.getEntrydate() + "\n");
 
         //Button Checking
         holder.BtnApproval.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AtdRegAprSumInfo data = list.get(list.size() - position - 1);
 
-                String CompanyId = data.getCompanyid();
-                String Employee = data.getEntryby();
-                String MovementId = data.getMovementid();
-                String FromTime = data.getFromtime();
-                String ToTime = data.getTotime();
+                String CompanyId, FromTime, ToTime,fullname,empcode,requestid,startdate,enddate,
+                reason,status,entryby,entrydate,note;
+
+                CompanyId = data.getCompanyid();
+                empcode = data.getEmpcode();
+                requestid = data.getMovementid();
+                FromTime = data.getFromtime();
+                ToTime = data.getTotime();
+                fullname = data.getFullname();
+                startdate = data.getStartdate();
+                enddate = data.getEnddate();
+                reason = data.getReason();
+                status = data.getStatus();
+                entryby = data.getEntryby();
+                entrydate = data.getEntrydate();
+                note = data.getNote();
+
+
 
 
                 Intent intent = new Intent(context, RegularizationApproval.class);
-                intent.putExtra("ICompanyId",CompanyId);
-                intent.putExtra("IMovementId",MovementId);
-                intent.putExtra("IFromTime",FromTime);
-                intent.putExtra("IToTime",ToTime);
+                intent.putExtra("ICompanyId", CompanyId);
+                intent.putExtra("IMovementId", requestid);
+                intent.putExtra("IFromTime", FromTime);
+                intent.putExtra("IToTime", ToTime);
+
+                intent.putExtra("Iempcode", empcode);
+                intent.putExtra("Ifullname", fullname);
+                intent.putExtra("Istartdate", startdate);
+                intent.putExtra("Ienddate", enddate);
+                intent.putExtra("Ireason", reason);
+                intent.putExtra("Istatus", status);
+                intent.putExtra("Ientryby", entryby);
+                intent.putExtra("Ientrydate", entrydate);
+                intent.putExtra("Inote", note);
+
                 context.startActivity(intent);
-
-
-
-
-                // remove your item from data base
-             //   Toast.makeText(context, " "+CompanyId+" "+Employee+" "+LeaveId, Toast.LENGTH_SHORT).show();
 
 
             }
@@ -172,7 +170,6 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
         CardView MyCardView;
 
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -190,7 +187,7 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
             Status = (TextView) itemView.findViewById(R.id.t_Statuss);
             EntryBy = (TextView) itemView.findViewById(R.id.t_EntryBys);
             EntryDate = (TextView) itemView.findViewById(R.id.t_EntryDates);
-            BtnApproval = (Button)itemView.findViewById(R.id.btnAprove);
+            BtnApproval = (Button) itemView.findViewById(R.id.btnAprove);
             MyCardView = itemView.findViewById(R.id.atdregapprovalcard);
         }
     }

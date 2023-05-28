@@ -3,6 +3,7 @@ package com.cse.hrcap;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +33,7 @@ public class LeaveApproval extends AppCompatActivity {
     Button BtnSubmit, BtnCancel;
     public static String MStatus;
     CardView MyCardView;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -147,7 +149,10 @@ public class LeaveApproval extends AppCompatActivity {
 
 
     private void leaveApproval() {
-//        UserService userService = getRetrofit().create(UserService.class);
+        progressDialog = new ProgressDialog(LeaveApproval.this);
+        progressDialog.setMessage("Submitting...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         final LeaveApprovalRequest leaveApprovalRequest = new LeaveApprovalRequest(CompanyId.getText().toString(),
                 Employee.getText().toString(), LeaveId.getText().toString(), MStatus, MyNotes.getText().toString());
         Call<LeaveApprovalRequest> call = MyApiClient.getUserService().PostDatas(leaveApprovalRequest);
@@ -158,10 +163,13 @@ public class LeaveApproval extends AppCompatActivity {
             public void onResponse(Call<LeaveApprovalRequest> call, Response<LeaveApprovalRequest> response) {
                 if (response.isSuccessful()) {
                     LeaveApprovalRequest leaveApprovalRequest1 = response.body();
+
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Status is :" + leaveApprovalRequest1.getStatus(), Toast.LENGTH_LONG).show();
 
 
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
@@ -169,6 +177,7 @@ public class LeaveApproval extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LeaveApprovalRequest> call, Throwable t) {
+                progressDialog.dismiss();
                 if (isNetworkAvailable()) {
                     Toast.makeText(getApplicationContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
                 } else {

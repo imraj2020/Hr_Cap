@@ -25,7 +25,9 @@ import retrofit2.Response;
 public class RegularizationApproval extends AppCompatActivity {
 
     RadioGroup radioGroup;
-    TextView CompanyId, Employee, MovementId,FromTime,ToTime;
+    TextView CompanyId, Employee, MovementId, FromTime, ToTime;
+
+    TextView FullName,EmpCode,MyMovementId,StartDate,EndDate,MyFromTime,MyToTime,Reason,Status,EntryBy,EntryDate,Note;
     EditText MyNotes;
     Button BtnSubmit, BtnCancel;
     public static String MyStatus;
@@ -35,21 +37,55 @@ public class RegularizationApproval extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regularization_approval);
         radioGroup = findViewById(R.id.myradios);
-        CompanyId =findViewById(R.id.TVS_companyid);
-        Employee =findViewById(R.id.TVS_employee);
-        MovementId =findViewById(R.id.TVS_MovementId);
-        FromTime =findViewById(R.id.TVS_FromTime);
+        CompanyId = findViewById(R.id.TVS_companyid);
+        Employee = findViewById(R.id.TVS_employee);
+        MovementId = findViewById(R.id.TVS_MovementId);
+        FromTime = findViewById(R.id.TVS_FromTime);
         ToTime = findViewById(R.id.TVS_ToTime);
-        MyNotes =findViewById(R.id.MSnotes);
-        BtnSubmit =findViewById(R.id.bTnSubmits);
+        MyNotes = findViewById(R.id.MSnotes);
+        BtnSubmit = findViewById(R.id.bTnSubmits);
         BtnCancel = findViewById(R.id.bTnCancels);
 
 
-        Intent intent =getIntent();
-        String companyId = intent.getStringExtra("ICompanyId");
-        String movementid = intent.getStringExtra("IMovementId");
-        String fromtime = intent.getStringExtra("IFromTime");
-        String totime = intent.getStringExtra("IToTime");
+
+        FullName = findViewById(R.id.a_FullName);
+      //  EmpCode = findViewById(R.id.a_EmpCode);
+        MyMovementId = findViewById(R.id.a_MovementId);
+        StartDate = findViewById(R.id.a_StartDates);
+        EndDate = findViewById(R.id.a_EndDates);
+        MyFromTime = findViewById(R.id.a_FromTimes);
+        MyToTime = findViewById(R.id.a_ToTimes);
+        Reason = findViewById(R.id.a_Reasons);
+        Status = findViewById(R.id.a_Statuss);
+        EntryBy = findViewById(R.id.a_EntryBys);
+        EntryDate = findViewById(R.id.a_EndDates);
+        Note = findViewById(R.id.a_Notes);
+
+
+
+        Intent intent = getIntent();
+
+       // String companyId, movementid, fromtime, totime ;
+
+        String companyId, fromTime, toTime,fullname,empcode,requestid,startdate,enddate,
+                reason,status,entryby,entrydate,note;
+
+
+        companyId = intent.getStringExtra("ICompanyId");
+        requestid = intent.getStringExtra("IMovementId");
+        fromTime = intent.getStringExtra("IFromTime");
+        toTime = intent.getStringExtra("IToTime");
+        fullname = intent.getStringExtra("Ifullname");
+        empcode = intent.getStringExtra("Iempcode");
+        startdate = intent.getStringExtra("Istartdate");
+        enddate = intent.getStringExtra("Ienddate");
+        reason = intent.getStringExtra("Ireason");
+        status = intent.getStringExtra("Istatus");
+        entryby = intent.getStringExtra("Ientryby");
+        entrydate = intent.getStringExtra("Ientrydate");
+        note = intent.getStringExtra("Inote");
+
+
 
         SharedPreferences bb = getSharedPreferences("my_prefs", 0);
         String employee = bb.getString("Employee", "");
@@ -57,11 +93,24 @@ public class RegularizationApproval extends AppCompatActivity {
 
         CompanyId.setText(companyId);
         Employee.setText(employee);
-        MovementId.setText(movementid);
-        FromTime.setText(fromtime);
-        ToTime.setText(totime);
+        MovementId.setText(requestid);
+        FromTime.setText(fromTime);
+        ToTime.setText(toTime);
 
 
+
+        FullName.setText(fullname+"("+empcode+")");
+       // EmpCode.setText(empcode);
+        MyMovementId.setText(requestid);
+        StartDate.setText(startdate);
+        EndDate.setText(enddate);
+        MyFromTime.setText(fromTime);
+        MyToTime.setText(toTime);
+        Reason.setText(reason);
+        Status.setText(status);
+        EntryBy.setText(entryby);
+        EntryDate.setText(entrydate);
+        Note.setText(note+"");
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -80,7 +129,7 @@ public class RegularizationApproval extends AppCompatActivity {
 
                     //Need to know rejecte or rejected
                     MyStatus = "Reject";
-                }else{
+                } else {
 
                     Toast.makeText(getApplicationContext(), "Please Check Approve or Reject", Toast.LENGTH_SHORT).show();
                 }
@@ -103,7 +152,6 @@ public class RegularizationApproval extends AppCompatActivity {
         });
 
 
-
     }
 
     private void RegularizationApproval() {
@@ -111,8 +159,8 @@ public class RegularizationApproval extends AppCompatActivity {
 
 //        UserService userService = getRetrofit().create(UserService.class);
         final RegularizationApprovalResponse regularizationApprovalResponse = new RegularizationApprovalResponse(
-                CompanyId.getText().toString(),Employee.getText().toString(),MovementId.getText().toString(),
-              FromTime.getText().toString(),ToTime.getText().toString(),MyNotes.getText().toString(),MyStatus
+                CompanyId.getText().toString(), Employee.getText().toString(), MovementId.getText().toString(),
+                FromTime.getText().toString(), ToTime.getText().toString(), MyNotes.getText().toString(), MyStatus
         );
         Call<RegularizationApprovalResponse> call = MyApiClient.getUserService().MyPostData(regularizationApprovalResponse);
 
