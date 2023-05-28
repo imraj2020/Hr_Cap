@@ -1,7 +1,6 @@
 package com.cse.hrcap.MyAdapters;
 
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -24,12 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveApproval;
 import com.cse.hrcap.R;
-import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumInfo;
-import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
-import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
-import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
-import com.cse.hrcap.RoomLeaveSummary.LeaveSummaryInfo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,11 +31,18 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+
 public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.ViewHolder> {
 
     private List<LeaveAprSumInfo> list;
     private Context context;
+    private OnItemClickListener listener;
 
+
+    //interface
+    public interface OnItemClickListener {
+        void onApprovalButtonClick();
+    }
 
     public LeaveAprSumAdapter(List<LeaveAprSumInfo> list, Context context) {
         this.list = list;
@@ -67,25 +68,8 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-       // LeaveAprSumInfo data = list.get(position);
+        // LeaveAprSumInfo data = list.get(position);
         LeaveAprSumInfo data = list.get(list.size() - position - 1);
-
-//        if (data.getLeavestatusname().equals("Pending")) {
-//            holder.MyCardView.setVisibility(View.VISIBLE);
-//
-//            ViewGroup.LayoutParams params = holder.MyCardView.getLayoutParams();
-//            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-//            holder.MyCardView.setLayoutParams(params);
-//
-//        } else {
-//            holder.MyCardView.setVisibility(View.GONE);
-//            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) holder.MyCardView.getLayoutParams();
-//            lp.height = 0;
-//            lp.width = 0;
-//            lp.setMargins(0, 0, 0, 0);
-//            holder.MyCardView.setLayoutParams(lp);
-//            holder.MyCardView.setPadding(0, 0, 0, 0);
-//        }
 
 
         if (holder.getLayoutPosition() % 2 == 0) {
@@ -93,7 +77,6 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         } else {
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
         }
-
 
 
         if (holder.getLayoutPosition() % 2 == 0) {
@@ -113,7 +96,6 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         }
         SimpleDateFormat outputDateFormat1 = new SimpleDateFormat("dd/MM/yy");
         String EntryDate = outputDateFormat1.format(inputDate1);
-
 
 
         // From Date
@@ -143,42 +125,16 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
 
 
         setBoldText(holder.FullName, "Full Name: ", data.getFullname());
-        setBoldText(holder.EmpCode, "(", data.getEmpcode()+")");
+        setBoldText(holder.EmpCode, "(", data.getEmpcode() + ")");
         setBoldText(holder.EntryDate, "Entry Date: ", data.getEntrydate());
         setBoldText(holder.LeaveTypeName, "Leave Type: ", data.getLeavetypename());
         setBoldText(holder.LeaveId, "Leave Id: ", data.getLeaveid());
         setBoldText(holder.FromDate, "From Date: ", data.getFromdate());
         setBoldText(holder.ToDate, "To Date: ", data.getTodate());
-        setBoldText(holder.FromTime, "From Time: ", data.getFromtime()+"");
-        setBoldText(holder.ToTime, "To Time: ", data.getTotime()+"");
+        setBoldText(holder.FromTime, "From Time: ", data.getFromtime() + "");
+        setBoldText(holder.ToTime, "To Time: ", data.getTotime() + "");
         setBoldText(holder.TotalHours, "Total Hours: ", data.getTotalhours());
         setBoldText(holder.LeaveStatusName, "Status: ", data.getLeavestatusname());
-
-
-
-
-
-
-
-//        holder.FullName.setText("Name: "+data.getFullname());
-//        holder.EmpCode.setText("("+data.getEmpcode()+")");
-//        holder.EntryDate.setText("Entry Date: "+EntryDate);
-//        holder.LeaveTypeName.setText("Leave Type: "+data.getLeavetypename());
-//        holder.LeaveId.setText("Leave Id: "+data.getLeaveid());
-//        holder.FromDate.setText("From Date: "+FromDate);
-//        holder.ToDate.setText("To Date: "+ToDate);
-//        holder.FromTime.setText("From Time: "+data.getFromtime());
-//        holder.ToTime.setText("To Time: "+data.getTotime());
-//        holder.TotalHours.setText("Total Hours: "+data.getTotalhours());
-//        holder.LeaveStatusName.setText("Status: "+data.getLeavestatusname()+"\n");
-//        holder.CompanyId.setText("CompanyId: "+data.getCompanyid());
-//        holder.EmpId.setText("EmpId: "+Integer.toString(data.getEmpid()));
-//        holder.LeaveTypeId.setText("LeaveTypeId: "+Integer.toString(data.getLeavetypeid()));
-//        holder.TotalDay.setText("TotalDay: "+data.getTotalday());
-//        holder.Leavestatusid.setText("Leavestatusid: "+Integer.toString(data.getLeavestatusid()));
-//        holder.IndivRequestStatus.setText("IndivRequestStatus: "+Integer.toString(data.getIndivrequeststatus()));
-//        holder.IndivRequestStatusName.setText("IndivRequestStatusName: "+data.getIndivrequeststatusname());
-//        holder.EntryBy.setText("EntryBy: "+data.getEntryby());
 
 
         //Button Checking
@@ -186,25 +142,46 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
             public void onClick(View v) {
                 LeaveAprSumInfo data = list.get(list.size() - position - 1);
 
-                String CompanyId = data.getCompanyid();
-                String LeaveId = data.getLeaveid();
+                String CompanyId, Fullname, EmpCode, EntryDate, LeaveTypeName, LeaveId, FromDate, ToDate, FromTime, ToTime,
+                        TotalHours, LeaveStatusName;
+
+
+                CompanyId = data.getCompanyid();
+                Fullname = data.getFullname();
+                EmpCode =  data.getEmpcode();
+                EntryDate = data.getEntrydate();
+                LeaveTypeName = data.getLeavetypename();
+                LeaveId = data.getLeaveid();
+                FromDate = data.getFromdate();
+                ToDate = data.getTodate();
+                FromTime = data.getFromtime();
+                ToTime = data.getTotime();
+                TotalHours = data.getTotalhours();
+                LeaveStatusName = data.getLeavestatusname();
 
                 Intent intent = new Intent(context, LeaveApproval.class);
-                intent.putExtra("MCompanyId",CompanyId);
-                intent.putExtra("MLeaveId",LeaveId);
+                intent.putExtra("MCompanyId", CompanyId);
+                intent.putExtra("MFullname", Fullname);
+                intent.putExtra("MEmpCode", EmpCode);
+                intent.putExtra("MEntryDate", EntryDate);
+                intent.putExtra("MLeaveTypeName", LeaveTypeName);
+                intent.putExtra("MLeaveId", LeaveId);
+                intent.putExtra("MFromDate", FromDate);
+                intent.putExtra("MToDate", ToDate);
+                intent.putExtra("MFromTime", FromTime);
+                intent.putExtra("MToTime", ToTime);
+                intent.putExtra("MTotalHours", TotalHours);
+                intent.putExtra("MLeaveStatusName", LeaveStatusName);
                 context.startActivity(intent);
 
 
-
-
                 // remove your item from data base
-               // Toast.makeText(context, " "+CompanyId+" "+Employee+" "+LeaveId, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, " "+CompanyId+" "+Employee+" "+LeaveId, Toast.LENGTH_SHORT).show();
 
 
             }
         });
     }
-
 
 
     private void setBoldText(TextView textView, String boldText, String regularText) {
@@ -223,8 +200,8 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView LeaveId,CompanyId,EmpId,EmpCode,LeaveTypeId,LeaveTypeName,FromDate,ToDate,TotalDay,FromTime,ToTime,
-                TotalHours,Leavestatusid,LeaveStatusName,FullName,IndivRequestStatus,IndivRequestStatusName,EntryBy,
+        TextView LeaveId, CompanyId, EmpId, EmpCode, LeaveTypeId, LeaveTypeName, FromDate, ToDate, TotalDay, FromTime, ToTime,
+                TotalHours, Leavestatusid, LeaveStatusName, FullName, IndivRequestStatus, IndivRequestStatusName, EntryBy,
                 EntryDate;
         CardView MyCardView;
 
@@ -234,26 +211,26 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            LeaveId = (TextView)itemView.findViewById(R.id.tv_lvid);
-            CompanyId = (TextView)itemView.findViewById(R.id.tv_companyid);
-            EmpId = (TextView)itemView.findViewById(R.id.tv_empid);
-            EmpCode = (TextView)itemView.findViewById(R.id.tv_empcode);
-            LeaveTypeId = (TextView)itemView.findViewById(R.id.tv_leavetypeid);
-            LeaveTypeName = (TextView)itemView.findViewById(R.id.tv_leavetypename);
-            FromDate = (TextView)itemView.findViewById(R.id.tv_fromdate);
-            ToDate = (TextView)itemView.findViewById(R.id.tv_todate);
-            TotalDay = (TextView)itemView.findViewById(R.id.tv_totalday);
-            FromTime = (TextView)itemView.findViewById(R.id.tv_fromtime);
-            ToTime = (TextView)itemView.findViewById(R.id.tv_totime);
-            TotalHours = (TextView)itemView.findViewById(R.id.tv_totalhours);
-            Leavestatusid = (TextView)itemView.findViewById(R.id.tv_leavestatusid);
-            LeaveStatusName = (TextView)itemView.findViewById(R.id.tv_leavestatusname);
-            FullName = (TextView)itemView.findViewById(R.id.tv_fullname);
-            IndivRequestStatus = (TextView)itemView.findViewById(R.id.tv_indivrequeststatus);
-            IndivRequestStatusName = (TextView)itemView.findViewById(R.id.tv_indivrequeststatusname);
-            EntryBy = (TextView)itemView.findViewById(R.id.tv_entryby);
-            EntryDate = (TextView)itemView.findViewById(R.id.tv_entrydate);
-            BtnApproval = (Button)itemView.findViewById(R.id.btnaproval);
+            LeaveId = (TextView) itemView.findViewById(R.id.tv_lvid);
+            CompanyId = (TextView) itemView.findViewById(R.id.tv_companyid);
+            EmpId = (TextView) itemView.findViewById(R.id.tv_empid);
+            EmpCode = (TextView) itemView.findViewById(R.id.tv_empcode);
+            LeaveTypeId = (TextView) itemView.findViewById(R.id.tv_leavetypeid);
+            LeaveTypeName = (TextView) itemView.findViewById(R.id.tv_leavetypename);
+            FromDate = (TextView) itemView.findViewById(R.id.tv_fromdate);
+            ToDate = (TextView) itemView.findViewById(R.id.tv_todate);
+            TotalDay = (TextView) itemView.findViewById(R.id.tv_totalday);
+            FromTime = (TextView) itemView.findViewById(R.id.tv_fromtime);
+            ToTime = (TextView) itemView.findViewById(R.id.tv_totime);
+            TotalHours = (TextView) itemView.findViewById(R.id.tv_totalhours);
+            Leavestatusid = (TextView) itemView.findViewById(R.id.tv_leavestatusid);
+            LeaveStatusName = (TextView) itemView.findViewById(R.id.tv_leavestatusname);
+            FullName = (TextView) itemView.findViewById(R.id.tv_fullname);
+            IndivRequestStatus = (TextView) itemView.findViewById(R.id.tv_indivrequeststatus);
+            IndivRequestStatusName = (TextView) itemView.findViewById(R.id.tv_indivrequeststatusname);
+            EntryBy = (TextView) itemView.findViewById(R.id.tv_entryby);
+            EntryDate = (TextView) itemView.findViewById(R.id.tv_entrydate);
+            BtnApproval = (Button) itemView.findViewById(R.id.btnaproval);
             MyCardView = itemView.findViewById(R.id.leaveapprovalcard);
 
         }

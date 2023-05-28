@@ -1,10 +1,12 @@
 package com.cse.hrcap;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,15 +26,19 @@ import retrofit2.Response;
 
 public class LeaveApproval extends AppCompatActivity {
     RadioGroup radioGroup;
-    TextView CompanyId, Employee, LeaveId;
+    TextView CompanyId, FullName,EmpCode, Employee, LeaveId,EntryDate,LeaveTypeName,TvLeaveId,FromDate,ToDate,
+    FromTime,ToTime,TotalHours,LeaveStatusName;
     EditText MyNotes;
     Button BtnSubmit, BtnCancel;
     public static String MStatus;
+    CardView MyCardView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_approval);
+
 
         radioGroup = findViewById(R.id.myradio);
         CompanyId = findViewById(R.id.TV_companyid);
@@ -42,21 +48,62 @@ public class LeaveApproval extends AppCompatActivity {
         BtnSubmit = findViewById(R.id.btnSubmits);
         BtnCancel = findViewById(R.id.btnCancels);
 
+        MyCardView = findViewById(R.id.Mtcards);
+        MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+
+
+        FullName = findViewById(R.id.iFullname);
+        EmpCode = findViewById(R.id.iEmpCode);
+        EntryDate = findViewById(R.id.iEntryDate);
+        LeaveTypeName = findViewById(R.id.iLeaveTypeName);
+        TvLeaveId = findViewById(R.id.iLeaveId);
+        FromDate = findViewById(R.id.iFromDate);
+        ToDate = findViewById(R.id.iToDate);
+        FromTime = findViewById(R.id.iFromTime);
+        ToTime = findViewById(R.id.iToTime);
+        TotalHours = findViewById(R.id.iTotalHours);
+        LeaveStatusName = findViewById(R.id.iLeaveStatusName);
+
+
+
+
+
         SharedPreferences bb = getSharedPreferences("my_prefs", 0);
         String employee = bb.getString("Employee", "");
 
 
-        Intent intent =getIntent();
-        String companyId = intent.getStringExtra("MCompanyId");
-        String leaveId = intent.getStringExtra("MLeaveId");
+        Intent intent = getIntent();
+        String companyId, fullname, empCode, entryDate, leaveTypeName, leaveId, fromDate, toDate, fromTime, toTime,
+                totalHours, leaveStatusName;
+        companyId = intent.getStringExtra("MCompanyId");
+        fullname = intent.getStringExtra("MFullname");
+        empCode = intent.getStringExtra("MEmpCode");
+        entryDate = intent.getStringExtra("MEntryDate");
+        leaveTypeName = intent.getStringExtra("MLeaveTypeName");
+        leaveId = intent.getStringExtra("MLeaveId");
+        fromDate = intent.getStringExtra("MFromDate");
+        toDate = intent.getStringExtra("MToDate");
+        fromTime = intent.getStringExtra("MFromTime");
+        toTime = intent.getStringExtra("MToTime");
+        totalHours = intent.getStringExtra("MTotalHours");
+        leaveStatusName = intent.getStringExtra("MLeaveStatusName");
 
         CompanyId.setText(companyId);
         Employee.setText(employee);
         LeaveId.setText(leaveId);
 
+        FullName.setText(fullname);
+        EmpCode.setText("("+empCode+")");
 
-
-
+        EntryDate.setText(entryDate);
+        LeaveTypeName.setText(leaveTypeName);
+        TvLeaveId.setText(leaveId);
+        FromDate.setText(fromDate);
+        ToDate.setText(toDate);
+        FromTime.setText(fromTime+"");
+        ToTime.setText(toTime+"");
+        TotalHours.setText(totalHours);
+        LeaveStatusName.setText(leaveStatusName);
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -73,7 +120,7 @@ public class LeaveApproval extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Reject Selected", Toast.LENGTH_SHORT).show();
                     MStatus = "Rejected";
-                }else{
+                } else {
 
                     Toast.makeText(getApplicationContext(), "Please Check Approve or Reject", Toast.LENGTH_SHORT).show();
                 }
@@ -96,16 +143,13 @@ public class LeaveApproval extends AppCompatActivity {
         });
 
 
-
     }
-
-
 
 
     private void leaveApproval() {
 //        UserService userService = getRetrofit().create(UserService.class);
         final LeaveApprovalRequest leaveApprovalRequest = new LeaveApprovalRequest(CompanyId.getText().toString(),
-                Employee.getText().toString(),LeaveId.getText().toString(),MStatus,MyNotes.getText().toString());
+                Employee.getText().toString(), LeaveId.getText().toString(), MStatus, MyNotes.getText().toString());
         Call<LeaveApprovalRequest> call = MyApiClient.getUserService().PostDatas(leaveApprovalRequest);
 
 
@@ -137,15 +181,13 @@ public class LeaveApproval extends AppCompatActivity {
 
 
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
             NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         }
         return false;
     }
-
-
 
 
 }

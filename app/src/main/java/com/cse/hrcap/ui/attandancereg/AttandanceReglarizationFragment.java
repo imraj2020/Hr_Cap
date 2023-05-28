@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -64,6 +65,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     Button BtnCancel, BtnSubmit, BtnDraft;
     AttandanceReglarizationFragmentBinding binding;
     public  static int userChoice;
+    ProgressDialog progressDialog;
     public static AttandanceReglarizationFragment newInstance() {
         return new AttandanceReglarizationFragment();
     }
@@ -374,7 +376,11 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
     }
     private void AttandanceRegularization() {
-        //getting full name
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setMessage("Submitting...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String employee = intent.getStringExtra("Employee");
@@ -389,11 +395,13 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             public void onResponse(Call<AttandanceRegularizationRequest> call, Response<AttandanceRegularizationRequest> response) {
                 if (response.isSuccessful()){
                     AttandanceRegularizationRequest attandanceRegularizationRequest1 = response.body();
+                    progressDialog.dismiss();
                     Toast.makeText(requireContext(), "Status is :"+attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
 
 
                 }
                 else {
+                    progressDialog.dismiss();
                     Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
@@ -401,6 +409,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
             @Override
             public void onFailure(Call<AttandanceRegularizationRequest> call, Throwable t) {
+                progressDialog.dismiss();
                 if (isNetworkAvailable()) {
                     Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
                 } else {

@@ -89,6 +89,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     private final ArrayList<EmployeeResponse> empname = new ArrayList<>();
     Dialog dialog;
     String EmployeeID = "";
+    ProgressDialog progressDialog;
+    ProgressDialog mprogressDialog;
 
     public static LeaveRequestFragment newInstance() {
         return new LeaveRequestFragment();
@@ -135,6 +137,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         BtnDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mprogressDialog = new ProgressDialog(requireContext());
+                mprogressDialog.setMessage("Saving...");
+                mprogressDialog.setCancelable(false);
+                mprogressDialog.show();
+
                 if (isNetworkAvailable()) {
                     //Spinner Position
                     SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
@@ -161,9 +168,10 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                             EtReason.getText().toString(), companyid, currentDateandTime, label, Status);
                     db.leaveDraftDAO().insertLeaveDraft(mydraft);
 
-
+                    mprogressDialog.dismiss();
                     Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
                 } else {
+                    mprogressDialog.dismiss();
                     Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
                 }
 
@@ -453,6 +461,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void leaveRequest() {
+
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setMessage("Submitting...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 //        UserService userService = getRetrofit().create(UserService.class);
         final LeaveRequest leaveRequest = new LeaveRequest(EmpName.getText().toString(), label,
                 Status, EtStartDate.getText().toString(), EtEndDate.getText().toString(),
@@ -469,10 +482,12 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
             public void onResponse(Call<LeaveRequest> call, Response<LeaveRequest> response) {
                 if (response.isSuccessful()) {
                     LeaveRequest leaveResponse = response.body();
+                    progressDialog.dismiss();
                     Toast.makeText(requireContext(), "Status is :" + leaveResponse.getStatus(), Toast.LENGTH_LONG).show();
 
 
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(requireContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
@@ -480,6 +495,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
             @Override
             public void onFailure(Call<LeaveRequest> call, Throwable t) {
+                progressDialog.dismiss();
                 if (isNetworkAvailable()) {
                     Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
                     //  Toast.makeText(requireContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();

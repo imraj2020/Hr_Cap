@@ -27,6 +27,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -76,16 +77,17 @@ import retrofit2.Response;
 
 public class SelfAttandanceFragment extends Fragment {
     private SelfAttandanceViewModel mViewModel;
-    TextView text_location, text_location_latitude, text_location_longitude, today_date, today_time,tv_Companyid,tv_employee;
+    TextView text_location, text_location_latitude, text_location_longitude, today_date, today_time, tv_Companyid, tv_employee;
     LocationManager locationManager;
     FusedLocationProviderClient client;
-    Button BtnLocation,CancelBtn,BtnSave ;
+    Button BtnLocation, CancelBtn, BtnSave;
     boolean gps_enabled = false;
     boolean network_enabled = false;
     ProgressDialog progressDialog;
     SelfAttandanceFragmentBinding binding;
     SwitchCompat mySwitch;
-    public  static String Status;
+    public static String Status;
+
 
 //    public  static String companyid;
 //    public  static String employee;
@@ -112,7 +114,6 @@ public class SelfAttandanceFragment extends Fragment {
 //        tv_Companyid = binding.tvcompid;
 
 
-
 //        tv_Companyid.setText(companyid);
 //        tv_employee.setText(employeename);
 
@@ -124,13 +125,12 @@ public class SelfAttandanceFragment extends Fragment {
         {
             mySwitch.setChecked(true);
             Status = "IN";
-           // Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
+            // Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
         }
-        if (tgpref = false)
-        {
+        if (tgpref = false) {
             mySwitch.setChecked(false);
             Status = "OUT";
-          //  Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
+            //  Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
         }
 
 
@@ -148,7 +148,7 @@ public class SelfAttandanceFragment extends Fragment {
         today_time.setText(currentDateTimeString);
 
         //testing Alart dialogue
-        locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
@@ -177,15 +177,14 @@ public class SelfAttandanceFragment extends Fragment {
         //Toggle Button
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
 
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("tgpref", true); // value to store
                     editor.commit();
-                   Status = "IN";
-                  // Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
-                }
-                else {
+                    Status = "IN";
+                    // Toast.makeText(requireContext(),"Status is:"+Status,Toast.LENGTH_LONG).show();
+                } else {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("tgpref", false); // value to store
                     editor.commit();
@@ -197,8 +196,7 @@ public class SelfAttandanceFragment extends Fragment {
         });
 
         CancelBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 requireActivity().onBackPressed();
             }
         });
@@ -207,12 +205,21 @@ public class SelfAttandanceFragment extends Fragment {
         BtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AttandanceRequest();
+
+                if (TextUtils.isEmpty(binding.textLocation.getText().toString().trim())) {
+                    binding.textLocation.setError("Location Can't be Empty");
+                }
+                if (TextUtils.isEmpty(binding.textLocationLatitude.getText().toString().trim())) {
+                    binding.textLocationLatitude.setError("Latitude Can't be Empty");
+                }
+                if (TextUtils.isEmpty(binding.textLocationLongitude.getText().toString().trim())) {
+                    binding.textLocationLongitude.setError("Longitude Can't be Empty");
+                } else {
+                    AttandanceRequest();
+                }
+
             }
         });
-
-
-
 
 
         return binding.getRoot();
@@ -276,15 +283,15 @@ public class SelfAttandanceFragment extends Fragment {
                     //check condition for location
                     if (location != null) {
 
-                        Geocoder geocoder = new Geocoder(requireContext(),Locale.getDefault());
+                        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
                         try {
-                            List <Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             text_location.setText(addresses.get(0).getAddressLine(0));
 
 
                         } catch (IOException e) {
                             e.printStackTrace();
-                            Toast.makeText(requireContext(),"Getting Address Failed",Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(), "Getting Address Failed", Toast.LENGTH_LONG).show();
                         }
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
@@ -296,7 +303,7 @@ public class SelfAttandanceFragment extends Fragment {
                     } else {
                         // when location result is null
                         //Initialized location request
-                       // LocationRequest locationRequest;
+                        // LocationRequest locationRequest;
                         Toast.makeText(requireContext(), "Location is null", Toast.LENGTH_LONG).show();
 //
 //
@@ -340,13 +347,18 @@ public class SelfAttandanceFragment extends Fragment {
 
     private void AttandanceRequest() {
 
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setMessage("Submitting...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String employee = intent.getStringExtra("Employee");
 
         final AttandanceRequest attandanceRequest = new AttandanceRequest(employee,
-                today_date.getText().toString(),today_time.getText().toString(),Status,companyid,
-                text_location_latitude.getText().toString(),text_location_longitude.getText().toString(),
+                today_date.getText().toString(), today_time.getText().toString(), Status, companyid,
+                text_location_latitude.getText().toString(), text_location_longitude.getText().toString(),
                 text_location.getText().toString());
         Call<AttandanceRequest> call = MyApiClient.getUserService().PostDatass(attandanceRequest);
 
@@ -354,20 +366,22 @@ public class SelfAttandanceFragment extends Fragment {
         call.enqueue(new Callback<AttandanceRequest>() {
             @Override
             public void onResponse(Call<AttandanceRequest> call, Response<AttandanceRequest> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     AttandanceRequest attdanceresponse = response.body();
-                    Toast.makeText(requireContext(), "Status is :"+attdanceresponse.getStatus(), Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                    Toast.makeText(requireContext(), "Status is :" + attdanceresponse.getStatus(), Toast.LENGTH_LONG).show();
 
 
-                }
-                else {
-                    Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(requireContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
                 }
 
             }
 
             @Override
             public void onFailure(Call<AttandanceRequest> call, Throwable t) {
+                progressDialog.dismiss();
                 //     Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 if (isNetworkAvailable()) {
                     Toast.makeText(requireContext(), "Sorry Something went wrong ", Toast.LENGTH_SHORT).show();
@@ -380,10 +394,8 @@ public class SelfAttandanceFragment extends Fragment {
     }
 
 
-
-
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
             NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
