@@ -3,6 +3,7 @@ package com.cse.hrcap;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -32,8 +33,8 @@ public class LeaveApproval extends AppCompatActivity {
     EditText MyNotes;
     Button BtnSubmit, BtnCancel;
     public static String MStatus;
-    CardView MyCardView;
     ProgressDialog progressDialog;
+
 
 
     @Override
@@ -50,8 +51,6 @@ public class LeaveApproval extends AppCompatActivity {
         BtnSubmit = findViewById(R.id.btnSubmits);
         BtnCancel = findViewById(R.id.btnCancels);
 
-        MyCardView = findViewById(R.id.Mtcards);
-        MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
 
 
         FullName = findViewById(R.id.iFullname);

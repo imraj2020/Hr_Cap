@@ -1,10 +1,14 @@
 package com.cse.hrcap;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -27,15 +31,18 @@ public class RegularizationApproval extends AppCompatActivity {
     RadioGroup radioGroup;
     TextView CompanyId, Employee, MovementId, FromTime, ToTime;
 
-    TextView FullName,EmpCode,MyMovementId,StartDate,EndDate,MyFromTime,MyToTime,Reason,Status,EntryBy,EntryDate,Note;
+    TextView FullName, EmpCode, MyMovementId, StartDate, EndDate, MyFromTime, MyToTime, Reason, Status, EntryBy, EntryDate, Note;
     EditText MyNotes;
     Button BtnSubmit, BtnCancel;
     public static String MyStatus;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regularization_approval);
+
+
         radioGroup = findViewById(R.id.myradios);
         CompanyId = findViewById(R.id.TVS_companyid);
         Employee = findViewById(R.id.TVS_employee);
@@ -47,9 +54,8 @@ public class RegularizationApproval extends AppCompatActivity {
         BtnCancel = findViewById(R.id.bTnCancels);
 
 
-
         FullName = findViewById(R.id.a_FullName);
-      //  EmpCode = findViewById(R.id.a_EmpCode);
+        //  EmpCode = findViewById(R.id.a_EmpCode);
         MyMovementId = findViewById(R.id.a_MovementId);
         StartDate = findViewById(R.id.a_StartDates);
         EndDate = findViewById(R.id.a_EndDates);
@@ -58,17 +64,15 @@ public class RegularizationApproval extends AppCompatActivity {
         Reason = findViewById(R.id.a_Reasons);
         Status = findViewById(R.id.a_Statuss);
         EntryBy = findViewById(R.id.a_EntryBys);
-        EntryDate = findViewById(R.id.a_EndDates);
+        EntryDate = findViewById(R.id.a_EntryDates);
         Note = findViewById(R.id.a_Notes);
-
 
 
         Intent intent = getIntent();
 
-       // String companyId, movementid, fromtime, totime ;
 
-        String companyId, fromTime, toTime,fullname,empcode,requestid,startdate,enddate,
-                reason,status,entryby,entrydate,note;
+        String companyId, fromTime, toTime, fullname, empcode, requestid, startdate, enddate,
+                reason, status, entryby, entrydate, note;
 
 
         companyId = intent.getStringExtra("ICompanyId");
@@ -86,7 +90,6 @@ public class RegularizationApproval extends AppCompatActivity {
         note = intent.getStringExtra("Inote");
 
 
-
         SharedPreferences bb = getSharedPreferences("my_prefs", 0);
         String employee = bb.getString("Employee", "");
 
@@ -98,9 +101,8 @@ public class RegularizationApproval extends AppCompatActivity {
         ToTime.setText(toTime);
 
 
-
-        FullName.setText(fullname+"("+empcode+")");
-       // EmpCode.setText(empcode);
+        FullName.setText(fullname + "(" + empcode + ")");
+        // EmpCode.setText(empcode);
         MyMovementId.setText(requestid);
         StartDate.setText(startdate);
         EndDate.setText(enddate);
@@ -110,7 +112,7 @@ public class RegularizationApproval extends AppCompatActivity {
         Status.setText(status);
         EntryBy.setText(entryby);
         EntryDate.setText(entrydate);
-        Note.setText(note+"");
+        Note.setText(note + "");
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -156,8 +158,10 @@ public class RegularizationApproval extends AppCompatActivity {
 
     private void RegularizationApproval() {
 
-
-//        UserService userService = getRetrofit().create(UserService.class);
+        progressDialog = new ProgressDialog(RegularizationApproval.this);
+        progressDialog.setMessage("Submitting...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         final RegularizationApprovalResponse regularizationApprovalResponse = new RegularizationApprovalResponse(
                 CompanyId.getText().toString(), Employee.getText().toString(), MovementId.getText().toString(),
                 FromTime.getText().toString(), ToTime.getText().toString(), MyNotes.getText().toString(), MyStatus
@@ -170,10 +174,13 @@ public class RegularizationApproval extends AppCompatActivity {
             public void onResponse(Call<RegularizationApprovalResponse> call, Response<RegularizationApprovalResponse> response) {
                 if (response.isSuccessful()) {
                     RegularizationApprovalResponse regularizationApprovalResponse1 = response.body();
+
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Status is :" + regularizationApprovalResponse1.getStatus(), Toast.LENGTH_LONG).show();
 
 
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
@@ -181,6 +188,7 @@ public class RegularizationApproval extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegularizationApprovalResponse> call, Throwable t) {
+                progressDialog.dismiss();
                 if (isNetworkAvailable()) {
                     Toast.makeText(getApplicationContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
                 } else {
@@ -190,6 +198,7 @@ public class RegularizationApproval extends AppCompatActivity {
         });
 
     }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
