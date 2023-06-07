@@ -14,18 +14,31 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.cse.hrcap.LoginDbHelper;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RegularizationApproval;
 import com.cse.hrcap.RoomLeaveBalance.LeaveBalanceInfo;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftInfo;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftRoomDB;
 import com.cse.hrcap.RoomUserInfo.UserInfo;
 import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.databinding.FragmentHomeBinding;
+import com.cse.hrcap.ui.AtdRegApprovalSummary.AtdRegApprovalSummaryFragment;
+import com.cse.hrcap.ui.AttandanceRegularizationSummary.AttandanceRegularizationSummaryFragment;
+import com.cse.hrcap.ui.LeaveApprovalSummary.LeaveApprovalSummaryFragment;
+import com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment;
+import com.cse.hrcap.ui.SelfAttandanceSummary.SelfAttandanceSummaryFragment;
+import com.cse.hrcap.ui.attandancereg.AttandanceReglarizationFragment;
+import com.cse.hrcap.ui.leave.LeaveRequestFragment;
+import com.cse.hrcap.ui.selfattandance.SelfAttandanceFragment;
 
 import java.util.List;
 
@@ -37,6 +50,11 @@ public class HomeFragment extends Fragment {
     TextView employeeid, CompanyId, DesignationId, Designation, FullName, Grade, GradeId, EmpId, Department, DepartmentId, Position;
     TextView PositionId, Category, CategoryId, FirstName, MiddleName, LastName, Prefix, Suffix, PersonalEmail, MobilenNo;
     TextView ImageTitle, ImagePath, JoiningDate, CostCenterId, PayCycleId, LocationId, SupervisorId, SupervisorName, welcome;
+    TextView SelfAttendance, SelfAttendanceSummary, LeaveRequest, LeaveSummary, LeaveApprovalSummary,
+            AttendanceRegularizationEntry, AttendanceRegularizationSummary, AttendanceRegularizationApprovalSummary;
+
+    CardView SelfAttendanceCard,SelfAttendanceSummaryCard,LeaveRequestCard,LeaveSummaryCard,LeaveApprovalSummaryCard,
+            AttendanceRegularizationEntryCard,AttendanceRegularizationSummaryCard,AttendanceRegularizationApprovalSummaryCard;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,15 +64,11 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         //my binding
-         binding =FragmentHomeBinding.inflate(inflater);
+        binding = FragmentHomeBinding.inflate(inflater);
 
         //old binding
-       // binding = FragmentHomeBinding.inflate(inflater, container, false);
+        // binding = FragmentHomeBinding.inflate(inflater, container, false);
         //View root = binding.getRoot();
-
-
-
-
 
 
         final TextView textView = binding.textHome;
@@ -68,6 +82,116 @@ public class HomeFragment extends Fragment {
         MobilenNo = binding.MobilenNo;
         SupervisorName = binding.SupervisorName;
         welcome = binding.textHomes;
+
+        SelfAttendance = binding.tvSelfAttendance;
+        SelfAttendanceSummary = binding.tvSelfAttendanceSummary;
+        LeaveRequest = binding.tvLeaveRequest;
+        LeaveSummary = binding.tvLeaveSummary;
+        LeaveApprovalSummary = binding.tvLeaveApprovalSummary;
+        AttendanceRegularizationEntry = binding.tvAttendanceRegularizationEntry;
+        AttendanceRegularizationSummary = binding.tvAttendanceRegularizationSummary;
+        AttendanceRegularizationApprovalSummary = binding.tvAttendanceRegularizationApprovalSummary;
+
+        SelfAttendanceCard = binding.SelfAttendanceCard;
+        SelfAttendanceSummaryCard = binding.SelfAttendanceSummaryCard;
+        LeaveRequestCard = binding.LeaveRequestCard;
+        LeaveSummaryCard = binding.LeaveSummaryCard;
+        LeaveApprovalSummaryCard = binding.LeaveApprovalSummaryCard;
+        AttendanceRegularizationEntryCard = binding.AttendanceRegularizationEntryCard;
+        AttendanceRegularizationSummaryCard = binding.AttendanceRegularizationSummaryCard;
+        AttendanceRegularizationApprovalSummaryCard = binding.AttendanceRegularizationApprovalSummaryCard;
+
+
+
+        SelfAttendance.setSelected(true);
+        SelfAttendanceSummary.setSelected(true);
+        LeaveRequest.setSelected(true);
+        LeaveSummary.setSelected(true);
+        LeaveApprovalSummary.setSelected(true);
+        AttendanceRegularizationEntry.setSelected(true);
+        AttendanceRegularizationSummary.setSelected(true);
+        AttendanceRegularizationApprovalSummary.setSelected(true);
+
+
+        SelfAttendanceCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Navigation.findNavController(view).navigate(R.id.nav_selfattandance);
+
+//                Fragment destinationFragment = new SelfAttandanceFragment();
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, destinationFragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+            }
+        });
+
+        SelfAttendanceSummaryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Navigation.findNavController(view).navigate(R.id.nav_selfattandancesummary);
+
+            }
+        });
+
+        LeaveRequestCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_leave);
+            }
+        });
+
+
+        LeaveSummaryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_leavesummary);
+            }
+        });
+
+
+        LeaveApprovalSummaryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_leaveaprsummary);
+            }
+        });
+
+
+        AttendanceRegularizationEntryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_attadancereg);
+            }
+        });
+
+
+        AttendanceRegularizationSummaryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_attadanceregsummary);
+            }
+        });
+
+
+        AttendanceRegularizationApprovalSummaryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_atdregaprsummary);
+            }
+        });
+
+
+//        SelfAttendance.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                SelfAttendance.setSelected(true);
+//            }
+//        });
 
 
         Intent intent = getActivity().getIntent();
@@ -108,14 +232,14 @@ public class HomeFragment extends Fragment {
 
             //Saving data in room database
 
-            if(companyid!=null){
-            UserRoomDB db = UserRoomDB.getDbInstance(requireContext());
-            UserInfo userInfo = new UserInfo(employee,EmployeeId,companyid,DesignationIds,Designations,fullname,
-                    grade,gradeids,empid,department,departmentid,position,positionid,category,
-                    categoryid,firstname,middlename,lastname,prefix,suffix,personalemail,mobilenos,
-                    imagetitle,imagepath,joinningdate,costcenterid,paycycleid,locationid,supervisorid,
-                    supervisorname);
-            db.userDAO().insertUser(userInfo);
+            if (companyid != null) {
+                UserRoomDB db = UserRoomDB.getDbInstance(requireContext());
+                UserInfo userInfo = new UserInfo(employee, EmployeeId, companyid, DesignationIds, Designations, fullname,
+                        grade, gradeids, empid, department, departmentid, position, positionid, category,
+                        categoryid, firstname, middlename, lastname, prefix, suffix, personalemail, mobilenos,
+                        imagetitle, imagepath, joinningdate, costcenterid, paycycleid, locationid, supervisorid,
+                        supervisorname);
+                db.userDAO().insertUser(userInfo);
             }
 
             //test
@@ -145,12 +269,10 @@ public class HomeFragment extends Fragment {
             DesignationId.setText("DesignationId : " + designationid);
             Designation.setText("Designation : " + designation);
             FullName.setText("Full Name: " + fullnames);
-            Position.setText("Position : "+positions);
-            PersonalEmail.setText("Personal Email : "+email);
-            MobilenNo.setText("Mobile No : "+mobilen);
-            SupervisorName.setText("Supervisor Name : "+supervisor);
-
-
+            Position.setText("Position : " + positions);
+            PersonalEmail.setText("Personal Email : " + email);
+            MobilenNo.setText("Mobile No : " + mobilen);
+            SupervisorName.setText("Supervisor Name : " + supervisor);
 
 
         }
@@ -160,8 +282,7 @@ public class HomeFragment extends Fragment {
 //        }
 
 
-
-            homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
