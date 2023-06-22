@@ -94,7 +94,7 @@ public class ChengePasswordFragment extends Fragment {
                     chengepassword();
 
                 } else {
-                    ConfirmPassword.setError("Password Did Not Matched");
+                    ConfirmPassword.setError("Password Did Not Match");
                 }
 
             }

@@ -1,6 +1,7 @@
 package com.cse.hrcap.ui.LeaveRequestDraft;
 import static com.cse.hrcap.MainActivity.leavedraftRoomDB;
 
+import androidx.annotation.GravityInt;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cse.hrcap.MyAdapters.LeaveDraftAdapter;
@@ -47,6 +50,7 @@ public class LeaveRequestDraftFragment extends Fragment {
 
         binding = LeaveRequestDraftFragmentBinding.inflate(inflater);
         recyclerView = binding.draftsummary;
+
        // arrayList = new ArrayList<>();
 
         // SwipeRefreshLayout
@@ -94,6 +98,10 @@ public class LeaveRequestDraftFragment extends Fragment {
 
         LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
         arrayList = db.leaveDraftDAO().getAllLeaveDraft();
+        int size= arrayList.size();
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
         LeaveDraftAdapter adapter = new LeaveDraftAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

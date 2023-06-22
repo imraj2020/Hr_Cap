@@ -162,6 +162,10 @@ public class LeaveApprovalSummaryFragment extends Fragment {
         LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(requireContext());
         arrayList = db.leaveAprSumDAO().getAllleaveAprSummary();
         int size = arrayList.size();
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
+
         binding.totalresult2.setText(Integer.toString(size));
         LeaveAprSumAdapter adapter = new LeaveAprSumAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

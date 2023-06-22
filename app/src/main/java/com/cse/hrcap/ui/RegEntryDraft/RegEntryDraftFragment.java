@@ -92,6 +92,10 @@ public class RegEntryDraftFragment extends Fragment {
 
         RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
         arrayList = db.regDraftDAO().getAllRegDraft();
+        int size= arrayList.size();
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
         RegEntryDraftAdapter adapter = new RegEntryDraftAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

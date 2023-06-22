@@ -102,6 +102,9 @@ public class LeaveSummaryFragment extends Fragment {
         LeaveSummaryLv.setLayoutManager(new LinearLayoutManager(requireContext()));
         LeaveSummaryLv.setAdapter(adapter);
         int size= arrayList.size();
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
         binding.totalresult1.setText(Integer.toString(size));
         //Don't know about notifidatasetchenge work or not
         adapter.notifyDataSetChanged();

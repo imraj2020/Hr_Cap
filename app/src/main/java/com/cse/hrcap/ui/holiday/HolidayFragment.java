@@ -98,6 +98,9 @@ public class HolidayFragment extends Fragment {
     public void loaddatainlistview() {
         arrayList = holidayRoomDB.holidayDAO().getAllHoliday();
         int size = arrayList.size();
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
         binding.totalresult3.setText(Integer.toString(size));
         HolidayAdapter adapter = new HolidayAdapter(arrayList, requireContext());
         Holidayrec.setLayoutManager(new LinearLayoutManager(requireContext()));

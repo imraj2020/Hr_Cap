@@ -94,6 +94,9 @@ public class SelfAttandanceSummaryFragment extends Fragment {
 
         arrayList = selfRoomDB.selfDAO().getAllSelfSummary();
         int size = arrayList.size();
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
         binding.totalresult.setText(Integer.toString(size));
         SelfSummaryAdapter adapter = new SelfSummaryAdapter(arrayList, requireContext());
         SelfLv.setLayoutManager(new LinearLayoutManager(requireContext()));

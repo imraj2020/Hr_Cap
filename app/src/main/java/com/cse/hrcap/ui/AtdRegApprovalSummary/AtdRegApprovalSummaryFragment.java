@@ -152,6 +152,10 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
         AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(requireContext());
         arrayList = db.atdRegAprSumDAO().getAllRegaprSummary();
         int size = arrayList.size();
+
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
         binding.totalresult5.setText(Integer.toString(size));
         AtdRegAprSummaryAdapter adapter = new AtdRegAprSummaryAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

@@ -96,6 +96,9 @@ public class LeaveBalanceFragment extends Fragment {
 
         arrayList = leaveBalanceroomDB.leaveBalanceDAO().getAllLeave();
         int size = arrayList.size();
+        if(size==0){
+            binding.TvNoData.setVisibility(View.VISIBLE);
+        }
         binding.totalresult2.setText(Integer.toString(size));
         LeaveBalanceAdapter adapter = new LeaveBalanceAdapter(arrayList, requireContext());
         LeaveBalanceLv.setLayoutManager(new LinearLayoutManager(requireContext()));

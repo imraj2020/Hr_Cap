@@ -58,6 +58,7 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
     DatePickerDialog datePickerDialog;
     public MyRoomDB roomDB;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +70,10 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
 
         LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(getApplicationContext());
 
-
         List<LeaveDraftInfo> list = db.leaveDraftDAO().getAllDatafromRow(mypositions);
+
+
+
 
         boolean switchv = list.get(0).isSwitchvalue();
 
@@ -108,8 +111,6 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
         EmployeeName.setText(Em);
         CompanyId.setText(Co);
         EmpFullName = findViewById(R.id.tvempfullnames);
-
-
 
 
         UserRoomDB database = UserRoomDB.getDbInstance(getApplicationContext());

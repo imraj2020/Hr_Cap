@@ -2,13 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/leaveapprovalsummary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TvNoData"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="No Data Found"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="italic" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:visibility="visible"
         android:id="@+id/leaveaprswipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,7 +47,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="TouchTargetSizeCheck" />
+
+
         </ScrollView>
+
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
