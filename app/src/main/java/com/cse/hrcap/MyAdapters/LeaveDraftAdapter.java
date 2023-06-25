@@ -6,6 +6,7 @@ package com.cse.hrcap.MyAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveDraft;
@@ -49,9 +51,17 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         LeaveDraftInfo data = list.get(position);
 
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
 
-        holder.LeaveId.setText("LeaveId: "+Integer.toString(data.getLeaveid())+"\n");
-        holder.CreateTime.setText("Create Time: "+data.getCreatedate()+"\n");
+        String mydate = data.getCreatedate();
+        String formattedDate = mydate.replace(", ", ",\n");
+
+        holder.LeaveId.setText("LeaveId:\n"+Integer.toString(data.getLeaveid())+"\n");
+        holder.CreateTime.setText("Create Time: "+formattedDate+"\n");
         holder.LeaveType.setText("Leave Type: "+data.getLeavetype()+"\n");
         holder.DayType.setText("Day Type: "+"\n"+data.getDaytype()+"\n");
        // holder.getAdapterPosition();
@@ -119,7 +129,7 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
 
         TextView LeaveId,CreateTime,LeaveType,DayType,full;
         ImageButton delete,view;
-
+        CardView MyCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -129,7 +139,7 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
             CreateTime = (TextView)itemView.findViewById(R.id.create_times);
             LeaveType = (TextView)itemView.findViewById(R.id.leave_types);
             DayType = (TextView)itemView.findViewById(R.id.day_types);
-
+            MyCardView = itemView.findViewById(R.id.leavedraftcard);
 
         }
     }

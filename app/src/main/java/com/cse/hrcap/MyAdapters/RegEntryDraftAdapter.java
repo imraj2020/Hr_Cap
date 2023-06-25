@@ -6,6 +6,7 @@ package com.cse.hrcap.MyAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveDraft;
@@ -61,10 +63,15 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         RegDraftInfo data = list.get(position);
 
+        if (holder.getLayoutPosition() % 2 == 0) {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
+        } else {
+            holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
+        }
 
-        holder.CreateId.setText("Create Id: "+Integer.toString(data.getId())+"\n");
-        holder.CreateTime.setText("Create Time: "+data.getCreatedate()+"\n");
-        holder.Reason.setText("Leave Type: "+data.getReason()+"\n");
+        holder.CreateId.setText("Create Id:\n"+Integer.toString(data.getId())+"\n");
+        holder.CreateTime.setText("\nCreate Time:\n"+data.getCreatedate()+"\n");
+        holder.Reason.setText(":Reason\n"+data.getReason()+"\n");
 
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +125,7 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
 
         TextView CreateId,CreateTime,Reason;
         ImageButton delete,view;
-
+        CardView MyCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,8 +133,8 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
             view =(ImageButton)itemView.findViewById(R.id.btn_view);
             CreateId = (TextView)itemView.findViewById(R.id.tv_Create_id);
             CreateTime = (TextView)itemView.findViewById(R.id.tv_create_times);
-            Reason = (TextView)itemView.findViewById(R.id.tv_reasons);
-
+            Reason = (TextView)itemView.findViewById(R.id.tv_reasonsa);
+            MyCardView = itemView.findViewById(R.id.regdraftcard);
 
 
         }
