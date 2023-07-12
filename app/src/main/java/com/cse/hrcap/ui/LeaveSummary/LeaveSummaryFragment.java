@@ -132,28 +132,32 @@ public class LeaveSummaryFragment extends Fragment {
 
                     List<LeaveSummary> nlist = response.body();
 
+                    if (nlist != null && !nlist.isEmpty()){
 
-                    for (LeaveSummary post : nlist) {
-//                        String content = "";
-//                        content += "Company ID: " + post.getCompanyId() + "\n";
-//                        content += "Employee ID: " + post.getEmployeeId() + "\n";
-//                        content += "Leave Type Id :" + post.getLeaveTypeId() + "\n";
-//                        content += "Leave Type Name:" + post.getLeaveTypeName() + "\n";
-//                        content += "Taken Leave: " + post.getTakenLeave() + "\n";
-//                        content += "Total Leave :" + post.getTotalLeave() + "\n";
-//                        content += "Available Leave: " + post.getAvailableLeave() + "\n\n";
-
-                        LeaveSummaryInfo leaveSummaryInfo = new LeaveSummaryInfo(post.getLeaveId(), post.getLeaveTypeName(),
-                                post.getFromDate(), post.getToDate(), post.getTotalDay(), post.getTotalHours(),
-                                post.getEntryBy(),post.getEntryDateTime(),post.getLeaveStatusId(),post.getLeaveStatusName());
-                        leaveSummaryRoomDB.leaveSummaryDAO().insertLeaveSummary(leaveSummaryInfo);
+                        for (LeaveSummary post : nlist) {
 
 
-                        //  LeaveBalance.append(content);
+                            LeaveSummaryInfo leaveSummaryInfo = new LeaveSummaryInfo(post.getLeaveId(), post.getLeaveTypeName(),
+                                    post.getFromDate(), post.getToDate(), post.getTotalDay(), post.getTotalHours(),
+                                    post.getEntryBy(),post.getEntryDateTime(),post.getLeaveStatusId(),post.getLeaveStatusName());
+                            leaveSummaryRoomDB.leaveSummaryDAO().insertLeaveSummary(leaveSummaryInfo);
+
+                        }
+                    }
+
+                    else if(nlist.isEmpty()) {
+                        leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
+                        Toast.makeText(requireContext(), "No data found", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(requireContext(), "Sorry Something went Wrong", Toast.LENGTH_SHORT).show();
                     }
 
                     loaddatainlistview();
-                } else {
+                }
+
+
+                else {
                     Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_LONG).show();
                 }
             }

@@ -96,6 +96,7 @@ public class RegEntryDraftFragment extends Fragment {
         if(size==0){
             binding.TvNoData.setVisibility(View.VISIBLE);
         }
+        binding.totalItem2.setText(Integer.toString(size));
         RegEntryDraftAdapter adapter = new RegEntryDraftAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

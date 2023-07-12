@@ -102,6 +102,7 @@ public class LeaveRequestDraftFragment extends Fragment {
         if(size==0){
             binding.TvNoData.setVisibility(View.VISIBLE);
         }
+        binding.totalItem1.setText(Integer.toString(size));
         LeaveDraftAdapter adapter = new LeaveDraftAdapter(arrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

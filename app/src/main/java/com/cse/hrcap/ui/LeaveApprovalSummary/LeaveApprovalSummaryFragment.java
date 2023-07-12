@@ -100,37 +100,46 @@ public class LeaveApprovalSummaryFragment extends Fragment {
         String companyid = intent.getStringExtra("CompanyId");
         String userid = intent.getStringExtra("Employee");
         Call<List<LeaveAprSummary>> call = MyApiClient.getUserService().leaveaprsummary(companyid, userid);
-        // Call<LoginResponse> loginResponseCall = LoginApiClient.getUserService().userLogin(userid,password);
+
 
 
         call.enqueue(new Callback<List<LeaveAprSummary>>() {
             @Override
             public void onResponse(Call<List<LeaveAprSummary>> call, Response<List<LeaveAprSummary>> response) {
 
+                LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(requireContext());
+
                 if (response.isSuccessful()) {
 
                     List<LeaveAprSummary> nlist = response.body();
 
+                    if (nlist != null && !nlist.isEmpty()){
 
-                    for (LeaveAprSummary post : nlist) {
+                        for (LeaveAprSummary post : nlist) {
+                            LeaveAprSumInfo leaveAprSumInfo = new LeaveAprSumInfo(post.getLeaveId(),post.getCompanyId(),post.getEmpId(),
+                                    post.getEmpCode(),post.getLeaveTypeId(),post.getLeaveTypeName(),post.getFromDate(),post.getToDate(),
+                                    post.getTotalDay(),post.getFromTime(),post.getToTime(),post.getTotalHours(),post.getLeavestatusid(),
+                                    post.getLeaveStatusName(),post.getFullName(),post.getIndivRequestStatus(),post.getIndivRequestStatusName(),
+                                    post.getEntryBy(),post.getEntryDate());
+                            db.leaveAprSumDAO().insertLeaveAprSummary(leaveAprSumInfo);
+                        }
 
-
-
-                        LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(requireContext());
-
-                        LeaveAprSumInfo leaveAprSumInfo = new LeaveAprSumInfo(post.getLeaveId(),post.getCompanyId(),post.getEmpId(),
-                                post.getEmpCode(),post.getLeaveTypeId(),post.getLeaveTypeName(),post.getFromDate(),post.getToDate(),
-                                post.getTotalDay(),post.getFromTime(),post.getToTime(),post.getTotalHours(),post.getLeavestatusid(),
-                                post.getLeaveStatusName(),post.getFullName(),post.getIndivRequestStatus(),post.getIndivRequestStatusName(),
-                                post.getEntryBy(),post.getEntryDate());
-                        db.leaveAprSumDAO().insertLeaveAprSummary(leaveAprSumInfo);
-
-
-                        //  LeaveBalance.append(content);
                     }
+
+                    else if(nlist.isEmpty()) {
+
+                        db.leaveAprSumDAO().deleteAll();
+                        Toast.makeText(requireContext(), "No data found", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(requireContext(), "Sorry Something went Wrong", Toast.LENGTH_SHORT).show();
+                    }
+
+
 
                    loaddatainlistview();
                 } else {
+
                     Toast.makeText(requireContext(), "Sorry Something went Wrong", Toast.LENGTH_SHORT).show();
                 }
             }
