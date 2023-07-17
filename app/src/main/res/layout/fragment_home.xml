@@ -43,7 +43,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/designcard"
-        android:backgroundTint="#FFAB00"
+        android:backgroundTint="#00B8D4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -67,9 +67,8 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textAlignment="center"
-        android:textColor="#00ACC1"
         android:textSize="16sp"
-        android:textStyle="italic" />
+        android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
