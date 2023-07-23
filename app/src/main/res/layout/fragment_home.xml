@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-
-
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
@@ -182,7 +180,8 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="Self\nAttendance"
-                    android:textColor="@android:color/black"
+                    android:textColor="#ffff"
+
                     android:textSize="14sp" />
 
         </androidx.cardview.widget.CardView>
@@ -207,9 +206,9 @@
                 android:layout_height="wrap_content"
                 android:text="New Leave\nRequest"
                 android:textSize="14sp"
-                android:textColor="@android:color/black"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="#ffff"
                 />
 
         </androidx.cardview.widget.CardView>
@@ -234,9 +233,9 @@
                 android:layout_height="wrap_content"
                 android:text="New Attendance Regularization Entry"
                 android:textSize="14sp"
-                android:textColor="@android:color/black"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="#ffff"
                 />
 
         </androidx.cardview.widget.CardView>
@@ -272,9 +271,9 @@
                 android:layout_height="wrap_content"
                 android:text="Self Attendance Summary"
                 android:textSize="14sp"
-                android:textColor="@android:color/black"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColor="#ffff"
                 />
 
         </androidx.cardview.widget.CardView>
@@ -298,7 +297,7 @@
                     android:layout_height="wrap_content"
                     android:text="Leave\nSummary"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#ffff"
                     android:layout_gravity="center"
                     android:gravity="center"
                     />
@@ -324,7 +323,7 @@
                 android:layout_height="wrap_content"
                 android:text="Attendance Regularization Summary"
                 android:textSize="14sp"
-                android:textColor="@android:color/black"
+                android:textColor="#ffff"
                 android:layout_gravity="center"
                 android:gravity="center"
                 />
@@ -362,7 +361,7 @@
                 android:layout_height="wrap_content"
                 android:text="Leave Approval Summary"
                 android:textSize="14sp"
-                android:textColor="@android:color/black"
+                android:textColor="#ffff"
                 android:layout_gravity="center"
                 android:gravity="center"
                 />
@@ -389,7 +388,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/my_string"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#ffff"
                     android:layout_gravity="center"
                     android:gravity="center"
                     />
