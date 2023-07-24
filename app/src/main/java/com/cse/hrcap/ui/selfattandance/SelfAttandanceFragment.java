@@ -216,7 +216,9 @@ public class SelfAttandanceFragment extends Fragment {
                 if (TextUtils.isEmpty(binding.textLocationLongitude.getText().toString().trim())) {
                     binding.textLocationLongitude.setError("Longitude Can't be Empty");
                 } else {
+                    BtnSave.setEnabled(false);
                     AttandanceRequest();
+
                 }
 
             }
@@ -369,11 +371,13 @@ public class SelfAttandanceFragment extends Fragment {
             public void onResponse(Call<AttandanceRequest> call, Response<AttandanceRequest> response) {
                 if (response.isSuccessful()) {
                     AttandanceRequest attdanceresponse = response.body();
+                    BtnSave.setEnabled(true);
                     progressDialog.dismiss();
                     Toast.makeText(requireContext(), "Status is :" + attdanceresponse.getStatus(), Toast.LENGTH_LONG).show();
 
 
                 } else {
+                    BtnSave.setEnabled(true);
                     Toast.makeText(requireContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }
@@ -382,6 +386,7 @@ public class SelfAttandanceFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AttandanceRequest> call, Throwable t) {
+                BtnSave.setEnabled(true);
                 progressDialog.dismiss();
                 //     Toast.makeText(requireContext(),"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 if (isNetworkAvailable()) {

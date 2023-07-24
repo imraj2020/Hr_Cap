@@ -64,7 +64,7 @@ public class LeaveSummaryAdapter extends RecyclerView.Adapter<LeaveSummaryAdapte
 
 
         // Input date string2
-        String inputDateString2 = data.getTodate();
+        String inputDateString2 = data.getFromdate();
         SimpleDateFormat inputDateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
         Date inputDate2 = null;
         try {
