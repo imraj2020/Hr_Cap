@@ -23,6 +23,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -62,6 +63,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,6 +94,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     ProgressDialog progressDialog;
     ProgressDialog mprogressDialog;
 
+
+    public LeaveRequestFragment() {
+    }
+
+
     public static LeaveRequestFragment newInstance() {
         return new LeaveRequestFragment();
     }
@@ -118,6 +125,21 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         TvEndTime = binding.tvendtime;
         BtnDraft = binding.btndraft;
 //        CheckDraft = binding.tvCheckdraft;
+
+
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // current date
+        String formattedDate = sdf.format(currentDate);
+
+        EtStartDate.setText(formattedDate);
+        EtEndDate.setText(formattedDate);
+
+
+
+
+
+
 
 
         //spinnertwo = binding.spinnerday;
@@ -168,8 +190,14 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                             EtReason.getText().toString(), companyid, currentDateandTime, label, Status);
                     db.leaveDraftDAO().insertLeaveDraft(mydraft);
 
-                    mprogressDialog.dismiss();
-                    Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+                    try{
+                        mprogressDialog.dismiss();
+                        Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(v).navigate(R.id.nav_leavedraft);
+                    }catch (Exception e){
+
+                    }
+
                 } else {
                     mprogressDialog.dismiss();
                     Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
@@ -351,29 +379,70 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
             }
         });
 
+
+
         EtEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // calender class's instance and get current date , month and year from calender
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR); // current year
-                int mMonth = c.get(Calendar.MONTH); // current month
-                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-                // date picker dialog
+
+                    // calender class's instance and get current date , month and year from calender
+                    final Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR); // current year
+                    int mMonth = c.get(Calendar.MONTH); // current month
+                    int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+
                 datePickerDialog = new DatePickerDialog(requireContext(),
                         new DatePickerDialog.OnDateSetListener() {
+
 
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                // set day of month , month and year value in the edit text
-                                EtEndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                // Create a Calendar instance for the selected end date
+                                Calendar selectedEndDate = Calendar.getInstance();
+                                selectedEndDate.set(year, monthOfYear, dayOfMonth);
 
+                                // Create a Calendar instance for the current start date
+                                Calendar currentStartDate = Calendar.getInstance();
+                                currentStartDate.setTime(currentDate);
+
+                                // Check if the selected end date is smaller than the start date
+                                if (selectedEndDate.before(currentStartDate)) {
+                                    // Show an error message
+                                    Toast.makeText(requireContext(), "End date cannot be smaller than start date.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Update the text of EtEndDate with the selected date
+                                    EtEndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                }
                             }
-                        }, mYear, mMonth, mDay);
+                        }, mYear, mMonth, mDay); // No modifications needed here
                 datePickerDialog.show();
             }
         });
+
+//        EtEndDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // calender class's instance and get current date , month and year from calender
+//                final Calendar c = Calendar.getInstance();
+//                int mYear = c.get(Calendar.YEAR); // current year
+//                int mMonth = c.get(Calendar.MONTH); // current month
+//                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+//                // date picker dialog
+//                datePickerDialog = new DatePickerDialog(requireContext(),
+//                        new DatePickerDialog.OnDateSetListener() {
+//
+//                            @Override
+//                            public void onDateSet(DatePicker view, int year,
+//                                                  int monthOfYear, int dayOfMonth) {
+//                                // set day of month , month and year value in the edit text
+//                                EtEndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+//
+//                            }
+//                        }, mYear, mMonth, mDay);
+//                datePickerDialog.show();
+//            }
+//        });
 
 
         Intent intent = getActivity().getIntent();
@@ -409,6 +478,9 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         // return inflater.inflate(R.layout.leave_request_fragment, container, false);
         return binding.getRoot();
     }
+
+
+
 
 
     @Override
