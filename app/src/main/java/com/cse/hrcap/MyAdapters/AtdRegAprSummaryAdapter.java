@@ -82,6 +82,10 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
         }
 
+        String MyNote = data.getNote();
+        if(MyNote==null){
+            MyNote = "";
+        }
 
         setBoldText(holder.FullName, "Full Name: ", data.getFullname());
 //        setBoldText(holder.EmpCode, "(", data.getEmpcode()+")");
@@ -96,7 +100,7 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
         setBoldText(holder.EntryBy, "Entry By: ", data.getEntryby());
         setBoldText(holder.EntryDate, "Entry Date: ", data.getEntrydate());
         setBoldText(holder.Status, "Status: ", data.getStatus());
-        setBoldText(holder.Note, "Note: ", data.getNote() + "");
+        setBoldText(holder.Note, "Note: ", MyNote + "");
 
 
         //Button Checking

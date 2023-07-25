@@ -26,6 +26,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -88,8 +89,10 @@ public class SelfAttandanceFragment extends Fragment {
     SelfAttandanceFragmentBinding binding;
     SwitchCompat mySwitch;
     public static String Status;
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
-
+    private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 //    public  static String companyid;
 //    public  static String employee;
 
@@ -101,6 +104,7 @@ public class SelfAttandanceFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         binding = SelfAttandanceFragmentBinding.inflate(inflater);
         text_location = binding.textLocation;
         text_location_latitude = binding.textLocationLatitude;
@@ -111,12 +115,10 @@ public class SelfAttandanceFragment extends Fragment {
         mySwitch = binding.checking;
         CancelBtn = binding.btncancel;
         BtnSave = binding.btnsave;
-//        tv_employee = binding.tvempname;
-//        tv_Companyid = binding.tvcompid;
 
 
-//        tv_Companyid.setText(companyid);
-//        tv_employee.setText(employeename);
+        // Start a runnable that updates the time every second
+        handler.post(updateTimeRunnable);
 
         //Shared Preference for switch
 
@@ -142,11 +144,11 @@ public class SelfAttandanceFragment extends Fragment {
         today_date.setText(date);
 
 
-        //Time Formet
-        Date d = new Date();
-        SimpleDateFormat stf = new SimpleDateFormat("hh:mm a");
-        String currentDateTimeString = stf.format(d);
-        today_time.setText(currentDateTimeString);
+//        //Time Formet
+//        Date d = new Date();
+//        SimpleDateFormat stf = new SimpleDateFormat("hh:mm a");
+//        String currentDateTimeString = stf.format(d);
+//        today_time.setText(currentDateTimeString);
 
         //testing Alart dialogue
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
@@ -229,6 +231,29 @@ public class SelfAttandanceFragment extends Fragment {
 
 
     }
+
+    private Runnable updateTimeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // Get the current time
+            String currentTime = sdf.format(new Date());
+
+            // Update the TextView with the current time
+            today_time.setText(currentTime);
+
+            // Schedule the next update after 1 second
+            handler.postDelayed(this, 1000);
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Remove the callbacks when the activity is destroyed to avoid memory leaks
+        handler.removeCallbacks(updateTimeRunnable);
+    }
+
+
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());

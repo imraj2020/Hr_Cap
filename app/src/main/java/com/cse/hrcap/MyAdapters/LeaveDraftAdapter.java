@@ -60,8 +60,8 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
         String mydate = data.getCreatedate();
         String formattedDate = mydate.replace(", ", ",\n");
 
-        holder.LeaveId.setText("LeaveId:\n"+Integer.toString(data.getLeaveid())+"\n");
-        holder.CreateTime.setText("Create Time: "+formattedDate+"\n");
+        holder.LeaveId.setText("Draft Id:\n"+Integer.toString(data.getLeaveid())+"\n");
+        holder.CreateTime.setText("Entry Time: "+formattedDate+"\n");
         holder.LeaveType.setText("Leave Type: "+data.getLeavetype()+"\n");
         holder.DayType.setText("Day Type: "+"\n"+data.getDaytype()+"\n");
        // holder.getAdapterPosition();
