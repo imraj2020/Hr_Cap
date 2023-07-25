@@ -35,7 +35,7 @@ public class LoginDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         try {
-            Toast.makeText(context, "onCreate is called", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, "onCreate is called", Toast.LENGTH_SHORT).show();
             db.execSQL(CREATE_TABLE);
         } catch (Exception e) {
             Toast.makeText(context, "Exception : " + e, Toast.LENGTH_SHORT).show();
