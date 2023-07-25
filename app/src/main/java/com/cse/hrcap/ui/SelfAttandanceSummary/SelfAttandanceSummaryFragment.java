@@ -123,7 +123,9 @@ public class SelfAttandanceSummaryFragment extends Fragment {
 
                     List<AttdanceSummary> nlist = response.body();
 
-
+                    if (!nlist.isEmpty()) {
+                        binding.TvNoData.setVisibility(View.GONE);
+                    }
 
 
 

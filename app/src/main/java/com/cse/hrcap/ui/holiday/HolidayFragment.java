@@ -128,6 +128,10 @@ public class HolidayFragment extends Fragment {
 
                     List<HolidayResponse> nlist = response.body();
 
+                    if (!nlist.isEmpty()){
+                        binding.TvNoData.setVisibility(View.GONE);
+                    }
+
 
                     for (HolidayResponse post : nlist) {
                         String content = "";

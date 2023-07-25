@@ -134,6 +134,11 @@ public class LeaveSummaryFragment extends Fragment {
 
                     if (nlist != null && !nlist.isEmpty()){
 
+
+                            binding.TvNoData.setVisibility(View.GONE);
+
+
+
                         for (LeaveSummary post : nlist) {
 
 

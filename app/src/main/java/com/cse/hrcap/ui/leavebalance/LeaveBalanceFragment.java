@@ -96,7 +96,7 @@ public class LeaveBalanceFragment extends Fragment {
 
         arrayList = leaveBalanceroomDB.leaveBalanceDAO().getAllLeave();
         int size = arrayList.size();
-        if(size==0){
+        if (size == 0) {
             binding.TvNoData.setVisibility(View.VISIBLE);
         }
         binding.totalresult2.setText(Integer.toString(size));
@@ -127,7 +127,9 @@ public class LeaveBalanceFragment extends Fragment {
 
                     List<LeaveBalanceResponse> nlist = response.body();
 
-
+                    if (!nlist.isEmpty()) {
+                        binding.TvNoData.setVisibility(View.GONE);
+                    }
                     for (LeaveBalanceResponse post : nlist) {
                         String content = "";
                         content += "Company ID: " + post.getCompanyId() + "\n";

@@ -115,6 +115,10 @@ public class LeaveApprovalSummaryFragment extends Fragment {
 
                     if (nlist != null && !nlist.isEmpty()){
 
+
+                            binding.TvNoData.setVisibility(View.GONE);
+
+
                         for (LeaveAprSummary post : nlist) {
                             LeaveAprSumInfo leaveAprSumInfo = new LeaveAprSumInfo(post.getLeaveId(),post.getCompanyId(),post.getEmpId(),
                                     post.getEmpCode(),post.getLeaveTypeId(),post.getLeaveTypeName(),post.getFromDate(),post.getToDate(),

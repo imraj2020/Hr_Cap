@@ -50,7 +50,7 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding= AtdRegApprovalSummaryFragmentBinding.inflate(inflater);
+        binding = AtdRegApprovalSummaryFragmentBinding.inflate(inflater);
         recyclerView = binding.atdregaprsummary;
 
         arrayList = new ArrayList<>();
@@ -69,19 +69,18 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
             public void onRefresh() {
 
                 imSwipeRefreshLayout.post(new Runnable() {
-                                             @Override
-                                             public void run() {
-                                                 regapprovalsummary();
-                                                 Toast.makeText(requireContext(), "Swipe Complete", Toast.LENGTH_LONG).show();
-                                                 imSwipeRefreshLayout.setEnabled(false);
-                                             }
-                                         }
+                                              @Override
+                                              public void run() {
+                                                  regapprovalsummary();
+                                                  Toast.makeText(requireContext(), "Swipe Complete", Toast.LENGTH_LONG).show();
+                                                  imSwipeRefreshLayout.setEnabled(false);
+                                              }
+                                          }
                 );
 
             }
 
         });
-
 
 
         regapprovalsummary();
@@ -107,15 +106,18 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
 
                     List<AtdRegAprSummary> nlist = response.body();
 
+                    if (!nlist.isEmpty()) {
+                        binding.TvNoData.setVisibility(View.GONE);
+                    }
 
                     for (AtdRegAprSummary post : nlist) {
 
 
                         AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(requireContext());
-                        AtdRegAprSumInfo atdRegAprSumInfo = new AtdRegAprSumInfo(post.getMovementId(),post.getCompanyId(),
-                                post.getEmpId(),post.getEmpCode(),post.getFullName(), post.getStartDate(),
-                                post.getEndDate(), post.getReason(), post.getNote(), post.getFromTime(),post.getToTime(),
-                                post.getStatus(),post.getEntryBy(),post.getEntryDate());
+                        AtdRegAprSumInfo atdRegAprSumInfo = new AtdRegAprSumInfo(post.getMovementId(), post.getCompanyId(),
+                                post.getEmpId(), post.getEmpCode(), post.getFullName(), post.getStartDate(),
+                                post.getEndDate(), post.getReason(), post.getNote(), post.getFromTime(), post.getToTime(),
+                                post.getStatus(), post.getEntryBy(), post.getEntryDate());
                         db.atdRegAprSumDAO().insertAtdRegAprSummary(atdRegAprSumInfo);
 
 
@@ -153,7 +155,7 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
         arrayList = db.atdRegAprSumDAO().getAllRegaprSummary();
         int size = arrayList.size();
 
-        if(size==0){
+        if (size == 0) {
             binding.TvNoData.setVisibility(View.VISIBLE);
         }
         binding.totalresult5.setText(Integer.toString(size));
@@ -167,10 +169,6 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
 //        myAdapter.notifyDataSetChanged();
 
     }
-
-
-
-
 
 
     @Override

@@ -125,6 +125,9 @@ public class AttandanceRegularizationSummaryFragment extends Fragment {
 
                     List<AttdanceRegularizationSummary> nlist = response.body();
 
+                    if (!nlist.isEmpty()){
+                        binding.TvNoData.setVisibility(View.GONE);
+                    }
 
                     for (AttdanceRegularizationSummary post : nlist) {
 
