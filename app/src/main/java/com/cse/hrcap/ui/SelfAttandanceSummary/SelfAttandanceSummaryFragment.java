@@ -20,7 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.cse.hrcap.MyAdapters.SelfSummaryAdapter;
+import com.cse.hrcap.MyAdapters.SelfAttendanceSummaryAdapter;
 import com.cse.hrcap.R;
 import com.cse.hrcap.RoomSelfSummary.SelfInfo;
 import com.cse.hrcap.RoomSelfSummary.SelfRoomDB;
@@ -43,6 +43,8 @@ public class SelfAttandanceSummaryFragment extends Fragment {
     List<SelfInfo> arrayList;
     public static SelfRoomDB selfRoomDB;
     SwipeRefreshLayout slSwipeRefreshLayout;
+    private SelfAttendanceSummaryAdapter adapter;
+
 
     public static SelfAttandanceSummaryFragment newInstance() {
         return new SelfAttandanceSummaryFragment();
@@ -55,6 +57,17 @@ public class SelfAttandanceSummaryFragment extends Fragment {
         binding = SelfAttandanceSummaryFragmentBinding.inflate(inflater);
         SelfLv = binding.selflistview;
         arrayList = new ArrayList<>();
+
+
+        //test
+
+
+
+
+
+
+
+
 // SwipeRefreshLayout
         slSwipeRefreshLayout = binding.slswipe;
         slSwipeRefreshLayout.setColorSchemeResources(R.color.purple_500,
@@ -92,21 +105,16 @@ public class SelfAttandanceSummaryFragment extends Fragment {
     private void loaddatainlistview() {
 
 
-        arrayList = selfRoomDB.selfDAO().getAllSelfSummary();
-        int size = arrayList.size();
-        if(size==0){
-            binding.TvNoData.setVisibility(View.VISIBLE);
-        }
-        binding.totalresult.setText(Integer.toString(size));
-        SelfSummaryAdapter adapter = new SelfSummaryAdapter(arrayList, requireContext());
-        SelfLv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        SelfLv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-//        Toast.makeText(this, arrayList.size() + "", Toast.LENGTH_SHORT).show();
-//        myAdapter = new MyAdapter(this, (ArrayList<StudentInfo>) arrayList);
-//        MyListView.setAdapter(myAdapter);
-//        myAdapter.notifyDataSetChanged();
-
+//        arrayList = selfRoomDB.selfDAO().getAllSelfSummary();
+//        int size = arrayList.size();
+//        if(size==0){
+//            binding.TvNoData.setVisibility(View.VISIBLE);
+//        }
+//        binding.totalresult.setText(Integer.toString(size));
+//        SelfSummaryAdapter adapter = new SelfSummaryAdapter(arrayList, requireContext());
+//        SelfLv.setLayoutManager(new LinearLayoutManager(requireContext()));
+//        SelfLv.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
     }
 
     //Self Attandance summary
@@ -123,8 +131,21 @@ public class SelfAttandanceSummaryFragment extends Fragment {
 
                     List<AttdanceSummary> nlist = response.body();
 
+
+
+
+
                     if (!nlist.isEmpty()) {
                         binding.TvNoData.setVisibility(View.GONE);
+                        SelfLv.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                        // Initialize the adapter with your list of AttdanceSummary objects
+                        adapter = new SelfAttendanceSummaryAdapter(nlist);
+
+                        // Set the adapter to the RecyclerView
+                        SelfLv.setAdapter(adapter);
+
+                                binding.totalresult.setText(Integer.toString(nlist.size()));
                     }
 
 
