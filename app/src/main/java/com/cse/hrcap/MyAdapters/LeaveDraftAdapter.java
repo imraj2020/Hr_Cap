@@ -59,12 +59,7 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
         }
 
         String mydate = data.getCreatedate();
-
-        //String formattedDate = mydate.replace(", ", ",\n");
-        // Define the format of the input date string
         String[] parts = mydate.split(",");
-
-        // Get the date part (index 1 after splitting)
         String datePart = parts[1].trim();
 
         // System.out.println(datePart);

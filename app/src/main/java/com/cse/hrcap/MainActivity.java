@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-      
 
         // menu item select
         binding.navView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(menu -> {

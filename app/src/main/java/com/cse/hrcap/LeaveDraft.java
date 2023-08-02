@@ -4,6 +4,8 @@ import static com.cse.hrcap.MainActivity.leaveroomDB;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -36,6 +38,7 @@ import com.cse.hrcap.RoomUserInfo.UserInfo;
 import com.cse.hrcap.RoomUserInfo.UserRoomDB;
 import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveRequest;
+import com.cse.hrcap.ui.home.HomeFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -366,28 +369,12 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
                     Toast.makeText(getApplicationContext(), "Status is :" + leaveResponse.getStatus(), Toast.LENGTH_LONG).show();
 
 
-                    try {
-                        // Start the MainActivity using an Intent
-                        Intent intent = new Intent(LeaveDraft.this, MainActivity.class);
-                        startActivity(intent);
-
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
-                    }
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
             }
 
-            public void onNavigateToSummaryClick(Activity activity) {
-                // Find the NavController associated with the MainActivity's NavHostFragment
-                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment_content_main);
-
-                // Navigate to the LeaveSummaryFragment using the NavController
-                navController.navigate(R.id.nav_leavesummary);
-            }
 
             @Override
             public void onFailure(Call<LeaveRequest> call, Throwable t) {

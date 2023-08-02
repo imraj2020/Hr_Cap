@@ -68,9 +68,12 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
         } else {
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#86C8BC"));
         }
+        String mydate = data.getCreatedate();
+        String[] parts = mydate.split(",");
+        String datePart = parts[1].trim();
 
         holder.CreateId.setText("Draft Id:\n"+Integer.toString(data.getId())+"\n");
-        holder.CreateTime.setText("\nEntry Time:\n"+data.getCreatedate()+"\n");
+        holder.CreateTime.setText("Entry Time:\n"+datePart+"\n");
         holder.Reason.setText(":Reason\n"+data.getReason()+"\n");
 
 
