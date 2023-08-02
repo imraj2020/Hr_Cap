@@ -68,6 +68,11 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     AttandanceReglarizationFragmentBinding binding;
     public  static int userChoice;
     ProgressDialog progressDialog;
+    public String TXTEndDate, TXTStartDate;
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
+
+
     public static AttandanceReglarizationFragment newInstance() {
         return new AttandanceReglarizationFragment();
     }
@@ -90,13 +95,9 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
         BtnSubmit = binding.btnSubmit;
 
-        Calendar calendar = Calendar.getInstance();
-        Date currentDate = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // current date
-        String formattedDate = sdf.format(currentDate);
+        TXTStartDate = sdfs.format(calendar.getTime());
+        TXTEndDate = TXTStartDate;
 
-        StartDate.setText(formattedDate);
-        EndDate.setText(formattedDate);
 
 
 
@@ -223,7 +224,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 // date picker dialog
-            datePickerDialog = new DatePickerDialog(requireContext(),
+                datePickerDialog = new DatePickerDialog(requireContext(),
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -231,7 +232,10 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
                                 StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
+                                TXTStartDate = StartDate.getText().toString();
+                                EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                TXTEndDate = EndDate.getText().toString();
+                                compareDates();
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -242,68 +246,28 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         EndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // calender class's instance and get current date , month and year from calender
                 final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-
+                // date picker dialog
                 datePickerDialog = new DatePickerDialog(requireContext(),
                         new DatePickerDialog.OnDateSetListener() {
-
 
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                // Create a Calendar instance for the selected end date
-                                Calendar selectedEndDate = Calendar.getInstance();
-                                selectedEndDate.set(year, monthOfYear, dayOfMonth);
+                                // set day of month , month and year value in the edit text
 
-                                // Create a Calendar instance for the current start date
-                                Calendar currentStartDate = Calendar.getInstance();
-                                currentStartDate.setTime(currentDate);
-
-                                // Check if the selected end date is smaller than the start date
-                                if (selectedEndDate.before(currentStartDate)) {
-                                    // Show an error message
-                                    Toast.makeText(requireContext(), "End date cannot be smaller than start date.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // Update the text of EtEndDate with the selected date
-                                    EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                                }
+                                EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                TXTEndDate = EndDate.getText().toString();
+                                compareDates();
                             }
-                        }, mYear, mMonth, mDay); // No modifications needed here
+                        }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }
         });
-
-//        //Select End Date
-//        EndDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // calender class's instance and get current date , month and year from calender
-//                final Calendar c = Calendar.getInstance();
-//                int mYear = c.get(Calendar.YEAR); // current year
-//                int mMonth = c.get(Calendar.MONTH); // current month
-//                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-//                // date picker dialog
-//                datePickerDialog = new DatePickerDialog(requireContext(),
-//                        new DatePickerDialog.OnDateSetListener() {
-//
-//                            @Override
-//                            public void onDateSet(DatePicker view, int year,
-//                                                  int monthOfYear, int dayOfMonth) {
-//                                // set day of month , month and year value in the edit text
-//                                EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-//
-//                            }
-//                        }, mYear, mMonth, mDay);
-//                datePickerDialog.show();
-//            }
-//        });
-
-
 
 
         // Select From Time
@@ -392,11 +356,40 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             }
         });
 
-
+        compareDates();
         loadSpinnerData();
         spinner_reason.setOnItemSelectedListener(this);
 
         return binding.getRoot();
+    }
+
+    // In your function where you want to compare the dates:
+    public void compareDates() {
+
+        sdfs.setLenient(false);
+
+        try {
+            // Parse the strings into Date objects
+            Date startDate = sdfs.parse(TXTStartDate);
+            Date endDate = sdfs.parse(TXTEndDate);
+            StartDate.setText(TXTStartDate);
+            EndDate.setText(TXTEndDate);
+
+            // Compare the dates
+            if (startDate.before(endDate)) {
+
+            } else if (startDate.after(endDate)) {
+
+                Toast.makeText(requireContext(),"StartDate Should not Greater then EndDate",Toast.LENGTH_LONG).show();
+                EndDate.setText("Select Correct Date");
+                // EtEndDate.setError("Select Correct Date");
+            } else {
+
+            }
+        } catch (java.text.ParseException e) {
+            // Handle the parsing error if the input strings are not in the correct format
+            e.printStackTrace();
+        }
     }
 
     @Override

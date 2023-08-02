@@ -4,7 +4,10 @@ import static com.cse.hrcap.MainActivity.leaveroomDB;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -363,10 +366,27 @@ public class LeaveDraft extends AppCompatActivity implements AdapterView.OnItemS
                     Toast.makeText(getApplicationContext(), "Status is :" + leaveResponse.getStatus(), Toast.LENGTH_LONG).show();
 
 
+                    try {
+                        // Start the MainActivity using an Intent
+                        Intent intent = new Intent(LeaveDraft.this, MainActivity.class);
+                        startActivity(intent);
+
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
+            }
+
+            public void onNavigateToSummaryClick(Activity activity) {
+                // Find the NavController associated with the MainActivity's NavHostFragment
+                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment_content_main);
+
+                // Navigate to the LeaveSummaryFragment using the NavController
+                navController.navigate(R.id.nav_leavesummary);
             }
 
             @Override

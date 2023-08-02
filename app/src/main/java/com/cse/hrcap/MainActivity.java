@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         setleaveTypesDatabase();
         setLoanTypeDatabase();
         setLoanSubTypeDatabase();
+        int receivedValue = getIntent().getIntExtra("MValue", 0);
+
+
 
 
         boolean leavetype = leaveroomDB.leaveDAO().isExists();
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+      
 
         // menu item select
         binding.navView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(menu -> {

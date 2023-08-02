@@ -59,10 +59,12 @@ public class RegularizationDraft extends AppCompatActivity implements AdapterVie
 
         // Fetching the stored data
         // from the SharedPreference
-        SharedPreferences sh = getSharedPreferences("my_prefes", MODE_PRIVATE);
+        SharedPreferences sh = getSharedPreferences("my_prefs", MODE_PRIVATE);
 
         employee = sh.getString("Employee", "");
         companyid = sh.getString("CompanyId", "");
+
+       // Toast.makeText(getApplicationContext(),""+companyid,Toast.LENGTH_LONG).show();
 
 
 

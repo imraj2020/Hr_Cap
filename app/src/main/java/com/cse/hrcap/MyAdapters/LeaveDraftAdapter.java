@@ -1,8 +1,6 @@
 package com.cse.hrcap.MyAdapters;
 
 
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +26,9 @@ import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.ViewHolder> {
@@ -58,13 +59,22 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
         }
 
         String mydate = data.getCreatedate();
-        String formattedDate = mydate.replace(", ", ",\n");
 
-        holder.LeaveId.setText("Draft Id:\n"+Integer.toString(data.getLeaveid())+"\n");
-        holder.CreateTime.setText("Entry Time: "+formattedDate+"\n");
-        holder.LeaveType.setText("Leave Type: "+data.getLeavetype()+"\n");
-        holder.DayType.setText("Day Type: "+"\n"+data.getDaytype()+"\n");
-       // holder.getAdapterPosition();
+        //String formattedDate = mydate.replace(", ", ",\n");
+        // Define the format of the input date string
+        String[] parts = mydate.split(",");
+
+        // Get the date part (index 1 after splitting)
+        String datePart = parts[1].trim();
+
+        // System.out.println(datePart);
+
+
+        holder.LeaveId.setText("Draft Id:\n" + Integer.toString(data.getLeaveid()) + "\n");
+        holder.CreateTime.setText("Entry Time: " + datePart + "\n");
+        holder.LeaveType.setText("Leave Type: " + data.getLeavetype() + "\n");
+        holder.DayType.setText("Day Type: " + "\n" + data.getDaytype() + "\n");
+        // holder.getAdapterPosition();
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -78,7 +88,7 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
 
                     db.leaveDraftDAO().deleteLeavedraftinfo(nposition);
                     // remove your item from data base
-                    Toast.makeText(context, "removed"+nposition, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "removed" + nposition, Toast.LENGTH_SHORT).show();
                     list.remove(position);  // remove the item from list
                     notifyItemRemoved(position); // notify the adapter about the removed item
                 } else {
@@ -106,8 +116,6 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
         });
 
 
-
-
         //Toast.makeText(context, ""+holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
     }
 
@@ -127,18 +135,18 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView LeaveId,CreateTime,LeaveType,DayType,full;
-        ImageButton delete,view;
+        TextView LeaveId, CreateTime, LeaveType, DayType, full;
+        ImageButton delete, view;
         CardView MyCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            delete =(ImageButton)itemView.findViewById(R.id.delete);
-            view =(ImageButton)itemView.findViewById(R.id.view);
-            LeaveId = (TextView)itemView.findViewById(R.id.leave_ids);
-            CreateTime = (TextView)itemView.findViewById(R.id.create_times);
-            LeaveType = (TextView)itemView.findViewById(R.id.leave_types);
-            DayType = (TextView)itemView.findViewById(R.id.day_types);
+            delete = (ImageButton) itemView.findViewById(R.id.delete);
+            view = (ImageButton) itemView.findViewById(R.id.view);
+            LeaveId = (TextView) itemView.findViewById(R.id.leave_ids);
+            CreateTime = (TextView) itemView.findViewById(R.id.create_times);
+            LeaveType = (TextView) itemView.findViewById(R.id.leave_types);
+            DayType = (TextView) itemView.findViewById(R.id.day_types);
             MyCardView = itemView.findViewById(R.id.leavedraftcard);
 
         }

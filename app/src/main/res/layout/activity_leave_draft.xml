@@ -181,6 +181,9 @@
                 android:layout_height="wrap_content"
                 android:hint="DD/MM/YYYY"
                 android:padding="5dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:text="10/05/2022" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -215,6 +218,9 @@
                 android:layout_height="wrap_content"
                 android:hint="DD/MM/YYYY"
                 android:padding="5dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:text="11/05/2022" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -256,6 +262,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:text="09:00 AM" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -289,6 +298,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:text="06:00 PM" />
         </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

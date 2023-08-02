@@ -191,7 +191,7 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:text="10/05/2022" />
+                android:text="Select Start Date" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -230,7 +230,7 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:text="11/05/2022" />
+                android:text="Select End Date" />
 
         </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

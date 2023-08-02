@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 import static android.content.Context.MODE_PRIVATE;
 import static android.location.LocationManager.*;
 
+import static java.util.Objects.*;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -64,9 +66,11 @@ import android.content.Intent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -209,6 +213,11 @@ public class SelfAttandanceFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if(TextUtils.isEmpty(binding.textLocation.getText().toString().trim()) ||TextUtils.isEmpty(binding.textLocationLatitude.getText().toString().trim()) ||
+                        TextUtils.isEmpty(binding.textLocationLongitude.getText().toString().trim())){
+                    Toast.makeText(requireContext(),"Please Click On 'GET LOCATION' Button First",Toast.LENGTH_LONG).show();
+                }
+
                 if (TextUtils.isEmpty(binding.textLocation.getText().toString().trim())) {
                     binding.textLocation.setError("Location Can't be Empty");
                 }
@@ -217,7 +226,10 @@ public class SelfAttandanceFragment extends Fragment {
                 }
                 if (TextUtils.isEmpty(binding.textLocationLongitude.getText().toString().trim())) {
                     binding.textLocationLongitude.setError("Longitude Can't be Empty");
-                } else {
+                }
+
+                else {
+
                     BtnSave.setEnabled(false);
                     AttandanceRequest();
 
@@ -328,6 +340,9 @@ public class SelfAttandanceFragment extends Fragment {
                         text_location_latitude.setText(stringdouble1);
                         String stringdouble2 = Double.toString(longitude);
                         text_location_longitude.setText(stringdouble2);
+                        binding.textLocation.setError(null);
+                        binding.textLocationLongitude.setError(null);
+                        binding.textLocationLatitude.setError(null);
                     } else {
                         // when location result is null
                         //Initialized location request
@@ -399,7 +414,11 @@ public class SelfAttandanceFragment extends Fragment {
                     BtnSave.setEnabled(true);
                     progressDialog.dismiss();
                     Toast.makeText(requireContext(), "Status is :" + attdanceresponse.getStatus(), Toast.LENGTH_LONG).show();
-
+                    String status = attdanceresponse.getStatus();
+                    //Successfully Submitted or Already Submitted
+                    if(status.equals("Successfully Submitted.") || status.equals("Already Submitted.")){
+                        Navigation.findNavController(requireView()).navigate(R.id.nav_selfattandancesummary);
+                    }
 
                 } else {
                     BtnSave.setEnabled(true);

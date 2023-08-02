@@ -178,6 +178,9 @@ public class RegularizationApproval extends AppCompatActivity {
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Status is :" + regularizationApprovalResponse1.getStatus(), Toast.LENGTH_LONG).show();
 
+                    if(regularizationApprovalResponse1.getStatus()!=null){
+                        finish();
+                    }
 
                 } else {
                     progressDialog.dismiss();

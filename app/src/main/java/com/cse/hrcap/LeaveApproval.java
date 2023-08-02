@@ -165,6 +165,9 @@ public class LeaveApproval extends AppCompatActivity {
 
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Status is :" + leaveApprovalRequest1.getStatus(), Toast.LENGTH_LONG).show();
+                    if(leaveApprovalRequest1.getStatus()!=null){
+                        finish();
+                    }
 
 
                 } else {
