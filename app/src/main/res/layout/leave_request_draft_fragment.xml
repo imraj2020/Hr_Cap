@@ -8,51 +8,63 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/startlayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/TvNoData"
-        android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="No Data Found"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="italic" />
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/myswipe"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/TvNoData"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-16dp"
-            tools:layout_editor_absoluteY="215dp">
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="No Data Found"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:visibility="gone" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/myswipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/draftsummary"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="TouchTargetSizeCheck" />
-        </ScrollView>
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="-16dp"
+                tools:layout_editor_absoluteY="215dp">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/draftsummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </ScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </LinearLayout>
+
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/linear_layout_4"
+        android:id="@+id/startlayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -80,6 +92,415 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/draftpage"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:visibility="gone">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvemployee"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="Employee:"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="15sp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tVempname"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="employee name"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:textSize="15sp" />-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tvempfullnames"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:hint="employee name"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="15sp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textView25gg"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="Select leave Type:"-->
+<!--                    android:textColor="@color/black" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/spinner_border_top"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:orientation="vertical">-->
+
+
+<!--                <Spinner-->
+<!--                    android:id="@+id/lvspinner"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:dropDownVerticalOffset="40dp"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:popupBackground="@drawable/spinner_border_bottom"-->
+<!--                    android:textColor="#000"></Spinner>-->
+
+<!--            </LinearLayout>-->
+
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textView26"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="Day Type:"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/black" />-->
+
+<!--                <androidx.appcompat.widget.SwitchCompat-->
+<!--                    android:id="@+id/tGdaytype"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:textOff="Time"-->
+<!--                    android:textOn="Full Day"-->
+<!--                    android:thumb="@drawable/thumb"-->
+<!--                    app:showText="true"-->
+<!--                    app:track="@drawable/track">-->
+
+<!--                </androidx.appcompat.widget.SwitchCompat>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView28h"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="Delegate Person:"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingTop="5dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:paddingBottom="5dp">-->
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/etdraftdelegateperson"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="" />-->
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:orientation="horizontal">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView28"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:text="Start Date:"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/black" />-->
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        android:paddingBottom="5dp">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/eTstartdate"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:hint="DD/MM/YYYY"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:inputType="none"-->
+<!--                            android:focusable="false"-->
+<!--                            android:focusableInTouchMode="false"-->
+<!--                            android:text="10/05/2022" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView30"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:text="End Date:"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/black" />-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        android:paddingBottom="5dp">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/eTenddate"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:hint="DD/MM/YYYY"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:inputType="none"-->
+<!--                            android:focusable="false"-->
+<!--                            android:focusableInTouchMode="false"-->
+<!--                            android:text="11/05/2022" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/tV_starttime"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:text="Start Time:"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/black" />-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        android:paddingBottom="5dp">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/eTstarttime"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:inputType="none"-->
+<!--                            android:focusable="false"-->
+<!--                            android:focusableInTouchMode="false"-->
+<!--                            android:text="09:00 AM" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/tV_endtime"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:text="End Time:"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/black" />-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        android:paddingBottom="5dp">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/eTendtime"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:inputType="none"-->
+<!--                            android:focusable="false"-->
+<!--                            android:focusableInTouchMode="false"-->
+<!--                            android:text="06:00 PM" />-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView36"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="Reason:"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/black" />-->
+
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingTop="5dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:paddingBottom="5dp">-->
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/eTreason"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:hint="Write Reason here"-->
+<!--                    android:padding="5dp" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textView36cb"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="Company ID:"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:textSize="15sp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tVcompanyid"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="company id"-->
+<!--                    android:inputType="textPersonName"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:textSize="15sp" />-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <Button-->
+<!--                android:id="@+id/cancelbtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:backgroundTint="#CC1B0E"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="Cancel"-->
+<!--                android:textAllCaps="false" />-->
+
+
+<!--            <Button-->
+<!--                android:id="@+id/submitbtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:backgroundTint="#33D339"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="Submit"-->
+<!--                android:textAllCaps="false" />-->
+<!--        </LinearLayout>-->
+
+
+<!--    </LinearLayout>-->
+
+
+
+
+
+
+
 
 
 </RelativeLayout>

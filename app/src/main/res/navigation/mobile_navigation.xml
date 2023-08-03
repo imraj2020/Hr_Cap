@@ -106,4 +106,20 @@
         android:label="@string/menu_regentrydraft"
         tools:layout="@layout/reg_entry_draft_fragment" />
 
+
+
+    <fragment
+        android:id="@+id/nav_leavedraftf"
+        android:name="com.cse.hrcap.ui.LeaveDraft.LeaveDraftFragment"
+        android:label="@string/menu_leaveDraft"
+        tools:layout="@layout/fragment_leave_draft" />
+
+
+    <!-- Define your action from Leave Draft to Leave Summary with popUpTo and popUpToInclusive attributes -->
+<!--    <action-->
+<!--        android:id="@+id/action_leaveDraftFragment_to_leaveSummaryFragment"-->
+<!--        app:destination="@id/nav_leavedraft"-->
+<!--        app:popUpTo="@id/nav_leavesummary"-->
+<!--        app:popUpToInclusive="true" />-->
+
 </navigation>

@@ -4,19 +4,33 @@ package com.cse.hrcap.MyAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveDraft;
@@ -25,6 +39,7 @@ import com.cse.hrcap.R;
 import com.cse.hrcap.RoomHoliday.HolidayInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftInfo;
 import com.cse.hrcap.RoomLeaveDraft.LeaveDraftRoomDB;
+import com.cse.hrcap.ui.LeaveDraft.LeaveDraftFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +57,7 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,6 +67,14 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         LeaveDraftInfo data = list.get(position);
+
+        //test
+//        holder.bindData(data);
+//        holder.itemView.setOnClickListener(v -> {
+//            if (onDataClickListener != null) {
+//                onDataClickListener.onDataClick(data);
+//            }
+
 
         if (holder.getLayoutPosition() % 2 == 0) {
             holder.MyCardView.setCardBackgroundColor(Color.parseColor("#039BE5"));
@@ -102,10 +126,12 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
             public void onClick(View v) {
                 LeaveDraftInfo data = list.get(position);
                 int nposition = data.getLeaveid();
+                Bundle bundle = new Bundle();
+                bundle.putInt("clicked_data_", nposition);
+                //  Toast.makeText(context, ""+nposition, Toast.LENGTH_SHORT).show();
+                // Navigation.findNavController(v).navigate(R.id.nav_leavedraftf);
 
-                Intent i = new Intent(context, LeaveDraft.class);
-                i.putExtra("Position", nposition);
-                context.startActivity(i);
+                Navigation.findNavController(v).navigate(R.id.nav_leavedraftf, bundle);
 
             }
         });

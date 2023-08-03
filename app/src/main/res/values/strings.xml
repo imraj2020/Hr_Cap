@@ -33,6 +33,7 @@
 
 
     <string name="my_string">Attendance Regularization Approval \n Summary</string>
+    <string name="menu_leaveDraft">Leave Draft</string>
     <string-array name="Reason">
         <item>Meeting</item>
         <item>Client Visit</item>

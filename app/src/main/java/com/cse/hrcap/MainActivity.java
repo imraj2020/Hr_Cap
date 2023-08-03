@@ -50,9 +50,12 @@ import com.cse.hrcap.network.LeaveTypeResponse;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
 import com.cse.hrcap.network.RegReasonRequest;
+import com.cse.hrcap.ui.LeaveDraft.LeaveDraftFragment;
 import com.cse.hrcap.ui.holiday.HolidayFragment;
+import com.cse.hrcap.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -708,6 +711,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }
