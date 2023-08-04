@@ -6,7 +6,6 @@ import static com.cse.hrcap.ui.holiday.HolidayFragment.holidayRoomDB;
 import static com.cse.hrcap.ui.leavebalance.LeaveBalanceFragment.leaveBalanceroomDB;
 
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -106,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
         int receivedValue = getIntent().getIntExtra("MValue", 0);
 
 
-
-
         boolean leavetype = leaveroomDB.leaveDAO().isExists();
         if (leavetype == false) {
             leaveTypes();
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         RegReasonRoomDB db = RegReasonRoomDB.getDbInstances(getApplicationContext());
 
         boolean regreason = db.regReasonDAO().isExists();
-       if(regreason==false) {
+        if (regreason == false) {
             AttdanceRegReason();
         }
 
@@ -157,9 +154,7 @@ public class MainActivity extends AppCompatActivity {
         String fullname = list.get(0).getFullname();
         View headerView = navigationView.getHeaderView(0);
         TextView Name = (TextView) headerView.findViewById(R.id.headerId);
-        Name.setText("Hello , "+fullname);
-
-
+        Name.setText("Hello , " + fullname);
 
 
         //
@@ -170,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_leave, R.id.nav_attadancereg, R.id.nav_loan, R.id.nav_selfattandance,
                 R.id.nav_logout, R.id.nav_chengepassword, R.id.nav_holiday, R.id.nav_leavebalance, R.id.nav_leavesummary,
                 R.id.nav_selfattandancesummary, R.id.nav_attadanceregsummary, R.id.nav_leavedraft, R.id.nav_atdregaprsummary
-                , R.id.nav_leaveaprsummary,R.id.nav_regentrydraft,R.id.nav_checkAttendance)
+                , R.id.nav_leaveaprsummary, R.id.nav_regentrydraft, R.id.nav_checkAttendance)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -612,7 +607,7 @@ public class MainActivity extends AppCompatActivity {
         String companyid = intent.getStringExtra("CompanyId");
         String employee = intent.getStringExtra("Employee");
 
-        Call<List<RegReasonRequest>> call = MyApiClient.getUserService().myreason(companyid,employee);
+        Call<List<RegReasonRequest>> call = MyApiClient.getUserService().myreason(companyid, employee);
 
 
         call.enqueue(new Callback<List<RegReasonRequest>>() {
@@ -627,7 +622,7 @@ public class MainActivity extends AppCompatActivity {
                     for (RegReasonRequest post : nlist) {
 
                         RegReasonRoomDB db = RegReasonRoomDB.getDbInstances(getApplicationContext());
-                        RegReasonInfo regReasonInfo = new RegReasonInfo(post.getId(),post.getReason());
+                        RegReasonInfo regReasonInfo = new RegReasonInfo(post.getId(), post.getReason());
                         db.regReasonDAO().insertReason(regReasonInfo);
 
                     }
@@ -661,12 +656,16 @@ public class MainActivity extends AppCompatActivity {
             leaveroomDB.leaveDAO().deleteAll();
             loanTypeRoomDB.loanTypeDAO().deleteAll();
             loanSubTypeRoomDB.loanSubTypeDAO().deleteAll();
+            try {
+                selfRoomDB.selfDAO().deleteAll();
+                atdRegRoomDB.atdRegDAO().deleteAll();
+                holidayRoomDB.holidayDAO().deleteAll();
+                leaveBalanceroomDB.leaveBalanceDAO().deleteAll();
+                leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
+            } catch (Exception e) {
+               // Toast.makeText(getApplicationContext(),"Sorry Something Wrong",Toast.LENGTH_LONG).show();
+            }
 
-            selfRoomDB.selfDAO().deleteAll();
-            atdRegRoomDB.atdRegDAO().deleteAll();
-            holidayRoomDB.holidayDAO().deleteAll();
-            leaveBalanceroomDB.leaveBalanceDAO().deleteAll();
-            leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
 
 
             // inserting data
@@ -711,7 +710,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
 }
