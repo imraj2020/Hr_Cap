@@ -114,6 +114,12 @@
         android:label="@string/menu_leaveDraft"
         tools:layout="@layout/fragment_leave_draft" />
 
+    <fragment
+        android:id="@+id/nav_regentrydraftt"
+        android:name="com.cse.hrcap.ui.RegEntryDraftFrag.RegEntryDraftFragment"
+        android:label="@string/menu_RegDraft"
+        tools:layout="@layout/fragment_reg_entry_draft" />
+
 
     <!-- Define your action from Leave Draft to Leave Summary with popUpTo and popUpToInclusive attributes -->
 <!--    <action-->

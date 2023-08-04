@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse.hrcap.LeaveDraft;
@@ -106,9 +108,12 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
                 RegDraftInfo data = list.get(position);
                 int nposition = data.getId();
 
-                Intent i = new Intent(context, RegularizationDraft.class);
-                i.putExtra("DataPosition", nposition);
-                context.startActivity(i);
+                Bundle bundle = new Bundle();
+                bundle.putInt("clicked_data_2", nposition);
+                //  Toast.makeText(context, ""+nposition, Toast.LENGTH_SHORT).show();
+                // Navigation.findNavController(v).navigate(R.id.nav_leavedraftf);
+
+                Navigation.findNavController(v).navigate(R.id.nav_regentrydraftt, bundle);
 
             }
         });

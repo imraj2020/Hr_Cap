@@ -386,6 +386,7 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
                     LeaveRequest leaveResponse = response.body();
                     Toast.makeText(requireContext(), "Status is :" + leaveResponse.getStatus(), Toast.LENGTH_LONG).show();
                     Navigation.findNavController(requireView()).navigate(R.id.nav_leavesummary);
+                   // requireActivity().finish();
 
                 } else {
                     Toast.makeText(requireContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
