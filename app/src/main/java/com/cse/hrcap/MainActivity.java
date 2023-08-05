@@ -49,7 +49,9 @@ import com.cse.hrcap.network.LeaveTypeResponse;
 import com.cse.hrcap.network.LoanTypeResponse;
 import com.cse.hrcap.network.LoansubTypeResponse;
 import com.cse.hrcap.network.RegReasonRequest;
+import com.cse.hrcap.ui.AtdRegApprovalSummary.AtdRegApprovalSummaryFragment;
 import com.cse.hrcap.ui.LeaveDraft.LeaveDraftFragment;
+import com.cse.hrcap.ui.LeaveSummary.LeaveSummaryFragment;
 import com.cse.hrcap.ui.holiday.HolidayFragment;
 import com.cse.hrcap.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -709,6 +711,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Handle the back press event here
+        // For example, you can notify the fragment
+        LeaveSummaryFragment fragment = (LeaveSummaryFragment) getSupportFragmentManager().findFragmentById(R.id.nav_leavesummary);
+        if (fragment != null) {
+            fragment.onBackPressed();
+        } else {
+            Navigation.findNavController(this,R.id.nav_host_fragment_content_main).navigate(R.id.nav_home);
+            //Toast.makeText(getApplicationContext(),"Fragment null",Toast.LENGTH_SHORT).show();
+           // super.onBackPressed();
+        }
+
+      AtdRegApprovalSummaryFragment fragment1 =(AtdRegApprovalSummaryFragment)getSupportFragmentManager().findFragmentById(R.id.nav_attadanceregsummary);
+        if (fragment1 != null) {
+            fragment1.onBackPressed();
+        } else {
+            Navigation.findNavController(this,R.id.nav_host_fragment_content_main).navigate(R.id.nav_home);
+            //Toast.makeText(getApplicationContext(),"Fragment null",Toast.LENGTH_SHORT).show();
+            // super.onBackPressed();
+        }
+
     }
 
 

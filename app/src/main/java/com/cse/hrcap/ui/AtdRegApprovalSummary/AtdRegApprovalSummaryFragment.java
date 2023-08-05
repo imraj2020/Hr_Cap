@@ -178,4 +178,6 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    public void onBackPressed() {
+    }
 }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -37,6 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class LeaveSummaryFragment extends Fragment {
 
     private LeaveSummaryViewModel mViewModel;
@@ -46,6 +48,7 @@ public class LeaveSummaryFragment extends Fragment {
     List<LeaveSummaryInfo> arrayList;
     public static LeaveSummaryRoomDB leaveSummaryRoomDB;
     SwipeRefreshLayout lsSwipeRefreshLayout;
+    // Create a BackPressedHandler reference
 
 
     public static LeaveSummaryFragment newInstance() {
@@ -58,6 +61,9 @@ public class LeaveSummaryFragment extends Fragment {
         binding = LeaveSummaryFragmentBinding.inflate(inflater);
         LeaveSummaryLv = binding.leavesummarylv;
         arrayList = new ArrayList<>();
+
+
+
 
         // SwipeRefreshLayout
         lsSwipeRefreshLayout = binding.lvsummaryswipe;
@@ -72,14 +78,14 @@ public class LeaveSummaryFragment extends Fragment {
             public void onRefresh() {
 
                 lsSwipeRefreshLayout.post(new Runnable() {
-                                             @Override
-                                             public void run() {
-                                                 setLeaveSummaryDatabase();
-                                                 leavesummary();
-                                                 Toast.makeText(requireContext(), "Swipe Complete", Toast.LENGTH_LONG).show();
-                                                 lsSwipeRefreshLayout.setEnabled(false);
-                                             }
-                                         }
+                                              @Override
+                                              public void run() {
+                                                  setLeaveSummaryDatabase();
+                                                  leavesummary();
+                                                  Toast.makeText(requireContext(), "Swipe Complete", Toast.LENGTH_LONG).show();
+                                                  lsSwipeRefreshLayout.setEnabled(false);
+                                              }
+                                          }
                 );
 
             }
@@ -94,6 +100,7 @@ public class LeaveSummaryFragment extends Fragment {
     }
 
 
+
     private void loaddatainlistview() {
 
 
@@ -101,8 +108,8 @@ public class LeaveSummaryFragment extends Fragment {
         LeaveSummaryAdapter adapter = new LeaveSummaryAdapter(arrayList, requireContext());
         LeaveSummaryLv.setLayoutManager(new LinearLayoutManager(requireContext()));
         LeaveSummaryLv.setAdapter(adapter);
-        int size= arrayList.size();
-        if(size==0){
+        int size = arrayList.size();
+        if (size == 0) {
             binding.TvNoData.setVisibility(View.VISIBLE);
         }
         binding.totalresult1.setText(Integer.toString(size));
@@ -132,11 +139,10 @@ public class LeaveSummaryFragment extends Fragment {
 
                     List<LeaveSummary> nlist = response.body();
 
-                    if (nlist != null && !nlist.isEmpty()){
+                    if (nlist != null && !nlist.isEmpty()) {
 
 
-                            binding.TvNoData.setVisibility(View.GONE);
-
+                        binding.TvNoData.setVisibility(View.GONE);
 
 
                         for (LeaveSummary post : nlist) {
@@ -144,25 +150,19 @@ public class LeaveSummaryFragment extends Fragment {
 
                             LeaveSummaryInfo leaveSummaryInfo = new LeaveSummaryInfo(post.getLeaveId(), post.getLeaveTypeName(),
                                     post.getFromDate(), post.getToDate(), post.getTotalDay(), post.getTotalHours(),
-                                    post.getEntryBy(),post.getEntryDateTime(),post.getLeaveStatusId(),post.getLeaveStatusName());
+                                    post.getEntryBy(), post.getEntryDateTime(), post.getLeaveStatusId(), post.getLeaveStatusName());
                             leaveSummaryRoomDB.leaveSummaryDAO().insertLeaveSummary(leaveSummaryInfo);
 
                         }
-                    }
-
-                    else if(nlist.isEmpty()) {
+                    } else if (nlist.isEmpty()) {
                         leaveSummaryRoomDB.leaveSummaryDAO().deleteAll();
                         Toast.makeText(requireContext(), "No data found", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         Toast.makeText(requireContext(), "Sorry Something went Wrong", Toast.LENGTH_SHORT).show();
                     }
 
                     loaddatainlistview();
-                }
-
-
-                else {
+                } else {
                     Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_LONG).show();
                 }
             }
@@ -177,6 +177,7 @@ public class LeaveSummaryFragment extends Fragment {
             }
         });
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -199,6 +200,6 @@ public class LeaveSummaryFragment extends Fragment {
     }
 
 
-
-
+    public void onBackPressed() {
+    }
 }
