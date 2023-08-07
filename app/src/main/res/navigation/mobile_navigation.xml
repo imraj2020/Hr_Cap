@@ -116,7 +116,7 @@
 
     <fragment
         android:id="@+id/nav_regentrydraftt"
-        android:name="com.cse.hrcap.ui.RegEntryDraftFrag.RegEntryDraftFragment"
+        android:name="com.cse.hrcap.ui.RegEntryDraftFrag.ReguEntryDraftFragment"
         android:label="@string/menu_RegDraft"
         tools:layout="@layout/fragment_reg_entry_draft" />
 

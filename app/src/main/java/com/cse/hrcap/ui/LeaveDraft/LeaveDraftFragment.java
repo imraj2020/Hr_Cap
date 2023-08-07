@@ -50,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +73,12 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
     DatePickerDialog datePickerDialog;
     public MyRoomDB roomDB;
 
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
+    public String EndDates, StartDates;
+    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+
+    public  String StartTimes,EndTimes;
 
 
     public static LeaveDraftFragment newInstance() {
@@ -127,9 +134,17 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
         TvStartTime = binding.tVStarttime;
         TvEndTime = binding.tVEndtime;
         StartDate.setText(Sd);
+        StartDates = StartDate.getText().toString().trim();
+
+
         EndDate.setText(Ed);
         StartTime.setText(St);
         EndTime.setText(Et);
+
+        StartTimes = StartTime.getText().toString().trim();
+        EndTimes = EndTime.getText().toString().trim();
+
+
         Reason.setText(Re);
         EmployeeName.setText(Em);
         CompanyId.setText(Co);
@@ -183,6 +198,8 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     StartTime.setText(f12Hours.format(date));
+                                    StartTimes = StartTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -219,6 +236,8 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     EndTime.setText(f12Hours.format(date));
+                                    EndTimes = EndTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -251,7 +270,12 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
+                              //  StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                StartDates = StartDate.getText().toString();
+                                EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                EndDates = EndDate.getText().toString();
+                                compareDates();
 
                             }
                         }, mYear, mMonth, mDay);
@@ -275,7 +299,10 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
+                              //  EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                EndDates = EndDate.getText().toString();
+                                compareDates();
 
                             }
                         }, mYear, mMonth, mDay);
@@ -406,6 +433,59 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
         });
 
     }
+
+    public void compareDates() {
+
+        sdfs.setLenient(false);
+
+        try {
+            // Parse the strings into Date objects
+            Date startDate = sdfs.parse(StartDates);
+            Date endDate = sdfs.parse(EndDates);
+            StartDate.setText(StartDates);
+            EndDate.setText(EndDates);
+
+            // Compare the dates
+            if (startDate.before(endDate)) {
+
+            } else if (startDate.after(endDate)) {
+
+                Toast.makeText(requireContext(),"StartDate Should not Greater then EndDate",Toast.LENGTH_LONG).show();
+                EndDate.setText("Select Correct Date");
+                // EtEndDate.setError("Select Correct Date");
+            } else {
+
+            }
+        } catch (java.text.ParseException e) {
+            // Handle the parsing error if the input strings are not in the correct format
+            e.printStackTrace();
+        }
+    }
+
+    public void onCheckTime() {
+
+        try {
+            Date startTime = timeFormat.parse(StartTime.getText().toString());
+            Date endTime = timeFormat.parse(EndTime.getText().toString());
+
+            if (startTime.before(endTime)){
+
+            }
+            else if (startTime.after(endTime)) {
+                Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
+                EndTime.setText("Select Correct Time");
+
+
+            }else {
+
+            }
+
+        } catch (ParseException e) {
+            // Handle parsing error if the user enters an invalid time format.
+            e.printStackTrace();
+        }
+    }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

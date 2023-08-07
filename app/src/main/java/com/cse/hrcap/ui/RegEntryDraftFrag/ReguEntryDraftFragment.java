@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -34,12 +33,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cse.hrcap.R;
-import com.cse.hrcap.RegularizationDraft;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftInfo;
 import com.cse.hrcap.RoomRegEntryDraft.RegDraftRoomDB;
 import com.cse.hrcap.RoomRegReason.RegReasonRoomDB;
 import com.cse.hrcap.databinding.FragmentRegEntryDraftBinding;
-import com.cse.hrcap.databinding.RegEntryDraftFragmentBinding;
 import com.cse.hrcap.network.AttandanceRegularizationRequest;
 import com.cse.hrcap.network.MyApiClient;
 
@@ -48,14 +45,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegEntryDraftFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private RegEntryDraftViewModel mViewModel;
+    private ReguEntryDraftViewModel mViewModel;
     FragmentRegEntryDraftBinding binding;
     TextView Txt_Name;
     EditText StartDate, EndDate, FromTime,ToTime,Notes;
@@ -68,8 +66,16 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
     DatePickerDialog datePickerDialog;
     int  starthour, startminute,endhour,endminute;
 
-    public static RegEntryDraftFragment newInstance() {
-        return new RegEntryDraftFragment();
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
+    public String EndDates, StartDates;
+
+    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+
+    public  String StartTimes,EndTimes;
+
+    public static ReguEntryDraftFragment newInstance() {
+        return new ReguEntryDraftFragment();
     }
 
     @Override
@@ -116,6 +122,9 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
         EndDate = binding.ETEnddate;
         FromTime = binding.ETFromtime;
         ToTime = binding.ETTotime;
+        StartTimes = FromTime.getText().toString().trim();
+        EndTimes = ToTime.getText().toString().trim();
+
         Notes = binding.ETNote;
         Submit = binding.ibtnSubmit;
         Cancel = binding.ibtnCancel;
@@ -123,6 +132,8 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
         Spinner_Reason.setOnItemSelectedListener(this);
         Txt_Name.setText(fullname);
         StartDate.setText(Sd);
+        StartDates = StartDate.getText().toString().trim();
+
         EndDate.setText(Ed);
         FromTime.setText(Ft);
         ToTime.setText(Tt);
@@ -174,7 +185,12 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
+                               // StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                StartDates = StartDate.getText().toString();
+                                EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                EndDates = EndDate.getText().toString();
+                                compareDates();
 
                             }
                         }, mYear, mMonth, mDay);
@@ -199,7 +215,10 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
+                              //  EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                EndDates = EndDate.getText().toString();
+                                compareDates();
 
                             }
                         }, mYear, mMonth, mDay);
@@ -230,6 +249,8 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     FromTime.setText(f12Hours.format(date));
+                                    StartTimes = FromTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -265,6 +286,8 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     ToTime.setText(f12Hours.format(date));
+                                    EndTimes = ToTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -287,7 +310,58 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
         return binding.getRoot();
     }
 
-    //test
+    public void compareDates() {
+
+        sdfs.setLenient(false);
+
+        try {
+            // Parse the strings into Date objects
+            Date startDate = sdfs.parse(StartDates);
+            Date endDate = sdfs.parse(EndDates);
+            StartDate.setText(StartDates);
+            EndDate.setText(EndDates);
+
+            // Compare the dates
+            if (startDate.before(endDate)) {
+
+            } else if (startDate.after(endDate)) {
+
+                Toast.makeText(requireContext(),"StartDate Should not Greater then EndDate",Toast.LENGTH_LONG).show();
+                EndDate.setText("Select Correct Date");
+                // EtEndDate.setError("Select Correct Date");
+            } else {
+
+            }
+        } catch (java.text.ParseException e) {
+            // Handle the parsing error if the input strings are not in the correct format
+            e.printStackTrace();
+        }
+    }
+
+
+    public void onCheckTime() {
+
+        try {
+            Date startTime = timeFormat.parse(FromTime.getText().toString());
+            Date endTime = timeFormat.parse(ToTime.getText().toString());
+
+            if (startTime.before(endTime)){
+
+            }
+            else if (startTime.after(endTime)) {
+                Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
+                ToTime.setText("Select Correct Time");
+
+
+            }else {
+
+            }
+
+        } catch (ParseException e) {
+            // Handle parsing error if the user enters an invalid time format.
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -367,7 +441,7 @@ public class RegEntryDraftFragment extends Fragment implements AdapterView.OnIte
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(RegEntryDraftViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(ReguEntryDraftViewModel.class);
         // TODO: Use the ViewModel
     }
 

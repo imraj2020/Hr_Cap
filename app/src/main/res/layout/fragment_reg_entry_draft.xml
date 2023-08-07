@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#B9D9EB"
-    tools:context=".ui.RegEntryDraftFrag.RegEntryDraftFragment">
+    tools:context=".ui.RegEntryDraftFrag.ReguEntryDraftFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

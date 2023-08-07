@@ -98,8 +98,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     private long selectedStartDate = 0;
     private long selectedEndDate = 0;
     public String EndDate, StartDate;
+    public  String StartTimes,EndTimes;
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+
     public LeaveRequestFragment() {
     }
 
@@ -129,6 +132,11 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         TvStartTime = binding.tvstarttime;
         TvEndTime = binding.tvendtime;
         BtnDraft = binding.btndraft;
+
+        StartTimes = EtStartTime.getText().toString().trim();
+        EndTimes = EtEndTime.getText().toString().trim();
+
+
 //        CheckDraft = binding.tvCheckdraft;
 
 
@@ -146,7 +154,6 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
         StartDate = sdfs.format(calendar.getTime());
         EndDate = StartDate;
-
 
 
         //spinnertwo = binding.spinnerday;
@@ -310,6 +317,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     EtStartTime.setText(f12Hours.format(date));
+                                    StartTimes = EtStartTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -346,6 +355,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     EtEndTime.setText(f12Hours.format(date));
+                                    EndTimes = EtEndTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -441,11 +452,12 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         loadSpinnerData();
         DelegatePerson();
         compareDates();
+        onCheckTime();
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                        leaveRequest();
+                leaveRequest();
 
 
             }
@@ -472,14 +484,38 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
             } else if (startDate.after(endDate)) {
 
-                Toast.makeText(requireContext(),"StartDate Should not Greater then EndDate",Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "StartDate Should not Greater then EndDate", Toast.LENGTH_LONG).show();
                 EtEndDate.setText("Select Correct Date");
-               // EtEndDate.setError("Select Correct Date");
+                // EtEndDate.setError("Select Correct Date");
             } else {
 
-                 }
+            }
         } catch (java.text.ParseException e) {
             // Handle the parsing error if the input strings are not in the correct format
+            e.printStackTrace();
+        }
+    }
+
+    public void onCheckTime() {
+
+        try {
+            Date startTime = timeFormat.parse(EtStartTime.getText().toString());
+            Date endTime = timeFormat.parse(EtEndTime.getText().toString());
+
+            if (startTime.before(endTime)){
+
+            }
+           else if (startTime.after(endTime)) {
+               Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
+                EtEndTime.setText("Select Correct Time");
+
+
+           }else {
+
+            }
+
+        } catch (ParseException e) {
+            // Handle parsing error if the user enters an invalid time format.
             e.printStackTrace();
         }
     }

@@ -61,7 +61,7 @@ public class RegEntryDraftFragment extends Fragment {
                                                   try {
                                                       loaddatainlistview();
                                                   } catch (Exception e) {
-                                                      Toast.makeText(requireContext(), "Something wrong"+e, Toast.LENGTH_SHORT).show();
+                                                      Toast.makeText(requireContext(), "Something wrong" + e, Toast.LENGTH_SHORT).show();
                                                   }
                                                   Toast.makeText(requireContext(), "Swipe Complete", Toast.LENGTH_LONG).show();
                                                   ldSwipeRefreshLayout.setEnabled(false);
@@ -74,15 +74,7 @@ public class RegEntryDraftFragment extends Fragment {
         });
 
 
-
-
-
-
         loaddatainlistview();
-
-
-
-
 
 
         return binding.getRoot();
@@ -90,17 +82,23 @@ public class RegEntryDraftFragment extends Fragment {
 
     private void loaddatainlistview() {
 
-        RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
-        arrayList = db.regDraftDAO().getAllRegDraft();
-        int size= arrayList.size();
-        if(size==0){
-            binding.TvNoData.setVisibility(View.VISIBLE);
+        try {
+            RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
+            arrayList = db.regDraftDAO().getAllRegDraft();
+            int size = arrayList.size();
+            if (size == 0) {
+                binding.TvNoData.setVisibility(View.VISIBLE);
+            }
+            binding.totalItem2.setText(Integer.toString(size));
+            RegEntryDraftAdapter adapter = new RegEntryDraftAdapter(arrayList, requireContext());
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), "Crash Detected", Toast.LENGTH_LONG).show();
         }
-        binding.totalItem2.setText(Integer.toString(size));
-        RegEntryDraftAdapter adapter = new RegEntryDraftAdapter(arrayList, requireContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+
     }
 
     @Override

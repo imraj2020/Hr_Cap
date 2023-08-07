@@ -49,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +73,10 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
 
+    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+
+    public  String StartTimes,EndTimes;
+
 
     public static AttandanceReglarizationFragment newInstance() {
         return new AttandanceReglarizationFragment();
@@ -88,6 +93,12 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         EndDate = binding.etEnddate;
         FromTime = binding.etfromtime;
         ToTime = binding.ettotime;
+
+        StartTimes = FromTime.getText().toString().trim();
+        EndTimes = ToTime.getText().toString().trim();
+
+
+
         Note = binding.etnote;
         BtnCancel = binding.btncancel;
 //        CheckDraft = binding.checkdraft;
@@ -290,6 +301,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     FromTime.setText(f12Hours.format(date));
+                                    StartTimes = FromTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -325,6 +338,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                                     //12 hours time formet
                                     SimpleDateFormat f12Hours = new SimpleDateFormat("hh:mm aa");
                                     ToTime.setText(f12Hours.format(date));
+                                    EndTimes = ToTime.getText().toString();
+                                    onCheckTime();
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -388,6 +403,30 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             }
         } catch (java.text.ParseException e) {
             // Handle the parsing error if the input strings are not in the correct format
+            e.printStackTrace();
+        }
+    }
+
+    public void onCheckTime() {
+
+        try {
+            Date startTime = timeFormat.parse(FromTime.getText().toString());
+            Date endTime = timeFormat.parse(ToTime.getText().toString());
+
+            if (startTime.before(endTime)){
+
+            }
+            else if (startTime.after(endTime)) {
+                Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
+                ToTime.setText("Select Correct Time");
+
+
+            }else {
+
+            }
+
+        } catch (ParseException e) {
+            // Handle parsing error if the user enters an invalid time format.
             e.printStackTrace();
         }
     }

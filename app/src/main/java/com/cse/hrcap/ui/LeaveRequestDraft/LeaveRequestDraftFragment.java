@@ -75,8 +75,6 @@ public class LeaveRequestDraftFragment extends Fragment {
     SwipeRefreshLayout ldSwipeRefreshLayout;
 
 
-
-
     public static LeaveRequestDraftFragment newInstance() {
         return new LeaveRequestDraftFragment();
     }
@@ -87,8 +85,6 @@ public class LeaveRequestDraftFragment extends Fragment {
 
         binding = LeaveRequestDraftFragmentBinding.inflate(inflater);
         recyclerView = binding.draftsummary;
-
-
 
 
         // arrayList = new ArrayList<>();
@@ -131,25 +127,23 @@ public class LeaveRequestDraftFragment extends Fragment {
     }
 
 
-
-
     private void loaddatainlistview() {
-
-        LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
-        arrayList = db.leaveDraftDAO().getAllLeaveDraft();
-        int size = arrayList.size();
-        if (size == 0) {
-            binding.TvNoData.setVisibility(View.VISIBLE);
+        try {
+            LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
+            arrayList = db.leaveDraftDAO().getAllLeaveDraft();
+            int size = arrayList.size();
+            if (size == 0) {
+                binding.TvNoData.setVisibility(View.VISIBLE);
+            }
+            binding.totalItem1.setText(Integer.toString(size));
+            LeaveDraftAdapter adapter = new LeaveDraftAdapter(arrayList, requireContext());
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), "Crash Detected", Toast.LENGTH_LONG).show();
         }
-        binding.totalItem1.setText(Integer.toString(size));
-        LeaveDraftAdapter adapter = new LeaveDraftAdapter(arrayList, requireContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-//        Toast.makeText(this, arrayList.size() + "", Toast.LENGTH_SHORT).show();
-//        myAdapter = new MyAdapter(this, (ArrayList<StudentInfo>) arrayList);
-//        MyListView.setAdapter(myAdapter);
-//        myAdapter.notifyDataSetChanged();
+
 
     }
 

@@ -1,8 +1,6 @@
 package com.cse.hrcap.MyAdapters;
 
 
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -74,28 +72,30 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
         String[] parts = mydate.split(",");
         String datePart = parts[1].trim();
 
-        holder.CreateId.setText("Draft Id:\n"+Integer.toString(data.getId())+"\n");
-        holder.CreateTime.setText("Entry Time:\n"+datePart+"\n");
-        holder.Reason.setText(":Reason\n"+data.getReason()+"\n");
+        holder.CreateId.setText("Draft Id:\n" + Integer.toString(data.getId()) + "\n");
+        holder.CreateTime.setText("Entry Time:\n" + datePart + "\n");
+        holder.Reason.setText(":Reason\n" + data.getReason() + "\n");
 
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if (isNetworkAvailable()) {
-                    RegDraftInfo data = list.get(position);
-                    int nposition = data.getId();
 
-                    RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(context.getApplicationContext());
+                    if (isNetworkAvailable()) {
+                        RegDraftInfo data = list.get(position);
+                        int nposition = data.getId();
 
-                    db.regDraftDAO().deleteRegdraftinfo(nposition);
-                    // remove your item from data base
-                    Toast.makeText(context, "removed"+nposition, Toast.LENGTH_SHORT).show();
-                    list.remove(position);  // remove the item from list
-                    notifyItemRemoved(position); // notify the adapter about the removed item
-                } else {
-                    Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
-                }
+                        RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(context.getApplicationContext());
+
+                        db.regDraftDAO().deleteRegdraftinfo(nposition);
+                        // remove your item from data base
+                        Toast.makeText(context, "removed" + nposition, Toast.LENGTH_SHORT).show();
+                        list.remove(position);  // remove the item from list
+                        notifyItemRemoved(position); // notify the adapter about the removed item
+                    } else {
+                        Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
+                    }
+
             }
         });
 
@@ -119,8 +119,6 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
         });
 
 
-
-
         //Toast.makeText(context, ""+holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
     }
 
@@ -131,17 +129,17 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView CreateId,CreateTime,Reason;
-        ImageButton delete,view;
+        TextView CreateId, CreateTime, Reason;
+        ImageButton delete, view;
         CardView MyCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            delete =(ImageButton)itemView.findViewById(R.id.btn_delete);
-            view =(ImageButton)itemView.findViewById(R.id.btn_view);
-            CreateId = (TextView)itemView.findViewById(R.id.tv_Create_id);
-            CreateTime = (TextView)itemView.findViewById(R.id.tv_create_times);
-            Reason = (TextView)itemView.findViewById(R.id.tv_reasonsa);
+            delete = (ImageButton) itemView.findViewById(R.id.btn_delete);
+            view = (ImageButton) itemView.findViewById(R.id.btn_view);
+            CreateId = (TextView) itemView.findViewById(R.id.tv_Create_id);
+            CreateTime = (TextView) itemView.findViewById(R.id.tv_create_times);
+            Reason = (TextView) itemView.findViewById(R.id.tv_reasonsa);
             MyCardView = itemView.findViewById(R.id.regdraftcard);
 
 
