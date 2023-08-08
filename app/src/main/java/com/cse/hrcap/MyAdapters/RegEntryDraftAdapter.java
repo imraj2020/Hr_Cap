@@ -92,6 +92,8 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
                         Toast.makeText(context, "removed" + nposition, Toast.LENGTH_SHORT).show();
                         list.remove(position);  // remove the item from list
                         notifyItemRemoved(position); // notify the adapter about the removed item
+                        notifyItemRangeChanged(position, list.size()); // update the position variable
+
                     } else {
                         Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
                     }

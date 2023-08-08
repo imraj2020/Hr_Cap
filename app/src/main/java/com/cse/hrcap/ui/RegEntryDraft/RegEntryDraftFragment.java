@@ -95,7 +95,7 @@ public class RegEntryDraftFragment extends Fragment {
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
-            Toast.makeText(requireContext(), "Crash Detected", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), "Something Wrong", Toast.LENGTH_LONG).show();
         }
 
 

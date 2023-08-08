@@ -65,7 +65,7 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         LeaveDraftInfo data = list.get(position);
 
         //test
@@ -110,6 +110,10 @@ public class LeaveDraftAdapter extends RecyclerView.Adapter<LeaveDraftAdapter.Vi
                     Toast.makeText(context, "removed" + nposition, Toast.LENGTH_SHORT).show();
                     list.remove(position);  // remove the item from list
                     notifyItemRemoved(position); // notify the adapter about the removed item
+                    notifyItemRangeChanged(position, list.size()); // update the position variable
+
+
+
                 } else {
                     Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
                 }
