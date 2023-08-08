@@ -3,7 +3,7 @@ package com.cse.hrcap.network;
 public class EmployeeResponse {
 
     int Id;
-    String FirstName;
+    String EmployeeName;
     String EmpIdAutomatic;
 
     public int getId() {
@@ -14,12 +14,12 @@ public class EmployeeResponse {
         Id = id;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getEmployeeName() {
+        return EmployeeName;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setEmployeeName(String firstName) {
+        EmployeeName = firstName;
     }
 
     public String getEmpIdAutomatic() {

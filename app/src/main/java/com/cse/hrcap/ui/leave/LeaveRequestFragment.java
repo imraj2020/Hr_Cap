@@ -708,7 +708,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                 List<String> CustomerResponseList = new ArrayList<>();
                 CustomerResponseList.add(0, "Please Select");
                 for (int i = 1; i < nlist.size(); i++) {
-                    CustomerResponseList.add(i, nlist.get(i).getEmpIdAutomatic() + "\n (" + nlist.get(i).getFirstName() + ")\n");
+                    CustomerResponseList.add(i, nlist.get(i).getEmpIdAutomatic() + "\n (" + nlist.get(i).getEmployeeName() + ")\n");
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, CustomerResponseList);
                 listView.setAdapter(adapter);
