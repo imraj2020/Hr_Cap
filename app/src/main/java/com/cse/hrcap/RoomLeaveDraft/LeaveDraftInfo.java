@@ -22,7 +22,9 @@ public class LeaveDraftInfo {
     String leavetype;
     String daytype;
 
-    public LeaveDraftInfo(String employee, int spinnervalue, boolean switchvalue, String startdate, String enddate, String starttime, String endtime, String reason, String companyid, String createdate, String leavetype, String daytype) {
+    int delegatePosition;
+
+    public LeaveDraftInfo(String employee, int spinnervalue, boolean switchvalue, String startdate, String enddate, String starttime, String endtime, String reason, String companyid, String createdate, String leavetype, String daytype, int delegatePosition) {
         this.employee = employee;
         this.spinnervalue = spinnervalue;
         this.switchvalue = switchvalue;
@@ -35,6 +37,7 @@ public class LeaveDraftInfo {
         this.createdate = createdate;
         this.leavetype = leavetype;
         this.daytype = daytype;
+        this.delegatePosition = delegatePosition;
     }
 
     public String getEmployee() {
@@ -139,5 +142,13 @@ public class LeaveDraftInfo {
 
     public void setDaytype(String daytype) {
         this.daytype = daytype;
+    }
+
+    public int getDelegatePosition() {
+        return delegatePosition;
+    }
+
+    public void setDelegatePosition(int delegatePosition) {
+        this.delegatePosition = delegatePosition;
     }
 }

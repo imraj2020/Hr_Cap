@@ -103,6 +103,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
 
+    private int selectedPosition = -1;
+
     public LeaveRequestFragment() {
     }
 
@@ -195,13 +197,14 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     String companyid = intent.getStringExtra("CompanyId");
                     String employee = intent.getStringExtra("Employee");
 
+
                     //Testing new Roomdb
                     LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
 
 
                     LeaveDraftInfo mydraft = new LeaveDraftInfo(employee, spinnerValue, switchst, EtStartDate.getText().toString(),
                             EtEndDate.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                            EtReason.getText().toString(), companyid, currentDateandTime, label, Status);
+                            EtReason.getText().toString(), companyid, currentDateandTime, label, Status,selectedPosition);
                     db.leaveDraftDAO().insertLeaveDraft(mydraft);
 
                     try {
@@ -748,6 +751,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                             // Utilities.showLogcatMessage("binding.tvCustomerList " + e);
 
                         }
+                        selectedPosition = position; // Update the selected position
                         dialog.dismiss();
                     }
                 });

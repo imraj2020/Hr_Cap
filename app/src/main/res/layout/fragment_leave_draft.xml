@@ -295,23 +295,36 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
+        <ProgressBar
+            android:id="@+id/simpleProgressBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"/>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/delegateperson1"
+            android:visibility="gone"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:paddingRight="10dp"
             android:paddingBottom="5dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etdraftdelegateperson"
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="" />
+                android:id="@+id/Tvdelegateperson"
+                android:drawableEnd="@drawable/ic_drop_down"
+                android:focusable="false"
+                android:hint="Select Employee Name"
+                android:padding="5dp"></com.google.android.material.textfield.MaterialAutoCompleteTextView>
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
 
         <LinearLayout
