@@ -56,7 +56,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
     private ReguEntryDraftViewModel mViewModel;
     FragmentRegEntryDraftBinding binding;
     TextView Txt_Name;
-    EditText StartDate, EndDate, FromTime,ToTime,Notes;
+    EditText StartDate, EndDate, FromTime, ToTime, Notes;
     Spinner Spinner_Reason;
     public static String myspinneritems;
     public static int spinnervalue;
@@ -64,7 +64,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
     public static String companyid;
     Button Cancel, Submit;
     DatePickerDialog datePickerDialog;
-    int  starthour, startminute,endhour,endminute;
+    int starthour, startminute, endhour, endminute;
 
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
@@ -72,7 +72,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
 
     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
 
-    public  String StartTimes,EndTimes;
+    public String StartTimes, EndTimes;
 
     public static ReguEntryDraftFragment newInstance() {
         return new ReguEntryDraftFragment();
@@ -140,9 +140,6 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
         Notes.setText(Note);
 
 
-
-
-
         loadSpinnerData();
 
         //Spinner Selection
@@ -156,7 +153,19 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AttandanceRegularization();
+
+                String Enddates, Endtimes;
+                Enddates = EndDate.getText().toString().trim();
+                Endtimes = ToTime.getText().toString().trim();
+
+                if (Enddates.equals("Select Correct Date") && Endtimes.equals("Select Correct Time") ||
+                        Enddates.equals("Select Correct Date") || Endtimes.equals("Select Correct Time")) {
+
+                    Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
+                } else {
+                    AttandanceRegularization();
+                }
+
             }
         });
 
@@ -185,7 +194,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                               // StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                // StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 StartDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 StartDates = StartDate.getText().toString();
                                 EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
@@ -215,7 +224,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                              //  EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                //  EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 EndDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 EndDates = EndDate.getText().toString();
                                 compareDates();
@@ -225,8 +234,6 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                 datePickerDialog.show();
             }
         });
-
-
 
 
         // Select From Time
@@ -241,7 +248,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                                 starthour = i;
                                 startminute = i1;
-                                String time = starthour +":" + startminute;
+                                String time = starthour + ":" + startminute;
                                 SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
                                 try {
                                     java.util.Date date = f24Hours.parse(time);
@@ -255,12 +262,12 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                                     e.printStackTrace();
                                 }
                             }
-                        },12,0,false
+                        }, 12, 0, false
                 );
                 //Set transparent Background
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 //Display previous selected time
-                timePickerDialog.updateTime(starthour,startminute);
+                timePickerDialog.updateTime(starthour, startminute);
                 timePickerDialog.show();
 
             }
@@ -278,7 +285,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                                 endhour = i;
                                 endminute = i1;
-                                String time = endhour +":" + endminute;
+                                String time = endhour + ":" + endminute;
                                 SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
                                 try {
                                     Date date = f24Hours.parse(time);
@@ -292,19 +299,16 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                                     e.printStackTrace();
                                 }
                             }
-                        },12,0,false
+                        }, 12, 0, false
                 );
                 //Set transparent Background
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 //Display previous selected time
-                timePickerDialog.updateTime(endhour,endminute);
+                timePickerDialog.updateTime(endhour, endminute);
                 timePickerDialog.show();
 
             }
         });
-
-
-
 
 
         return binding.getRoot();
@@ -326,7 +330,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
 
             } else if (startDate.after(endDate)) {
 
-                Toast.makeText(requireContext(),"StartDate Should not Greater then EndDate",Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "StartDate Should not Greater then EndDate", Toast.LENGTH_LONG).show();
                 EndDate.setText("Select Correct Date");
                 // EtEndDate.setError("Select Correct Date");
             } else {
@@ -345,15 +349,14 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
             Date startTime = timeFormat.parse(FromTime.getText().toString());
             Date endTime = timeFormat.parse(ToTime.getText().toString());
 
-            if (startTime.before(endTime)){
+            if (startTime.before(endTime)) {
 
-            }
-            else if (startTime.after(endTime)) {
+            } else if (startTime.after(endTime)) {
                 Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
                 ToTime.setText("Select Correct Time");
 
 
-            }else {
+            } else {
 
             }
 
@@ -394,22 +397,21 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
     private void AttandanceRegularization() {
 
         final AttandanceRegularizationRequest attandanceRegularizationRequest = new AttandanceRegularizationRequest
-                (companyid,employee,StartDate.getText().toString(),EndDate.getText().toString()
-                        ,FromTime.getText().toString(),ToTime.getText().toString(),myspinneritems,Notes.getText().toString());
+                (companyid, employee, StartDate.getText().toString(), EndDate.getText().toString()
+                        , FromTime.getText().toString(), ToTime.getText().toString(), myspinneritems, Notes.getText().toString());
         Call<AttandanceRegularizationRequest> call = MyApiClient.getUserService().PostData(attandanceRegularizationRequest);
 
 
         call.enqueue(new Callback<AttandanceRegularizationRequest>() {
             @Override
             public void onResponse(Call<AttandanceRegularizationRequest> call, Response<AttandanceRegularizationRequest> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     AttandanceRegularizationRequest attandanceRegularizationRequest1 = response.body();
-                    Toast.makeText(requireContext(), "Status is :"+attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Status is :" + attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
                     Navigation.findNavController(requireView()).navigate(R.id.nav_attadanceregsummary);
 
-                }
-                else {
-                    Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(requireContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -435,7 +437,6 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
         }
         return false;
     }
-
 
 
     @Override

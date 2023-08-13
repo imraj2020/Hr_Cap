@@ -376,7 +376,18 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
         BtnSubmits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                leaveRequest();
+
+                String Enddates, Endtimes;
+                Enddates = EndDate.getText().toString().trim();
+                Endtimes = EndTime.getText().toString().trim();
+
+                if (Enddates.equals("Select Correct Date") && Endtimes.equals("Select Correct Time") ||
+                        Enddates.equals("Select Correct Date") || Endtimes.equals("Select Correct Time")) {
+
+                    Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
+                } else {
+                    leaveRequest();
+                }
             }
         });
 

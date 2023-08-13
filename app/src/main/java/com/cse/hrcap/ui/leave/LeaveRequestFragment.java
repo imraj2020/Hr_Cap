@@ -98,7 +98,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
     private long selectedStartDate = 0;
     private long selectedEndDate = 0;
     public String EndDate, StartDate;
-    public  String StartTimes,EndTimes;
+    public String StartTimes, EndTimes;
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdfs = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
@@ -204,7 +204,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
                     LeaveDraftInfo mydraft = new LeaveDraftInfo(employee, spinnerValue, switchst, EtStartDate.getText().toString(),
                             EtEndDate.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                            EtReason.getText().toString(), companyid, currentDateandTime, label, Status,selectedPosition);
+                            EtReason.getText().toString(), companyid, currentDateandTime, label, Status, selectedPosition);
                     db.leaveDraftDAO().insertLeaveDraft(mydraft);
 
                     try {
@@ -459,9 +459,17 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String Enddates, Endtimes;
+                Enddates = EtEndDate.getText().toString().trim();
+                Endtimes = EtEndTime.getText().toString().trim();
 
-                leaveRequest();
+                if (Enddates.equals("Select Correct Date") && Endtimes.equals("Select Correct Time") ||
+                        Enddates.equals("Select Correct Date") || Endtimes.equals("Select Correct Time")) {
 
+                    Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
+                } else {
+                    leaveRequest();
+                }
 
             }
         });
@@ -505,15 +513,14 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
             Date startTime = timeFormat.parse(EtStartTime.getText().toString());
             Date endTime = timeFormat.parse(EtEndTime.getText().toString());
 
-            if (startTime.before(endTime)){
+            if (startTime.before(endTime)) {
 
-            }
-           else if (startTime.after(endTime)) {
-               Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
+            } else if (startTime.after(endTime)) {
+                Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
                 EtEndTime.setText("Select Correct Time");
 
 
-           }else {
+            } else {
 
             }
 

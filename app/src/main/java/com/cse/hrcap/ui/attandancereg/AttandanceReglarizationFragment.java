@@ -128,7 +128,17 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AttandanceRegularization();
+                String Enddates, Endtimes;
+                Enddates = EndDate.getText().toString().trim();
+                Endtimes = ToTime.getText().toString().trim();
+
+                if (Enddates.equals("Select Correct Date") && Endtimes.equals("Select Correct Time") ||
+                        Enddates.equals("Select Correct Date") || Endtimes.equals("Select Correct Time")) {
+
+                    Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
+                } else {
+                    AttandanceRegularization();
+                }
             }
         });
 
