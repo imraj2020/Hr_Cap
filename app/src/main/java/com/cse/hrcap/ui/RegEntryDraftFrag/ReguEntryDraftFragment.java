@@ -74,6 +74,8 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
 
     public String StartTimes, EndTimes;
 
+    public static int mypositions;
+
     public static ReguEntryDraftFragment newInstance() {
         return new ReguEntryDraftFragment();
     }
@@ -91,7 +93,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
 
         //test
         Bundle args = getArguments();
-        int mypositions = args.getInt("clicked_data_2", 0);
+        mypositions = args.getInt("clicked_data_2", 0);
 
 
         if (mypositions == 0) {
@@ -330,7 +332,7 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
 
             } else if (startDate.after(endDate)) {
 
-                Toast.makeText(requireContext(), "StartDate Should not Greater then EndDate", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "Start date should not be greater than end date", Toast.LENGTH_LONG).show();
                 EndDate.setText("Select Correct Date");
                 // EtEndDate.setError("Select Correct Date");
             } else {
@@ -408,6 +410,11 @@ public class ReguEntryDraftFragment extends Fragment implements AdapterView.OnIt
                 if (response.isSuccessful()) {
                     AttandanceRegularizationRequest attandanceRegularizationRequest1 = response.body();
                     Toast.makeText(requireContext(), "Status is :" + attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
+
+                    RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext().getApplicationContext());
+
+                    db.regDraftDAO().deleteRegdraftinfo(mypositions);
+
                     Navigation.findNavController(requireView()).navigate(R.id.nav_attadanceregsummary);
 
                 } else {

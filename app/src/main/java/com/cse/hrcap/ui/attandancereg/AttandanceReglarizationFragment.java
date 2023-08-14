@@ -405,7 +405,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
             } else if (startDate.after(endDate)) {
 
-                Toast.makeText(requireContext(),"StartDate Should not Greater then EndDate",Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(),"Start date should not be greater than end date",Toast.LENGTH_LONG).show();
                 EndDate.setText("Select Correct Date");
                 // EtEndDate.setError("Select Correct Date");
             } else {

@@ -100,6 +100,7 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
     String EmployeeID = "";
     public static  int dPosition;
 
+    public static int mypositions;
 
     public static LeaveDraftFragment newInstance() {
         return new LeaveDraftFragment();
@@ -113,7 +114,7 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
 
         //test
         Bundle args = getArguments();
-        int mypositions = args.getInt("clicked_data_", 0);
+        mypositions = args.getInt("clicked_data_", 0);
 
 
         if (mypositions == 0) {
@@ -387,6 +388,7 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
                     Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
                 } else {
                     leaveRequest();
+
                 }
             }
         });
@@ -447,6 +449,10 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
                 if (response.isSuccessful()) {
                     LeaveRequest leaveResponse = response.body();
                     Toast.makeText(requireContext(), "Status is :" + leaveResponse.getStatus(), Toast.LENGTH_LONG).show();
+
+                    LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext().getApplicationContext());
+                    db.leaveDraftDAO().deleteLeavedraftinfo(mypositions);
+
                     Navigation.findNavController(requireView()).navigate(R.id.nav_leavesummary);
                     // requireActivity().finish();
 
@@ -485,7 +491,7 @@ public class LeaveDraftFragment extends Fragment implements AdapterView.OnItemSe
 
             } else if (startDate.after(endDate)) {
 
-                Toast.makeText(requireContext(), "StartDate Should not Greater then EndDate", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "Start date should not be greater than end date", Toast.LENGTH_LONG).show();
                 EndDate.setText("Select Correct Date");
                 // EtEndDate.setError("Select Correct Date");
             } else {

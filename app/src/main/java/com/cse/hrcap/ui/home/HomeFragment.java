@@ -53,8 +53,8 @@ public class HomeFragment extends Fragment {
     TextView SelfAttendance, SelfAttendanceSummary, LeaveRequest, LeaveSummary, LeaveApprovalSummary,
             AttendanceRegularizationEntry, AttendanceRegularizationSummary, AttendanceRegularizationApprovalSummary;
 
-    CardView SelfAttendanceCard,SelfAttendanceSummaryCard,LeaveRequestCard,LeaveSummaryCard,LeaveApprovalSummaryCard,
-            AttendanceRegularizationEntryCard,AttendanceRegularizationSummaryCard,AttendanceRegularizationApprovalSummaryCard;
+    CardView SelfAttendanceCard, SelfAttendanceSummaryCard, LeaveRequestCard, LeaveSummaryCard, LeaveApprovalSummaryCard,
+            AttendanceRegularizationEntryCard, AttendanceRegularizationSummaryCard, AttendanceRegularizationApprovalSummaryCard;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -102,7 +102,6 @@ public class HomeFragment extends Fragment {
         AttendanceRegularizationApprovalSummaryCard = binding.AttendanceRegularizationApprovalSummaryCard;
 
 
-
         SelfAttendance.setSelected(true);
         SelfAttendanceSummary.setSelected(true);
         LeaveRequest.setSelected(true);
@@ -118,6 +117,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
 
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_selfattandance, true);
                 Navigation.findNavController(view).navigate(R.id.nav_selfattandance);
 
 //                Fragment destinationFragment = new SelfAttandanceFragment();
@@ -132,7 +133,9 @@ public class HomeFragment extends Fragment {
         SelfAttendanceSummaryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_selfattandance, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_selfattandancesummary, true);
                 Navigation.findNavController(view).navigate(R.id.nav_selfattandancesummary);
 
             }
@@ -141,6 +144,8 @@ public class HomeFragment extends Fragment {
         LeaveRequestCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_leave, true);
                 Navigation.findNavController(view).navigate(R.id.nav_leave);
             }
         });
@@ -149,6 +154,8 @@ public class HomeFragment extends Fragment {
         LeaveSummaryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_leavesummary, true);
                 Navigation.findNavController(view).navigate(R.id.nav_leavesummary);
             }
         });
@@ -157,6 +164,8 @@ public class HomeFragment extends Fragment {
         LeaveApprovalSummaryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_leaveaprsummary, true);
                 Navigation.findNavController(view).navigate(R.id.nav_leaveaprsummary);
             }
         });
@@ -165,6 +174,8 @@ public class HomeFragment extends Fragment {
         AttendanceRegularizationEntryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_attadancereg, true);
                 Navigation.findNavController(view).navigate(R.id.nav_attadancereg);
             }
         });
@@ -173,6 +184,8 @@ public class HomeFragment extends Fragment {
         AttendanceRegularizationSummaryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_attadanceregsummary, true);
                 Navigation.findNavController(view).navigate(R.id.nav_attadanceregsummary);
             }
         });
@@ -181,6 +194,8 @@ public class HomeFragment extends Fragment {
         AttendanceRegularizationApprovalSummaryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
+                Navigation.findNavController(view).popBackStack(R.id.nav_atdregaprsummary, true);
                 Navigation.findNavController(view).navigate(R.id.nav_atdregaprsummary);
             }
         });
