@@ -143,7 +143,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
                 LeaveAprSumInfo data = list.get(list.size() - position - 1);
 
                 int positions =list.size()-position;
-                Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
 
 
                 String CompanyId, Fullname, EmpCode, EntryDate, LeaveTypeName, LeaveId, FromDate, ToDate, FromTime, ToTime,

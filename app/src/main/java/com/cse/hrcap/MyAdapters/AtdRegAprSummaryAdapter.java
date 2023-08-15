@@ -108,6 +108,9 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
             public void onClick(View v) {
                 AtdRegAprSumInfo data = list.get(list.size() - position - 1);
 
+                int positions =list.size()-position;
+               // Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
+
                 String CompanyId, FromTime, ToTime,fullname,empcode,requestid,startdate,enddate,
                 reason,status,entryby,entrydate,note;
 
@@ -129,11 +132,11 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
 
 
                 Intent intent = new Intent(context, RegularizationApproval.class);
+                intent.putExtra("atdposition",positions);
                 intent.putExtra("ICompanyId", CompanyId);
                 intent.putExtra("IMovementId", requestid);
                 intent.putExtra("IFromTime", FromTime);
                 intent.putExtra("IToTime", ToTime);
-
                 intent.putExtra("Iempcode", empcode);
                 intent.putExtra("Ifullname", fullname);
                 intent.putExtra("Istartdate", startdate);

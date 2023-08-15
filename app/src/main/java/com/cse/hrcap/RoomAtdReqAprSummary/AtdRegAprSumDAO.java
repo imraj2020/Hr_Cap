@@ -34,6 +34,10 @@ public interface AtdRegAprSumDAO {
     @Update
     void updateAtdRegAprSummary(AtdRegAprSumInfo atdRegAprSumInfo);
 
+
+    @Query("DELETE FROM AtdRegAprSumInfo WHERE rowid = :position")
+    void deleteRowAtdRegApproval(int position);
+
 //    @Query("SELECT name FROM HolidayInfo")
 //    public List<String> getAllName();
 //

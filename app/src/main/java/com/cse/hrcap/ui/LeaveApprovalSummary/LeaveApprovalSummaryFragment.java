@@ -149,7 +149,7 @@ public class LeaveApprovalSummaryFragment extends Fragment {
 
                               db.leaveAprSumDAO().updateLeaveAprSum(existingData);
 
-                              Toast.makeText(requireContext(), "Data Updating", Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(requireContext(), "Data Updating", Toast.LENGTH_SHORT).show();
 
 
                           }else{
@@ -161,7 +161,7 @@ public class LeaveApprovalSummaryFragment extends Fragment {
                                       post.getEntryBy(),post.getEntryDate());
                               db.leaveAprSumDAO().insertLeaveAprSummary(leaveAprSumInfo);
 
-                              Toast.makeText(requireContext(), "Data Inserting", Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(requireContext(), "Data Inserting", Toast.LENGTH_SHORT).show();
                           }
 
                         }

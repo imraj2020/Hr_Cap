@@ -19,8 +19,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.MyAdapters.AtdRegAprSummaryAdapter;
+import com.cse.hrcap.MyAdapters.LeaveAprSumAdapter;
+import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumInfo;
+import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumRoomDB;
+import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
+import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumRoomDB;
 import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.RegularizationApprovalResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +44,11 @@ public class RegularizationApproval extends AppCompatActivity {
     Button BtnSubmit, BtnCancel;
     public static String MyStatus;
     ProgressDialog progressDialog;
+
+    List<AtdRegAprSumInfo> arrayList;
+
+
+    public static int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +87,7 @@ public class RegularizationApproval extends AppCompatActivity {
         String companyId, fromTime, toTime, fullname, empcode, requestid, startdate, enddate,
                 reason, status, entryby, entrydate, note;
 
-
+        position = intent.getIntExtra("atdposition",0);
         companyId = intent.getStringExtra("ICompanyId");
         requestid = intent.getStringExtra("IMovementId");
         fromTime = intent.getStringExtra("IFromTime");
@@ -179,6 +192,15 @@ public class RegularizationApproval extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Status is :" + regularizationApprovalResponse1.getStatus(), Toast.LENGTH_LONG).show();
 
                     if(regularizationApprovalResponse1.getStatus()!=null){
+
+                        AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(getApplicationContext());
+                        db.atdRegAprSumDAO().deleteRowAtdRegApproval(position);
+
+                        AtdRegAprSummaryAdapter adapter = new AtdRegAprSummaryAdapter(arrayList, getApplicationContext());
+                        arrayList.remove(position);
+                        adapter.notifyDataSetChanged();
+
+
                         finish();
                     }
 
