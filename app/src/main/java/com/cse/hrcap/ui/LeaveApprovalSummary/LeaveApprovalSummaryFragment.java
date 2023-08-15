@@ -149,6 +149,7 @@ public class LeaveApprovalSummaryFragment extends Fragment {
 
                               db.leaveAprSumDAO().updateLeaveAprSum(existingData);
 
+
                             //  Toast.makeText(requireContext(), "Data Updating", Toast.LENGTH_SHORT).show();
 
 
