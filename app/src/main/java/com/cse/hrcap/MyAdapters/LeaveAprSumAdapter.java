@@ -142,6 +142,10 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
             public void onClick(View v) {
                 LeaveAprSumInfo data = list.get(list.size() - position - 1);
 
+                int positions =list.size()-position;
+                Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
+
+
                 String CompanyId, Fullname, EmpCode, EntryDate, LeaveTypeName, LeaveId, FromDate, ToDate, FromTime, ToTime,
                         TotalHours, LeaveStatusName;
 
@@ -160,6 +164,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
                 LeaveStatusName = data.getLeavestatusname();
 
                 Intent intent = new Intent(context, LeaveApproval.class);
+                intent.putExtra("position",positions);
                 intent.putExtra("MCompanyId", CompanyId);
                 intent.putExtra("MFullname", Fullname);
                 intent.putExtra("MEmpCode", EmpCode);
@@ -174,7 +179,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
                 intent.putExtra("MLeaveStatusName", LeaveStatusName);
                 context.startActivity(intent);
 
-
+                notifyDataSetChanged();
                 // remove your item from data base
                 // Toast.makeText(context, " "+CompanyId+" "+Employee+" "+LeaveId, Toast.LENGTH_SHORT).show();
 
@@ -201,7 +206,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView LeaveId, CompanyId, EmpId, EmpCode, LeaveTypeId, LeaveTypeName, FromDate, ToDate, TotalDay, FromTime, ToTime,
-                TotalHours, Leavestatusid, LeaveStatusName, FullName, IndivRequestStatus, IndivRequestStatusName, EntryBy,
+                TotalHours, LeavestatusId, LeaveStatusName, FullName, IndivRequestStatus, IndivRequestStatusName, EntryBy,
                 EntryDate;
         CardView MyCardView;
 
@@ -223,7 +228,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
             FromTime = (TextView) itemView.findViewById(R.id.tv_fromtime);
             ToTime = (TextView) itemView.findViewById(R.id.tv_totime);
             TotalHours = (TextView) itemView.findViewById(R.id.tv_totalhours);
-            Leavestatusid = (TextView) itemView.findViewById(R.id.tv_leavestatusid);
+            LeavestatusId = (TextView) itemView.findViewById(R.id.tv_leavestatusId);
             LeaveStatusName = (TextView) itemView.findViewById(R.id.tv_leavestatusname);
             FullName = (TextView) itemView.findViewById(R.id.tv_fullname);
             IndivRequestStatus = (TextView) itemView.findViewById(R.id.tv_indivrequeststatus);

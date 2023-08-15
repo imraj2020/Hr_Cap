@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -23,6 +24,15 @@ public interface AtdRegAprSumDAO {
 
     @Query("SELECT * FROM AtdRegAprSumInfo")
     public List<AtdRegAprSumInfo> getAllRegaprSummary();
+
+
+    @Query("SELECT * FROM AtdRegAprSumInfo WHERE movementId = :movementId")
+    AtdRegAprSumInfo getAtdRegAprSummaryById(int movementId);
+
+
+
+    @Update
+    void updateAtdRegAprSummary(AtdRegAprSumInfo atdRegAprSumInfo);
 
 //    @Query("SELECT name FROM HolidayInfo")
 //    public List<String> getAllName();

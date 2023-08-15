@@ -4,6 +4,9 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
+
+import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumInfo;
 
 import java.util.List;
 
@@ -23,6 +26,18 @@ public interface LeaveAprSumDAO {
 
     @Query("SELECT * FROM LeaveAprSumInfo")
     public List<LeaveAprSumInfo> getAllleaveAprSummary();
+
+    @Query("SELECT * FROM LeaveAprSumInfo WHERE leaveid = :leaveId")
+    LeaveAprSumInfo getLeaveAprSumById(String leaveId);
+
+
+    @Update
+    void updateLeaveAprSum(LeaveAprSumInfo existingData);
+
+
+    @Query("DELETE FROM LeaveAprSumInfo WHERE rowid = :position")
+    void deleteRowLeaveAprSum(int position);
+
 
 //    @Query("SELECT name FROM HolidayInfo")
 //    public List<String> getAllName();

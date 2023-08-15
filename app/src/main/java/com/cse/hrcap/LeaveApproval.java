@@ -19,8 +19,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.MyAdapters.LeaveAprSumAdapter;
+import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
+import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumRoomDB;
 import com.cse.hrcap.network.MyApiClient;
 import com.cse.hrcap.network.LeaveApprovalRequest;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +39,10 @@ public class LeaveApproval extends AppCompatActivity {
     Button BtnSubmit, BtnCancel;
     public static String MStatus;
     ProgressDialog progressDialog;
+
+    public static int position;
+
+    List<LeaveAprSumInfo> arrayList;
 
 
 
@@ -76,6 +85,8 @@ public class LeaveApproval extends AppCompatActivity {
         Intent intent = getIntent();
         String companyId, fullname, empCode, entryDate, leaveTypeName, leaveId, fromDate, toDate, fromTime, toTime,
                 totalHours, leaveStatusName;
+
+        position = intent.getIntExtra("position",0);
         companyId = intent.getStringExtra("MCompanyId");
         fullname = intent.getStringExtra("MFullname");
         empCode = intent.getStringExtra("MEmpCode");
@@ -105,6 +116,8 @@ public class LeaveApproval extends AppCompatActivity {
         ToTime.setText(toTime+"");
         TotalHours.setText(totalHours);
         LeaveStatusName.setText(leaveStatusName);
+
+
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -166,6 +179,13 @@ public class LeaveApproval extends AppCompatActivity {
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Status is :" + leaveApprovalRequest1.getStatus(), Toast.LENGTH_LONG).show();
                     if(leaveApprovalRequest1.getStatus()!=null){
+
+                        LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(getApplicationContext());
+                        db.leaveAprSumDAO().deleteRowLeaveAprSum(position);
+
+                        LeaveAprSumAdapter adapter = new LeaveAprSumAdapter(arrayList, getApplicationContext());
+                        arrayList.remove(position);
+                        adapter.notifyDataSetChanged();
                         finish();
                     }
 

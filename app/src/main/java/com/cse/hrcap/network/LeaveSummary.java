@@ -9,10 +9,10 @@ public class LeaveSummary {
     String TotalHours;
     String EntryBy;
     String EntryDateTime;
-    String LeaveStatusId;
+    String LeaveStatusid;
     String LeaveStatusName;
 
-    public LeaveSummary(String leaveId, String leaveTypeName, String fromDate, String toDate, String totalDay, String totalHours, String entryBy, String entryDateTime, String leaveStatusId, String leaveStatusName) {
+    public LeaveSummary(String leaveId, String leaveTypeName, String fromDate, String toDate, String totalDay, String totalHours, String entryBy, String entryDateTime, String leaveStatusid, String leaveStatusName) {
         LeaveId = leaveId;
         LeaveTypeName = leaveTypeName;
         FromDate = fromDate;
@@ -21,7 +21,7 @@ public class LeaveSummary {
         TotalHours = totalHours;
         EntryBy = entryBy;
         EntryDateTime = entryDateTime;
-        LeaveStatusId = leaveStatusId;
+        LeaveStatusid = leaveStatusid;
         LeaveStatusName = leaveStatusName;
     }
 
@@ -90,11 +90,11 @@ public class LeaveSummary {
     }
 
     public String getLeaveStatusId() {
-        return LeaveStatusId;
+        return LeaveStatusid;
     }
 
     public void setLeaveStatusId(String leaveStatusId) {
-        LeaveStatusId = leaveStatusId;
+        LeaveStatusid = leaveStatusId;
     }
 
     public String getLeaveStatusName() {

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.cse.hrcap.MyAdapters.LeaveAprSumAdapter;
 import com.cse.hrcap.R;
+import com.cse.hrcap.RoomAtdReqAprSummary.AtdRegAprSumInfo;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumInfo;
 import com.cse.hrcap.RoomLeaveAprSummary.LeaveAprSumRoomDB;
 import com.cse.hrcap.databinding.LeaveApprovalSummaryFragmentBinding;
@@ -120,12 +121,49 @@ public class LeaveApprovalSummaryFragment extends Fragment {
 
 
                         for (LeaveAprSummary post : nlist) {
-                            LeaveAprSumInfo leaveAprSumInfo = new LeaveAprSumInfo(post.getLeaveId(),post.getCompanyId(),post.getEmpId(),
-                                    post.getEmpCode(),post.getLeaveTypeId(),post.getLeaveTypeName(),post.getFromDate(),post.getToDate(),
-                                    post.getTotalDay(),post.getFromTime(),post.getToTime(),post.getTotalHours(),post.getLeavestatusid(),
-                                    post.getLeaveStatusName(),post.getFullName(),post.getIndivRequestStatus(),post.getIndivRequestStatusName(),
-                                    post.getEntryBy(),post.getEntryDate());
-                            db.leaveAprSumDAO().insertLeaveAprSummary(leaveAprSumInfo);
+
+                            LeaveAprSumInfo existingData = db.leaveAprSumDAO().getLeaveAprSumById(post.getLeaveId());
+
+                          if(existingData != null){
+
+                              // Data already exists, update it
+                              existingData.setLeaveid(post.getLeaveId());
+                              existingData.setCompanyid(post.getCompanyId());
+                              existingData.setEmpid(post.getEmpId());
+                              existingData.setEmpcode(post.getEmpCode());
+                              existingData.setLeavetypeid(post.getLeaveTypeId());
+                              existingData.setLeavetypename(post.getLeaveTypeName());
+                              existingData.setFromdate(post.getFromDate());
+                              existingData.setTodate(post.getToDate());
+                              existingData.setTotalday(post.getTotalDay());
+                              existingData.setFromtime(post.getFromTime());
+                              existingData.setTotime(post.getToTime());
+                              existingData.setTotalhours(post.getTotalHours());
+                              existingData.setLeavestatusId(post.getLeavestatusid());
+                              existingData.setLeavestatusname(post.getLeaveStatusName());
+                              existingData.setFullname(post.getFullName());
+                              existingData.setIndivrequeststatus(post.getIndivRequestStatus());
+                              existingData.setIndivrequeststatusname(post.getIndivRequestStatusName());
+                              existingData.setEntryby(post.getEntryBy());
+                              existingData.setEntrydate(post.getEntryDate());
+
+                              db.leaveAprSumDAO().updateLeaveAprSum(existingData);
+
+                              Toast.makeText(requireContext(), "Data Updating", Toast.LENGTH_SHORT).show();
+
+
+                          }else{
+
+                              LeaveAprSumInfo leaveAprSumInfo = new LeaveAprSumInfo(post.getLeaveId(),post.getCompanyId(),post.getEmpId(),
+                                      post.getEmpCode(),post.getLeaveTypeId(),post.getLeaveTypeName(),post.getFromDate(),post.getToDate(),
+                                      post.getTotalDay(),post.getFromTime(),post.getToTime(),post.getTotalHours(),post.getLeavestatusid(),
+                                      post.getLeaveStatusName(),post.getFullName(),post.getIndivRequestStatus(),post.getIndivRequestStatusName(),
+                                      post.getEntryBy(),post.getEntryDate());
+                              db.leaveAprSumDAO().insertLeaveAprSummary(leaveAprSumInfo);
+
+                              Toast.makeText(requireContext(), "Data Inserting", Toast.LENGTH_SHORT).show();
+                          }
+
                         }
 
                     }

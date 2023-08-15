@@ -20,7 +20,7 @@ public class LeaveAprSumInfo {
     String fromtime;
     String totime;
     String totalhours;
-    int leavestatusid;
+    int leavestatusId;
     String leavestatusname;
     String fullname;
     int indivrequeststatus;
@@ -28,7 +28,7 @@ public class LeaveAprSumInfo {
     String entryby;
     String entrydate;
 
-    public LeaveAprSumInfo(@NonNull String leaveid, String companyid, int empid, String empcode, int leavetypeid, String leavetypename, String fromdate, String todate, String totalday, String fromtime, String totime, String totalhours, int leavestatusid, String leavestatusname, String fullname, int indivrequeststatus, String indivrequeststatusname, String entryby, String entrydate) {
+    public LeaveAprSumInfo(@NonNull String leaveid, String companyid, int empid, String empcode, int leavetypeid, String leavetypename, String fromdate, String todate, String totalday, String fromtime, String totime, String totalhours, int leavestatusId, String leavestatusname, String fullname, int indivrequeststatus, String indivrequeststatusname, String entryby, String entrydate) {
         this.leaveid = leaveid;
         this.companyid = companyid;
         this.empid = empid;
@@ -41,7 +41,7 @@ public class LeaveAprSumInfo {
         this.fromtime = fromtime;
         this.totime = totime;
         this.totalhours = totalhours;
-        this.leavestatusid = leavestatusid;
+        this.leavestatusId = leavestatusId;
         this.leavestatusname = leavestatusname;
         this.fullname = fullname;
         this.indivrequeststatus = indivrequeststatus;
@@ -147,12 +147,12 @@ public class LeaveAprSumInfo {
         this.totalhours = totalhours;
     }
 
-    public int getLeavestatusid() {
-        return leavestatusid;
+    public int getLeavestatusId() {
+        return leavestatusId;
     }
 
-    public void setLeavestatusid(int leavestatusid) {
-        this.leavestatusid = leavestatusid;
+    public void setLeavestatusId(int leavestatusid) {
+        this.leavestatusId = leavestatusId;
     }
 
     public String getLeavestatusname() {

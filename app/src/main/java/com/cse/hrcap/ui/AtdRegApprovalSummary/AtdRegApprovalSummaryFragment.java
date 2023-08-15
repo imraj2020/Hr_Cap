@@ -102,26 +102,57 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
             @Override
             public void onResponse(Call<List<AtdRegAprSummary>> call, Response<List<AtdRegAprSummary>> response) {
 
+                AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(requireContext());
+
                 if (response.isSuccessful()) {
 
                     List<AtdRegAprSummary> nlist = response.body();
 
-                    if (!nlist.isEmpty()) {
+                    if (nlist != null && !nlist.isEmpty()) {
                         binding.TvNoData.setVisibility(View.GONE);
+
+
+                        for (AtdRegAprSummary post : nlist) {
+
+                            AtdRegAprSumInfo existingData = db.atdRegAprSumDAO().getAtdRegAprSummaryById(Integer.parseInt(post.getMovementId()));
+
+                            if (existingData != null) {
+                                // Data already exists, update it
+                                existingData.setCompanyid(post.getCompanyId());
+                                existingData.setEmpid(post.getEmpId());
+                                existingData.setEmpcode(post.getEmpCode());
+                                existingData.setFullname(post.getFullName());
+                                existingData.setStartdate(post.getStartDate());
+                                existingData.setEnddate(post.getEndDate());
+                                existingData.setReason(post.getReason());
+                                existingData.setNote(post.getNote());
+                                existingData.setFromtime(post.getFromTime());
+                                existingData.setTotime(post.getToTime());
+                                existingData.setStatus(post.getStatus());
+                                existingData.setEntryby(post.getEntryBy());
+                                existingData.setEntrydate(post.getEntryDate());
+                                db.atdRegAprSumDAO().updateAtdRegAprSummary(existingData);
+
+                              //  Toast.makeText(requireContext(), "Data Updating", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Data doesn't exist, insert it
+                                AtdRegAprSumInfo atdRegAprSumInfo = new AtdRegAprSumInfo(post.getMovementId(), post.getCompanyId(),
+                                        post.getEmpId(), post.getEmpCode(), post.getFullName(), post.getStartDate(),
+                                        post.getEndDate(), post.getReason(), post.getNote(), post.getFromTime(), post.getToTime(),
+                                        post.getStatus(), post.getEntryBy(), post.getEntryDate());
+                                db.atdRegAprSumDAO().insertAtdRegAprSummary(atdRegAprSumInfo);
+                             //   Toast.makeText(requireContext(), "Data inserting", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else if (nlist.isEmpty()) {
+                        db.atdRegAprSumDAO().deleteAll();
+                        Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //if  nlist ==null
+                        Toast.makeText(requireContext(), "Sorry Something went Wrong.", Toast.LENGTH_SHORT).show();
                     }
 
-                    for (AtdRegAprSummary post : nlist) {
 
-
-                        AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(requireContext());
-                        AtdRegAprSumInfo atdRegAprSumInfo = new AtdRegAprSumInfo(post.getMovementId(), post.getCompanyId(),
-                                post.getEmpId(), post.getEmpCode(), post.getFullName(), post.getStartDate(),
-                                post.getEndDate(), post.getReason(), post.getNote(), post.getFromTime(), post.getToTime(),
-                                post.getStatus(), post.getEntryBy(), post.getEntryDate());
-                        db.atdRegAprSumDAO().insertAtdRegAprSummary(atdRegAprSumInfo);
-
-
-                    }
                     loaddatainlistview();
                 } else {
                     Toast.makeText(requireContext(), "Sorry Something went Wrong.", Toast.LENGTH_SHORT).show();
