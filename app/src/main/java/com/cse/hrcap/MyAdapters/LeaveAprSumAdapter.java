@@ -129,10 +129,10 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
         setBoldText(holder.EntryDate, "Entry Date: ", data.getEntrydate());
         setBoldText(holder.LeaveTypeName, "Leave Type: ", data.getLeavetypename());
         setBoldText(holder.LeaveId, "Leave Id: ", data.getLeaveid());
-        setBoldText(holder.FromDate, "From Date: ", data.getFromdate());
-        setBoldText(holder.ToDate, "To Date: ", data.getTodate());
-        setBoldText(holder.FromTime, "From Time: ", data.getFromtime() + "");
-        setBoldText(holder.ToTime, "To Time: ", data.getTotime() + "");
+        setBoldText(holder.FromDate, "From Date: ", data.getFromdate() != null ? data.getFromdate() : "");
+        setBoldText(holder.ToDate, "To Date: ", data.getTodate() != null ? data.getTodate() : "");
+        setBoldText(holder.FromTime, "From Time: ", data.getFromtime() != null ? data.getFromtime() : "");
+        setBoldText(holder.ToTime, "To Time: ", data.getTotime() != null ? data.getTotime() : "");
         setBoldText(holder.TotalHours, "Total Hours: ", data.getTotalhours());
         setBoldText(holder.LeaveStatusName, "Status: ", data.getLeavestatusname());
 
@@ -142,8 +142,8 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
             public void onClick(View v) {
                 LeaveAprSumInfo data = list.get(list.size() - position - 1);
 
-                int positions =list.size()-position;
-               // Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
+                int positions = list.size() - position;
+                // Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
 
 
                 String CompanyId, Fullname, EmpCode, EntryDate, LeaveTypeName, LeaveId, FromDate, ToDate, FromTime, ToTime,
@@ -152,7 +152,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
 
                 CompanyId = data.getCompanyid();
                 Fullname = data.getFullname();
-                EmpCode =  data.getEmpcode();
+                EmpCode = data.getEmpcode();
                 EntryDate = data.getEntrydate();
                 LeaveTypeName = data.getLeavetypename();
                 LeaveId = data.getLeaveid();
@@ -164,7 +164,7 @@ public class LeaveAprSumAdapter extends RecyclerView.Adapter<LeaveAprSumAdapter.
                 LeaveStatusName = data.getLeavestatusname();
 
                 Intent intent = new Intent(context, LeaveApproval.class);
-                intent.putExtra("position",positions);
+                intent.putExtra("position", positions);
                 intent.putExtra("MCompanyId", CompanyId);
                 intent.putExtra("MFullname", Fullname);
                 intent.putExtra("MEmpCode", EmpCode);
