@@ -83,7 +83,7 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
         }
 
         String MyNote = data.getNote();
-        if(MyNote==null){
+        if (MyNote == null) {
             MyNote = "";
         }
 
@@ -93,8 +93,8 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
         setBoldText(holder.MovementId, "Request Id: ", data.getMovementid());
         setBoldText(holder.StartDate, "Start Date: ", data.getStartdate());
         setBoldText(holder.EndDate, "End Date: ", data.getEnddate());
-        setBoldText(holder.FromTime, "From Time: ", data.getFromtime());
-        setBoldText(holder.ToTime, "To Time: ", data.getTotime());
+        setBoldText(holder.FromTime, "From Time: ", data.getFromtime() != null ? data.getFromtime() : "");
+        setBoldText(holder.ToTime, "To Time: ", data.getTotime() != null ? data.getTotime() : "");
         setBoldText(holder.Reason, "Reason: ", data.getReason());
         setBoldText(holder.Status, "Status: ", data.getStatus());
         setBoldText(holder.EntryBy, "Entry By: ", data.getEntryby());
@@ -108,11 +108,11 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
             public void onClick(View v) {
                 AtdRegAprSumInfo data = list.get(list.size() - position - 1);
 
-                int positions =list.size()-position;
-               // Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
+                int positions = list.size() - position;
+                // Toast.makeText(context, "positions:"+positions, Toast.LENGTH_SHORT).show();
 
-                String CompanyId, FromTime, ToTime,fullname,empcode,requestid,startdate,enddate,
-                reason,status,entryby,entrydate,note;
+                String CompanyId, FromTime, ToTime, fullname, empcode, requestid, startdate, enddate,
+                        reason, status, entryby, entrydate, note;
 
                 CompanyId = data.getCompanyid();
                 empcode = data.getEmpcode();
@@ -129,10 +129,8 @@ public class AtdRegAprSummaryAdapter extends RecyclerView.Adapter<AtdRegAprSumma
                 note = data.getNote();
 
 
-
-
                 Intent intent = new Intent(context, RegularizationApproval.class);
-                intent.putExtra("atdposition",positions);
+                intent.putExtra("atdposition", positions);
                 intent.putExtra("ICompanyId", CompanyId);
                 intent.putExtra("IMovementId", requestid);
                 intent.putExtra("IFromTime", FromTime);

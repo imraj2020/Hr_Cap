@@ -223,12 +223,17 @@ public class AttandanceReportAdapter extends RecyclerView.Adapter<AttandanceRepo
 //            holder.Status.setVisibility(View.VISIBLE);
         }
 
-
+//        if (formattedTime == null) {
+//            formattedTime = "";
+//        }
+//        if(formattedTime3==null) {
+//            formattedTime3 = "";
+//        }
 
 
         holder.AtdDate.setText(outputDate + "");
-        holder.tvInTime.setText(formattedTime + "");
-        holder.tvOutTime.setText(formattedTime3 + "");
+        holder.tvInTime.setText(formattedTime !=null ? formattedTime:"");
+        holder.tvOutTime.setText(formattedTime3 !=null ? formattedTime3:"");
         holder.tvLateHour.setText(items.get(position).getLateHour() + "");
         holder.tvOverTime.setText(formattedTime2 + "");
         holder.tvWorkedHour.setText(formattedTime1 + "");
