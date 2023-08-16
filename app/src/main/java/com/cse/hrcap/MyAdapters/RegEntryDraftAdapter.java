@@ -73,7 +73,7 @@ public class RegEntryDraftAdapter extends RecyclerView.Adapter<RegEntryDraftAdap
         String datePart = parts[1].trim();
 
         holder.CreateId.setText("Draft Id:\n" + Integer.toString(data.getId()) + "\n");
-        holder.CreateTime.setText("Entry Time:\n" + datePart + "\n");
+        holder.CreateTime.setText("Entry Date:\n" + datePart + "\n");
         holder.Reason.setText(":Reason\n" + data.getReason() + "\n");
 
 

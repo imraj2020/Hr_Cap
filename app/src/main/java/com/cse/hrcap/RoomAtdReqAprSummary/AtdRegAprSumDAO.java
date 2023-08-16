@@ -27,7 +27,7 @@ public interface AtdRegAprSumDAO {
 
 
     @Query("SELECT * FROM AtdRegAprSumInfo WHERE movementId = :movementId")
-    AtdRegAprSumInfo getAtdRegAprSummaryById(int movementId);
+    AtdRegAprSumInfo getAtdRegAprSummaryById(String movementId);
 
 
 

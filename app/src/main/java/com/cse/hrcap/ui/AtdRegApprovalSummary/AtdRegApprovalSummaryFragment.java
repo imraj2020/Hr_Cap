@@ -114,7 +114,7 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
 
                         for (AtdRegAprSummary post : nlist) {
 
-                            AtdRegAprSumInfo existingData = db.atdRegAprSumDAO().getAtdRegAprSummaryById(Integer.parseInt(post.getMovementId()));
+                            AtdRegAprSumInfo existingData = db.atdRegAprSumDAO().getAtdRegAprSummaryById(post.getMovementId());
 
                             if (existingData != null) {
                                 // Data already exists, update it
