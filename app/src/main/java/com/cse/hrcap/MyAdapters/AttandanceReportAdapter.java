@@ -236,7 +236,7 @@ public class AttandanceReportAdapter extends RecyclerView.Adapter<AttandanceRepo
         holder.tvOutTime.setText(formattedTime3 !=null ? formattedTime3:"");
         holder.tvLateHour.setText(items.get(position).getLateHour() + "");
         holder.tvOverTime.setText(formattedTime2 + "");
-        holder.tvWorkedHour.setText(formattedTime1 + "");
+        holder.tvWorkedHour.setText(formattedTime1 !=null ?formattedTime1:"");
         holder.tvBreakDuration.setText(items.get(position).getBreakDuration() + "");
         holder.tvHolidayName.setText(items.get(position).getHoliDayName() + "");
         holder.tvLeaveType.setText(items.get(position).getLeaveype() + "");

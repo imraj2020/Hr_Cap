@@ -33,8 +33,8 @@ import retrofit2.Response;
 
 public class LeaveApproval extends AppCompatActivity {
     RadioGroup radioGroup;
-    TextView CompanyId, FullName,EmpCode, Employee, LeaveId,EntryDate,LeaveTypeName,TvLeaveId,FromDate,ToDate,
-    FromTime,ToTime,TotalHours,LeaveStatusName;
+    TextView CompanyId, FullName, EmpCode, Employee, LeaveId, EntryDate, LeaveTypeName, TvLeaveId, FromDate, ToDate,
+            FromTime, ToTime, TotalHours, LeaveStatusName;
     EditText MyNotes;
     Button BtnSubmit, BtnCancel;
     public static String MStatus;
@@ -43,7 +43,6 @@ public class LeaveApproval extends AppCompatActivity {
     public static int position;
 
     List<LeaveAprSumInfo> arrayList;
-
 
 
     @Override
@@ -61,7 +60,6 @@ public class LeaveApproval extends AppCompatActivity {
         BtnCancel = findViewById(R.id.btnCancels);
 
 
-
         FullName = findViewById(R.id.iFullname);
         EmpCode = findViewById(R.id.iEmpCode);
         EntryDate = findViewById(R.id.iEntryDate);
@@ -75,9 +73,6 @@ public class LeaveApproval extends AppCompatActivity {
         LeaveStatusName = findViewById(R.id.iLeaveStatusName);
 
 
-
-
-
         SharedPreferences bb = getSharedPreferences("my_prefs", 0);
         String employee = bb.getString("Employee", "");
 
@@ -86,7 +81,7 @@ public class LeaveApproval extends AppCompatActivity {
         String companyId, fullname, empCode, entryDate, leaveTypeName, leaveId, fromDate, toDate, fromTime, toTime,
                 totalHours, leaveStatusName;
 
-        position = intent.getIntExtra("position",0);
+        position = intent.getIntExtra("position", 0);
         companyId = intent.getStringExtra("MCompanyId");
         fullname = intent.getStringExtra("MFullname");
         empCode = intent.getStringExtra("MEmpCode");
@@ -105,19 +100,17 @@ public class LeaveApproval extends AppCompatActivity {
         LeaveId.setText(leaveId);
 
         FullName.setText(fullname);
-        EmpCode.setText("("+empCode+")");
+        EmpCode.setText("(" + empCode + ")");
 
         EntryDate.setText(entryDate);
         LeaveTypeName.setText(leaveTypeName);
         TvLeaveId.setText(leaveId);
         FromDate.setText(fromDate);
         ToDate.setText(toDate);
-        FromTime.setText(fromTime+"");
-        ToTime.setText(toTime+"");
+        FromTime.setText(fromTime != null ? fromTime : "");
+        ToTime.setText(toTime != null ? toTime : "");
         TotalHours.setText(totalHours);
         LeaveStatusName.setText(leaveStatusName);
-
-
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -178,7 +171,7 @@ public class LeaveApproval extends AppCompatActivity {
 
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Status is :" + leaveApprovalRequest1.getStatus(), Toast.LENGTH_LONG).show();
-                    if(leaveApprovalRequest1.getStatus()!=null){
+                    if (leaveApprovalRequest1.getStatus() != null) {
 
                         LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(getApplicationContext());
                         db.leaveAprSumDAO().deleteRowLeaveAprSum(position);

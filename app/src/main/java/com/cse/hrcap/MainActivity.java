@@ -56,6 +56,7 @@ import com.cse.hrcap.ui.holiday.HolidayFragment;
 import com.cse.hrcap.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -172,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+
         NavigationUI.setupWithNavController(navigationView, navController);
 
 

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -55,6 +57,8 @@ public class HomeFragment extends Fragment {
 
     CardView SelfAttendanceCard, SelfAttendanceSummaryCard, LeaveRequestCard, LeaveSummaryCard, LeaveApprovalSummaryCard,
             AttendanceRegularizationEntryCard, AttendanceRegularizationSummaryCard, AttendanceRegularizationApprovalSummaryCard;
+
+    DrawerLayout drawerLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -120,7 +124,6 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).popBackStack(R.id.nav_home, true);
                 Navigation.findNavController(view).popBackStack(R.id.nav_selfattandance, true);
                 Navigation.findNavController(view).navigate(R.id.nav_selfattandance);
-
 //                Fragment destinationFragment = new SelfAttandanceFragment();
 //                FragmentManager fragmentManager = getFragmentManager();
 //                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
