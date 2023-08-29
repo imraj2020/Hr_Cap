@@ -43,8 +43,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.hrcap.LoginActivity;
+import com.cse.hrcap.LoginDbHelper;
 import com.cse.hrcap.R;
+import com.cse.hrcap.network.AtdcheckResponse;
 import com.cse.hrcap.network.AttandanceRequest;
+import com.cse.hrcap.network.ChengePasswordResponse;
 import com.cse.hrcap.network.EmployeeResponse;
 import com.cse.hrcap.network.MyApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -95,7 +99,7 @@ public class SelfAttandanceFragment extends Fragment {
     public static String Status;
     private Handler handler = new Handler();
     private Runnable runnable;
-
+    
     private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 //    public  static String companyid;
 //    public  static String employee;
@@ -213,9 +217,9 @@ public class SelfAttandanceFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(TextUtils.isEmpty(binding.textLocation.getText().toString().trim()) ||TextUtils.isEmpty(binding.textLocationLatitude.getText().toString().trim()) ||
-                        TextUtils.isEmpty(binding.textLocationLongitude.getText().toString().trim())){
-                    Toast.makeText(requireContext(),"Please Click On 'GET LOCATION' Button First",Toast.LENGTH_LONG).show();
+                if (TextUtils.isEmpty(binding.textLocation.getText().toString().trim()) || TextUtils.isEmpty(binding.textLocationLatitude.getText().toString().trim()) ||
+                        TextUtils.isEmpty(binding.textLocationLongitude.getText().toString().trim())) {
+                    Toast.makeText(requireContext(), "Please Click On 'GET LOCATION' Button First", Toast.LENGTH_LONG).show();
                 }
 
                 if (TextUtils.isEmpty(binding.textLocation.getText().toString().trim())) {
@@ -226,11 +230,10 @@ public class SelfAttandanceFragment extends Fragment {
                 }
                 if (TextUtils.isEmpty(binding.textLocationLongitude.getText().toString().trim())) {
                     binding.textLocationLongitude.setError("Longitude Can't be Empty");
-                }
-
-                else {
+                } else {
 
                     BtnSave.setEnabled(false);
+                    AttandanceCheck();
                     AttandanceRequest();
 
                 }
@@ -264,7 +267,6 @@ public class SelfAttandanceFragment extends Fragment {
         // Remove the callbacks when the activity is destroyed to avoid memory leaks
         handler.removeCallbacks(updateTimeRunnable);
     }
-
 
 
     private void buildAlertMessageNoGps() {
@@ -416,7 +418,7 @@ public class SelfAttandanceFragment extends Fragment {
                     Toast.makeText(requireContext(), "Status is :" + attdanceresponse.getStatus(), Toast.LENGTH_LONG).show();
                     String status = attdanceresponse.getStatus();
                     //Successfully Submitted or Already Submitted
-                    if(status.equals("Successfully Submitted.") || status.equals("Already Submitted.")){
+                    if (status.equals("Successfully Submitted.") || status.equals("Already Submitted.")) {
                         Navigation.findNavController(requireView()).navigate(R.id.nav_selfattandancesummary);
                     }
 
@@ -438,6 +440,65 @@ public class SelfAttandanceFragment extends Fragment {
                 } else {
                     Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+    }
+
+
+    private void AttandanceCheck() {
+        Intent intent = getActivity().getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+        String employee = intent.getStringExtra("Employee");
+        String InOutTime = today_time.toString(); //time problem 24 hour formet
+        String Type;
+        if (Status.equals("IN")) {
+            Type = "1";
+        } else if (Status.equals("OUT")) {
+            Type = "2";
+        } else {
+            Type = "0";
+        }
+
+
+        Call<AtdcheckResponse> atdcheckResponse = MyApiClient.getUserService().atdcheckResponseCall("BD0003927", "06:10PM", "2", "BAN31001");
+        atdcheckResponse.enqueue(new Callback<AtdcheckResponse>() {
+            @Override
+            public void onResponse(Call<AtdcheckResponse> call, Response<AtdcheckResponse> response) {
+
+                if (response.isSuccessful()) {
+                    //Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_LONG).show();
+                    AtdcheckResponse atdcheckResponse = response.body();
+
+
+                    if (atdcheckResponse.getStatus().equals("Ok")) {
+                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                    }
+                    if (atdcheckResponse.getStatus().equals("Late")) {
+                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                    }
+                    if (atdcheckResponse.getStatus().equals("Extra")) {
+                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                    }
+                    if (atdcheckResponse.getMessage() != null) {
+                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(requireContext(), "Sorry something went wrong", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AtdcheckResponse> call, Throwable t) {
+                if (isNetworkAvailable()) {
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

@@ -35,6 +35,18 @@ public interface UserService {
             @Query("CompanyId") String companyid
     );
 
+
+    @POST("Api/AttendanceApi/PostCheckTimeApi")
+    Call<AtdcheckResponse> atdcheckResponseCall(
+            @Query("Employee")  String Employee ,
+            @Query("InOutTime") String InOutTime,
+            @Query("Type") String Type,
+            @Query("CompanyId") String CompanyId
+    );
+
+
+
+
     @GET("Api/LeaveTypeApi")
     Call<List<LeaveTypeResponse>> leavetype(
             @Query("CompanyId") String CompanyId
