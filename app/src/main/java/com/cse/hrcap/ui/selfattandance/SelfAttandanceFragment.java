@@ -57,6 +57,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -101,8 +102,8 @@ public class SelfAttandanceFragment extends Fragment {
     private Runnable runnable;
     
     private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-//    public  static String companyid;
-//    public  static String employee;
+
+   public static String convertedTime;
 
 
     public static SelfAttandanceFragment newInstance() {
@@ -255,6 +256,19 @@ public class SelfAttandanceFragment extends Fragment {
 
             // Update the TextView with the current time
             today_time.setText(currentTime);
+
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+            SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm", Locale.US);
+
+            try {
+                Date date = inputFormat.parse(currentTime);
+                convertedTime = outputFormat.format(date);
+                // Now, convertedTime contains the time in 24-hour format
+                // You can use convertedTime in your Android app
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             // Schedule the next update after 1 second
             handler.postDelayed(this, 1000);
@@ -450,7 +464,13 @@ public class SelfAttandanceFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String companyid = intent.getStringExtra("CompanyId");
         String employee = intent.getStringExtra("Employee");
-        String InOutTime = today_time.toString(); //time problem 24 hour formet
+
+
+            // Now, convertedTime contains the time in 24-hour format
+            // You can use convertedTime in your Android app
+
+
+
         String Type;
         if (Status.equals("IN")) {
             Type = "1";
@@ -461,7 +481,7 @@ public class SelfAttandanceFragment extends Fragment {
         }
 
 
-        Call<AtdcheckResponse> atdcheckResponse = MyApiClient.getUserService().atdcheckResponseCall("BD0003927", "06:10PM", "2", "BAN31001");
+        Call<AtdcheckResponse> atdcheckResponse = MyApiClient.getUserService().atdcheckResponseCall(employee, convertedTime, Type, companyid);
         atdcheckResponse.enqueue(new Callback<AtdcheckResponse>() {
             @Override
             public void onResponse(Call<AtdcheckResponse> call, Response<AtdcheckResponse> response) {
@@ -471,7 +491,9 @@ public class SelfAttandanceFragment extends Fragment {
                     AtdcheckResponse atdcheckResponse = response.body();
 
 
-                    if (atdcheckResponse.getStatus().equals("Ok")) {
+                //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+
+                    if (atdcheckResponse.getStatus().toString().equals("Ok")) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
                     }
                     if (atdcheckResponse.getStatus().equals("Late")) {
