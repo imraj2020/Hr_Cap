@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import static android.content.Context.MODE_PRIVATE;
 import static android.location.LocationManager.*;
 
+import static com.cse.hrcap.R.id.ETreason;
 import static java.util.Objects.*;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -45,6 +47,7 @@ import android.widget.Toast;
 
 import com.cse.hrcap.LoginActivity;
 import com.cse.hrcap.LoginDbHelper;
+import com.cse.hrcap.MainActivity;
 import com.cse.hrcap.R;
 import com.cse.hrcap.network.AtdcheckResponse;
 import com.cse.hrcap.network.AttandanceRequest;
@@ -100,10 +103,12 @@ public class SelfAttandanceFragment extends Fragment {
     public static String Status;
     private Handler handler = new Handler();
     private Runnable runnable;
-    
+
     private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
-   public static String convertedTime;
+    public static String convertedTime;
+
+    public static String Prompt;
 
 
     public static SelfAttandanceFragment newInstance() {
@@ -235,7 +240,7 @@ public class SelfAttandanceFragment extends Fragment {
 
                     BtnSave.setEnabled(false);
                     AttandanceCheck();
-                    AttandanceRequest();
+                    // AttandanceRequest();
 
                 }
 
@@ -466,9 +471,8 @@ public class SelfAttandanceFragment extends Fragment {
         String employee = intent.getStringExtra("Employee");
 
 
-            // Now, convertedTime contains the time in 24-hour format
-            // You can use convertedTime in your Android app
-
+        // Now, convertedTime contains the time in 24-hour format
+        // You can use convertedTime in your Android app
 
 
         String Type;
@@ -491,18 +495,26 @@ public class SelfAttandanceFragment extends Fragment {
                     AtdcheckResponse atdcheckResponse = response.body();
 
 
-                //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
 
                     if (atdcheckResponse.getStatus().toString().equals("Ok")) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                        Prompt = atdcheckResponse.getStatus();
                     }
                     if (atdcheckResponse.getStatus().equals("Late")) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                        Prompt = atdcheckResponse.getStatus();
+                        showDialog(requireContext());
                     }
                     if (atdcheckResponse.getStatus().equals("Extra")) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                        Prompt = atdcheckResponse.getStatus();
+                        showDialog(requireContext());
                     }
                     if (atdcheckResponse.getMessage() != null) {
+                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    if (atdcheckResponse.getMessage() == null) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
@@ -524,6 +536,34 @@ public class SelfAttandanceFragment extends Fragment {
             }
         });
 
+    }
+
+
+    private void showDialog(Context context) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialogue_layout, null);
+        alertDialogBuilder.setView(dialogView);
+
+        final EditText editText = dialogView.findViewById(R.id.ETreason);
+
+
+        alertDialogBuilder.setTitle("Please Explain The Reason Of " + Prompt + " ?");
+
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String enteredText = editText.getText().toString();
+                Toast.makeText(requireContext(), "reson: " + enteredText, Toast.LENGTH_LONG).show();
+                // Do something with enteredText
+            }
+        });
+
+        //  alertDialogBuilder.setNegativeButton("Cancel", null);
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 
