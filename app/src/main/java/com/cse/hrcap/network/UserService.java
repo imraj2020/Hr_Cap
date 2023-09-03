@@ -78,7 +78,10 @@ public interface UserService {
     @POST("Api/LeaveApi")
     Call<LeaveRequest> PostData(@Body LeaveRequest leaveRequest);
 
-    @POST("Api/AttendanceApi")
+//    @POST("Api/AttendanceApi")
+//    Call<AttandanceRequest> PostDatass(@Body AttandanceRequest attandanceRequest);
+
+    @POST("Api/AttendanceApiNew/PostCreateNewApi")
     Call<AttandanceRequest> PostDatass(@Body AttandanceRequest attandanceRequest);
 
     @GET("Api/LeaveApi")

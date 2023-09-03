@@ -2,26 +2,48 @@ package com.cse.hrcap.network;
 
 public class AttandanceRequest {
     String Employee;
-    String CheckInDate;
-    String Time;
-    String AttType;
-    String CompanyID;
+    String InOutTime;
+    String Type;
+    String entryby;
+    String companyid;
+    String comment;
     String latitude;
     String longitude;
-    String Address;
+    String address;
     String Status;
+    String Message;
 
-    public AttandanceRequest(String employee, String checkInDate, String time, String attType, String companyID, String latitude, String longitude, String address) {
+
+
+
+    public AttandanceRequest(String employee, String inOutTime, String type, String entryby, String companyid, String comment, String latitude, String longitude, String address) {
         Employee = employee;
-        CheckInDate = checkInDate;
-        Time = time;
-        AttType = attType;
-        CompanyID = companyID;
+        InOutTime = inOutTime;
+        Type = type;
+        this.entryby = entryby;
+        this.companyid = companyid;
+        this.comment = comment;
         this.latitude = latitude;
         this.longitude = longitude;
-        Address = address;
-
+        this.address = address;
     }
+
+    public String getMessage() {
+        return Message;
+    }
+
+    public void setMessage(String message) {
+        Message = message;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
 
     public String getEmployee() {
         return Employee;
@@ -31,36 +53,44 @@ public class AttandanceRequest {
         Employee = employee;
     }
 
-    public String getCheckInDate() {
-        return CheckInDate;
+    public String getInOutTime() {
+        return InOutTime;
     }
 
-    public void setCheckInDate(String checkInDate) {
-        CheckInDate = checkInDate;
+    public void setInOutTime(String inOutTime) {
+        InOutTime = inOutTime;
     }
 
-    public String getTime() {
-        return Time;
+    public String getType() {
+        return Type;
     }
 
-    public void setTime(String time) {
-        Time = time;
+    public void setType(String type) {
+        Type = type;
     }
 
-    public String getAttType() {
-        return AttType;
+    public String getEntryby() {
+        return entryby;
     }
 
-    public void setAttType(String attType) {
-        AttType = attType;
+    public void setEntryby(String entryby) {
+        this.entryby = entryby;
     }
 
-    public String getCompanyID() {
-        return CompanyID;
+    public String getCompanyid() {
+        return companyid;
     }
 
-    public void setCompanyID(String companyID) {
-        CompanyID = companyID;
+    public void setCompanyid(String companyid) {
+        this.companyid = companyid;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getLatitude() {
@@ -80,18 +110,10 @@ public class AttandanceRequest {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
-    }
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String status) {
-        Status = status;
+        this.address = address;
     }
 }

@@ -60,6 +60,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,15 +101,19 @@ public class SelfAttandanceFragment extends Fragment {
     ProgressDialog progressDialog;
     SelfAttandanceFragmentBinding binding;
     SwitchCompat mySwitch;
-    public static String Status;
+    String Status;
     private Handler handler = new Handler();
     private Runnable runnable;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
-    public static String convertedTime;
+    public String convertedTime;
 
-    public static String Prompt;
+    String Prompt;
+
+    String enteredText=null;
+
+    String Type;
 
 
     public static SelfAttandanceFragment newInstance() {
@@ -420,10 +425,18 @@ public class SelfAttandanceFragment extends Fragment {
         String companyid = intent.getStringExtra("CompanyId");
         String employee = intent.getStringExtra("Employee");
 
+//        final AttandanceRequest attandanceRequest = new AttandanceRequest(employee,
+//                today_date.getText().toString(), today_time.getText().toString(), Status, companyid,
+//                text_location_latitude.getText().toString(), text_location_longitude.getText().toString(),
+//                text_location.getText().toString());
+
+
         final AttandanceRequest attandanceRequest = new AttandanceRequest(employee,
-                today_date.getText().toString(), today_time.getText().toString(), Status, companyid,
-                text_location_latitude.getText().toString(), text_location_longitude.getText().toString(),
-                text_location.getText().toString());
+                convertedTime, Type, employee, companyid,
+                enteredText, text_location_latitude.getText().toString().trim(),
+                text_location_longitude.getText().toString().trim(), text_location.getText().toString());
+
+
         Call<AttandanceRequest> call = MyApiClient.getUserService().PostDatass(attandanceRequest);
 
 
@@ -437,7 +450,7 @@ public class SelfAttandanceFragment extends Fragment {
                     Toast.makeText(requireContext(), "Status is :" + attdanceresponse.getStatus(), Toast.LENGTH_LONG).show();
                     String status = attdanceresponse.getStatus();
                     //Successfully Submitted or Already Submitted
-                    if (status.equals("Successfully Submitted.") || status.equals("Already Submitted.")) {
+                    if (status.equals("Success")) {
                         Navigation.findNavController(requireView()).navigate(R.id.nav_selfattandancesummary);
                     }
 
@@ -475,7 +488,7 @@ public class SelfAttandanceFragment extends Fragment {
         // You can use convertedTime in your Android app
 
 
-        String Type;
+
         if (Status.equals("IN")) {
             Type = "1";
         } else if (Status.equals("OUT")) {
@@ -500,23 +513,32 @@ public class SelfAttandanceFragment extends Fragment {
                     if (atdcheckResponse.getStatus().toString().equals("Ok")) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
                         Prompt = atdcheckResponse.getStatus();
+
+                        AttandanceRequest();
+//                        if (Prompt.equals("Ok")) {
+//                            AttandanceRequest();
+//                        }
                     }
                     if (atdcheckResponse.getStatus().equals("Late")) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
                         Prompt = atdcheckResponse.getStatus();
                         showDialog(requireContext());
+//                        if (enteredText != null) {
+//                            AttandanceRequest();
+//                        }
                     }
                     if (atdcheckResponse.getStatus().equals("Extra")) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
                         Prompt = atdcheckResponse.getStatus();
                         showDialog(requireContext());
+//                        if (enteredText != null) {
+//                            AttandanceRequest();
+//                        }
                     }
                     if (atdcheckResponse.getMessage() != null) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    if (atdcheckResponse.getMessage() == null) {
-                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+
 
                 } else {
                     Toast.makeText(requireContext(), "Sorry something went wrong", Toast.LENGTH_LONG).show();
@@ -554,8 +576,10 @@ public class SelfAttandanceFragment extends Fragment {
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String enteredText = editText.getText().toString();
+                enteredText = editText.getText().toString();
                 Toast.makeText(requireContext(), "reson: " + enteredText, Toast.LENGTH_LONG).show();
+                AttandanceRequest();
+
                 // Do something with enteredText
             }
         });
