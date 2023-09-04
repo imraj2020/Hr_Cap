@@ -511,7 +511,7 @@ public class SelfAttandanceFragment extends Fragment {
                     //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
 
                     if (atdcheckResponse.getStatus().toString().equals("Ok")) {
-                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
                         Prompt = atdcheckResponse.getStatus();
 
                         AttandanceRequest();
@@ -520,20 +520,16 @@ public class SelfAttandanceFragment extends Fragment {
 //                        }
                     }
                     if (atdcheckResponse.getStatus().equals("Late")) {
-                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
                         Prompt = atdcheckResponse.getStatus();
                         showDialog(requireContext());
-//                        if (enteredText != null) {
-//                            AttandanceRequest();
-//                        }
+
                     }
                     if (atdcheckResponse.getStatus().equals("Extra")) {
-                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
                         Prompt = atdcheckResponse.getStatus();
                         showDialog(requireContext());
-//                        if (enteredText != null) {
-//                            AttandanceRequest();
-//                        }
+
                     }
                     if (atdcheckResponse.getMessage() != null) {
                         Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
