@@ -111,7 +111,7 @@ public class SelfAttandanceFragment extends Fragment {
 
     String Prompt;
 
-    String enteredText=null;
+    String enteredText = null;
 
     String Type;
 
@@ -414,6 +414,84 @@ public class SelfAttandanceFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    private void AttandanceCheck() {
+        Intent intent = getActivity().getIntent();
+        String companyid = intent.getStringExtra("CompanyId");
+        String employee = intent.getStringExtra("Employee");
+
+
+        // Now, convertedTime contains the time in 24-hour format
+        // You can use convertedTime in your Android app
+
+
+        if (Status.equals("IN")) {
+            Type = "1";
+        } else if (Status.equals("OUT")) {
+            Type = "2";
+        } else {
+            Type = "0";
+        }
+
+
+        Call<AtdcheckResponse> atdcheckResponse = MyApiClient.getUserService().atdcheckResponseCall(employee, convertedTime, Type, companyid);
+        atdcheckResponse.enqueue(new Callback<AtdcheckResponse>() {
+            @Override
+            public void onResponse(Call<AtdcheckResponse> call, Response<AtdcheckResponse> response) {
+
+                if (response.isSuccessful()) {
+                    //Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_LONG).show();
+                    AtdcheckResponse atdcheckResponse = response.body();
+
+
+                    //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+
+                    if (atdcheckResponse.getStatus().toString().equals("Ok")) {
+                        //   Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                        Prompt = atdcheckResponse.getStatus();
+
+                        AttandanceRequest();
+//                        if (Prompt.equals("Ok")) {
+//                            AttandanceRequest();
+//                        }
+                    }
+                    if (atdcheckResponse.getStatus().equals("Late")) {
+                        //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                        Prompt = atdcheckResponse.getStatus();
+                        showDialog(requireContext());
+
+                    }
+                    if (atdcheckResponse.getStatus().equals("Extra")) {
+                        //   Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
+                        Prompt = atdcheckResponse.getStatus();
+                        showDialog(requireContext());
+
+                    }
+                    if (atdcheckResponse.getMessage() != null) {
+                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } else {
+                    Toast.makeText(requireContext(), "Sorry something went wrong", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AtdcheckResponse> call, Throwable t) {
+                if (isNetworkAvailable()) {
+                    Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
+
     private void AttandanceRequest() {
 
         progressDialog = new ProgressDialog(requireContext());
@@ -478,113 +556,72 @@ public class SelfAttandanceFragment extends Fragment {
     }
 
 
-    private void AttandanceCheck() {
-        Intent intent = getActivity().getIntent();
-        String companyid = intent.getStringExtra("CompanyId");
-        String employee = intent.getStringExtra("Employee");
-
-
-        // Now, convertedTime contains the time in 24-hour format
-        // You can use convertedTime in your Android app
-
-
-
-        if (Status.equals("IN")) {
-            Type = "1";
-        } else if (Status.equals("OUT")) {
-            Type = "2";
-        } else {
-            Type = "0";
-        }
-
-
-        Call<AtdcheckResponse> atdcheckResponse = MyApiClient.getUserService().atdcheckResponseCall(employee, convertedTime, Type, companyid);
-        atdcheckResponse.enqueue(new Callback<AtdcheckResponse>() {
-            @Override
-            public void onResponse(Call<AtdcheckResponse> call, Response<AtdcheckResponse> response) {
-
-                if (response.isSuccessful()) {
-                    //Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_LONG).show();
-                    AtdcheckResponse atdcheckResponse = response.body();
-
-
-                    //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
-
-                    if (atdcheckResponse.getStatus().toString().equals("Ok")) {
-                     //   Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
-                        Prompt = atdcheckResponse.getStatus();
-
-                        AttandanceRequest();
-//                        if (Prompt.equals("Ok")) {
-//                            AttandanceRequest();
-//                        }
-                    }
-                    if (atdcheckResponse.getStatus().equals("Late")) {
-                    //    Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
-                        Prompt = atdcheckResponse.getStatus();
-                        showDialog(requireContext());
-
-                    }
-                    if (atdcheckResponse.getStatus().equals("Extra")) {
-                     //   Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getStatus(), Toast.LENGTH_SHORT).show();
-                        Prompt = atdcheckResponse.getStatus();
-                        showDialog(requireContext());
-
-                    }
-                    if (atdcheckResponse.getMessage() != null) {
-                        Toast.makeText(requireContext(), "Status is :" + atdcheckResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } else {
-                    Toast.makeText(requireContext(), "Sorry something went wrong", Toast.LENGTH_LONG).show();
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<AtdcheckResponse> call, Throwable t) {
-                if (isNetworkAvailable()) {
-                    Toast.makeText(requireContext(), "Sorry Something went Wrong ", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-    }
-
-
     private void showDialog(Context context) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialogue_layout, null);
-        alertDialogBuilder.setView(dialogView);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customView = inflater.inflate(R.layout.dialogue_layout, null);
 
-        final EditText editText = dialogView.findViewById(R.id.ETreason);
+        final EditText editText = customView.findViewById(ETreason);
 
+        builder.setView(customView);
+        builder.setTitle("Please Explain The Reason Of "+Prompt+" :");
 
-        alertDialogBuilder.setTitle("Please Explain The Reason Of " + Prompt + " ?");
+        builder.setPositiveButton("OK", null);
 
-        alertDialogBuilder.setCancelable(false);
-        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                enteredText = editText.getText().toString();
-                Toast.makeText(requireContext(), "reson: " + enteredText, Toast.LENGTH_LONG).show();
-                AttandanceRequest();
+                Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show();
+                BtnSave.setEnabled(true);
+                dialog.dismiss();
+            }
+        });
+        final AlertDialog alertDialog = builder.create();
 
-                // Do something with enteredText
+
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Not needed for this implementation
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                boolean isNotEmpty = s.toString().trim().length() > 0;
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(isNotEmpty);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Not needed for this implementation
             }
         });
 
-        //  alertDialogBuilder.setNegativeButton("Cancel", null);
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        enteredText = editText.getText().toString();
+
+                        AttandanceRequest();
+
+
+                        alertDialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        alertDialog.setCancelable(false);
         alertDialog.show();
     }
+
+
 
 
     private boolean isNetworkAvailable() {

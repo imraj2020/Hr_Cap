@@ -2,6 +2,8 @@ package com.cse.hrcap.ui.attandancereg;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
@@ -173,7 +175,12 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                     db.regDraftDAO().insertRegDraft(drafts);
                     try{
                         Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+
+                        Navigation.findNavController(v).popBackStack(R.id.nav_attadancereg, true);
                         Navigation.findNavController(v).navigate(R.id.nav_regentrydraft);
+
+
+
                     }catch (Exception e){
                         Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
                     }

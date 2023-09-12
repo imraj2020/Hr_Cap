@@ -27,7 +27,7 @@ import com.cse.hrcap.MyAdapters.AttandanceReportAdapter;
 import com.cse.hrcap.databinding.FragmentCheckAttendanceBinding;
 import com.cse.hrcap.network.AttendanceReportList;
 import com.cse.hrcap.network.CheckAttendanceResponse;
-import com.cse.hrcap.network.NewApiClient;
+import com.cse.hrcap.network.MyApiClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -122,7 +122,7 @@ public class CheckAttendanceFragment extends Fragment {
         }
 
 
-        Call<CheckAttendanceResponse> call = NewApiClient.getUserService().GetAtdInfo(Companyid, Employee, outputDate);
+        Call<CheckAttendanceResponse> call = MyApiClient.getUserService().GetAtdInfo(Companyid, Employee, outputDate);
         call.enqueue(new Callback<CheckAttendanceResponse>() {
 
             @Override

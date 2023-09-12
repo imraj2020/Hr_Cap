@@ -210,6 +210,9 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     try {
                         mprogressDialog.dismiss();
                         Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+
+
+                        Navigation.findNavController(v).popBackStack(R.id.nav_leave, true);
                         Navigation.findNavController(v).navigate(R.id.nav_leavedraft);
                     } catch (Exception e) {
                         Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();

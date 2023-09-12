@@ -43,7 +43,7 @@
         android:id="@+id/nav_attadancereg"
         android:name="com.cse.hrcap.ui.attandancereg.AttandanceReglarizationFragment"
         android:label="@string/menu_attdancereg"
-        tools:layout="@layout/attandance_reglarization_fragment" />
+        tools:layout="@layout/attandance_reglarization_fragment"></fragment>
 
     <fragment
         android:id="@+id/nav_leave"
@@ -83,13 +83,11 @@
         tools:layout="@layout/leave_request_draft_fragment" />
 
 
-
     <fragment
         android:id="@+id/nav_atdregaprsummary"
         android:name="com.cse.hrcap.ui.AtdRegApprovalSummary.AtdRegApprovalSummaryFragment"
         android:label="@string/menu_atdregaprsummary"
         tools:layout="@layout/atd_reg_approval_summary_fragment" />
-
 
 
     <fragment
@@ -99,13 +97,11 @@
         tools:layout="@layout/leave_approval_summary_fragment" />
 
 
-
     <fragment
         android:id="@+id/nav_regentrydraft"
         android:name="com.cse.hrcap.ui.RegEntryDraft.RegEntryDraftFragment"
         android:label="@string/menu_regentrydraft"
         tools:layout="@layout/reg_entry_draft_fragment" />
-
 
 
     <fragment
@@ -122,10 +118,10 @@
 
 
     <!-- Define your action from Leave Draft to Leave Summary with popUpTo and popUpToInclusive attributes -->
-<!--    <action-->
-<!--        android:id="@+id/action_leaveDraftFragment_to_leaveSummaryFragment"-->
-<!--        app:destination="@id/nav_leavedraft"-->
-<!--        app:popUpTo="@id/nav_leavesummary"-->
-<!--        app:popUpToInclusive="true" />-->
+    <!--    <action-->
+    <!--        android:id="@+id/action_leaveDraftFragment_to_leaveSummaryFragment"-->
+    <!--        app:destination="@id/nav_leavedraft"-->
+    <!--        app:popUpTo="@id/nav_leavesummary"-->
+    <!--        app:popUpToInclusive="true" />-->
 
 </navigation>
