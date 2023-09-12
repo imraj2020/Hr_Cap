@@ -1,8 +1,10 @@
 package com.cse.hrcap;
 
+import static com.cse.hrcap.R.id.MyBtnSubmit;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
+import com.cse.hrcap.R;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -41,14 +43,15 @@ public class RegularizationApproval extends AppCompatActivity {
 
     TextView FullName, EmpCode, MyMovementId, StartDate, EndDate, MyFromTime, MyToTime, Reason, Status, EntryBy, EntryDate, Note;
     EditText MyNotes;
-    Button BtnSubmit, BtnCancel;
-    public static String MyStatus;
+    Button BtnSubmits, BtnCancel, BtnCheck;
+    String MyStatus = null;
     ProgressDialog progressDialog;
 
     List<AtdRegAprSumInfo> arrayList;
 
 
-    public static int position;
+    int position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +66,9 @@ public class RegularizationApproval extends AppCompatActivity {
         FromTime = findViewById(R.id.TVS_FromTime);
         ToTime = findViewById(R.id.TVS_ToTime);
         MyNotes = findViewById(R.id.MSnotes);
-        BtnSubmit = findViewById(R.id.bTnSubmits);
+        BtnSubmits = findViewById(R.id.MyBtnSubmit);
         BtnCancel = findViewById(R.id.bTnCancels);
+
 
 
         FullName = findViewById(R.id.a_FullName);
@@ -87,7 +91,7 @@ public class RegularizationApproval extends AppCompatActivity {
         String companyId, fromTime, toTime, fullname, empcode, requestid, startdate, enddate,
                 reason, status, entryby, entrydate, note;
 
-        position = intent.getIntExtra("atdposition",0);
+        position = intent.getIntExtra("atdposition", 0);
         companyId = intent.getStringExtra("ICompanyId");
         requestid = intent.getStringExtra("IMovementId");
         fromTime = intent.getStringExtra("IFromTime");
@@ -128,6 +132,8 @@ public class RegularizationApproval extends AppCompatActivity {
         Note.setText(note + "");
 
 
+
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -152,12 +158,19 @@ public class RegularizationApproval extends AppCompatActivity {
             }
         });
 
-        BtnSubmit.setOnClickListener(new View.OnClickListener() {
+        BtnSubmits.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                RegularizationApproval();
+            public void onClick(View view) {
+
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                if (selectedId==-1) {
+                    Toast.makeText(getApplicationContext(), "Please Check Approve or Reject", Toast.LENGTH_SHORT).show();
+                } else {
+                    RegularizationApprovals();
+                }
             }
         });
+
 
         BtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +182,7 @@ public class RegularizationApproval extends AppCompatActivity {
 
     }
 
-    private void RegularizationApproval() {
+    private void RegularizationApprovals() {
 
         progressDialog = new ProgressDialog(RegularizationApproval.this);
         progressDialog.setMessage("Submitting...");
@@ -191,7 +204,7 @@ public class RegularizationApproval extends AppCompatActivity {
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Status is :" + regularizationApprovalResponse1.getStatus(), Toast.LENGTH_LONG).show();
 
-                    if(regularizationApprovalResponse1.getStatus()!=null){
+                    if (regularizationApprovalResponse1.getStatus() != null) {
 
                         AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(getApplicationContext());
                         db.atdRegAprSumDAO().deleteRowAtdRegApproval(position);
