@@ -7,7 +7,8 @@ import android.os.Bundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SplashActivity extends AppCompatActivity {
+public class
+SplashActivity extends AppCompatActivity {
 
     private final int STR_SPLASH_TIME = 1000;
 

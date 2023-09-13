@@ -139,7 +139,12 @@ public class LeaveApproval extends AppCompatActivity {
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                leaveApproval();
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                if (selectedId==-1) {
+                    Toast.makeText(getApplicationContext(), "Please Check Approve or Reject", Toast.LENGTH_SHORT).show();
+                } else {
+                    leaveApproval();
+                }
             }
         });
         BtnCancel.setOnClickListener(new View.OnClickListener() {
