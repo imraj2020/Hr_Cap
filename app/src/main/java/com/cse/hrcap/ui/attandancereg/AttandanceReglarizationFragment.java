@@ -176,6 +176,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                     try{
                         Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
 
+                        Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
                         Navigation.findNavController(v).popBackStack(R.id.nav_attadancereg, true);
                         Navigation.findNavController(v).navigate(R.id.nav_regentrydraft);
 
@@ -502,6 +503,8 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                     progressDialog.dismiss();
                     Toast.makeText(requireContext(), "Status is :"+attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
                     try{
+                        Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
+                        Navigation.findNavController(requireView()).popBackStack(R.id.nav_attadancereg, true);
                         Navigation.findNavController(getView()).navigate(R.id.nav_attadanceregsummary);
                     }catch (Exception e){
                         Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();

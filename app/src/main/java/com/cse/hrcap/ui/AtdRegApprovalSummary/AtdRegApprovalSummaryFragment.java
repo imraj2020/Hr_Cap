@@ -211,4 +211,12 @@ public class AtdRegApprovalSummaryFragment extends Fragment {
 
     public void onBackPressed() {
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Call your function here to load data in the ListView
+        loaddatainlistview();
+    }
 }

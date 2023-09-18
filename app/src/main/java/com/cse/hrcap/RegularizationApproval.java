@@ -209,9 +209,9 @@ public class RegularizationApproval extends AppCompatActivity {
                         AtdRegAprSumRoomDB db = AtdRegAprSumRoomDB.getDbInstances(getApplicationContext());
                         db.atdRegAprSumDAO().deleteRowAtdRegApproval(position);
 
-                        AtdRegAprSummaryAdapter adapter = new AtdRegAprSummaryAdapter(arrayList, getApplicationContext());
-                        arrayList.remove(position);
-                        adapter.notifyDataSetChanged();
+//                        AtdRegAprSummaryAdapter adapter = new AtdRegAprSummaryAdapter(arrayList, getApplicationContext());
+//                        arrayList.remove(position);
+//                        adapter.notifyDataSetChanged();
 
 
                         finish();

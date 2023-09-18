@@ -1,5 +1,7 @@
 package com.cse.hrcap;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -12,6 +14,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -175,18 +178,25 @@ public class LeaveApproval extends AppCompatActivity {
                     LeaveApprovalRequest leaveApprovalRequest1 = response.body();
 
                     progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Status is :" + leaveApprovalRequest1.getStatus(), Toast.LENGTH_LONG).show();
-                    if (leaveApprovalRequest1.getStatus() != null) {
 
-                        LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(getApplicationContext());
-                        db.leaveAprSumDAO().deleteRowLeaveAprSum(position);
 
-                        LeaveAprSumAdapter adapter = new LeaveAprSumAdapter(arrayList, getApplicationContext());
-                        arrayList.remove(position);
-                        adapter.notifyDataSetChanged();
-                        finish();
+
+                    try{
+                        Toast.makeText(getApplicationContext(), "Status is :" + leaveApprovalRequest1.getStatus(), Toast.LENGTH_LONG).show();
+                        if (leaveApprovalRequest1.getStatus() != null) {
+
+                            LeaveAprSumRoomDB db = LeaveAprSumRoomDB.getDbInstance(getApplicationContext());
+                            db.leaveAprSumDAO().deleteRowLeaveAprSum(position);
+
+//                            LeaveAprSumAdapter adapter = new LeaveAprSumAdapter(arrayList, getApplicationContext());
+//                            arrayList.remove(position);
+//                            adapter.notifyDataSetChanged();
+                            finish();
+                        }
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(),""+e,Toast.LENGTH_LONG).show();
+                        Log.d("ErrorTest", "onResponse: "+e);
                     }
-
 
                 } else {
                     progressDialog.dismiss();

@@ -236,4 +236,12 @@ public class LeaveApprovalSummaryFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(LeaveApprovalSummaryViewModel.class);
         // TODO: Use the ViewModel
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Call your function here to load data in the ListView
+        loaddatainlistview();
+    }
+
 }

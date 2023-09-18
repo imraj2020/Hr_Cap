@@ -529,6 +529,8 @@ public class SelfAttandanceFragment extends Fragment {
                     String status = attdanceresponse.getStatus();
                     //Successfully Submitted or Already Submitted
                     if (status.equals("Success")) {
+                        Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
+                        Navigation.findNavController(requireView()).popBackStack(R.id.nav_selfattandance, true);
                         Navigation.findNavController(requireView()).navigate(R.id.nav_selfattandancesummary);
                     }
 

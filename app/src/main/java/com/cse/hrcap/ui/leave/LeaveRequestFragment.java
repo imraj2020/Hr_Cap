@@ -608,6 +608,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     progressDialog.dismiss();
                     Toast.makeText(requireContext(), "Status is :" + leaveResponse.getStatus(), Toast.LENGTH_LONG).show();
                     try {
+                        Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
+                        Navigation.findNavController(getView()).popBackStack(R.id.nav_leave, true);
                         Navigation.findNavController(getView()).navigate(R.id.nav_leavesummary);
                     } catch (Exception e) {
                         Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
