@@ -105,6 +105,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
     private int selectedPosition = -1;
 
+
     public LeaveRequestFragment() {
     }
 
@@ -260,7 +261,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     EtEndTime.setVisibility(View.GONE);
                     TvStartTime.setVisibility(View.GONE);
                     TvEndTime.setVisibility(View.GONE);
-                    Toast.makeText(requireContext(), "You Select:" + Status, Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Selected: " + Status, Toast.LENGTH_LONG).show();
                 } else {
                     switchst = false;
                     SharedPreferences.Editor editor = preferences.edit();
@@ -272,7 +273,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                     EtEndTime.setVisibility(View.VISIBLE);
                     TvStartTime.setVisibility(View.VISIBLE);
                     TvEndTime.setVisibility(View.VISIBLE);
-                    Toast.makeText(requireContext(), "You Select:" + Status, Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Selected: " + Status, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -471,7 +472,16 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 
                     Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
                 } else {
-                    leaveRequest();
+
+                    if (spinner.getSelectedItemPosition() == 0) {
+                        // No item selected, show an error message
+                        Toast.makeText(requireContext(), "Please select an item from the spinner", Toast.LENGTH_SHORT).show();
+                    } else {
+                        leaveRequest();
+                    }
+
+
+
                 }
 
             }
@@ -548,6 +558,8 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 //        LeaveTypeDbHelper db = new LeaveTypeDbHelper(requireContext());
 //        List<String> labels = db.getAllLabels();
         List<String> labels = leaveroomDB.leaveDAO().getAllName();
+        labels.add(0, "Select");
+
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, labels);
 

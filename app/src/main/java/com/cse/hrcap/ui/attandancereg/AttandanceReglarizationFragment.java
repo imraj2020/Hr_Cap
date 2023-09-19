@@ -63,13 +63,13 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     private Spinner spinner_reason;
     String[] Reason;
     public static String spinneritem;
-    TextView TxtName,CheckDraft;
-    EditText FromTime, ToTime, Note,StartDate,EndDate;
-    DatePickerDialog  datePickerDialog;
-    int  starthour, startminute,endhour,endminute;
+    TextView TxtName, CheckDraft;
+    EditText FromTime, ToTime, Note, StartDate, EndDate;
+    DatePickerDialog datePickerDialog;
+    int starthour, startminute, endhour, endminute;
     Button BtnCancel, BtnSubmit, BtnDraft;
     AttandanceReglarizationFragmentBinding binding;
-    public  static int userChoice;
+    public static int userChoice;
     ProgressDialog progressDialog;
     public String TXTEndDate, TXTStartDate;
     Calendar calendar = Calendar.getInstance();
@@ -77,7 +77,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
 
-    public  String StartTimes,EndTimes;
+    public String StartTimes, EndTimes;
 
 
     public static AttandanceReglarizationFragment newInstance() {
@@ -88,7 +88,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        binding =AttandanceReglarizationFragmentBinding.inflate(inflater);
+        binding = AttandanceReglarizationFragmentBinding.inflate(inflater);
         spinner_reason = binding.spinnerReason;
         TxtName = binding.txtnames;
         StartDate = binding.etStartdate;
@@ -98,7 +98,6 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
         StartTimes = FromTime.getText().toString().trim();
         EndTimes = ToTime.getText().toString().trim();
-
 
 
         Note = binding.etnote;
@@ -112,8 +111,6 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         TXTEndDate = TXTStartDate;
 
 
-
-
         //getting full name
         //test
         Intent intents = getActivity().getIntent();
@@ -124,7 +121,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         List<UserInfo> list = database.userDAO().getAllDatafromRow(mypositions);
         String fullnames = list.get(0).getFullname();
         TxtName.setText(fullnames);
-        
+
 
         //Submit Button
         BtnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +136,14 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
                     Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
                 } else {
-                    AttandanceRegularization();
+
+                    if (spinner_reason.getSelectedItemPosition() == 0) {
+                        // No item selected, show an error message
+                        Toast.makeText(requireContext(), "Please select an item from the spinner", Toast.LENGTH_SHORT).show();
+                    } else {
+                        AttandanceRegularization();
+                    }
+
                 }
             }
         });
@@ -169,11 +173,11 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
                     RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
 
-                    RegDraftInfo drafts = new RegDraftInfo(employee,companyid,spinnerValue,StartDate.getText().toString(),
-                            EndDate.getText().toString(),FromTime.getText().toString(),ToTime.getText().toString(),
-                            spinneritem,currentDateandTime,Note.getText().toString(),TxtName.getText().toString());
+                    RegDraftInfo drafts = new RegDraftInfo(employee, companyid, spinnerValue, StartDate.getText().toString(),
+                            EndDate.getText().toString(), FromTime.getText().toString(), ToTime.getText().toString(),
+                            spinneritem, currentDateandTime, Note.getText().toString(), TxtName.getText().toString());
                     db.regDraftDAO().insertRegDraft(drafts);
-                    try{
+                    try {
                         Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
 
                         Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
@@ -181,8 +185,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                         Navigation.findNavController(v).navigate(R.id.nav_regentrydraft);
 
 
-
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
                     }
 
@@ -192,10 +195,6 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
             }
         });
-
-
-
-
 
 
         //Checking Draft
@@ -238,8 +237,6 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 //
 //            }
 //        });
-
-
 
 
         //Select Start Date
@@ -311,7 +308,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                                 starthour = i;
                                 startminute = i1;
-                                String time = starthour +":" + startminute;
+                                String time = starthour + ":" + startminute;
                                 SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
                                 try {
                                     java.util.Date date = f24Hours.parse(time);
@@ -325,12 +322,12 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                                     e.printStackTrace();
                                 }
                             }
-                        },12,0,false
+                        }, 12, 0, false
                 );
                 //Set transparent Background
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 //Display previous selected time
-                timePickerDialog.updateTime(starthour,startminute);
+                timePickerDialog.updateTime(starthour, startminute);
                 timePickerDialog.show();
 
             }
@@ -348,7 +345,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                                 endhour = i;
                                 endminute = i1;
-                                String time = endhour +":" + endminute;
+                                String time = endhour + ":" + endminute;
                                 SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
                                 try {
                                     Date date = f24Hours.parse(time);
@@ -362,21 +359,16 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
                                     e.printStackTrace();
                                 }
                             }
-                        },12,0,false
+                        }, 12, 0, false
                 );
                 //Set transparent Background
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 //Display previous selected time
-                timePickerDialog.updateTime(endhour,endminute);
+                timePickerDialog.updateTime(endhour, endminute);
                 timePickerDialog.show();
 
             }
         });
-
-
-
-
-
 
 
         // Cancel Button Click Event
@@ -413,7 +405,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
             } else if (startDate.after(endDate)) {
 
-                Toast.makeText(requireContext(),"Start date should not be greater than end date",Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "Start date should not be greater than end date", Toast.LENGTH_LONG).show();
                 EndDate.setText("Select Correct Date");
                 // EtEndDate.setError("Select Correct Date");
             } else {
@@ -431,15 +423,14 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             Date startTime = timeFormat.parse(FromTime.getText().toString());
             Date endTime = timeFormat.parse(ToTime.getText().toString());
 
-            if (startTime.before(endTime)){
+            if (startTime.before(endTime)) {
 
-            }
-            else if (startTime.after(endTime)) {
+            } else if (startTime.after(endTime)) {
                 Toast.makeText(requireContext(), "End time should not be smaller than start time.", Toast.LENGTH_SHORT).show();
                 ToTime.setText("Select Correct Time");
 
 
-            }else {
+            } else {
 
             }
 
@@ -455,7 +446,6 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -466,20 +456,21 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-       spinneritem = parent.getItemAtPosition(position).toString();
+        spinneritem = parent.getItemAtPosition(position).toString();
 
         userChoice = spinner_reason.getSelectedItemPosition();
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName",0);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", 0);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
-        prefEditor.putInt("userChoiceSpinners",userChoice);
+        prefEditor.putInt("userChoiceSpinners", userChoice);
         prefEditor.commit();
-       // Toast.makeText(parent.getContext(), spinneritem, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(parent.getContext(), spinneritem, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
     private void AttandanceRegularization() {
         progressDialog = new ProgressDialog(requireContext());
         progressDialog.setMessage("Submitting...");
@@ -490,30 +481,29 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
         String companyid = intent.getStringExtra("CompanyId");
         String employee = intent.getStringExtra("Employee");
         final AttandanceRegularizationRequest attandanceRegularizationRequest = new AttandanceRegularizationRequest
-                (companyid,employee,StartDate.getText().toString(),EndDate.getText().toString()
-                ,FromTime.getText().toString(),ToTime.getText().toString(),spinneritem,Note.getText().toString());
+                (companyid, employee, StartDate.getText().toString(), EndDate.getText().toString()
+                        , FromTime.getText().toString(), ToTime.getText().toString(), spinneritem, Note.getText().toString());
         Call<AttandanceRegularizationRequest> call = MyApiClient.getUserService().PostData(attandanceRegularizationRequest);
 
 
         call.enqueue(new Callback<AttandanceRegularizationRequest>() {
             @Override
             public void onResponse(Call<AttandanceRegularizationRequest> call, Response<AttandanceRegularizationRequest> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     AttandanceRegularizationRequest attandanceRegularizationRequest1 = response.body();
                     progressDialog.dismiss();
-                    Toast.makeText(requireContext(), "Status is :"+attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
-                    try{
+                    Toast.makeText(requireContext(), "Status is :" + attandanceRegularizationRequest1.getStatus(), Toast.LENGTH_LONG).show();
+                    try {
                         Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
                         Navigation.findNavController(requireView()).popBackStack(R.id.nav_attadancereg, true);
                         Navigation.findNavController(getView()).navigate(R.id.nav_attadanceregsummary);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else {
+                } else {
                     progressDialog.dismiss();
-                    Toast.makeText(requireContext(),"Something went Wrong", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -545,6 +535,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 //        List<String> labels = db.getAllLabels();
         RegReasonRoomDB db = RegReasonRoomDB.getDbInstances(requireContext());
         List<String> labels = db.regReasonDAO().getAllName();
+        labels.add(0, "Select");
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, labels);
 
