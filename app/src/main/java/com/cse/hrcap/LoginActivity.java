@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 //proceed to login
                 login();
+
             }
         });
 //        tvRegisterHere.setOnClickListener(view ->{
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                             edit.commit();
 
 
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             i.putExtra("Employee", userid);
                             i.putExtra("EmployeeId", loginResponse.getEmployeeId());
                             i.putExtra("CompanyId", loginResponse.getCompanyId());

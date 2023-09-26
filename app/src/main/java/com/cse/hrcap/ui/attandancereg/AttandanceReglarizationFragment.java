@@ -139,7 +139,7 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
 
                     if (spinner_reason.getSelectedItemPosition() == 0) {
                         // No item selected, show an error message
-                        Toast.makeText(requireContext(), "Please select an item from the spinner", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Please Select Reason", Toast.LENGTH_SHORT).show();
                     } else {
                         AttandanceRegularization();
                     }
@@ -156,42 +156,49 @@ public class AttandanceReglarizationFragment extends Fragment implements Adapter
             @Override
             public void onClick(View v) {
 
-                if (isNetworkAvailable()) {
-
-                    Intent intent = getActivity().getIntent();
-                    String companyid = intent.getStringExtra("CompanyId");
-                    String employee = intent.getStringExtra("Employee");
-
-                    //Spinner Position
-                    SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
-                    int spinnerValue = sharedPref.getInt("userChoiceSpinners", -1);
-
-                    // Time And Date
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
-                    String currentDateandTime = sdf.format(new Date());
-
-
-                    RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
-
-                    RegDraftInfo drafts = new RegDraftInfo(employee, companyid, spinnerValue, StartDate.getText().toString(),
-                            EndDate.getText().toString(), FromTime.getText().toString(), ToTime.getText().toString(),
-                            spinneritem, currentDateandTime, Note.getText().toString(), TxtName.getText().toString());
-                    db.regDraftDAO().insertRegDraft(drafts);
-                    try {
-                        Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
-
-                        Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
-                        Navigation.findNavController(v).popBackStack(R.id.nav_attadancereg, true);
-                        Navigation.findNavController(v).navigate(R.id.nav_regentrydraft);
-
-
-                    } catch (Exception e) {
-                        Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
-                    }
-
+                if (spinner_reason.getSelectedItemPosition() == 0) {
+                    // No item selected, show an error message
+                    Toast.makeText(requireContext(), "Please Select Reason", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                    if (isNetworkAvailable()) {
+
+                        Intent intent = getActivity().getIntent();
+                        String companyid = intent.getStringExtra("CompanyId");
+                        String employee = intent.getStringExtra("Employee");
+
+                        //Spinner Position
+                        SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
+                        int spinnerValue = sharedPref.getInt("userChoiceSpinners", -1);
+
+                        // Time And Date
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
+                        String currentDateandTime = sdf.format(new Date());
+
+
+                        RegDraftRoomDB db = RegDraftRoomDB.getDbInstance(requireContext());
+
+                        RegDraftInfo drafts = new RegDraftInfo(employee, companyid, spinnerValue, StartDate.getText().toString(),
+                                EndDate.getText().toString(), FromTime.getText().toString(), ToTime.getText().toString(),
+                                spinneritem, currentDateandTime, Note.getText().toString(), TxtName.getText().toString());
+                        db.regDraftDAO().insertRegDraft(drafts);
+                        try {
+                            Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+
+                            Navigation.findNavController(requireView()).popBackStack(R.id.nav_home, true);
+                            Navigation.findNavController(v).popBackStack(R.id.nav_attadancereg, true);
+                            Navigation.findNavController(v).navigate(R.id.nav_regentrydraft);
+
+
+                        } catch (Exception e) {
+                            Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
+
 
             }
         });

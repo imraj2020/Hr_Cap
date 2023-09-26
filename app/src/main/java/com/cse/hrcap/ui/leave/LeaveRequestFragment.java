@@ -171,6 +171,34 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
 //        setLeaveDraftDatabase();
 
 
+        BtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Enddates, Endtimes;
+                Enddates = EtEndDate.getText().toString().trim();
+                Endtimes = EtEndTime.getText().toString().trim();
+
+                if (Enddates.equals("Select Correct Date") && Endtimes.equals("Select Correct Time") ||
+                        Enddates.equals("Select Correct Date") || Endtimes.equals("Select Correct Time")) {
+
+                    Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
+                } else {
+
+                    if (spinner.getSelectedItemPosition() == 0) {
+                        // No item selected, show an error message
+                        Toast.makeText(requireContext(), "Please Select Leave Type", Toast.LENGTH_SHORT).show();
+                    } else {
+                        leaveRequest();
+                    }
+
+
+
+                }
+
+            }
+        });
+
+
         //Checking Save As Draft
 
         BtnDraft.setOnClickListener(new View.OnClickListener() {
@@ -181,47 +209,54 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
                 mprogressDialog.setCancelable(false);
                 mprogressDialog.show();
 
-                if (isNetworkAvailable()) {
-                    //Spinner Position
-                    SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
-                    int spinnerValue = sharedPref.getInt("userChoiceSpinner", -1);
 
-                    // Time And Date
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
-                    String currentDateandTime = sdf.format(new Date());
+                if (spinner.getSelectedItemPosition() == 0) {
+                    // No item selected, show an error message
+                    mprogressDialog.dismiss();
+                    Toast.makeText(requireContext(), "Please Select Leave Type", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (isNetworkAvailable()) {
+                        //Spinner Position
+                        SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", MODE_PRIVATE);
+                        int spinnerValue = sharedPref.getInt("userChoiceSpinner", -1);
 
-                    //label and status ()
+                        // Time And Date
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ',' dd.MM.yyyy");
+                        String currentDateandTime = sdf.format(new Date());
+
+                        //label and status ()
 //                label,Status
 
 
-                    Intent intent = getActivity().getIntent();
-                    String companyid = intent.getStringExtra("CompanyId");
-                    String employee = intent.getStringExtra("Employee");
+                        Intent intent = getActivity().getIntent();
+                        String companyid = intent.getStringExtra("CompanyId");
+                        String employee = intent.getStringExtra("Employee");
 
 
-                    //Testing new Roomdb
-                    LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
+                        //Testing new Roomdb
+                        LeaveDraftRoomDB db = LeaveDraftRoomDB.getDbInstance(requireContext());
 
 
-                    LeaveDraftInfo mydraft = new LeaveDraftInfo(employee, spinnerValue, switchst, EtStartDate.getText().toString(),
-                            EtEndDate.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
-                            EtReason.getText().toString(), companyid, currentDateandTime, label, Status, selectedPosition);
-                    db.leaveDraftDAO().insertLeaveDraft(mydraft);
+                        LeaveDraftInfo mydraft = new LeaveDraftInfo(employee, spinnerValue, switchst, EtStartDate.getText().toString(),
+                                EtEndDate.getText().toString(), EtStartTime.getText().toString(), EtEndTime.getText().toString(),
+                                EtReason.getText().toString(), companyid, currentDateandTime, label, Status, selectedPosition);
+                        db.leaveDraftDAO().insertLeaveDraft(mydraft);
 
-                    try {
+                        try {
+                            mprogressDialog.dismiss();
+                            Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
+
+
+                            Navigation.findNavController(v).popBackStack(R.id.nav_leave, true);
+                            Navigation.findNavController(v).navigate(R.id.nav_leavedraft);
+                        } catch (Exception e) {
+                            Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
                         mprogressDialog.dismiss();
-                        Toast.makeText(requireContext(), " Saved As Draft ", Toast.LENGTH_SHORT).show();
-
-
-                        Navigation.findNavController(v).popBackStack(R.id.nav_leave, true);
-                        Navigation.findNavController(v).navigate(R.id.nav_leavedraft);
-                    } catch (Exception e) {
-                        Toast.makeText(requireContext(), "Sorry Something Wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
                     }
-
-                } else {
-                    mprogressDialog.dismiss();
-                    Toast.makeText(requireContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -460,32 +495,7 @@ public class LeaveRequestFragment extends Fragment implements AdapterView.OnItem
         DelegatePerson();
         compareDates();
         onCheckTime();
-        BtnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String Enddates, Endtimes;
-                Enddates = EtEndDate.getText().toString().trim();
-                Endtimes = EtEndTime.getText().toString().trim();
 
-                if (Enddates.equals("Select Correct Date") && Endtimes.equals("Select Correct Time") ||
-                        Enddates.equals("Select Correct Date") || Endtimes.equals("Select Correct Time")) {
-
-                    Toast.makeText(requireContext(), "Select Correct Date/Time", Toast.LENGTH_LONG).show();
-                } else {
-
-                    if (spinner.getSelectedItemPosition() == 0) {
-                        // No item selected, show an error message
-                        Toast.makeText(requireContext(), "Please select an item from the spinner", Toast.LENGTH_SHORT).show();
-                    } else {
-                        leaveRequest();
-                    }
-
-
-
-                }
-
-            }
-        });
         // return inflater.inflate(R.layout.leave_request_fragment, container, false);
         return binding.getRoot();
     }
